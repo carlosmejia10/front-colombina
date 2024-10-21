@@ -26,6 +26,6 @@ export class PagoPSEService {
   }
 
   updatePago(pago: Pago): Observable<Pago> {
-    return this.http.put<Pago>(`${this.apiUrl}/${pago.idPago}`, pago);
+    return this.http.put<Pago>(`${this.apiUrl}/${pago.id}`, pago);
   }
 }

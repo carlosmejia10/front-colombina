@@ -26,6 +26,6 @@ export class SolicitudDEIService {
   }
 
   updateSolicitudDEI(solicitudDEI: Solicitud): Observable<Solicitud> {
-    return this.http.put<Solicitud>(`${this.apiUrl}/${solicitudDEI.idSolicitud}`, solicitudDEI);
+    return this.http.put<Solicitud>(`${this.apiUrl}/${solicitudDEI.id}`, solicitudDEI);
   }
 }

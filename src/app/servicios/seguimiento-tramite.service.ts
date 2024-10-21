@@ -26,6 +26,6 @@ export class SeguimientoTramiteService {
   }
 
   updateSeguimiento(seguimiento: Seguimiento): Observable<Seguimiento> {
-    return this.http.put<Seguimiento>(`${this.apiUrl}/${seguimiento.idSeguimiento}`, seguimiento);
+    return this.http.put<Seguimiento>(`${this.apiUrl}/${seguimiento.id}`, seguimiento);
   }
 }

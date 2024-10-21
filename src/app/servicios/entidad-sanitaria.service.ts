@@ -26,6 +26,6 @@ export class EntidadSanitariaService {
   }
 
   updateEntidad(entidadSanitaria: EntidadSanitaria): Observable<EntidadSanitaria> {
-    return this.http.put<EntidadSanitaria>(`${this.apiUrl}/${entidadSanitaria.idEntidad}`, entidadSanitaria);
+    return this.http.put<EntidadSanitaria>(`${this.apiUrl}/${entidadSanitaria.id}`, entidadSanitaria);
   }
 }
