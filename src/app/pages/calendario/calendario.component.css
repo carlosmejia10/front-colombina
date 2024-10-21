@@ -1,0 +1,121 @@
+/* Poner un punto en los días que tienen eventos */
+.ui-datepicker-calendar td a.event-day::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  background-color: red; /* Color del punto */
+  border-radius: 50%;
+  margin: auto;
+  margin-top: 3px;
+}
+
+
+
+.container {
+  display: flex;
+
+}
+
+.contenedor {
+  width: 100%;
+  height: calc(100vh - 60px); /* Ajusta para que ocupe el espacio restante */
+  box-sizing: border-box; /* Incluye padding en el cálculo del ancho/alto */
+}
+
+.main-content {
+  padding: 20px;
+}
+
+h2 {
+  background-color: #A3B6E6;
+  padding: 10px;
+  color: #ffffff;
+  text-align: left; /* Alinea el texto a la izquierda */
+  margin: 0; /* Elimina márgenes adicionales */
+}
+
+.table-container {
+  background-color: #fff; /* Fondo blanco para el recuadro */
+  padding: 20px; /* Espacio interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin-top: 20px; /* Espacio arriba del contenedor */
+  align-content: center;
+}
+
+
+.calendar-layout {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  min-height: 600px;
+}
+
+/* Sección del calendario */
+.calendar-section {
+  flex: 1;
+  max-width: 50%;
+}
+
+.calendar-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección de eventos */
+.events-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.selected-date-info {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selected-date-info h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.selected-date {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.events-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  max-height: 100%;
+}
+
+.events-container h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.1rem;
+
+}
+
+/* Estilo opcional para el calendario de PrimeNG */
+:host ::ng-deep .p-calendar {
+  width: 100%;
+}
+
+:host ::ng-deep .p-datepicker {
+  width: 100%;
+}
+
+:host ::ng-deep .p-datepicker table {
+  margin: 0 auto;
+}

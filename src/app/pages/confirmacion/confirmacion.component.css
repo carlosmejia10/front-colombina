@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+}
+.contenedor{
+  width: 100%;
+}
+.fondo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  padding: 0;
+  background-image: url('../../../../public/images/FondoLogin.png');
+}
+.mensaje H1{
+  font-size: 60PX;
+  width: 100%;
+}
+.mensaje{
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  padding: 2%;
+}
+
+

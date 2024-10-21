@@ -1,0 +1,49 @@
+<app-header></app-header>
+
+<div class="container">
+    <app-lateral></app-lateral>
+
+    <div class="contenedor">
+        <app-barra-opc></app-barra-opc>
+
+        <div class="main-content">
+            <h2>Auditoría del sistema</h2>
+
+            <!-- Contenedor para la tabla -->
+            <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>No. Expediente</th>
+                      <th>Fecha del cambio</th>
+                      <th>Usuario</th>
+                      <th>Acción realizada</th>
+                      <th>Estado del trámite</th>
+                      <th>Detalles del cambio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let solicitud of solicitudes">
+                      <td>{{ solicitud.numeroExpediente }}</td>
+                      <td>{{ solicitud.fechaCambio }}</td>
+                      <td>{{ solicitud.usuario }}</td>
+                      <td>{{ solicitud.accionRealizada }}</td>
+                      <td>
+                        <span [ngClass]="{
+                          'aprobado': solicitud.estado === 'Aprobado',
+                          'rechazado': solicitud.estado === 'Rechazada',
+                          'pendiente': solicitud.estado === 'Pendiente'
+                        }">
+                          {{ solicitud.estado }}
+                        </span>
+                      </td>
+                      <td>
+                        <button class="detalles-btn">Ver Detalles</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

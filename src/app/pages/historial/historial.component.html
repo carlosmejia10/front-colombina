@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="container">
+    <app-lateral></app-lateral>
+
+    <div class="contenedor">
+        <app-barra-opc></app-barra-opc>
+
+        <div class="main-content">
+            <h2>Historial Solicitudes</h2>
+
+            <!-- Contenedor para la tabla -->
+            <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>País</th>
+                      <th>Tipo de trámite</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let solicitud of solicitudes">
+                      <td>{{ solicitud.producto }}</td>
+                      <td>{{ solicitud.pais }}</td>
+                      <td>{{ solicitud.tipoTramite }}</td>
+                      <td [ngClass]="{
+                          'aprobado': solicitud.estado === 'Aprobado',
+                          'rechazado': solicitud.estado === 'Rechazada',
+                          'pendiente': solicitud.estado === 'Pendiente'
+                        }">
+                          {{ solicitud.estado }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
