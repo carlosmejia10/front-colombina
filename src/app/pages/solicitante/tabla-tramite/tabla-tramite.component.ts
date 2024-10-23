@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Tramite, EstadoTramite } from '../../modelos/tramite';
-import { EntidadSanitaria } from '../../modelos/entidad-sanitaria';
-import { Documento } from '../../modelos/documento';
-import { Solicitud } from '../../modelos/solicitud';
+import { Tramite, EstadoTramite } from '../../../modelos/tramite';
+import { EntidadSanitaria } from '../../../modelos/entidad-sanitaria';
+import { Documento } from '../../../modelos/documento';
+import { Solicitud } from '../../../modelos/solicitud';
 
 @Component({
   selector: 'app-tabla-tramite',

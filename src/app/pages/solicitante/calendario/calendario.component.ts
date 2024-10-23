@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Solicitud } from '../../modelos/solicitud';
-import { Tramite, EstadoTramite } from '../../modelos/tramite';
+import { Solicitud } from '../../../modelos/solicitud';
+import { Tramite, EstadoTramite } from '../../../modelos/tramite';
 
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styleUrls: ['../../app.component.css','./calendario.component.css']
+  styleUrls: ['../../../app.component.css','./calendario.component.css']
 })
 export class CalendarioComponent implements OnInit {
   date: Date[] | undefined;

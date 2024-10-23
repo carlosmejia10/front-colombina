@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Notificacion } from '../../modelos/notificacion';
-import { Usuario } from '../../modelos/usuario';
+import { Notificacion } from '../../../modelos/notificacion';
+import { Usuario } from '../../../modelos/usuario';
 
 @Component({
   selector: 'app-notificacion',
