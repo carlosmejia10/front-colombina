@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { Auth } from '../modelos/auth';
 import { BASE_URL } from '../config/environment/urls';
+import {Role} from "@/app/modelos/role";
 
 @Injectable({
   providedIn: 'root',
