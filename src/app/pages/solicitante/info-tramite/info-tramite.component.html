@@ -7,29 +7,32 @@
   <div class="contenedor">
 
     <app-barra-opc></app-barra-opc>
+    <!--CORTA-->
 
     <div class="containerint">
       <h1>Información del Trámite</h1>
 
-      <!-- Asegurarnos de que 'tramite' esté definido antes de acceder a sus propiedades -->
       <div class="info-section" *ngIf="tramite">
         <div class="info-box"><!--TRAMITE-->
           <strong>ID Trámite:</strong> <p>{{ tramite?.id }}</p>
-          <strong>Numero Radicado:</strong> <p>{{ tramite?.numeroRadicado }}</p>
-          <strong>Estado:</strong> <p>{{ tramite?.estado }}</p>
-          <strong>Fecha de Radicación:</strong> <p>{{ tramite?.fechaRadicacion }}</p>
+          <strong>numeroRadicado:</strong> <p>{{ tramite?.numeroRadicado }}</p>
+          <strong>estado:</strong> <p>{{ tramite?.estado }}</p>
+          <strong>fechaRadicacion:</strong> <p>{{ tramite?.fechaRadicacion }}</p>
           <strong>Tipo de Trámite:</strong> <p>{{ tramite?.tipoTramite }}</p>
         </div>
+
         <div class="info-box"><!--ENTIDAD SANITARIA-->
           <strong>ID:</strong> <p>{{ tramite?.entidadSanitaria?.id }}</p>
-          <strong>Nombre de Entidad Sanitaria:</strong> <p>{{ tramite?.entidadSanitaria?.nombre }}</p>
-          <strong>País:</strong> <p>{{ tramite?.entidadSanitaria?.pais }}</p>
+          <strong>Nombre de entidad sanitaria:</strong> <p>{{ tramite?.entidadSanitaria?.nombre }}</p>
+          <strong>Pais:</strong> <p>{{ tramite?.entidadSanitaria?.pais }}</p>
         </div>
-        <div class="info-box"><!--SOLICITUD-->
-          <strong>Descripción del Producto:</strong> <p>{{ tramite?.solicitud?.descripcionProducto }}</p>
-          <strong>Tipo de Producto:</strong> <p>{{ tramite?.solicitud?.tipoProducto }}</p>
+
+        <div class="info-box"><!--SOLICITANTE-->
+          <strong>Descripción Producto:</strong> <p>{{ tramite?.solicitud?.descripcionProducto }}</p>
+          <strong>Tipo Producto:</strong> <p>{{ tramite?.solicitud?.tipoProducto }}</p>
           <strong>Fecha de Solicitud:</strong> <p>{{ tramite?.solicitud?.fechaSolicitud }}</p>
         </div>
+
         <div class="info-box"><!--SOLICITANTE-->
           <strong>Solicitud Enviada por:</strong> <p>{{ tramite?.solicitud?.solicitante?.nombre }}</p>
           <strong>Correo Electrónico:</strong> <p>{{ tramite?.solicitud?.solicitante?.correoElectronico }}</p>
@@ -40,7 +43,7 @@
 
       <ul *ngIf="archivos && archivos.length > 0">
         <li *ngFor="let archivo of archivos | slice:0:3">
-          <a (click)="descargarArchivo(archivo.name)">{{ archivo.name }}.pdf</a>
+          <a (click)="descargarArchivo(archivo.name)">{{ archivo.name }}</a>
         </li>
       </ul>
 
@@ -50,11 +53,10 @@
 
         <ul *ngIf="mostrarTodos">
           <li *ngFor="let archivo of archivos | slice:3">
-            <a (click)="descargarArchivo(archivo.name)">{{ archivo.name }}.pdf</a>
+            <a (click)="descargarArchivo(archivo.name)">{{ archivo.name }}</a>
           </li>
         </ul>
       </ng-container>
-
 
       <h2>Registros del Trámite</h2><!--DOCUMENTOS-->
       <table *ngIf="tramite?.documentos?.length > 0">
@@ -80,7 +82,10 @@
         <button (click)="escalarTramite()" class="btn-primary">Escalar</button>
       </ng-container>
 
+
     </div>
+
+
 
     <!--CORTA-->
   </div>

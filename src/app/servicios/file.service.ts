@@ -43,8 +43,12 @@ export class FileService {
   // En el servicio de descarga (ejemplo en file.service.ts)
 
   descargarArchivo(idTramite: number, filename: string): Observable<Blob> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
     const url = `${BASE_URL}/files/descargar-archivo/${idTramite}/${filename}`;
-    return this.http.get(url, { responseType: 'blob' });
+    return this.http.get(url, { responseType: 'blob', headers});
   }
 
 }
