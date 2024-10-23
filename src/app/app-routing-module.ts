@@ -6,7 +6,7 @@ import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.comp
 import { CalendarioComponent } from './pages/solicitante/calendario/calendario.component';
 import { ConfirmacionComponent } from './pages/solicitante/confirmacion/confirmacion.component';
 import { CrearTramiteComponent } from './pages/solicitante/crear-tramite/crear-tramite.component';
-import { EstadisticasComponent } from './pages/solicitante/estadisticas/estadisticas.component';
+import { EstadisticasComponent } from './pages/admin/estadisticas/estadisticas.component';
 import { HistorialComponent } from './pages/solicitante/historial/historial.component';
 import { InfoTramiteComponent } from './pages/solicitante/info-tramite/info-tramite.component';
 import { LoginComponent } from './pages/shared/login/login.component';
