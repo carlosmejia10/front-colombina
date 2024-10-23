@@ -36,6 +36,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { IgxDropDownModule } from 'igniteui-angular';
 
 import { EstadisticasService } from './servicios/estadisticas.service';
+import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { EstadisticasService } from './servicios/estadisticas.service';
     BarraOpcComponent,
     HeaderComponent,
     LateralComponent,
+    SolicitudesComponent,
   ],
   imports: [
     RouterModule,
