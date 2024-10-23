@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {FileService} from "@/app/servicios/file.service";
-import {DocumentoDTO} from "@/app/modelos/DocumentoDTO";
+import { FileService } from "@/app/servicios/file.service";
+import { DocumentoDTO } from "@/app/modelos/DocumentoDTO";
 
 @Component({
   selector: 'app-arrastrar',
@@ -53,21 +53,30 @@ export class ArrastrarComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      this.selectedFile = file;
-      this.fileName = `${file.name}`;
+      const extension = file.name.split('.').pop()?.toLowerCase();
+
+      // Validar la extensión
+      const extensionesValidas = ['pdf', 'docx', 'jpg'];
+      if (extensionesValidas.includes(extension!)) {
+        this.selectedFile = file;
+        this.fileName = file.name;
+      } else {
+        alert('Extensión de archivo no válida.');
+      }
     }
   }
 
+
   // Método para subir el archivo seleccionado
   subirArchivo(): void {
-    console.log('Archivo seleccionado:', this.selectedFile);
     if (this.selectedFile) {
       // Crear el DTO con los datos requeridos
       const documentoDTO: DocumentoDTO = {
-        name: this.selectedFile.name,
-        tipo: 'pdf',  // Ejemplo, ajustar si es necesario
-        aprobado: false,
-        file: this.selectedFile
+        name: this.selectedFile.name,  // Nombre del archivo
+        extension: this.selectedFile.name.split('.').pop() || '',  // Extrae la extensión del archivo
+        tipo: 'tipo_de_archivo',  // Tipo de archivo, ajusta según lo necesario
+        aprobado: false,  // Estado de aprobación
+        file: this.selectedFile  // El archivo real que se está subiendo
       };
 
       // Llamar al servicio para subir el archivo
