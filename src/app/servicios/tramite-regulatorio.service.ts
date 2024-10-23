@@ -1,22 +1,28 @@
-import { HttpClient } from "@angular/common/http";
-import { Tramite } from "../modelos/tramite";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TramiteDTO } from "../modelos/tramite.dto";
 import { Observable } from "rxjs";
 import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import { BASE_URL } from '../config/environment/urls';
 
 @Injectable({
     providedIn: 'root'
   })
 export class TramiteService{
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private authService: AuthService
     ){}
-    private baseUrl = 'http://localhost:8080/tramites';
-
-    findAll(): Observable<Tramite[]>{
-        return this.http.get<Tramite[]> ("http.//localhost:8090/api/tramites");
+    
+    findAll(): Observable<TramiteDTO[]>{
+        const token = this.authService.getToken(); // Obtener el token desde localStorage
+        const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` 
+     });
+        return this.http.get<TramiteDTO[]> (`${BASE_URL}/tramites/todos`, {headers});
     }
 
-    findById(id:number):Observable<Tramite>{
+    /*findById(id:number):Observable<Tramite>{
         return this.http.get<Tramite> ("http.//localhost:8090/api/tramites"+id);
     }
 
@@ -29,5 +35,5 @@ export class TramiteService{
     }
     escalarTramite(idTramite: number): Observable<any> {
         return this.http.post(`${this.baseUrl}/${idTramite}/escalar`, {});
-    }
+    }*/
 }

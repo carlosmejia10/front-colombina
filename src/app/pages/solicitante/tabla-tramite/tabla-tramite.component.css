@@ -134,6 +134,7 @@ td p{
   height: 15px;
   border-radius: 10px;
   margin: 10px 0;
+  position: relative;
 }
 
 
@@ -142,8 +143,20 @@ td p{
 
 .progress {
   height: 100%;
-  background-color: red;
+  transition: width 0.5s;
   border-radius: 10px;
+}
+
+.progress-success {
+  background-color: #4caf50; /* Verde */
+}
+
+.progress-warning {
+  background-color: #ff9800; /* Naranja */
+}
+
+.progress-danger {
+  background-color: #f44336; /* Rojo */
 }
 
 .progress-percent {

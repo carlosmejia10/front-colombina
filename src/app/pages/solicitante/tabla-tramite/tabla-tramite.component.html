@@ -63,12 +63,18 @@
                                     <i *ngIf="tramite.estado==='EN_REVISION'" class="estatus pendiente"></i>
                                 </td>
 
-
                                 <td>
                                     <div class="registro">
                                         <a href="'/info-tramite'">{{tramite.numeroRadicado}}</a>
                                         <div class="EstadoText"><h2 >{{tramite.estado}}</h2></div>
-
+                                    </div>
+                                    <p class="progress-percent">{{tramite.progreso}}%</p>
+                                    <div class="progress-bar">
+                                        <div 
+                                            class="progress" 
+                                            [style.width.%]="tramite.progreso" 
+                                            [ngClass]="getProgressClass(tramite.progreso)">
+                                        </div>
                                     </div>
                                     <p>{{tramite.fechaRadicacion}}</p>
                                 </td>
@@ -105,11 +111,17 @@
                                 <div class="registro">
                                     <a href="'/info-tramite'">{{tramite.numeroRadicado}}</a>
                                     <div class="EstadoText"><h2 >{{tramite.estado}}</h2></div>
-
+                                    
                                 </div>
-
+                                <p class="progress-percent">{{tramite.progreso}}%</p>
+                                    <div class="progress-bar">
+                                        <div 
+                                            class="progress" 
+                                            [style.width.%]="tramite.progreso" 
+                                            [ngClass]="getProgressClass(tramite.progreso)">
+                                        </div>
+                                    </div>
                                 <p>{{tramite.fechaRadicacion}}</p>
-
                             </td>
                           </ng-container>
                         </tr>
@@ -118,24 +130,6 @@
                     </ng-container>
                 </div>
             </div>
-            <!-- Información de la tabla -->
-            <div class="InfoContenedor">
-                <div class="registro-info">
-                    <h2>Estado del registro</h2>
-                    <p>REGISTRO N° </p> <!--Poner numero de registro-->
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 45%;"></div>
-                    </div>
-                    <p class="progress-percent">45%</p>
-                    <p>Fecha de envío del trámite: 07/08/24</p> <!--Poner fecha con datos-->
-                    <p>Fecha de espera de respuesta: 07/08/24</p> <!--Poner fecha con datos-->
-                    <h2>Pendientes: </h2>
-                    <a href="#">Aprobación INVIMA</a>
-                    <h2>Documentos: </h2>
-                    <a href="#">Ver documentos</a>
-                </div>
-            </div>
-        </div>
         <!--CORTA-->
     </div>
 </div>
