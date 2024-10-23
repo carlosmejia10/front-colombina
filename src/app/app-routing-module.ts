@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ArrastrarComponent } from './pages/arrastrar/arrastrar.component';
-import { AuditoriaComponent } from './pages/auditoria/auditoria.component';
-import { CalendarioComponent } from './pages/calendario/calendario.component';
-import { ConfirmacionComponent } from './pages/confirmacion/confirmacion.component';
-import { CrearTramiteComponent } from './pages/crear-tramite/crear-tramite.component';
-import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
-import { HistorialComponent } from './pages/historial/historial.component';
-import { InfoTramiteComponent } from './pages/info-tramite/info-tramite.component';
-import { LoginComponent } from './pages/login/login.component';
-import { ModificarInternacionalComponent } from './pages/modificar-internacional/modificar-internacional.component';
-import { ModificarNacionalComponent } from './pages/modificar-nacional/modificar-nacional.component';
-import { NotificacionComponent } from './pages/notificacion/notificacion.component';
-import { RenovarComponent } from './pages/renovar/renovar.component';
-import { TablaTramiteComponent } from './pages/tabla-tramite/tabla-tramite.component';
+import { ArrastrarComponent } from './pages/solicitante/arrastrar/arrastrar.component';
+import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.component';
+import { CalendarioComponent } from './pages/solicitante/calendario/calendario.component';
+import { ConfirmacionComponent } from './pages/solicitante/confirmacion/confirmacion.component';
+import { CrearTramiteComponent } from './pages/solicitante/crear-tramite/crear-tramite.component';
+import { EstadisticasComponent } from './pages/solicitante/estadisticas/estadisticas.component';
+import { HistorialComponent } from './pages/solicitante/historial/historial.component';
+import { InfoTramiteComponent } from './pages/solicitante/info-tramite/info-tramite.component';
+import { LoginComponent } from './pages/shared/login/login.component';
+import { ModificarInternacionalComponent } from './pages/solicitante/modificar-internacional/modificar-internacional.component';
+import { ModificarNacionalComponent } from './pages/solicitante/modificar-nacional/modificar-nacional.component';
+import { NotificacionComponent } from './pages/solicitante/notificacion/notificacion.component';
+import { RenovarComponent } from './pages/solicitante/renovar/renovar.component';
+import { TablaTramiteComponent } from './pages/solicitante/tabla-tramite/tabla-tramite.component';
 import { authGuard } from './guards/auth.guard';
 
 

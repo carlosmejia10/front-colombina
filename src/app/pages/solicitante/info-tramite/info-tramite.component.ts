@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import  {Tramite, EstadoTramite} from '../../modelos/tramite';
-import { EntidadSanitaria } from '../../modelos/entidad-sanitaria';
-import { Solicitud } from '../../modelos/solicitud';
-import { Usuario } from '../../modelos/usuario';
-import { Documento } from '../../modelos/documento';
+import  {Tramite, EstadoTramite} from '../../../modelos/tramite';
+import { EntidadSanitaria } from '../../../modelos/entidad-sanitaria';
+import { Solicitud } from '../../../modelos/solicitud';
+import { Usuario } from '../../../modelos/usuario';
+import { Documento } from '../../../modelos/documento';
 
 @Component({
   selector: 'app-info-tramite',

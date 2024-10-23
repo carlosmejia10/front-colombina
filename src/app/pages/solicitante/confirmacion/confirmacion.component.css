@@ -11,7 +11,7 @@
   justify-content: center;
   height: 500px;
   padding: 0;
-  background-image: url('../../../../public/images/FondoLogin.png');
+  background-image: url('public/images/FondoLogin.png');
 }
 .mensaje H1{
   font-size: 60PX;
