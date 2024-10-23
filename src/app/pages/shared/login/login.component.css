@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../../../../public/images/FondoLogin.png');
+  background-image: url('public/images/FondoLogin.png');
   background-size: cover;
   background-position: center;
   font-family: Arial, sans-serif;
