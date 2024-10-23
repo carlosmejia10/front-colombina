@@ -15,24 +15,25 @@ import { ModificarNacionalComponent } from './pages/modificar-nacional/modificar
 import { NotificacionComponent } from './pages/notificacion/notificacion.component';
 import { RenovarComponent } from './pages/renovar/renovar.component';
 import { TablaTramiteComponent } from './pages/tabla-tramite/tabla-tramite.component';
+import { authGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'crear-tramite', component: CrearTramiteComponent },
-  { path: 'tabla-tramite', component: TablaTramiteComponent },
-  { path: 'info-tramite', component: InfoTramiteComponent },
-  { path: 'historial', component: HistorialComponent },
-  { path: 'estadisticas', component: EstadisticasComponent },
-  { path: 'auditoria', component: AuditoriaComponent },
-  { path: 'notificacion', component: NotificacionComponent },
-  { path: 'renovar', component: RenovarComponent },
-  { path: 'modificar-nacional', component: ModificarNacionalComponent },
-  { path: 'modificar-internacional', component: ModificarInternacionalComponent },
-  { path: 'confirmacion', component: ConfirmacionComponent },
-  { path: 'calendario', component: CalendarioComponent },
-  { path: 'arrastrar', component: ArrastrarComponent },
+  { path: 'crear-tramite', component: CrearTramiteComponent, canActivate: [authGuard] },
+  { path: 'tabla-tramite', component: TablaTramiteComponent, canActivate: [authGuard] },
+  { path: 'info-tramite', component: InfoTramiteComponent, canActivate: [authGuard] },
+  { path: 'historial', component: HistorialComponent, canActivate: [authGuard] },
+  { path: 'estadisticas', component: EstadisticasComponent, canActivate: [authGuard] },
+  { path: 'auditoria', component: AuditoriaComponent, canActivate: [authGuard] },
+  { path: 'notificacion', component: NotificacionComponent, canActivate: [authGuard] },
+  { path: 'renovar', component: RenovarComponent, canActivate: [authGuard] },
+  { path: 'modificar-nacional', component: ModificarNacionalComponent, canActivate: [authGuard] },
+  { path: 'modificar-internacional', component: ModificarInternacionalComponent, canActivate: [authGuard] },
+  { path: 'confirmacion', component: ConfirmacionComponent, canActivate: [authGuard] },
+  { path: 'calendario', component: CalendarioComponent, canActivate: [authGuard] },
+  { path: 'arrastrar', component: ArrastrarComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({
