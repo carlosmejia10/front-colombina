@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { Auth } from '../modelos/auth';
-import { BASE_URL } from '../config/environment/urls';
+import { BASE_URL } from '@/app/config/environment/urls';
+import { Auth } from '@/app/modelos/auth';
+import { Role } from '@/app/modelos/role';
 
 @Injectable({
   providedIn: 'root',

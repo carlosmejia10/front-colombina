@@ -37,6 +37,7 @@ import { IgxDropDownModule } from 'igniteui-angular';
 
 import { EstadisticasService } from './servicios/estadisticas.service';
 import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
+import { LateralArComponent } from './components/lateral-ar/lateral-ar.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/s
     HeaderComponent,
     LateralComponent,
     SolicitudesComponent,
+    LateralArComponent,
   ],
   imports: [
     RouterModule,
