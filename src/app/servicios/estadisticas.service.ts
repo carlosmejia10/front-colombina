@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EstadisticasDTO } from '../modelos/estadisticas-dto';
+import { BASE_URL } from '../config/environment/urls';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstadisticasService {
-
-  private baseUrl = 'http://localhost:8090/tramites'; // Ajusta la URL base según sea necesario
+  private baseUrl = `${BASE_URL}/tramites`
 
   constructor(private http: HttpClient) { }
 

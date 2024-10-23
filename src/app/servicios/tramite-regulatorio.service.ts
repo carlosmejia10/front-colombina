@@ -10,7 +10,7 @@ export class TramiteService{
     constructor(
         private http: HttpClient
     ){}
-    private baseUrl = 'http://localhost:8090/tramites';
+    private baseUrl = 'http://localhost:8080/tramites';
 
     findAll(): Observable<Tramite[]>{
         return this.http.get<Tramite[]> ("http.//localhost:8090/api/tramites");

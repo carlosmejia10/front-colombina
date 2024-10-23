@@ -3,6 +3,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "useDefineForClassFields": false,
+    "target": "ES2022",
     "outDir": "./out-tsc/app",
     "types": []
   },

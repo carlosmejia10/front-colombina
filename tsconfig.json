@@ -2,7 +2,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es2015",
+    "useDefineForClassFields": false,
+    "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
