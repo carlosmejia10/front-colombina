@@ -15,7 +15,12 @@ export class LoginComponent {
 
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe((data) => {
-      this.router.navigate(['/tabla-tramite']);
+      if (data === 'SOLICITANTE')
+        return this.router.navigate(['/tabla-tramite']);
+      if (data === 'ADMIN')
+        return this.router.navigate(['/estadisticas']);
+      if (data === 'ASUNTOSREG')
+        return this.router.navigate(['/solicitudes']);
     })
   }
 }
