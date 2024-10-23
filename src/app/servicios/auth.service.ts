@@ -10,7 +10,7 @@ import { BASE_URL } from '../config/environment/urls';
 export class AuthService {
   token: string | null = null;
 
-  private baseUrl = `${BASE_URL}/autenticacion/login`
+  private baseUrl = `${BASE_URL}/autenticacion`
 
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('auth_token');
@@ -22,9 +22,9 @@ export class AuthService {
 
   public login(username: string, password: string): Observable<void> {
     return this.http
-      .post<Auth>(`${this.baseUrl}/auth/login`, {
-        nombre: username,
-        contrasena: password,
+      .post<Auth>(`${this.baseUrl}/login`, {
+        username,
+        password,
       })
       .pipe(
         tap((data) => {
