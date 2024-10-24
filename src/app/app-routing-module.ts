@@ -19,6 +19,7 @@ import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
 import { Role } from './modelos/role';
+import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -112,6 +113,12 @@ const routes: Routes = [
   {
     path: 'estadisticas',
     component: EstadisticasComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.Admin] },
+  },
+  {
+    path: 'prueba',
+    component: EstadisticaComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Admin] },
   },

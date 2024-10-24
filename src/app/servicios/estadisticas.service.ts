@@ -12,6 +12,11 @@ export class EstadisticasService {
 
   constructor(private http: HttpClient) { }
 
+  // Consulta al backend NUEVO
+  getChartData(queGraficar: string, enFuncionDe: string): Observable<any> {
+    return this.http.get<any>(`/api/charts?queGraficar=${queGraficar}&enFuncionDe=${enFuncionDe}`);
+  }
+
   // Método para obtener trámites nacionales por mes
   getTramitesNacionalesPorMes(): Observable<EstadisticasDTO[]> {
     return this.http.get<EstadisticasDTO[]>(`${this.baseUrl}/estadisticas/nacionales`);

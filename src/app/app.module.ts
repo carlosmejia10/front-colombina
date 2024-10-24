@@ -39,6 +39,9 @@ import { EstadisticasService } from './servicios/estadisticas.service';
 import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
 import { LateralArComponent } from './components/lateral-ar/lateral-ar.component';
 
+//PARA PRUEBAS DE ESTADISTICA
+import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +64,7 @@ import { LateralArComponent } from './components/lateral-ar/lateral-ar.component
     LateralComponent,
     SolicitudesComponent,
     LateralArComponent,
+    EstadisticaComponent  //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
   ],
   imports: [
     RouterModule,

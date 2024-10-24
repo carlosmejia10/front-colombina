@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="PANTALLA">
+    <app-lateral></app-lateral>
+    <div class="contenedor">
+        <app-barra-opc></app-barra-opc>
+        <div class="estadisticas">
+            <div class="Datos">
+                <h1>Resumen</h1>
+            </div>
+            <!--CAJAS 2X2-->
+            <div class="container">
+                <div id="cuadro-container">
+                    <div *ngFor="let cuadro of cuadros; let i = index" class="cuadro">
+                        <!-- Comboboxes y botón dentro de cada cuadro -->
+                        <div class="comboboxes">
+                            <!-- Primer combo box: Tipo de gráfico -->
+                            <select [(ngModel)]="selectedOption1[i]">
+                                <option *ngFor="let option of graphOptions" [value]="option">{{option}}</option>
+                            </select>
+
+                            <!-- Segundo combo box: Qué graficar -->
+                            <select [(ngModel)]="selectedOption2[i]">
+                                <option *ngFor="let option of chartDataOptions" [value]="option">{{option}}</option>
+                            </select>
+
+                            <!-- Tercer combo box: En función de qué -->
+                            <select [(ngModel)]="selectedOption3[i]">
+                                <option *ngFor="let option of chartBasisOptions" [value]="option">{{option}}</option>
+                            </select>
+
+                            <button (click)="generarGrafico(i)">Mostrar gráfico</button>
+                        </div>
+                        <!-- Lugar para mostrar gráfico -->
+                        <div *ngIf="graficos[i]" class="grafico-container">
+                            <!-- Componente de gráfico -->
+                            <p-chart [type]="selectedOption1[i]" [data]="graficoData[i]" [options]="chartOptions"></p-chart>
+                        </div>
+                        <button class="remove-btn" (click)="removeCuadro(i)">-</button>
+                    </div>
+                    <!-- Botón "+" -->
+                    <button *ngIf="mostrarBoton" id="add-btn" [ngStyle]="getButtonStyles()" (click)="addCuadro()">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
