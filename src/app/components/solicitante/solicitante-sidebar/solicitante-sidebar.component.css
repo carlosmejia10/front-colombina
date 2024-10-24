@@ -2,10 +2,7 @@ nav {
   width: 100%;
   background-color: #A3B6E6;
   height: 100%;
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 5rem;
 }
 
 nav ul {
@@ -21,5 +18,19 @@ nav ul li {
   padding: 10px;
 }
 .icono{
+  margin: auto;
   height: 37px;
+}
+
+nav ul li:hover {
+  background-color: #b9c7ea;
+}
+
+nav ul li a {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  text-decoration: none;
+  text-wrap: wrap;
+  text-align: center;
 }

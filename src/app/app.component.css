@@ -4,19 +4,8 @@ body {
   padding: 0;
 }
 
-
-
-.container {
+.page {
   display: flex;
-}
-
-
-
-
-.contenedor {
-  width: 94%;
-  padding: 0;
-  background-color: #f4f5fa;
 }
 
 /*************************************************/

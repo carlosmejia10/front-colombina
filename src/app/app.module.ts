@@ -26,18 +26,20 @@ import { NotificacionComponent } from './pages/solicitante/notificacion/notifica
 import { RenovarComponent } from './pages/solicitante/renovar/renovar.component';
 import { TablaTramiteComponent } from './pages/solicitante/tabla-tramite/tabla-tramite.component';
 import { BarraOpcComponent } from './components/barra-opc/barra-opc.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './components/shared/header/header.component';
 import { LateralComponent } from './components/lateral/lateral.component';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
-
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { IgxDropDownModule } from 'igniteui-angular';
-
 import { EstadisticasService } from './servicios/estadisticas.service';
 import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
 import { LateralArComponent } from './components/lateral-ar/lateral-ar.component';
+import { LayoutComponent } from './components/shared/layout/layout.component';
+import { SolicitanteLayoutComponent } from './components/solicitante/solicitante-layout/solicitante-layout.component';
+import { SolicitanteSidebarComponent } from './components/solicitante/solicitante-sidebar/solicitante-sidebar.component';
+import { SolicitanteHeaderComponent } from './components/solicitante/solicitante-header/solicitante-header.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,10 @@ import { LateralArComponent } from './components/lateral-ar/lateral-ar.component
     LateralComponent,
     SolicitudesComponent,
     LateralArComponent,
+    LayoutComponent,
+    SolicitanteLayoutComponent,
+    SolicitanteSidebarComponent,
+    SolicitanteHeaderComponent,
   ],
   imports: [
     RouterModule,
