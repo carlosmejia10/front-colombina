@@ -5,7 +5,6 @@
         <h2>Tramites Sanitarios Nacionales</h2>
         <!-- Botón para desplegar u ocultar la tabla -->
         <button
-          href="#"
           (click)="toggleTabla(); $event.preventDefault()"
           class="Desplegar"
         >
@@ -39,7 +38,7 @@
 
               <td>
                 <div class="registro">
-                  <a href="/info-tramite">{{ tramite.numeroRadicado }}</a>
+                  <a routerLink="/info-tramite">{{ tramite.numeroRadicado }}</a>
                   <div class="EstadoText">
                     <h2>{{ tramite.estado }}</h2>
                   </div>
@@ -65,7 +64,6 @@
       <div class="TituloTabla">
         <h2>Tramites Sanitarios Internacionales</h2>
         <button
-          href="#"
           (click)="toggleTabla2(); $event.preventDefault()"
           class="Desplegar"
         >
@@ -98,7 +96,7 @@
 
               <td>
                 <div class="registro">
-                  <a href="/info-tramite">{{ tramite.numeroRadicado }}</a>
+                  <a routerLink="/info-tramite">{{ tramite.numeroRadicado }}</a>
                   <div class="EstadoText">
                     <h2>{{ tramite.estado }}</h2>
                   </div>
