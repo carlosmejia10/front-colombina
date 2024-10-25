@@ -43,6 +43,9 @@ import { SolicitanteHeaderComponent } from './components/solicitante/solicitante
 import { ArSidebarComponent } from './components/asuntos-regulatorios/ar-sidebar/ar-sidebar.component';
 import { ArHeaderComponent } from './components/asuntos-regulatorios/ar-header/ar-header.component';
 import { ArLayoutComponent } from './components/asuntos-regulatorios/ar-layout/ar-layout.component';
+import { AdminHeaderComponent } from './components/admin/admin-header/admin-header.component';
+import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
+import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +76,9 @@ import { ArLayoutComponent } from './components/asuntos-regulatorios/ar-layout/a
     ArSidebarComponent,
     ArHeaderComponent,
     ArLayoutComponent,
+    AdminHeaderComponent,
+    AdminLayoutComponent,
+    AdminSidebarComponent,
   ],
   imports: [
     RouterModule,
