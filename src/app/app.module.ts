@@ -13,7 +13,7 @@ import { ChartModule } from 'primeng/chart';
 import { AppComponent } from './app.component';
 import { ArrastrarComponent } from './pages/solicitante/arrastrar/arrastrar.component';
 import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.component';
-import { CalendarioComponent } from './pages/solicitante/calendario/calendario.component';
+import { CalendarioComponent } from './pages/asuntos-regulatorios/calendario/calendario.component';
 import { ConfirmacionComponent } from './pages/solicitante/confirmacion/confirmacion.component';
 import { CrearTramiteComponent } from './pages/solicitante/crear-tramite/crear-tramite.component';
 import { EstadisticasComponent } from './pages/admin/estadisticas/estadisticas.component';
@@ -40,6 +40,9 @@ import { LayoutComponent } from './components/shared/layout/layout.component';
 import { SolicitanteLayoutComponent } from './components/solicitante/solicitante-layout/solicitante-layout.component';
 import { SolicitanteSidebarComponent } from './components/solicitante/solicitante-sidebar/solicitante-sidebar.component';
 import { SolicitanteHeaderComponent } from './components/solicitante/solicitante-header/solicitante-header.component';
+import { ArSidebarComponent } from './components/asuntos-regulatorios/ar-sidebar/ar-sidebar.component';
+import { ArHeaderComponent } from './components/asuntos-regulatorios/ar-header/ar-header.component';
+import { ArLayoutComponent } from './components/asuntos-regulatorios/ar-layout/ar-layout.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +70,9 @@ import { SolicitanteHeaderComponent } from './components/solicitante/solicitante
     SolicitanteLayoutComponent,
     SolicitanteSidebarComponent,
     SolicitanteHeaderComponent,
+    ArSidebarComponent,
+    ArHeaderComponent,
+    ArLayoutComponent,
   ],
   imports: [
     RouterModule,

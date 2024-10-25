@@ -10,8 +10,6 @@
   margin-top: 3px;
 }
 
-
-
 .container {
   display: flex;
 
@@ -49,7 +47,6 @@ h2 {
   display: flex;
   gap: 30px;
   margin-top: 20px;
-  min-height: 600px;
 }
 
 /* Sección del calendario */

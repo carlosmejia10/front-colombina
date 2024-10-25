@@ -1,0 +1,42 @@
+<app-ar-layout>
+  <div class="main-content">
+    <h2>Calendario de Solicitudes</h2>
+  
+    <div class="calendar-layout">
+      <!-- Sección del calendario -->
+      <div class="calendar-section">
+        <div class="calendar-container">
+          <p-calendar
+            class="max-w-full"
+            [(ngModel)]="date"
+            [inline]="true"
+            [showWeek]="false"
+            (onSelect)="onDateSelect($event)"
+          ></p-calendar>
+        </div>
+      </div>
+  
+      <div class="events-section">
+        <div class="selected-date-info">
+          <h3>Fecha seleccionada:</h3>
+          <p class="selected-date">{{ selectedDate | date:'fullDate':'es-ES' }}</p>
+        </div>
+  
+        <div class="events-container">
+          <h4>Eventos del día</h4>
+          <div class="events-list">
+            <!-- Mostrar mensaje si no hay eventos para la fecha seleccionada -->
+            <div *ngIf="eventosDelDia.length === 0">No hay eventos para la fecha seleccionada.</div>
+  
+            <!-- Listar los eventos del día -->
+            <div *ngFor="let evento of eventosDelDia">
+              <p><strong>Trámite:</strong> {{ evento.numeroRadicado }} - {{ evento.estado }}</p>
+              <p><strong>Fecha de Respuesta:</strong> {{ evento.fechaRespuesta | date:'shortDate' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</app-ar-layout>
