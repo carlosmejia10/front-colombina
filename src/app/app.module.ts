@@ -73,7 +73,7 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
     SolicitudesComponent,
     LateralArComponent,
 
-    EstadisticaComponent  //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
+    EstadisticaComponent,  //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
 
     LayoutComponent,
     SolicitanteLayoutComponent,

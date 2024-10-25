@@ -11,7 +11,7 @@ export class EstadisticaComponent {
   cuadros: number[] = [1]; // Inicia con un cuadro
   mostrarBoton: boolean = true; // Controla la visibilidad del botón
   graphOptions: Array<'bar' | 'line' | 'doughnut'> = ['bar', 'line', 'doughnut']; // Opciones válidas de gráficos para PrimeNG
-  chartDataOptions: string[] = ['Trámites Activos', 'Trámites Rechazados', 'Trámites Nacionales', 'Trámites Internacionales', 'Trámites (TODOS)'];
+  chartDataOptions: string[] = ['Trámites Activos', 'Trámites Rechazados', 'Trámites Nacionales', 'Trámites Internacionales', 'Todos los trámites'];
   chartBasisOptions: string[] = ['Productos', 'País', 'Usuario', 'Meses']; // Opciones de base para graficar
   selectedOption1: Array<'bar' | 'line' | 'doughnut'> = []; // Asegurarse de que es un tipo de gráfico válido
   selectedOption2: string[] = []; // Selección del segundo combobox (qué graficar)
@@ -58,15 +58,16 @@ export class EstadisticaComponent {
 
     // Llamar al servicio para obtener los datos según las selecciones
     this.estadisticasService.getChartData(queGraficar, enFuncionDe).subscribe(data => {
-      this.graficoData[index] = {
-        labels: data.labels, // Etiquetas proporcionadas por el backend
-        datasets: [
-          { label: queGraficar, data: data.values, backgroundColor: data.colors }
-        ]
-      };
-      this.graficos[index] = true; // Mostrar el gráfico en el cuadro correspondiente
+        this.graficoData[index] = {
+            labels: data.labels, 
+            datasets: [
+                { label: queGraficar, data: data.values, backgroundColor: data.colors }
+            ]
+        };
+        this.graficos[index] = true;
     });
   }
+
 
   getButtonStyles() {
     if (this.cuadros.length === 1) {

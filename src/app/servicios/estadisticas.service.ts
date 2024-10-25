@@ -1,34 +1,54 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EstadisticasDTO } from '../modelos/estadisticas-dto';
 import { BASE_URL } from '../config/environment/urls';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstadisticasService {
-  private baseUrl = `${BASE_URL}/tramites`
+  private baseUrl = `${BASE_URL}/api/estadisticas/tramites`;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
-  // Consulta al backend NUEVO
+  getTramitesFiltrados(
+    estado: string,
+    tipoTramite: string,
+    tipoProducto: string,
+    pais: string,
+    usuarioId: number,
+    fechaRadicacion: Date
+  ): Observable<any> {
+    const token = this.authService.getToken(); // Obtener el token desde AuthService
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    let params = new HttpParams();
+    if (estado) params = params.set('estado', estado);
+    if (tipoTramite) params = params.set('tipoTramite', tipoTramite);
+    if (tipoProducto) params = params.set('tipoProducto', tipoProducto);
+    if (pais) params = params.set('pais', pais);
+    if (usuarioId) params = params.set('usuarioId', usuarioId.toString());
+    if (fechaRadicacion) params = params.set('fechaRadicacion', fechaRadicacion.toISOString());
+
+    return this.http.get<any>(this.baseUrl, { headers, params });
+  }
+
   getChartData(queGraficar: string, enFuncionDe: string): Observable<any> {
-    return this.http.get<any>(`/api/charts?queGraficar=${queGraficar}&enFuncionDe=${enFuncionDe}`);
-  }
+    const token = this.authService.getToken(); // Obtener el token desde AuthService
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  // Método para obtener trámites nacionales por mes
-  getTramitesNacionalesPorMes(): Observable<EstadisticasDTO[]> {
-    return this.http.get<EstadisticasDTO[]>(`${this.baseUrl}/estadisticas/nacionales`);
-  }
+    let params = new HttpParams()
+      .set('queGraficar', queGraficar)
+      .set('enFuncionDe', enFuncionDe);
 
-  // Método para obtener trámites internacionales por mes
-  getTramitesInternacionalesPorMes(): Observable<EstadisticasDTO[]> {
-    return this.http.get<EstadisticasDTO[]>(`${this.baseUrl}/estadisticas/internacionales`);
-  }
-
-  // Método para obtener documentos devueltos por tipo
-  getDocumentosDevueltosPorTipo(): Observable<EstadisticasDTO[]> {
-    return this.http.get<EstadisticasDTO[]>(`${this.baseUrl}/estadisticas/documentos-devueltos`);
+    return this.http.get<any>(`${this.baseUrl}/chartData`, { headers, params });
   }
 }
