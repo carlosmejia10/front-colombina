@@ -1,69 +1,76 @@
-<app-header></app-header>
-
-<div class="container">
-
-    <app-lateral></app-lateral>
-
-    <div class="contenedor">
-
-        <app-barra-opc></app-barra-opc>
-        <!--CORTA-->
-
-        <div class="containerint">
-            <h1>Información del Trámite</h1>
-
-            <div class="info-section">
-                <div class="info-box"><!--TRAMITE-->
-                    <strong>ID Trámite:</strong> <p>{{ tramite.id }}</p>
-                    <strong>numeroRadicado:</strong> <p>{{ tramite.numeroRadicado }}</p>
-                    <strong>estado:</strong> <p>{{ tramite.estado }}</p>
-                    <strong>fechaRadicacion:</strong> <p>{{ tramite.fechaRadicacion  }}</p>
-                    <strong>Tipo de Trámite:</strong> <p>{{ tramite.tipoTramite }}</p>
-                </div>
-                <div class="info-box"><!--ENTIDAD SALINATIA-->
-                    <strong>ID:</strong> <p>{{ tramite.entidadSanitaria?.id }}</p>
-                    <strong>Nombre de entidad sanitaria:</strong> <p>{{ tramite.entidadSanitaria?.nombre  }}</p>
-                    <strong>Pais:</strong> <p>{{ tramite.entidadSanitaria?.pais  }}</p>
-                </div>
-                <div class="info-box"><!--solicitud-->
-                    <strong>Descripción Producto:</strong> <p>{{ tramite.solicitud.descripcionProducto }}</p>
-                    <strong>Tipo Producto:</strong> <p>{{ tramite.solicitud.tipoProducto }}</p>
-                    <strong>Fecha de Solicitud:</strong> <p>{{ tramite.solicitud.fechaSolicitud  }}</p>
-                </div>
-                <div class="info-box"><!--SOLICITANTE-->
-                    <strong>Solicitud Enviada por:</strong> <p>{{ tramite.solicitud.solicitante?.nombre }}</p>
-                    <strong>Correo Electrónico:</strong> <p>{{ tramite.solicitud.solicitante?.correoElectronico }}</p>
-                </div>
-            </div>
-
-            <h2>Registros del Trámite</h2><!--DOCUMENTOS-->
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Descripción</th>
-                        <th>Fecha de Registro</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let documento of tramite.documentos">
-                        <td>{{ documento.id }}</td>
-                        <td>{{ documento.tipo }}</td>
-                        <td>{{ documento.aprobado }}</td>
-                        <td><a href="{{ documento.tempUrl }}" target="_blank">{{ documento.tempUrl }}</a></td>
-
-                    </tr>
-                </tbody>
-            </table>
-            <ng-container *ngIf="tramite.estado === 'RECHAZADO' && mostrarBoton">
-                <button (click)="escalarTramite()" class="btn-primary">Escalar</button>
-              </ng-container>
-
+<app-solicitante-layout>
+  <div id="page">
+    <div class="containerint">
+      <h1>Información del Trámite</h1>
+  
+      <div class="info-section">
+        <div class="info-box">
+          <!--TRAMITE-->
+          <strong>ID Trámite:</strong>
+          <p>{{ tramite.id }}</p>
+          <strong>numeroRadicado:</strong>
+          <p>{{ tramite.numeroRadicado }}</p>
+          <strong>estado:</strong>
+          <p>{{ tramite.estado }}</p>
+          <strong>fechaRadicacion:</strong>
+          <p>{{ tramite.fechaRadicacion }}</p>
+          <strong>Tipo de Trámite:</strong>
+          <p>{{ tramite.tipoTramite }}</p>
         </div>
-
-
-
-        <!--CORTA-->
+        <div class="info-box">
+          <!--ENTIDAD SALINATIA-->
+          <strong>ID:</strong>
+          <p>{{ tramite.entidadSanitaria?.id }}</p>
+          <strong>Nombre de entidad sanitaria:</strong>
+          <p>{{ tramite.entidadSanitaria?.nombre }}</p>
+          <strong>Pais:</strong>
+          <p>{{ tramite.entidadSanitaria?.pais }}</p>
+        </div>
+        <div class="info-box">
+          <!--solicitud-->
+          <strong>Descripción Producto:</strong>
+          <p>{{ tramite.solicitud.descripcionProducto }}</p>
+          <strong>Tipo Producto:</strong>
+          <p>{{ tramite.solicitud.tipoProducto }}</p>
+          <strong>Fecha de Solicitud:</strong>
+          <p>{{ tramite.solicitud.fechaSolicitud }}</p>
+        </div>
+        <div class="info-box">
+          <!--SOLICITANTE-->
+          <strong>Solicitud Enviada por:</strong>
+          <p>{{ tramite.solicitud.solicitante?.nombre }}</p>
+          <strong>Correo Electrónico:</strong>
+          <p>{{ tramite.solicitud.solicitante?.correoElectronico }}</p>
+        </div>
+      </div>
+  
+      <h2>Registros del Trámite</h2>
+      <!--DOCUMENTOS-->
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Fecha de Registro</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let documento of tramite.documentos">
+            <td>{{ documento.id }}</td>
+            <td>{{ documento.tipo }}</td>
+            <td>{{ documento.aprobado }}</td>
+            <td>
+              <a href="{{ documento.tempUrl }}" target="_blank">{{
+                documento.tempUrl
+              }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-container *ngIf="tramite.estado === 'RECHAZADO' && mostrarBoton">
+        <button (click)="escalarTramite()" class="btn-primary">Escalar</button>
+      </ng-container>
     </div>
-</div>
+  </div>
+</app-solicitante-layout>

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ArrastrarComponent } from './pages/solicitante/arrastrar/arrastrar.component';
 import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.component';
-import { CalendarioComponent } from './pages/solicitante/calendario/calendario.component';
+import { CalendarioComponent } from './pages/asuntos-regulatorios/calendario/calendario.component';
 import { ConfirmacionComponent } from './pages/solicitante/confirmacion/confirmacion.component';
 import { CrearTramiteComponent } from './pages/solicitante/crear-tramite/crear-tramite.component';
 import { EstadisticasComponent } from './pages/admin/estadisticas/estadisticas.component';
@@ -96,7 +96,7 @@ const routes: Routes = [
     path: 'calendario',
     component: CalendarioComponent,
     canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.Solitante] },
+    data: { roles: [Role.AsuntosRegulatorios] },
   },
   {
     path: 'arrastrar',

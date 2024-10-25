@@ -10,7 +10,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
   }
 
   const router = inject(Router)
-  router.navigate(['/'])
+  router.navigate(['/login'])
 
   return false
 };

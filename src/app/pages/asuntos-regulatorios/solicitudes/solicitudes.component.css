@@ -1,11 +1,8 @@
-.container {
+.tablas{
   display: flex;
+  width: 100%;
+  flex-direction: column;
 }
-
-.main-content {
-  display: flex;
-}
-
 .ContenedorPendientes {
   width: 1000px;
   background-color: #E7EBF5;
@@ -19,13 +16,6 @@
   height: 40px;
   display: flex;
   padding: 10px;
-}
-.tablas{
-  display: flex;
-  width: 1200px;
-  height: 100vh;
-  flex-direction: column;
-  background-color: #D4DDE7;
 }
 .TituloTabla h2{
   color: white;
@@ -134,6 +124,7 @@ td p{
   height: 15px;
   border-radius: 10px;
   margin: 10px 0;
+  position: relative;
 }
 
 
@@ -142,8 +133,20 @@ td p{
 
 .progress {
   height: 100%;
-  background-color: red;
+  transition: width 0.5s;
   border-radius: 10px;
+}
+
+.progress-success {
+  background-color: #4caf50; /* Verde */
+}
+
+.progress-warning {
+  background-color: #ff9800; /* Naranja */
+}
+
+.progress-danger {
+  background-color: #f44336; /* Rojo */
 }
 
 .progress-percent {
