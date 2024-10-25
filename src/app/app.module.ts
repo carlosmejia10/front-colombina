@@ -49,6 +49,9 @@ import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-si
 import { NotificationsComponent } from './pages/shared/notifications/notifications.component';
 import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
 
+//PARA PRUEBAS DE ESTADISTICA
+import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +75,9 @@ import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notifica
     LateralComponent,
     SolicitudesComponent,
     LateralArComponent,
+
+    EstadisticaComponent  //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
+
     LayoutComponent,
     SolicitanteLayoutComponent,
     SolicitanteSidebarComponent,
