@@ -16,7 +16,7 @@
       <ng-container class="pendientes" *ngIf="mostrarTabla1">
         <table>
           <tr *ngFor="let tramite of tramites">
-            <ng-container *ngIf="tramite.tipoTramite == 'A'">
+            <ng-container *ngIf="tramite.tipoTramite == 'NACIONAL'">
               <td>
                 <i
                   *ngIf="tramite.estado === 'APROBADO'"
@@ -74,7 +74,7 @@
       <ng-container class="pendientes" *ngIf="mostrarTabla2">
         <table>
           <tr *ngFor="let tramite of tramites">
-            <ng-container *ngIf="tramite.tipoTramite == 'B'">
+            <ng-container *ngIf="tramite.tipoTramite == 'INTERNACIONAL'">
               <td>
                 <i
                   *ngIf="tramite.estado === 'APROBADO'"
