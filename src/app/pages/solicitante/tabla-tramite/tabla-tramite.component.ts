@@ -127,6 +127,10 @@ export class TablaTramiteComponent {
     this.tramiteService.findAll().subscribe(
       (data: TramiteDTO[]) => {
         this.tramites = data;
+        this.tramites.forEach((tramite) => {
+          const steps = tramite.tipoTramite === 'NACIONAL' ? 9 : 8;
+          tramite.progreso = Math.round(tramite.progreso / steps * 100);
+        });
         this.tramitesMostrados = [...this.tramites];
         console.log(this.tramitesMostrados);
       },

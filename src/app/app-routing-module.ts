@@ -12,13 +12,14 @@ import { InfoTramiteComponent } from './pages/solicitante/info-tramite/info-tram
 import { LoginComponent } from './pages/shared/login/login.component';
 import { ModificarInternacionalComponent } from './pages/solicitante/modificar-internacional/modificar-internacional.component';
 import { ModificarNacionalComponent } from './pages/solicitante/modificar-nacional/modificar-nacional.component';
-import { NotificacionComponent } from './pages/solicitante/notificacion/notificacion.component';
+import { NotificacionesSolicitanteComponent } from './pages/solicitante/notificaciones-solicitante/notificaciones-solicitante.component';
 import { RenovarComponent } from './pages/solicitante/renovar/renovar.component';
 import { TablaTramiteComponent } from './pages/solicitante/tabla-tramite/tabla-tramite.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
 import { Role } from './modelos/role';
+import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 
 const routes: Routes = [
@@ -55,18 +56,16 @@ const routes: Routes = [
     data: { roles: [Role.Solitante] },
   },
   {
-    path: 'notificacion',
-    component: NotificacionComponent,
+    path: 'notificaciones/solicitante',
+    component: NotificacionesSolicitanteComponent,
     canActivate: [authGuard, roleGuard],
-    data: {
-      roles: [
-        Role.Solitante,
-        Role.Admin,
-        Role.AsuntosRegulatorios,
-        Role.Mercadeo,
-        Role.Exportaciones,
-      ],
-    },
+    data: { roles: [Role.Solitante] },
+  },
+  {
+    path: 'notificaciones/asuntos-regulatorios',
+    component: NotificacionesArComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios] },
   },
   {
     path: 'renovar',
