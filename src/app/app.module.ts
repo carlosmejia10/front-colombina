@@ -22,7 +22,7 @@ import { InfoTramiteComponent } from './pages/solicitante/info-tramite/info-tram
 import { LoginComponent } from './pages/shared/login/login.component';
 import { ModificarInternacionalComponent } from './pages/solicitante/modificar-internacional/modificar-internacional.component';
 import { ModificarNacionalComponent } from './pages/solicitante/modificar-nacional/modificar-nacional.component';
-import { NotificacionComponent } from './pages/solicitante/notificacion/notificacion.component';
+import { NotificacionesSolicitanteComponent } from './pages/solicitante/notificaciones-solicitante/notificaciones-solicitante.component';
 import { RenovarComponent } from './pages/solicitante/renovar/renovar.component';
 import { TablaTramiteComponent } from './pages/solicitante/tabla-tramite/tabla-tramite.component';
 import { BarraOpcComponent } from './components/barra-opc/barra-opc.component';
@@ -46,6 +46,8 @@ import { ArLayoutComponent } from './components/asuntos-regulatorios/ar-layout/a
 import { AdminHeaderComponent } from './components/admin/admin-header/admin-header.component';
 import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
 import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-sidebar.component';
+import { NotificationsComponent } from './pages/shared/notifications/notifications.component';
+import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-si
     LoginComponent,
     ModificarInternacionalComponent,
     ModificarNacionalComponent,
-    NotificacionComponent,
+    NotificacionesSolicitanteComponent,
+    NotificacionesArComponent,
     RenovarComponent,
     TablaTramiteComponent,
     BarraOpcComponent,
@@ -79,6 +82,7 @@ import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-si
     AdminHeaderComponent,
     AdminLayoutComponent,
     AdminSidebarComponent,
+    NotificationsComponent,
   ],
   imports: [
     RouterModule,
