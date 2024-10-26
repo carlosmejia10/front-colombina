@@ -1,8 +1,11 @@
-.tablas{
+.container {
   display: flex;
-  width: 100%;
-  flex-direction: column;
 }
+
+.main-content {
+  display: flex;
+}
+
 .ContenedorPendientes {
   width: 1000px;
   background-color: #E7EBF5;
@@ -16,6 +19,13 @@
   height: 40px;
   display: flex;
   padding: 10px;
+}
+.tablas{
+  display: flex;
+  width: 1200px;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #D4DDE7;
 }
 .TituloTabla h2{
   color: white;
