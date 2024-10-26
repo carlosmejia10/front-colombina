@@ -1,8 +1,13 @@
+#page {
+  padding-left: 10rem;
+  padding-right: 10rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
 .container {
   display: flex;
-
 }
-.contenedor{
+.contenedor {
   width: 100%;
 }
 
@@ -12,26 +17,26 @@
 
 .ContenedorPendientes {
   width: 1000px;
-  background-color: #E7EBF5;
+  background-color: #e7ebf5;
   margin: 20px;
   border-radius: 10px;
 }
-.TituloTabla{
+.TituloTabla {
   position: relative;
-  background-color: #A3B6E6;
+  background-color: #a3b6e6;
   border-radius: 10px 10px 0 0;
   height: 40px;
   display: flex;
   padding: 10px;
 }
-.tablas{
+.tablas {
   display: flex;
   width: 1200px;
   height: 100vh;
   flex-direction: column;
-  background-color: #D4DDE7;
+  background-color: #d4dde7;
 }
-.TituloTabla h2{
+.TituloTabla h2 {
   color: white;
 }
 .ContenedorPendientes h2 {
@@ -41,7 +46,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 table td {
@@ -70,7 +75,7 @@ table td {
 }
 
 .fecha {
-  color: #4E5A7D;
+  color: #4e5a7d;
   font-weight: bold;
   font-size: 12px;
 }
@@ -80,32 +85,31 @@ table td {
   font-weight: bold;
   font-size: 12px;
 }
-.Desplegar{
-  position:absolute ;
+.Desplegar {
+  position: absolute;
   right: 8px;
 }
-.Desplegable{
+.Desplegable {
   width: 25px;
 }
-.registro{
+.registro {
   display: flex;
   height: 30px;
 }
-td p{
-  color: #D0CFCE;
+td p {
+  color: #d0cfce;
   margin-left: 10px;
   margin-bottom: 5px;
 }
 
 /*****/
 
-
 /*ESTADO DEL REGISTRO*/
 .InfoContenedor {
-  right:0;
+  right: 0;
   height: 100hv;
   width: 25%;
-  background-color: #BCC9E5;
+  background-color: #bcc9e5;
   padding: 20px;
 }
 
@@ -113,24 +117,20 @@ td p{
   font-size: 17px;
   color: #000000;
 }
-.InfoContenedor p{
+.InfoContenedor p {
   font-size: 14px;
   color: #857c7c;
 }
-.InfoContenedor a{
+.InfoContenedor a {
   font-size: 16px;
 }
 .progress-bar {
   width: 100%;
-  background-color: #E7EBF5;
+  background-color: #e7ebf5;
   height: 15px;
   border-radius: 10px;
   margin: 10px 0;
 }
-
-
-
-
 
 .progress {
   height: 100%;
@@ -145,21 +145,17 @@ td p{
   color: red;
 }
 
-
-
-.nav-item p{
+.nav-item p {
   font-size: 13px;
   text-align: center;
 }
-button{
+button {
   background-color: transparent;
   border: none;
 }
 
 /*****************************/
 .containerint {
-  max-width: 1200px;
-  margin: 0 auto;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -204,7 +200,8 @@ table {
   margin-bottom: 20px;
 }
 
-table th, table td {
+table th,
+table td {
   padding: 12px;
   text-align: left;
   border: 1px solid #ddd;

@@ -110,5 +110,62 @@
                 </div>
             </div>
         </div>
+    <!-- Tabla 2 -->
+    <div class="ContenedorPendientes">
+      <div class="TituloTabla">
+        <h2>Tramites Sanitarios Internacionales</h2>
+        <button
+          (click)="toggleTabla2(); $event.preventDefault()"
+          class="Desplegar"
+        >
+          <img src="images/Desplegar.png" class="Desplegable" />
+        </button>
+      </div>
+
+      <ng-container class="pendientes" *ngIf="mostrarTabla2">
+        <table>
+          <tr *ngFor="let tramite of tramites">
+            <ng-container *ngIf="tramite.tipoTramite == 'INTERNACIONAL'">
+              <td>
+                <i
+                  *ngIf="tramite.estado === 'APROBADO'"
+                  class="estatus hecho"
+                ></i>
+                <i
+                  *ngIf="tramite.estado === 'RECHAZADO'"
+                  class="estatus rechazado"
+                ></i>
+                <i
+                  *ngIf="tramite.estado === 'PENDIENTE'"
+                  class="estatus pendiente"
+                ></i>
+                <i
+                  *ngIf="tramite.estado === 'EN_REVISION'"
+                  class="estatus pendiente"
+                ></i>
+              </td>
+
+              <td>
+                <div class="registro">
+                  <a routerLink="/info-tramite">{{ tramite.numeroRadicado }}</a>
+                  <div class="EstadoText">
+                    <h2>{{ tramite.estado }}</h2>
+                  </div>
+                </div>
+                <p class="progress-percent">{{ tramite.progreso }}%</p>
+                <div class="progress-bar">
+                  <div
+                    class="progress"
+                    [style.width.%]="tramite.progreso"
+                    [ngClass]="getProgressClass(tramite.progreso)"
+                  ></div>
+                </div>
+                <p>{{ tramite.fechaRadicacion }}</p>
+              </td>
+            </ng-container>
+          </tr>
+        </table>
+      </ng-container>
     </div>
-</div>
+  </div>
+

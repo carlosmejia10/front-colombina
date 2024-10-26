@@ -9,10 +9,9 @@ import { TramiteDTO } from '@/app/modelos/tramite.dto';
 @Component({
   selector: 'app-tabla-tramite',
   templateUrl: './tabla-tramite.component.html',
-  styleUrl: './tabla-tramite.component.css'
+  styleUrl: './tabla-tramite.component.css',
 })
 export class TablaTramiteComponent {
-
   constructor(private tramiteService: TramiteService) {}
 
   tramites!: TramiteDTO[];
@@ -38,28 +37,27 @@ export class TablaTramiteComponent {
 
   getTramites(): void {
     this.tramiteService.findAll().subscribe(
-      (data: TramiteDTO[]) => { 
+      (data: TramiteDTO[]) => {
         this.tramites = data;
         this.tramitesMostrados = [...this.tramites]; 
-        console.log('Trámites recibidos:', this.tramitesMostrados);
+        console.log(this.tramitesMostrados);
       },
       (error) => {
         console.error('Error al obtener los trámites:', error);
       }
     );
-  }
-  
-  getProgresoEntero(progreso:number): number {
-    return Math.round(progreso * 100);
-  }
-
-  getProgressClass(progreso: number): string {
-    if (progreso >= 75) {
+}
+getProgresoEntero(progreso:number): number {
+  return Math.round(progreso * 100);
+}
+getProgressClass(progreso: number): string {
+  if (progreso >= 75) {
       return 'progress-success';  // Color para progreso alto
-    } else if (progreso >=50) {
+  } else if (progreso >= 50) {
       return 'progress-warning';  // Color para progreso medio
-    } else {
+  } else {
       return 'progress-danger';    // Color para bajo progreso
-    }
   }
+}
+
 }
