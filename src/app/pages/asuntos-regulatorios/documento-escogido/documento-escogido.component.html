@@ -6,6 +6,12 @@
         <strong>Aprobado:</strong> {{ documento.aprobado ? 'Sí' : 'No' }} <br>
         <strong>Cumple Normativas:</strong> {{ documento.cumpleNormativas ? 'Sí' : 'No' }} <br>
     </div>
+
+    <div class="comentarios">
+        <label for="comentarios">Comentarios:</label>
+        <textarea id="comentarios" placeholder="Añadir comentarios sobre el documento..."></textarea>
+    </div>
+
     <div class="button-group">
         <button class="btn-aprobar" (click)="aprobar()">Aprobar</button>
         <button class="btn-rechazar" (click)="rechazar()">Rechazar</button>

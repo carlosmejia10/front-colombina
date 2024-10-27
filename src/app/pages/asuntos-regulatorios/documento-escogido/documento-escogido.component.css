@@ -89,3 +89,28 @@ h2 {
     background-color: #8fa7e3;
   }
   
+  /* Cuadro de comentarios */
+.comentarios {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px; /* Margen superior */
+}
+
+.comentarios label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px; /* Espacio debajo del label */
+}
+
+.comentarios textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical; /* Permite ajustar la altura */
+    font-size: 1em;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #333; /* Color del texto */
+    box-sizing: border-box;
+}
