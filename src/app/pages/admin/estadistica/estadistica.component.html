@@ -6,7 +6,49 @@
         <div class="estadisticas">
             <div class="Datos">
                 <h1>Resumen</h1>
+            
+                <!-- Sección de Total de Trámites -->
+                <div class="total-section">
+                    <p>Total Trámites</p>
+                    <p class="large-number">{{ totales.totalTramites }}</p>
+                </div>
+            
+                <!-- Sección de Nacionales e Internacionales -->
+                <div class="nacionales-internacionales">
+                    <div class="nacional">
+                        <p>Nacionales</p>
+                        <p class="small-number">{{ totales.totalTramitesNacionales }}</p>
+                    </div>
+                    <div class="internacional">
+                        <p>Internacionales</p>
+                        <p class="small-number">{{ totales.totalTramitesInternacionales }}</p>
+                    </div>
+                </div>
+            
+                <!-- Sección del resto de la información -->
+                <div class="extra-info">
+                    <div>
+                        <p>Trámites en Revisión</p>
+                        <p>{{ totales.totalTramitesEnRevision }}</p>
+                    </div>
+                    <div>
+                        <p>Trámites Aprobados</p>
+                        <p>{{ totales.totalTramitesAprobado }}</p>
+                    </div>
+                    <div>
+                        <p>Trámites Rechazados</p>
+                        <p>{{ totales.totalTramitesRechazado }}</p>
+                    </div>
+                    <div>
+                        <p>Trámites Pendientes</p>
+                        <p>{{ totales.totalTramitesPendiente }}</p>
+                    </div>
+                </div>
             </div>
+            
+            
+            
+            
             <!--CAJAS 2X2-->
             <div class="container">
                 <div id="cuadro-container">
