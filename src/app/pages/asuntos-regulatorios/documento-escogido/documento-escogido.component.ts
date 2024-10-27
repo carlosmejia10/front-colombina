@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { DocumentoService } from '@/app/servicios/documento.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-documento-escogido',
@@ -18,27 +19,16 @@ export class DocumentoEscogidoComponent {
     cumpleNormativas: true,
   };
 
-  constructor(private location: Location, private documentoService: DocumentoService) {}
+  constructor(private router: Router,private location: Location, private documentoService: DocumentoService) {}
 
-  aprobar() {
-    // Aquí puedes manejar la lógica para aprobar el documento
-    this.documento.aprobado = true;
-    
-    // Muestra un mensaje o alerta (puedes cambiar esto a una notificación más elaborada)
-    alert(`El documento "${this.documento.name}" ha sido aprobado.`);
-
-    // Regresa a la página anterior
-    this.location.back();
+  aprobarORechazar(aprobado: boolean) {
+    this.documento.aprobado = aprobado;
+  
+    const estado = aprobado ? 'aprobado' : 'rechazado';
+    alert(`El documento "${this.documento.name}" ha sido ${estado}.`);
+  
+    this.router.navigate(['/documentos']);
   }
 
-  rechazar() {
-    // Aquí puedes manejar la lógica para rechazar el documento
-    this.documento.aprobado = false;
-
-    // Muestra un mensaje o alerta
-    alert(`El documento "${this.documento.name}" ha sido rechazado.`);
-
-    // Regresa a la página anterior
-    this.location.back();
-  }
+  
 }

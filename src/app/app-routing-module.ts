@@ -128,7 +128,7 @@ const routes: Routes = [
     component: RevisionDocumentacionComponent
   },
   {
-    path:'revision',
+    path:`revision`,
     component: DocumentoEscogidoComponent
   }
 ];
