@@ -21,6 +21,8 @@ import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/s
 import { Role } from './modelos/role';
 import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
+import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
+import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -121,6 +123,14 @@ const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Admin] },
   },
+  {
+    path: 'documentos',
+    component: RevisionDocumentacionComponent
+  },
+  {
+    path:'revision',
+    component: DocumentoEscogidoComponent
+  }
 ];
 
 @NgModule({

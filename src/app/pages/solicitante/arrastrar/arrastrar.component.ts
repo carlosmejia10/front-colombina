@@ -62,27 +62,33 @@ export class ArrastrarComponent {
   subirArchivo(): void {
     console.log('Archivo seleccionado:', this.selectedFile);
     if (this.selectedFile) {
-      // Crear el DTO con los datos requeridos
-      const documentoDTO: DocumentoDTO = {
-        name: this.selectedFile.name,
-        tipo: 'pdf',  // Ejemplo, ajustar si es necesario
-        aprobado: false,
-        file: this.selectedFile
-      };
+        // Crear el DTO con los datos requeridos
+        const documentoDTO: DocumentoDTO = {
+            id: undefined,                // O el valor que corresponda
+            name: this.selectedFile.name,
+            tipo: 'pdf',                 // Ajusta según el tipo de archivo real
+            aprobado: false,
+            cumpleNormativas: false,     // O el valor que corresponda
+            file: this.selectedFile,
+            tempUrl: undefined,          // O la URL temporal si la tienes
+            fechaExpiracion: undefined    // O la fecha de expiración si la tienes
+        };
 
-      // Llamar al servicio para subir el archivo
-      this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
-        response => {
-          console.log('Archivo subido con éxito', response);
-          alert('Archivo subido con éxito');
-        },
-        error => {
-          console.error('Error al subir el archivo', error);
-          alert('Error al subir el archivo');
-        }
-      );
+        // Llamar al servicio para subir el archivo
+        this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
+            response => {
+                console.log('Archivo subido con éxito', response);
+                alert('Archivo subido con éxito');
+            },
+            error => {
+                console.error('Error al subir el archivo', error);
+                alert('Error al subir el archivo');
+            }
+        );
     } else {
-      alert('No hay archivo seleccionado');
+        alert('No hay archivo seleccionado');
     }
-  }
 }
+
+}
+
