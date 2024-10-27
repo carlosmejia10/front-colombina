@@ -28,6 +28,7 @@ export class EstadisticaComponent {
   ngOnInit(): void {
     this.obtenerTotales();
   }
+  
 
   obtenerTotales() {
     this.estadisticasService.getTotales().subscribe(

@@ -4,7 +4,10 @@
   height: 100vh;
 }
 .estadisticas {
+  height: 90%;
   display: flex;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /****************CSS para datos de combobox**************/
@@ -26,6 +29,8 @@ button {
   margin-top: 3%;
   height: 200px;
   width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /****************CSS para tabla de datos****************/
