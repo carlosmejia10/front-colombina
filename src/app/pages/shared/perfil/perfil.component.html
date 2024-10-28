@@ -1,11 +1,17 @@
 <app-header></app-header>
-<div class = "title">
+<div class="title">
     <h1>Perfil</h1>
 </div>
-<div class="user-card">
-    <p><span>Usuario:</span> {{ nomUsuario }}</p>
-    <p><span>Correo Electronico:</span> {{ usuarioDTO.correoElectronico }}</p>
-    <p><span>Rol Asignado:</span> {{ usuarioDTO.rol.tipoRol }}</p>
-    
-    <button class="btn-logout" (click)="logout()">Cerrar Sesion</button>
+<div class="container">
+    <div class="user-card">
+        <div class="user-info">
+            <p><span>Nombre de Usuario:</span> {{ nomUsuario }}</p>
+            <p><span>Correo Electrónico:</span> {{ usuarioDTO.correoElectronico }}</p>
+            <p><span>Rol Asignado:</span> {{ usuarioDTO.rol.tipoRol }}</p>
+        </div>
+        <div class="button-container">
+            <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
 </div>
+
