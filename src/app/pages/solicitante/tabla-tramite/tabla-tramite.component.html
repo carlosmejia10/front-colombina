@@ -15,46 +15,46 @@
 
         <ng-container class="pendientes" *ngIf="mostrarTabla1">
           <table>
-            <tr *ngFor="let tramite of tramites">
-              <ng-container *ngIf="tramite.tipoTramite == 'Tipo 1'">
+            <tr *ngFor="let solicitud of solicitudes">
+              <ng-container *ngIf="solicitud.tramite.tipoTramite == 'NACIONAL'">
                 <td>
                   <i
-                    *ngIf="tramite.estado === 'APROBADO'"
+                    *ngIf="solicitud.tramite.estado === 'APROBADO'"
                     class="estatus hecho"
                   ></i>
                   <i
-                    *ngIf="tramite.estado === 'RECHAZADO'"
+                    *ngIf="solicitud.tramite.estado === 'RECHAZADO'"
                     class="estatus rechazado"
                   ></i>
                   <i
-                    *ngIf="tramite.estado === 'PENDIENTE'"
+                    *ngIf="solicitud.tramite.estado === 'PENDIENTE'"
                     class="estatus pendiente"
                   ></i>
                   <i
-                    *ngIf="tramite.estado === 'EN_REVISION'"
+                    *ngIf="solicitud.tramite.estado === 'EN_REVISION'"
                     class="estatus pendiente"
                   ></i>
                 </td>
                 <td>
                   <div class="registro">
-                    <a href="/info-tramite">{{ tramite.numeroRadicado }}</a>
+                    <a href="/info-tramite">{{ solicitud.tramite.numeroRadicado }}</a>
                     <div class="EstadoText">
-                      <h2>{{ tramite.estado }}</h2>
+                      <h2>{{ solicitud.tramite.estado }}</h2>
                     </div>
                   </div>
                   <p class="progress-percent">
-                    {{ getProgresoEntero(tramite.progreso) }}%
+                    {{ getProgresoEntero(solicitud.tramite.progreso) }}%
                   </p>
                   <div class="progress-bar">
                     <div
                       class="progress"
-                      [style.width.%]="getProgresoEntero(tramite.progreso)"
+                      [style.width.%]="getProgresoEntero(solicitud.tramite.progreso)"
                       [ngClass]="
-                        getProgressClass(getProgresoEntero(tramite.progreso))
+                        getProgressClass(getProgresoEntero(solicitud.tramite.progreso))
                       "
                     ></div>
                   </div>
-                  <p>{{ tramite.fechaRadicacion }}</p>
+                  <p>{{ solicitud.tramite.fechaRadicacion }}</p>
                 </td>
               </ng-container>
             </tr>
@@ -76,46 +76,46 @@
         </div>
         <ng-container class="pendientes" *ngIf="mostrarTabla2">
           <table>
-            <tr *ngFor="let tramite of tramites">
-              <ng-container *ngIf="tramite.tipoTramite == 'Tipo 2'">
+            <tr *ngFor="let solicitud of solicitudes">
+              <ng-container *ngIf="solicitud.tramite.tipoTramite == 'INTERNACIONAL'">
                 <td>
                   <i
-                    *ngIf="tramite.estado === 'APROBADO'"
+                    *ngIf="solicitud.tramite.estado === 'APROBADO'"
                     class="estatus hecho"
                   ></i>
                   <i
-                    *ngIf="tramite.estado === 'RECHAZADO'"
+                    *ngIf="solicitud.tramite.estado === 'RECHAZADO'"
                     class="estatus rechazado"
                   ></i>
                   <i
-                    *ngIf="tramite.estado === 'PENDIENTE'"
+                    *ngIf="solicitud.tramite.estado === 'PENDIENTE'"
                     class="estatus pendiente"
                   ></i>
                   <i
-                    *ngIf="tramite.estado === 'EN_REVISION'"
+                    *ngIf="solicitud.tramite.estado === 'EN_REVISION'"
                     class="estatus pendiente"
                   ></i>
                 </td>
                 <td>
                   <div class="registro">
-                    <a href="/info-tramite">{{ tramite.numeroRadicado }}</a>
+                    <a href="/info-tramite">{{ solicitud.tramite.numeroRadicado }}</a>
                     <div class="EstadoText">
-                      <h2>{{ tramite.estado }}</h2>
+                      <h2>{{ solicitud.tramite.estado }}</h2>
                     </div>
                   </div>
                   <p class="progress-percent">
-                    {{ getProgresoEntero(tramite.progreso) }}%
+                    {{ getProgresoEntero(solicitud.tramite.progreso) }}%
                   </p>
                   <div class="progress-bar">
                     <div
                       class="progress"
-                      [style.width.%]="getProgresoEntero(tramite.progreso)"
+                      [style.width.%]="getProgresoEntero(solicitud.tramite.progreso)"
                       [ngClass]="
-                        getProgressClass(getProgresoEntero(tramite.progreso))
+                        getProgressClass(getProgresoEntero(solicitud.tramite.progreso))
                       "
                     ></div>
                   </div>
-                  <p>{{ tramite.fechaRadicacion }}</p>
+                  <p>{{ solicitud.tramite.fechaRadicacion }}</p>
                 </td>
               </ng-container>
             </tr>
