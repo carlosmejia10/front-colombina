@@ -78,6 +78,7 @@ img{
   display: flex;
   align-items: center;
   padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 input#search-bar{
@@ -120,4 +121,42 @@ input#search-bar{
 
 .icono{
   width: 40px;
+}
+
+/*****/
+/*Implementacion perfil*/
+/* Estilo para el contenedor del menú desplegable de perfil */
+.dropdown-content-alt {
+  display: none; /* Oculta el contenido por defecto */
+  position: absolute; /* Posiciona el contenido de forma absoluta */
+  background-color: #D7D7D7; /* Color de fondo del menú */
+  min-width: 60px; /* Ancho mínimo del menú */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Sombra del menú */
+  z-index: 1; /* Asegura que el menú se muestre sobre otros elementos */
+  right: 0;
+  transform: translateX(-20px);
+  border-radius: 10px;
+}
+.Cajaa{
+  background-color: white;
+  margin: 5px;
+  border-radius: 8px;
+}
+/* Estilo para los enlaces dentro del menú */
+.dropdown-content-alt a {
+  margin: 5px;
+  color: black; /* Color del texto */
+  padding: 12px 16px; /* Espaciado interno */
+  text-decoration: none; /* Quita el subrayado */
+  display: block; /* Alinea los enlaces en bloque */
+}
+
+/* Estilo para los enlaces cuando se pasa el cursor sobre ellos */
+.Cajaa:hover {
+  background-color: #f1f1f1; /* Color de fondo al pasar el cursor */
+}
+
+/* Muestra el contenido del menú cuando el botón se pasa sobre él */
+.dropdown:hover .dropdown-content-alt {
+  display: block; /* Muestra el contenido */
 }
