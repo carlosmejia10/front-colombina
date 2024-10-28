@@ -17,9 +17,9 @@ export class PerfilComponent {
 
   @Input()
   usuarioDTO: UsuarioDTO = {
-    nombre: '',
-    rol: { id: 0, tipoRol: '' },
-    correoElectronico: ''
+    nombre: 'Nombre de Usuario',
+    rol: { id: 0, tipoRol: 'Rol Asignado' },
+    correoElectronico: 'correo@example.com'
   };
 
   nomUsuario: string;

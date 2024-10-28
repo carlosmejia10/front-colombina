@@ -48,6 +48,7 @@ import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layo
 import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-sidebar.component';
 import { NotificationsComponent } from './pages/shared/notifications/notifications.component';
 import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
+import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 
 //PARA PRUEBAS DE ESTADISTICA
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
@@ -75,6 +76,7 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
     LateralComponent,
     SolicitudesComponent,
     LateralArComponent,
+
 
     EstadisticaComponent,  //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
 
