@@ -54,4 +54,14 @@ export class PerfilComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  home(): void {
+    if (this.authService.role === 'SOLICITANTE') {
+      this.router.navigate(['/tabla-tramite']);
+    } else if (this.authService.role === 'ASUNTOSREG') {
+      this.router.navigate(['/solicitudes']);
+    } else if (this.authService.role === 'ADMIN') {
+      this.router.navigate(['/estadisticas']);
+    }
+  }
 }
