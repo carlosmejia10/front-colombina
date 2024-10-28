@@ -1,88 +1,97 @@
-<app-header></app-header>
-<div class="PANTALLA">
-    <app-lateral></app-lateral>
-    <div class="contenedor">
-        <app-barra-opc></app-barra-opc>
-        <div class="estadisticas">
-            <div class="Datos">
-                <h1>Resumen</h1>
-            
-                <!-- Sección de Total de Trámites -->
-                <div class="total-section">
-                    <p>Total Trámites</p>
-                    <p class="large-number">{{ totales.totalTramites }}</p>
-                </div>
-            
-                <!-- Sección de Nacionales e Internacionales -->
-                <div class="nacionales-internacionales">
-                    <div class="nacional">
-                        <p>Nacionales</p>
-                        <p class="small-number">{{ totales.totalTramitesNacionales }}</p>
-                    </div>
-                    <div class="internacional">
-                        <p>Internacionales</p>
-                        <p class="small-number">{{ totales.totalTramitesInternacionales }}</p>
-                    </div>
-                </div>
-            
-                <!-- Sección del resto de la información -->
-                <div class="extra-info">
-                    <div>
-                        <p>Trámites en Revisión</p>
-                        <p>{{ totales.totalTramitesEnRevision }}</p>
-                    </div>
-                    <div>
-                        <p>Trámites Aprobados</p>
-                        <p>{{ totales.totalTramitesAprobado }}</p>
-                    </div>
-                    <div>
-                        <p>Trámites Rechazados</p>
-                        <p>{{ totales.totalTramitesRechazado }}</p>
-                    </div>
-                    <div>
-                        <p>Trámites Pendientes</p>
-                        <p>{{ totales.totalTramitesPendiente }}</p>
-                    </div>
-                </div>
-            </div>
-            
-            
-            
-            
-            <!--CAJAS 2X2-->
-            <div class="container">
-                <div id="cuadro-container">
-                    <div *ngFor="let cuadro of cuadros; let i = index" class="cuadro">
-                        <!-- Comboboxes y botón dentro de cada cuadro -->
-                        <div class="comboboxes">
-                            <!-- Primer combo box: Tipo de gráfico -->
-                            <select [(ngModel)]="selectedOption1[i]">
-                                <option *ngFor="let option of graphOptions" [value]="option">{{option}}</option>
-                            </select>
+<app-admin-layout>
+  <div class="estadisticas">
+    <div class="Datos">
+      <h1>Resumen</h1>
 
-                            <!-- Segundo combo box: Qué graficar -->
-                            <select [(ngModel)]="selectedOption2[i]">
-                                <option *ngFor="let option of chartDataOptions" [value]="option">{{option}}</option>
-                            </select>
+      <!-- Sección de Total de Trámites -->
+      <div class="total-section">
+        <p>Total Trámites</p>
+        <p class="large-number">{{ totales.totalTramites }}</p>
+      </div>
 
-                            <!-- Tercer combo box: En función de qué -->
-                            <select [(ngModel)]="selectedOption3[i]">
-                                <option *ngFor="let option of chartBasisOptions" [value]="option">{{option}}</option>
-                            </select>
-
-                            <button (click)="generarGrafico(i)">Mostrar gráfico</button>
-                        </div>
-                        <!-- Lugar para mostrar gráfico -->
-                        <div *ngIf="graficos[i]" class="grafico-container">
-                            <!-- Componente de gráfico -->
-                            <p-chart [type]="selectedOption1[i]" [data]="graficoData[i]" [options]="chartOptions"></p-chart>
-                        </div>
-                        <button class="remove-btn" (click)="removeCuadro(i)">-</button>
-                    </div>
-                    <!-- Botón "+" -->
-                    <button *ngIf="mostrarBoton" id="add-btn" [ngStyle]="getButtonStyles()" (click)="addCuadro()">+</button>
-                </div>
-            </div>
+      <!-- Sección de Nacionales e Internacionales -->
+      <div class="nacionales-internacionales">
+        <div class="nacional">
+          <p>Nacionales</p>
+          <p class="small-number">{{ totales.totalTramitesNacionales }}</p>
         </div>
+        <div class="internacional">
+          <p>Internacionales</p>
+          <p class="small-number">{{ totales.totalTramitesInternacionales }}</p>
+        </div>
+      </div>
+
+      <!-- Sección del resto de la información -->
+      <div class="extra-info">
+        <div>
+          <p>Trámites en Revisión</p>
+          <p>{{ totales.totalTramitesEnRevision }}</p>
+        </div>
+        <div>
+          <p>Trámites Aprobados</p>
+          <p>{{ totales.totalTramitesAprobado }}</p>
+        </div>
+        <div>
+          <p>Trámites Rechazados</p>
+          <p>{{ totales.totalTramitesRechazado }}</p>
+        </div>
+        <div>
+          <p>Trámites Pendientes</p>
+          <p>{{ totales.totalTramitesPendiente }}</p>
+        </div>
+      </div>
     </div>
-</div>
+
+    <!--CAJAS 2X2-->
+    <div class="container">
+      <div id="cuadro-container">
+        <div *ngFor="let cuadro of cuadros; let i = index" class="cuadro">
+          <!-- Comboboxes y botón dentro de cada cuadro -->
+          <div class="comboboxes">
+            <!-- Primer combo box: Tipo de gráfico -->
+            <select [(ngModel)]="selectedOption1[i]">
+              <option *ngFor="let option of graphOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+
+            <!-- Segundo combo box: Qué graficar -->
+            <select [(ngModel)]="selectedOption2[i]">
+              <option *ngFor="let option of chartDataOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+
+            <!-- Tercer combo box: En función de qué -->
+            <select [(ngModel)]="selectedOption3[i]">
+              <option *ngFor="let option of chartBasisOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+
+            <button (click)="generarGrafico(i)">Mostrar gráfico</button>
+          </div>
+          <!-- Lugar para mostrar gráfico -->
+          <div *ngIf="graficos[i]" class="grafico-container">
+            <!-- Componente de gráfico -->
+            <p-chart
+              [type]="selectedOption1[i]"
+              [data]="graficoData[i]"
+              [options]="chartOptions"
+            ></p-chart>
+          </div>
+          <button class="remove-btn" (click)="removeCuadro(i)">-</button>
+        </div>
+        <!-- Botón "+" -->
+        <button
+          *ngIf="mostrarBoton"
+          id="add-btn"
+          [ngStyle]="getButtonStyles()"
+          (click)="addCuadro()"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  </div>
+</app-admin-layout>

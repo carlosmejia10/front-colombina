@@ -1,28 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TramiteDTO } from "../modelos/tramite.dto";
-import { Observable } from "rxjs";
+import { TramiteDTO } from '../modelos/tramite.dto';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { BASE_URL } from '../config/environment/urls';
 
 @Injectable({
-    providedIn: 'root'
-  })
-export class TramiteService{
-    constructor(
-        private http: HttpClient,
-        private authService: AuthService
-    ){}
-    
-    findAll(): Observable<TramiteDTO[]>{
-        const token = this.authService.getToken(); // Obtener el token desde localStorage
-        const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` 
-     });
-        return this.http.get<TramiteDTO[]> (`${BASE_URL}/tramites/todos`, {headers});
-    }
+  providedIn: 'root',
+})
+export class TramiteService {
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-    /*findById(id:number):Observable<Tramite>{
+  findAll(): Observable<TramiteDTO[]> {
+    const token = this.authService.getToken(); // Obtener el token desde localStorage
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<TramiteDTO[]>(`${BASE_URL}/tramites/todos`, {
+      headers,
+    });
+  }
+
+  /*findById(id:number):Observable<Tramite>{
         return this.http.get<Tramite> ("http.//localhost:8090/api/tramites"+id);
     }
 

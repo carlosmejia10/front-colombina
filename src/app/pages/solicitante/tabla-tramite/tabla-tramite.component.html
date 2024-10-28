@@ -1,88 +1,127 @@
-<div class="container">
-    <app-lateral ngSkipHydration></app-lateral>
-    <div class="contenedor">
-        <app-barra-opc></app-barra-opc>
-        <!-- Main content for displaying tables -->
-        <div class="main-content">
-            <div class="tablas">
-                <div class="ContenedorPendientes">
-                    <div class="TituloTabla">
-                        <h2>Tramites Sanitarios Nacionales</h2>
-                        <button href="#" (click)="toggleTabla(); $event.preventDefault();" class="Desplegar">
-                            <img src="images/Desplegar.png" class="Desplegable">
-                        </button>
-                    </div>
-
-                    <ng-container class="pendientes" *ngIf="mostrarTabla1">
-                        <table>
-                            <tr *ngFor="let tramite of tramites">
-                                <ng-container *ngIf="tramite.tipoTramite=='Tipo 1'">
-                                    <td>
-                                        <i *ngIf="tramite.estado==='APROBADO'" class="estatus hecho"></i>
-                                        <i *ngIf="tramite.estado==='RECHAZADO'" class="estatus rechazado"></i>
-                                        <i *ngIf="tramite.estado==='PENDIENTE'" class="estatus pendiente"></i>
-                                        <i *ngIf="tramite.estado==='EN_REVISION'" class="estatus pendiente"></i>
-                                    </td>
-                                    <td>
-                                        <div class="registro">
-                                            <a href="/info-tramite">{{tramite.numeroRadicado}}</a>
-                                            <div class="EstadoText"><h2>{{tramite.estado}}</h2></div>
-                                        </div>
-                                        <p class="progress-percent">{{getProgresoEntero(tramite.progreso)}}%</p>
-                                        <div class="progress-bar">
-                                            <div 
-                                                class="progress" 
-                                                [style.width.%]="getProgresoEntero(tramite.progreso)" 
-                                                [ngClass]="getProgressClass(getProgresoEntero(tramite.progreso))">
-                                            </div>
-                                        </div>
-                                        <p>{{tramite.fechaRadicacion}}</p>
-                                    </td>
-                                </ng-container>
-                            </tr>
-                        </table>
-                    </ng-container>
-                </div>
-
-                <!-- Table for international procedures -->
-                <div class="ContenedorPendientes">
-                    <div class="TituloTabla">
-                        <h2>Tramites Sanitarios Internacionales</h2>
-                        <button href="#" (click)="toggleTabla2(); $event.preventDefault();" class="Desplegar">
-                            <img src="images/Desplegar.png" class="Desplegable">
-                        </button>
-                    </div>
-                    <ng-container class="pendientes" *ngIf="mostrarTabla2">
-                        <table>
-                            <tr *ngFor="let tramite of tramites">
-                                <ng-container *ngIf="tramite.tipoTramite=='Tipo 2'">
-                                    <td>
-                                        <i *ngIf="tramite.estado==='APROBADO'" class="estatus hecho"></i>
-                                        <i *ngIf="tramite.estado==='RECHAZADO'" class="estatus rechazado"></i>
-                                        <i *ngIf="tramite.estado==='PENDIENTE'" class="estatus pendiente"></i>
-                                        <i *ngIf="tramite.estado==='EN_REVISION'" class="estatus pendiente"></i>
-                                    </td>
-                                    <td>
-                                        <div class="registro">
-                                            <a href="/info-tramite">{{tramite.numeroRadicado}}</a>
-                                            <div class="EstadoText"><h2>{{tramite.estado}}</h2></div>
-                                        </div>
-                                        <p class="progress-percent">{{getProgresoEntero(tramite.progreso)}}%</p>
-                                        <div class="progress-bar">
-                                            <div 
-                                                class="progress" 
-                                                [style.width.%]="getProgresoEntero(tramite.progreso)" 
-                                                [ngClass]="getProgressClass(getProgresoEntero(tramite.progreso))">
-                                            </div>
-                                        </div>
-                                        <p>{{tramite.fechaRadicacion}}</p>
-                                    </td>
-                                </ng-container>
-                            </tr>
-                        </table>
-                    </ng-container>
-                </div>
-            </div>
+<app-solicitante-layout>
+  <div class="main-content">
+    <div class="tablas">
+      <div class="ContenedorPendientes">
+        <div class="TituloTabla">
+          <h2>Tramites Sanitarios Nacionales</h2>
+          <button
+            href="#"
+            (click)="toggleTabla(); $event.preventDefault()"
+            class="Desplegar"
+          >
+            <img src="images/Desplegar.png" class="Desplegable" />
+          </button>
         </div>
+
+        <ng-container class="pendientes" *ngIf="mostrarTabla1">
+          <table>
+            <tr *ngFor="let solicitud of solicitudes">
+              <ng-container *ngIf="solicitud.tramite.tipoTramite == 'NACIONAL'">
+                <td>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'APROBADO'"
+                    class="estatus hecho"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'RECHAZADO'"
+                    class="estatus rechazado"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'PENDIENTE'"
+                    class="estatus pendiente"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'EN_REVISION'"
+                    class="estatus pendiente"
+                  ></i>
+                </td>
+                <td>
+                  <div class="registro">
+                    <a href="/info-tramite">{{ solicitud.tramite.numeroRadicado }}</a>
+                    <div class="EstadoText">
+                      <h2>{{ solicitud.tramite.estado }}</h2>
+                    </div>
+                  </div>
+                  <p class="progress-percent">
+                    {{ getProgresoEntero(solicitud.tramite.progreso) }}%
+                  </p>
+                  <div class="progress-bar">
+                    <div
+                      class="progress"
+                      [style.width.%]="getProgresoEntero(solicitud.tramite.progreso)"
+                      [ngClass]="
+                        getProgressClass(getProgresoEntero(solicitud.tramite.progreso))
+                      "
+                    ></div>
+                  </div>
+                  <p>{{ solicitud.tramite.fechaRadicacion }}</p>
+                </td>
+              </ng-container>
+            </tr>
+          </table>
+        </ng-container>
+      </div>
+
+      <!-- Table for international procedures -->
+      <div class="ContenedorPendientes">
+        <div class="TituloTabla">
+          <h2>Tramites Sanitarios Internacionales</h2>
+          <button
+            href="#"
+            (click)="toggleTabla2(); $event.preventDefault()"
+            class="Desplegar"
+          >
+            <img src="images/Desplegar.png" class="Desplegable" />
+          </button>
+        </div>
+        <ng-container class="pendientes" *ngIf="mostrarTabla2">
+          <table>
+            <tr *ngFor="let solicitud of solicitudes">
+              <ng-container *ngIf="solicitud.tramite.tipoTramite == 'INTERNACIONAL'">
+                <td>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'APROBADO'"
+                    class="estatus hecho"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'RECHAZADO'"
+                    class="estatus rechazado"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'PENDIENTE'"
+                    class="estatus pendiente"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'EN_REVISION'"
+                    class="estatus pendiente"
+                  ></i>
+                </td>
+                <td>
+                  <div class="registro">
+                    <a href="/info-tramite">{{ solicitud.tramite.numeroRadicado }}</a>
+                    <div class="EstadoText">
+                      <h2>{{ solicitud.tramite.estado }}</h2>
+                    </div>
+                  </div>
+                  <p class="progress-percent">
+                    {{ getProgresoEntero(solicitud.tramite.progreso) }}%
+                  </p>
+                  <div class="progress-bar">
+                    <div
+                      class="progress"
+                      [style.width.%]="getProgresoEntero(solicitud.tramite.progreso)"
+                      [ngClass]="
+                        getProgressClass(getProgresoEntero(solicitud.tramite.progreso))
+                      "
+                    ></div>
+                  </div>
+                  <p>{{ solicitud.tramite.fechaRadicacion }}</p>
+                </td>
+              </ng-container>
+            </tr>
+          </table>
+        </ng-container>
+      </div>
     </div>
-</div>
+  </div>
+</app-solicitante-layout>
