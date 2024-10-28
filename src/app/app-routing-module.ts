@@ -114,12 +114,6 @@ const routes: Routes = [
   },
   {
     path: 'estadisticas',
-    component: EstadisticasComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.Admin] },
-  },
-  {
-    path: 'prueba',
     component: EstadisticaComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Admin] },
