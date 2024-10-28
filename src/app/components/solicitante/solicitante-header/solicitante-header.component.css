@@ -1,5 +1,4 @@
 .dropbtn {
-  margin: 8px;
   height: 40px;
   width: 40px;
   padding: 0;
@@ -8,14 +7,24 @@ img {
   width: 25px;
 }
 
-.title {
+.header {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 /* Contenedor del menú desplegable */
 .dropdown {
   position: relative; /* Posición relativa para alinear el contenido */
   display: inline-block; /* Alinea el contenedor en línea */
+  max-width: 40px;
 }
 
 /* Contenido del menú desplegable */
@@ -53,7 +62,7 @@ img {
 
 /**/
 
-.title {
+.header {
   background-color: #a3b6e6;
   display: flex;
   justify-content: space-between;
@@ -62,7 +71,7 @@ img {
 
 .title h1 {
   font-size: 37px;
-  margin-left: 70px;
+  margin-left: 1rem;
   color: #ffffff;
 }
 
@@ -74,11 +83,13 @@ img {
   align-items: center;
   padding-top: 15px;
   padding-bottom: 15px;
+  width: min-content;
+  position: relative;
 }
 
 input#search-bar {
   margin: 0 auto;
-  width: 800px;
+  width: 720px;
   height: 40px;
   padding: 0 20px;
   font-size: 1rem;
@@ -103,15 +114,18 @@ input#search-bar {
     }
   }
 }
-.icons img {
-  margin-right: 20px;
+.icons {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
 }
 .search-icon {
-  position: relative;
+  position: absolute;
   float: right;
-  width: 75px;
-  height: 75px;
-  right: 60px;
+  width: 60px;
+  height: 60px;
+  right: 0;
+  top: 0;
 }
 
 .icono {
