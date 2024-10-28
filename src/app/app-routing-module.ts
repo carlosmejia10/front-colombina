@@ -23,6 +23,7 @@ import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notifica
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
+import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -130,6 +131,10 @@ const routes: Routes = [
   {
     path:`revision`,
     component: DocumentoEscogidoComponent
+  },
+  {
+    path:`perfil`,
+    component: PerfilComponent
   }
 ];
 
