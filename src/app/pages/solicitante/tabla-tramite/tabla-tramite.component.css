@@ -22,10 +22,8 @@
 }
 .tablas{
   display: flex;
-  width: 1200px;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
-  background-color: #D4DDE7;
 }
 .TituloTabla h2{
   color: white;

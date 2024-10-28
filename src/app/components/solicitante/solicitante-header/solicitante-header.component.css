@@ -2,17 +2,15 @@
   margin: 8px;
   height: 40px;
   width: 40px;
-  padding: 0  ;
+  padding: 0;
 }
-img{
+img {
   width: 25px;
-
 }
 
-.title{
+.title {
   width: 100%;
 }
-
 
 /* Contenedor del menú desplegable */
 .dropdown {
@@ -24,12 +22,12 @@ img{
 .dropdown-content {
   display: none; /* Oculta el contenido por defecto */
   position: absolute; /* Posiciona el contenido de forma absoluta */
-  background-color: #D7D7D7; /* Color de fondo del menú */
+  background-color: #d7d7d7; /* Color de fondo del menú */
   min-width: 160px; /* Ancho mínimo del menú */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Sombra del menú */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Sombra del menú */
   z-index: 1; /* Asegura que el menú se muestre sobre otros elementos */
 }
-.Cajaa{
+.Cajaa {
   background-color: white;
   margin: 5px;
   border-radius: 4px;
@@ -53,11 +51,10 @@ img{
   display: block; /* Muestra el contenido */
 }
 
-
 /**/
 
 .title {
-  background-color: #A3B6E6;
+  background-color: #a3b6e6;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,48 +66,47 @@ img{
   color: #ffffff;
 }
 
-
-
 /*****/
 
-.search-container{
+.search-container {
   height: 60px;
   display: flex;
   align-items: center;
   padding-top: 15px;
+  padding-bottom: 15px;
 }
 
-input#search-bar{
+input#search-bar {
   margin: 0 auto;
   width: 800px;
   height: 40px;
   padding: 0 20px;
   font-size: 1rem;
-  border: 1px solid #D0CFCE;
+  border: 1px solid #d0cfce;
   border-radius: 20px;
   outline: none;
-  &:focus{
-     border: 1px solid #008ABF;
-     transition: 0.35s ease;
-     color: #008ABF;
-     &::-webkit-input-placeholder{
-       transition: opacity 0.45s ease;
-         opacity: 0;
-      }
-     &::-moz-placeholder {
-       transition: opacity 0.45s ease;
-         opacity: 0;
-      }
-     &:-ms-placeholder {
+  &:focus {
+    border: 1px solid #008abf;
+    transition: 0.35s ease;
+    color: #008abf;
+    &::-webkit-input-placeholder {
       transition: opacity 0.45s ease;
-        opacity: 0;
-      }
+      opacity: 0;
+    }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &:-ms-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
   }
 }
 .icons img {
   margin-right: 20px;
 }
-.search-icon{
+.search-icon {
   position: relative;
   float: right;
   width: 75px;
@@ -118,6 +114,44 @@ input#search-bar{
   right: 60px;
 }
 
-.icono{
+.icono {
   width: 40px;
+}
+
+/*****/
+/*Implementacion perfil*/
+/* Estilo para el contenedor del menú desplegable de perfil */
+.dropdown-content-alt {
+  display: none; /* Oculta el contenido por defecto */
+  position: absolute; /* Posiciona el contenido de forma absoluta */
+  background-color: #d7d7d7; /* Color de fondo del menú */
+  min-width: 60px; /* Ancho mínimo del menú */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Sombra del menú */
+  z-index: 1; /* Asegura que el menú se muestre sobre otros elementos */
+  right: 0;
+  transform: translateX(-20px);
+  border-radius: 10px;
+}
+.Cajaa {
+  background-color: white;
+  margin: 5px;
+  border-radius: 8px;
+}
+/* Estilo para los enlaces dentro del menú */
+.dropdown-content-alt a {
+  margin: 5px;
+  color: black; /* Color del texto */
+  padding: 12px 16px; /* Espaciado interno */
+  text-decoration: none; /* Quita el subrayado */
+  display: block; /* Alinea los enlaces en bloque */
+}
+
+/* Estilo para los enlaces cuando se pasa el cursor sobre ellos */
+.Cajaa:hover {
+  background-color: #f1f1f1; /* Color de fondo al pasar el cursor */
+}
+
+/* Muestra el contenido del menú cuando el botón se pasa sobre él */
+.dropdown:hover .dropdown-content-alt {
+  display: block; /* Muestra el contenido */
 }
