@@ -25,6 +25,7 @@ import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/rev
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 import {ConceptoSatisfactorioComponent} from "@/app/concepto-satisfactorio/concepto-satisfactorio.component";
+import {NotificationsComponent} from "@/app/pages/shared/notifications/notifications.component";
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
