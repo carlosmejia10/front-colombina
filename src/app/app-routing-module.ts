@@ -35,6 +35,7 @@ const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante] },
   },
+  {path: 'notificaciones', component: NotificationsComponent},
   {
     path: 'tabla-tramite',
     component: TablaTramiteComponent,
