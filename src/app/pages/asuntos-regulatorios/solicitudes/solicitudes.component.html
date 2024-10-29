@@ -1,4 +1,4 @@
-<app-solicitante-layout>
+<app-ar-layout>
   <div class="main-content">
     <div class="tablas">
       <div class="ContenedorPendientes">
@@ -50,19 +50,18 @@
 
 
         <!-- Tabla de resultados si hay coincidencias -->
+        <!-- tabla-tramite.component.html -->
         <ng-container class="pendientes" *ngIf="filteredSolicitudes.length > 0 && mostrarTabla1">
           <table>
-            <tr *ngFor="let solicitud of filteredSolicitudes">
+            <tr *ngFor="let solicitud of filteredSolicitudes" (click)="goToTramiteInfo(solicitud.tramite.id)" style="cursor: pointer;">
               <ng-container *ngIf="solicitud.tramite?.tipoTramite">
                 <td>
-                  <!-- Estado del trámite -->
                   <i *ngIf="solicitud.tramite.estado === 'APROBADO'" class="estatus hecho"></i>
                   <i *ngIf="solicitud.tramite.estado === 'RECHAZADO'" class="estatus rechazado"></i>
                   <i *ngIf="solicitud.tramite.estado === 'PENDIENTE'" class="estatus pendiente"></i>
                   <i *ngIf="solicitud.tramite.estado === 'EN_REVISION'" class="estatus pendiente"></i>
                 </td>
                 <td>
-                  <!-- Primer nivel de información -->
                   <div class="registro">
                     <span>{{ solicitud.tramite.numeroRadicado }}</span>
                     <span>Nombre producto: {{ solicitud.tramite.nombreProducto }}</span>
@@ -70,19 +69,16 @@
                     <span>Tipo trámite: {{ solicitud.tramite.tipoTramite }}</span>
                     <span>Estado trámite: {{ solicitud.tramite.estado }}</span>
                   </div>
-
-                  <!-- Segundo nivel de información -->
                   <div class="detalle">
-                    <div class="detalle-nombre">
-                      <span class="nombre">Solicitante: {{ nombreSolicitante }}</span>
+                    <div class="detalle-nombre" style="display: flex; gap: 1rem;">
+                      <span class="nombre">Solicitante: {{ solicitud.solicitante.nombre }}</span>
+                      <p class="nombre">{{ solicitud.tramite.etapa }}</p>
                     </div>
                     <div class="detalle-fechas">
                       <span class="fecha">Fecha inicio: {{ solicitud.fechaSolicitud | date: 'dd/MM/yyyy' }}</span>
                       <span class="fecha">Fecha fin: {{ getFechaAproxFin(solicitud.fechaSolicitud) | date: 'dd/MM/yyyy' }}</span>
                     </div>
                   </div>
-
-                  <!-- Barra de progreso y porcentaje -->
                   <div class="progreso-contenedor">
                     <p class="progress-percent">{{ getProgresoEntero(solicitud.tramite.progreso) }}%</p>
                     <div class="progress-bar">
@@ -98,7 +94,8 @@
             </tr>
           </table>
         </ng-container>
+
       </div>
     </div>
   </div>
-</app-solicitante-layout>
+</app-ar-layout>

@@ -6,7 +6,6 @@ import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.comp
 import { CalendarioComponent } from './pages/asuntos-regulatorios/calendario/calendario.component';
 import { ConfirmacionComponent } from './pages/solicitante/confirmacion/confirmacion.component';
 import { CrearTramiteComponent } from './pages/solicitante/crear-tramite/crear-tramite.component';
-import { EstadisticasComponent } from './pages/admin/estadisticas/estadisticas.component';
 import { HistorialComponent } from './pages/solicitante/historial/historial.component';
 import { InfoTramiteComponent } from './pages/solicitante/info-tramite/info-tramite.component';
 import { LoginComponent } from './pages/shared/login/login.component';
@@ -24,11 +23,12 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
+import { ConceptoSatisfactorioComponent } from '@/app/concepto-satisfactorio/concepto-satisfactorio.component';
+import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import {NotificationsComponent} from "@/app/pages/shared/notifications/notifications.component";
 import {AprobacionInvimaComponent} from "@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component";
 import {AprobacionResolucionSolicitanteComponent} from "@/app/pages/asuntos-regulatorios/aprobacion-resolucion-solicitante/aprobacion-resolucion-solicitante.component";
-import {
-  AutorequerimientoComponent
+import {AutorequerimientoComponent
 } from "@/app/pages/asuntos-regulatorios/autorequerimiento/autorequerimiento.component";
 
 
@@ -41,7 +41,7 @@ const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante] },
   },
-  {path: 'notificaciones', component: NotificationsComponent},
+  { path: 'notificaciones', component: NotificationsComponent },
   {
     path: 'tabla-tramite',
     component: TablaTramiteComponent,
@@ -127,24 +127,26 @@ const routes: Routes = [
     data: { roles: [Role.Admin] },
   },
   {
-    path: 'documentos/:id',
-    component: RevisionDocumentacionComponent
+    path: 'documentos/:numeroRadicado',
+    component: RevisionDocumentacionComponent,
   },
   {
-    path:`revision`,
-    component: DocumentoEscogidoComponent
+    path: `revision`,
+    component: DocumentoEscogidoComponent,
   },
   {
-    path:`perfil`,
+    path: `perfil`,
     component: PerfilComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] }, //Usuario no logueado no puede acceder
   },
-
   {
-    path:`aprobacion-invima/:id`,
-    component: AprobacionInvimaComponent
+    path: `aprobacion-invima/:numeroRadicado`,
+    component: AprobacionInvimaComponent,
   },
+  {
+    path: 'concepto-satisfactorio-solicitante/:numeroRadicado',
+    component: ConceptoSatisfactorioComponent,
 
   {
     path: 'aprobacion-resolucion-solicitante/:id',
@@ -152,11 +154,13 @@ const routes: Routes = [
   },
 
   {
-    path: 'autorequerimiento/:id',
+    path: 'autorequerimiento/:numeroRadicado',
     component: AutorequerimientoComponent
   },
-
-
+  {
+    path: 'apertura-tramite/:numeroRadicado',
+    component: AperturaTramiteComponent,
+  },
 ];
 
 @NgModule({
