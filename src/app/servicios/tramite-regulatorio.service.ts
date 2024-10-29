@@ -9,30 +9,32 @@ import { BASE_URL } from '../config/environment/urls';
   providedIn: 'root',
 })
 export class TramiteService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  findAll(): Observable<TramiteDTO[]> {
-    const token = this.authService.getToken(); // Obtener el token desde localStorage
-    const headers = new HttpHeaders({
+  private headers: HttpHeaders;
+  constructor(private http: HttpClient, private authService: AuthService) {
+    const token = this.authService.getToken();
+    this.headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<TramiteDTO[]>(`${BASE_URL}/tramites/todos`, {
-      headers,
     });
   }
 
-  /*findById(id:number):Observable<Tramite>{
-        return this.http.get<Tramite> ("http.//localhost:8090/api/tramites"+id);
-    }
+  findAll(): Observable<TramiteDTO[]> {
+    return this.http.get<TramiteDTO[]>(`${BASE_URL}/tramites/todos`, {headers: this.headers});
+  }
 
-    addTramite(tramite:Tramite){
-        this.http.post("http.//localhost:8090/api/tramites",tramite).subscribe;
-    }
+  findById(id: number): Observable<TramiteDTO> {
+    return this.http.get<TramiteDTO>(`${BASE_URL}/tramites/${id}`, { headers: this.headers });
+  }
 
-    updateTramite(tramite:Tramite){
-        this.http.put("http.//localhost:8090/api/tramites/update",tramite).subscribe;
-    }
-    escalarTramite(idTramite: number): Observable<any> {
-        return this.http.post(`${this.baseUrl}/${idTramite}/escalar`, {});
-    }*/
+
+  addTramite(tramite:TramiteDTO){
+    this.http.post("http.//localhost:8090/api/tramites",tramite).subscribe;
+  }
+
+  updateTramite(tramite:TramiteDTO){
+    this.http.put("http.//localhost:8090/api/tramites/update",tramite).subscribe;
+  }
+  escalarTramite(idTramite: number): Observable<any> {
+    return this.http.post(`${BASE_URL}/${idTramite}/escalar`, {});
+  }
 }

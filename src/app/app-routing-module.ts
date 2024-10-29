@@ -43,10 +43,10 @@ const routes: Routes = [
     data: { roles: [Role.Solitante] },
   },
   {
-    path: 'info-tramite',
+    path: 'info-tramite/:id',
     component: InfoTramiteComponent,
     canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.Solitante] },
+    data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] },
   },
   {
     path: 'historial',
