@@ -5,6 +5,8 @@ import { EstadoTramite, Tramite } from '@/app/modelos/tramite';
 import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
+import {SolicitudDTO} from "@/app/modelos/solicitud.dto";
+import {SolicitudDEIService} from "@/app/servicios/solicitud-dei.service";
 
 @Component({
   selector: 'app-solicitudes',
@@ -12,124 +14,34 @@ import { Component } from '@angular/core';
   styleUrl: './solicitudes.component.css'
 })
 export class SolicitudesComponent {
-  constructor(private tramiteService: TramiteService) {}
+  solicitudes: SolicitudDTO[] = [];
+  filteredSolicitudes: SolicitudDTO[] = [];
+  nombreSolicitante!: string;
 
-  tramites!: TramiteDTO[];
-  searchTerm: string = '';
-  mostrarTabla1: boolean = true;
-  mostrarTabla2: boolean = true;
-  tramitesMostrados: TramiteDTO[] = [];
+  // Opciones y valores seleccionados para los filtros
+  tipoProductoOptions: string[] = [];
+  tipoTramiteOptions: string[] = [];
+  estadoTramiteOptions: string[] = ['EN_REVISION', 'APROBADO', 'RECHAZADO', 'PENDIENTE'];
+  selectedTipoProducto: string = '';
+  selectedTipoTramite: string = '';
+  selectedEstadoTramite: string = '';
 
-  toggleTabla() {
-    this.mostrarTabla1 = !this.mostrarTabla1;
-    console.log('Tabla 1:', this.mostrarTabla1);
-  }
+  mostrarTabla1: boolean = true; // Controla la visibilidad de la tabla
 
-  toggleTabla2() {
-    this.mostrarTabla2 = !this.mostrarTabla2;
-    console.log('Tabla 2:', this.mostrarTabla2);
-  }
+  constructor(private solicitudService: SolicitudDEIService) {}
 
   ngOnInit(): void {
-    // //Cargar datos de prueba
-    // this.tramites = [
-    //   new Tramite(
-    //     1,
-    //     'AR-0001-2024',
-    //     EstadoTramite.APROBADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-25'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'A'),
-    //     'A'
-    //   ),
-    //   new Tramite(
-    //     2,
-    //     'AR-0002-2024',
-    //     EstadoTramite.PENDIENTE,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-18'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'A'),
-    //     'A'
-    //   ),
-    //   new Tramite(
-    //     3,
-    //     'AR-0003-2024',
-    //     EstadoTramite.RECHAZADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-26'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'A'),
-    //     'A'
-    //   ),
-    //   new Tramite(
-    //     4,
-    //     'AR-0004-2024',
-    //     EstadoTramite.RECHAZADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-21'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'B'),
-    //     'B'
-    //   ),
-    //   new Tramite(
-    //     5,
-    //     'AR-0005-2024',
-    //     EstadoTramite.APROBADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-20'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'B'),
-    //     'B'
-    //   ),
-    //   new Tramite(
-    //     6,
-    //     'AR-0006-2024',
-    //     EstadoTramite.APROBADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-23'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'B'),
-    //     'B'
-    //   )
-    // ];
-    // // Inicializar tramitesMostrados con todos los trámites al inicio
-    // this.tramitesMostrados = [...this.tramites];
-
     this.getTramites();
+    this.getNombreSolicitante();
   }
 
+  // Obtener la lista de trámites
   getTramites(): void {
-    this.tramiteService.findAll().subscribe(
-      (data: TramiteDTO[]) => {
-        this.tramites = data;
-        this.tramitesMostrados = [...this.tramites];
-        console.log(this.tramitesMostrados);
+    this.solicitudService.findAll().subscribe(
+      (data: SolicitudDTO[]) => {
+        this.solicitudes = data;
+        this.filteredSolicitudes = data;
+        this.setFilterOptions();
       },
       (error) => {
         console.error('Error al obtener los trámites:', error);
@@ -137,13 +49,55 @@ export class SolicitudesComponent {
     );
   }
 
+  // Establece las opciones únicas para los filtros de tipo producto y tipo trámite
+  setFilterOptions(): void {
+    this.tipoProductoOptions = [...new Set(this.solicitudes.map(s => s.tramite.tipoProducto))];
+    this.tipoTramiteOptions = [...new Set(this.solicitudes.map(s => s.tramite.tipoTramite))];
+  }
+
+  // Método para filtrar la lista de trámites en función de los filtros seleccionados
+  filterTramites(): void {
+    this.filteredSolicitudes = this.solicitudes.filter(solicitud => {
+      const matchTipoProducto = this.selectedTipoProducto ? solicitud.tramite.tipoProducto === this.selectedTipoProducto : true;
+      const matchTipoTramite = this.selectedTipoTramite ? solicitud.tramite.tipoTramite === this.selectedTipoTramite : true;
+      const matchEstadoTramite = this.selectedEstadoTramite ? solicitud.tramite.estado === this.selectedEstadoTramite : true;
+      return matchTipoProducto && matchTipoTramite && matchEstadoTramite;
+    });
+  }
+
+  getNombreSolicitante(): void {
+    this.nombreSolicitante = 'Nombre del solicitante quemado';
+  }
+
+  toggleTabla(): void {
+    this.mostrarTabla1 = !this.mostrarTabla1;
+  }
+
+  getProgresoEntero(progreso: number): number {
+    return Math.round(progreso * 100);
+  }
+
   getProgressClass(progreso: number): string {
     if (progreso >= 75) {
-      return 'progress-success'; // Color para progreso alto
+      return 'progress-success';
     } else if (progreso >= 50) {
-      return 'progress-warning'; // Color para progreso medio
+      return 'progress-warning';
     } else {
-      return 'progress-danger'; // Color para bajo progreso
+      return 'progress-danger';
     }
+  }
+
+  getFechaAproxFin(fechaInicio: Date): Date {
+    const fecha = new Date(fechaInicio);
+    fecha.setMonth(fecha.getMonth() + 1);
+    return fecha;
+  }
+
+  isOnlyEstadoActive(): boolean {
+    return (
+      this.selectedEstadoTramite && // El estado está seleccionado
+      !this.selectedTipoProducto && // No hay tipo de producto seleccionado
+      !this.selectedTipoTramite // No hay tipo de trámite seleccionado
+    );
   }
 }
