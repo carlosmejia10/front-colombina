@@ -22,25 +22,20 @@ export class AprobacionResolucionSolicitanteComponent {
   }
 
   obtenerUltimoComentarioSolicitante() {
-    // Inicializar variables para almacenar el comentario más reciente
     let ultimoComentarioEncontrado: string | null = null;
     let ultimaFecha = new Date(0); // Fecha inicial antigua para comparar
 
-    // Recorrer cada historial de cambio del trámite
     this.tramite.historialCambioDTOList.forEach(cambio => {
-      // Recorrer los comentarios dentro del historial y verificar el solicitante
       cambio.comentarios.forEach(comentario => {
         if (comentario.idUsuarioOrigen === this.tramite.solicitanteId && cambio.fechaCambio > ultimaFecha) {
-          ultimaFecha = cambio.fechaCambio; // Actualizar la fecha más reciente
-          ultimoComentarioEncontrado = comentario.comentario; // Guardar el comentario
+          ultimaFecha = cambio.fechaCambio;
+          ultimoComentarioEncontrado = comentario.comentario;
         }
       });
     });
 
-    // Asignar el último comentario encontrado o un mensaje predeterminado si no hay comentarios
     this.ultimoComentario = ultimoComentarioEncontrado || "No hay comentarios disponibles para este solicitante.";
   }
-
 
   aprobarReclamacion() {
     this.tramite.estado = "APROBADO";

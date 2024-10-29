@@ -11,6 +11,7 @@ export class TramiteDTO {
     fechaRadicacion: Date;
     progreso: number;
     llave: number;
+    solicitanteId: number;
     entidadSanitariaId: number;
     etapa: string;
     historialCambioDTOList: HistorialCambioDTO[];
