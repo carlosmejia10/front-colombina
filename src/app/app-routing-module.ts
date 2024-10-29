@@ -24,6 +24,10 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
+import {ConceptoSatisfactorioComponent} from "@/app/concepto-satisfactorio/concepto-satisfactorio.component";
+import {NotificationsComponent} from "@/app/pages/shared/notifications/notifications.component";
+import {AprobacionInvimaComponent} from "@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component";
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,6 +38,7 @@ const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante] },
   },
+  {path: 'notificaciones', component: NotificationsComponent},
   {
     path: 'tabla-tramite',
     component: TablaTramiteComponent,
@@ -119,7 +124,7 @@ const routes: Routes = [
     data: { roles: [Role.Admin] },
   },
   {
-    path: 'documentos',
+    path: 'documentos/:numeroRadicado',
     component: RevisionDocumentacionComponent
   },
   {
@@ -131,7 +136,18 @@ const routes: Routes = [
     component: PerfilComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] }, //Usuario no logueado no puede acceder
-  }
+  },
+
+  {
+    path:`aprobacion-invima/:numeroRadicado`,
+    component: AprobacionInvimaComponent
+  },
+
+  { path: 'concepto-satisfactorio-solicitante/:numeroRadicado',
+    component: ConceptoSatisfactorioComponent
+  },
+
+
 ];
 
 @NgModule({
