@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from "@/app/servicios/file.service";
-import { DocumentoDTO } from "@/app/modelos/DocumentoDTO";
-import { EntidadSanitariaService } from "@/app/servicios/entidad-sanitaria.service";
+import { FileService } from '@/app/servicios/file.service';
+import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
+import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
 import { SolicitudDEIService } from '@/app/servicios/solicitud-dei.service';
-import { EntidadSanitaria } from "@/app/modelos/entidad-sanitaria";
-import { SolicitudDTO } from "@/app/modelos/solicitud.dto";
-import { TramiteDTO } from "@/app/modelos/tramite.dto";
-import {RequestTramiteSolicitudDTO} from "@/app/modelos/RequestTramiteSolicitudDTO";
+import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
+import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
+import { TramiteDTO } from '@/app/modelos/tramite.dto';
+import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitudDTO';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-crear-tramite',
   templateUrl: './crear-tramite.component.html',
-  styleUrls: ['./crear-tramite.component.css']
+  styleUrls: ['./crear-tramite.component.css'],
 })
 export class CrearTramiteComponent implements OnInit {
   // Opciones para los selectores
@@ -36,14 +37,14 @@ export class CrearTramiteComponent implements OnInit {
     formatoInterno: null,
     certificadoAnalisis: null,
     certificadoAditivos: null,
-    archivosAdicionales: []
+    archivosAdicionales: [],
   };
   selectedFiles: { [key: string]: File | File[] | null } = {
     fichaTecnica: null,
     formatoInterno: null,
     certificadoAnalisis: null,
     certificadoAditivos: null,
-    archivosAdicionales: []
+    archivosAdicionales: [],
   };
 
   // Mapa para manejar mensajes de error
@@ -56,7 +57,7 @@ export class CrearTramiteComponent implements OnInit {
     fichaTecnica: null,
     formatoInterno: null,
     certificadoAnalisis: null,
-    certificadoAditivos: null
+    certificadoAditivos: null,
   };
 
   constructor(
@@ -70,18 +71,22 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   cargarEntidadesSanitarias() {
-    this.entidadSanitariaService.findAll().subscribe((entidades: EntidadSanitaria[]) => {
-      this.listaPaises = entidades
-        .map(entidad => entidad.pais)
-        .filter(pais => pais !== 'Colombia')
-        .filter((pais, index, self) => self.indexOf(pais) === index);
+    this.entidadSanitariaService
+      .findAll()
+      .subscribe((entidades: EntidadSanitaria[]) => {
+        this.listaPaises = entidades
+          .map((entidad) => entidad.pais)
+          .filter((pais) => pais !== 'Colombia')
+          .filter((pais, index, self) => self.indexOf(pais) === index);
 
-      // Encontrar la entidad sanitaria para el país seleccionado
-      const entidadSeleccionada = entidades.find(entidad => entidad.pais === this.pais);
-      if (entidadSeleccionada) {
-        this.entidadSanitariaId = entidadSeleccionada.id;
-      }
-    });
+        // Encontrar la entidad sanitaria para el país seleccionado
+        const entidadSeleccionada = entidades.find(
+          (entidad) => entidad.pais === this.pais
+        );
+        if (entidadSeleccionada) {
+          this.entidadSanitariaId = entidadSeleccionada.id;
+        }
+      });
   }
 
   onTipoTramiteChange(tipoTramite: string) {
@@ -95,32 +100,53 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.crearSolicitudYTramite();
-    this.enviarArchivos();
-  }
-
-  enviarArchivos(): void {
     this.resetErrorMessages();
 
     // Validación de campos requeridos
-    if (!this.tipoTramiteSeleccionado) this.errorMessages.tipoTramite = 'Por favor seleccione el tipo de trámite';
-    if (!this.nombreProducto) this.errorMessages.nombreProducto = 'Por favor ingrese el nombre del producto';
-    if (!this.descripcionProducto) this.errorMessages.descripcionProducto = 'Por favor ingrese la descripción del producto';
+    if (!this.tipoTramiteSeleccionado)
+      this.errorMessages.tipoTramite =
+        'Por favor seleccione el tipo de trámite';
+    if (!this.nombreProducto)
+      this.errorMessages.nombreProducto =
+        'Por favor ingrese el nombre del producto';
+    if (!this.descripcionProducto)
+      this.errorMessages.descripcionProducto =
+        'Por favor ingrese la descripción del producto';
     if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
-    if (!this.tipoProductoSeleccionado) this.errorMessages.tipoProducto = 'Por favor seleccione el tipo de producto';
-    if (!this.fileNames.fichaTecnica) this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
-    if (!this.fileNames.formatoInterno) this.errorMessages.formatoInterno = 'Por favor adjunte el formato interno';
-    if (!this.fileNames.certificadoAnalisis) this.errorMessages.certificadoAnalisis = 'Por favor adjunte el certificado de análisis';
-    if (!this.fileNames.certificadoAditivos) this.errorMessages.certificadoAditivos = 'Por favor adjunte el certificado de aditivos';
+    if (!this.tipoProductoSeleccionado)
+      this.errorMessages.tipoProducto =
+        'Por favor seleccione el tipo de producto';
+    if (!this.fileNames.fichaTecnica)
+      this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
+    if (!this.fileNames.formatoInterno)
+      this.errorMessages.formatoInterno =
+        'Por favor adjunte el formato interno';
+    if (!this.fileNames.certificadoAnalisis)
+      this.errorMessages.certificadoAnalisis =
+        'Por favor adjunte el certificado de análisis';
+    if (!this.fileNames.certificadoAditivos)
+      this.errorMessages.certificadoAditivos =
+        'Por favor adjunte el certificado de aditivos';
 
-    const formIsValid = Object.values(this.errorMessages).every(error => !error);
+    const formIsValid = Object.values(this.errorMessages).every((error) => {
+      console.log('Error:', error);
+      return !error;
+    });
     if (!formIsValid) {
       alert('Por favor complete todos los campos obligatorios.');
       return;
     }
 
+    this.crearSolicitudYTramite().subscribe((solicitud) => {
+      console.log('Solicitud creada:', solicitud);
+      this.idTramite = solicitud.tramite?.llave || 0;
+      this.enviarArchivos();
+    });
+  }
+
+  enviarArchivos(): void {
     // Código existente para subir archivos si el formulario es válido
-    Object.keys(this.selectedFiles).forEach(tipoArchivo => {
+    Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
       if (tipoArchivo !== 'archivosAdicionales') {
         const selectedFile = this.selectedFiles[tipoArchivo] as File;
         if (selectedFile) {
@@ -129,34 +155,39 @@ export class CrearTramiteComponent implements OnInit {
       }
     });
 
-    const archivosAdicionales = this.selectedFiles['archivosAdicionales'] as File[];
+    const archivosAdicionales = this.selectedFiles[
+      'archivosAdicionales'
+    ] as File[];
     archivosAdicionales.forEach((file, index) => {
       this.subirArchivoIndividual(file, `archivosAdicionales-${index + 1}`);
     });
   }
 
   // Método para crear la solicitud y el trámite
-  crearSolicitudYTramite(): void {
+  crearSolicitudYTramite(): Observable<SolicitudDTO> {
     console.log('Creando solicitud y trámite...ts');
     // Validamos los campos requeridos
-    if (!this.nombreProducto || !this.descripcionProducto || !this.tipoProductoSeleccionado || !this.tipoTramiteSeleccionado || !this.entidadSanitariaId) {
+    if (
+      !this.nombreProducto ||
+      !this.descripcionProducto ||
+      !this.tipoProductoSeleccionado ||
+      !this.tipoTramiteSeleccionado ||
+      !this.entidadSanitariaId
+    ) {
       alert('Por favor complete todos los campos obligatorios.');
       return;
     }
 
     // Crear TramiteDTO
     const tramite = new TramiteDTO(
-      0, // El backend generará el ID
-      '', // numeroRadicado, se generará en el backend
       this.nombreProducto,
       this.descripcionProducto,
       this.tipoProductoSeleccionado,
       this.tipoTramiteSeleccionado,
       'PENDIENTE', // estado inicial
       new Date(), // fecha de radicación
-      0, // progreso inicial
+      2, // progreso inicial
       0, // llave (sin valor inicial, el backend debería generarlo)
-      1, // solicitanteId, quemado temporalmente
       this.entidadSanitariaId,
       [] // historial de cambios vacío inicialmente
     );
@@ -164,8 +195,7 @@ export class CrearTramiteComponent implements OnInit {
     // Crear SolicitudDTO
     const solicitud = new SolicitudDTO(
       0, // El backend generará el ID de solicitud
-      new Date(), // fecha actual como fecha de solicitud
-      tramite // asociar el trámite a la solicitud
+      new Date() // fecha actual como fecha de solicitud
     );
 
     // Crear el RequestTramiteSolicitudDTO
@@ -173,21 +203,12 @@ export class CrearTramiteComponent implements OnInit {
 
     // Llamar al servicio para crear la solicitud con trámite
     console.log('Antes de mandar a servicio:', request);
-    this.solicitudDEIService.crearSolicitudConTramite(request).subscribe({
-      next: (nuevaSolicitud) => {
-        alert('Solicitud y trámite creados exitosamente.');
-        console.log('Solicitud creada:', nuevaSolicitud);
-      },
-      error: (err) => {
-        console.error('Error al crear la solicitud:', err);
-        alert('Ocurrió un error al crear la solicitud.');
-      }
-    });
+    return this.solicitudDEIService.crearSolicitudConTramite(request)
   }
 
   // Método para restablecer mensajes de error
   private resetErrorMessages(): void {
-    Object.keys(this.errorMessages).forEach(key => {
+    Object.keys(this.errorMessages).forEach((key) => {
       this.errorMessages[key] = null;
     });
   }
@@ -239,7 +260,9 @@ export class CrearTramiteComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFiles[tipoArchivo] = Array.from(input.files);
-      this.fileNames[tipoArchivo] = Array.from(input.files).map(file => file.name);
+      this.fileNames[tipoArchivo] = Array.from(input.files).map(
+        (file) => file.name
+      );
     }
   }
 
@@ -252,7 +275,7 @@ export class CrearTramiteComponent implements OnInit {
     if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
       const files = Array.from(event.dataTransfer.files);
       this.selectedFiles[tipoArchivo] = files;
-      this.fileNames[tipoArchivo] = files.map(file => file.name);
+      this.fileNames[tipoArchivo] = files.map((file) => file.name);
       event.dataTransfer.clearData();
     }
   }
@@ -265,8 +288,12 @@ export class CrearTramiteComponent implements OnInit {
 
   // Método para eliminar un archivo específico de "Archivos Adicionales"
   removeAdditionalFile(index: number): void {
-    const archivosAdicionales = this.selectedFiles['archivosAdicionales'] as File[];
-    const nombresAdicionales = this.fileNames['archivosAdicionales'] as string[];
+    const archivosAdicionales = this.selectedFiles[
+      'archivosAdicionales'
+    ] as File[];
+    const nombresAdicionales = this.fileNames[
+      'archivosAdicionales'
+    ] as string[];
     if (archivosAdicionales && nombresAdicionales) {
       archivosAdicionales.splice(index, 1);
       nombresAdicionales.splice(index, 1);
@@ -280,19 +307,14 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   private subirArchivoIndividual(file: File, tipoArchivo: string): void {
-    const documentoDTO = new DocumentoDTO(
-      false,
-      false,
-      file.name,
-      file
-    );
+    const documentoDTO = new DocumentoDTO(false, false, file.name, file);
 
     this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
-      response => {
+      (response) => {
         console.log(`Archivo ${tipoArchivo} subido con éxito`, response);
         alert(`Archivo ${tipoArchivo} subido con éxito`);
       },
-      error => {
+      (error) => {
         console.error(`Error al subir el archivo ${tipoArchivo}`, error);
         alert(`Error al subir el archivo ${tipoArchivo}`);
       }
