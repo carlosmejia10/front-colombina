@@ -5,6 +5,7 @@ import { EstadoTramite, Tramite } from '@/app/modelos/tramite';
 import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitudes',
@@ -12,7 +13,7 @@ import { Component } from '@angular/core';
   styleUrl: './solicitudes.component.css'
 })
 export class SolicitudesComponent {
-  constructor(private tramiteService: TramiteService) {}
+  constructor(private router: Router,private tramiteService: TramiteService) {}
 
   tramites!: TramiteDTO[];
   searchTerm: string = '';
@@ -31,96 +32,6 @@ export class SolicitudesComponent {
   }
 
   ngOnInit(): void {
-    // //Cargar datos de prueba
-    // this.tramites = [
-    //   new Tramite(
-    //     1,
-    //     'AR-0001-2024',
-    //     EstadoTramite.APROBADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-25'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'A'),
-    //     'A'
-    //   ),
-    //   new Tramite(
-    //     2,
-    //     'AR-0002-2024',
-    //     EstadoTramite.PENDIENTE,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-18'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'A'),
-    //     'A'
-    //   ),
-    //   new Tramite(
-    //     3,
-    //     'AR-0003-2024',
-    //     EstadoTramite.RECHAZADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-26'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'A'),
-    //     'A'
-    //   ),
-    //   new Tramite(
-    //     4,
-    //     'AR-0004-2024',
-    //     EstadoTramite.RECHAZADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-21'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'B'),
-    //     'B'
-    //   ),
-    //   new Tramite(
-    //     5,
-    //     'AR-0005-2024',
-    //     EstadoTramite.APROBADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-20'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'B'),
-    //     'B'
-    //   ),
-    //   new Tramite(
-    //     6,
-    //     'AR-0006-2024',
-    //     EstadoTramite.APROBADO,
-    //     new Date('2024-10-15'),
-    //     new Date('2024-10-23'),
-    //     new EntidadSanitaria(),
-    //     [new Documento()],
-    //     [],
-    //     [],
-    //     [],
-    //     new Solicitud(1, 'Galletas', 'Comida', new Date(), 'B'),
-    //     'B'
-    //   )
-    // ];
-    // // Inicializar tramitesMostrados con todos los trámites al inicio
-    // this.tramitesMostrados = [...this.tramites];
-
     this.getTramites();
   }
 
@@ -137,6 +48,10 @@ export class SolicitudesComponent {
     );
   }
 
+getProgresoEntero(progreso: number): number {
+    return Math.round(progreso * 100);
+  }
+
   getProgressClass(progreso: number): string {
     if (progreso >= 75) {
       return 'progress-success'; // Color para progreso alto
@@ -145,5 +60,9 @@ export class SolicitudesComponent {
     } else {
       return 'progress-danger'; // Color para bajo progreso
     }
+  }
+
+  navegarADocumentos(id:number):void{
+    this.router.navigate([`/documentos/${id}`])
   }
 }

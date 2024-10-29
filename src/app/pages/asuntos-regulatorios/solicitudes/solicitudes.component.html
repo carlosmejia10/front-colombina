@@ -1,9 +1,9 @@
 <app-ar-layout>
   <div class="tablas">
+    <!-- Tabla 1: Tramites Sanitarios Nacionales -->
     <div class="ContenedorPendientes">
       <div class="TituloTabla">
         <h2>Tramites Sanitarios Nacionales</h2>
-        <!-- Botón para desplegar u ocultar la tabla -->
         <button
           (click)="toggleTabla(); $event.preventDefault()"
           class="Desplegar"
@@ -12,28 +12,15 @@
         </button>
       </div>
 
-      <!-- Tabla con visibilidad controlada por el ngIf -->
       <ng-container class="pendientes" *ngIf="mostrarTabla1">
         <table>
           <tr *ngFor="let tramite of tramites">
             <ng-container *ngIf="tramite.tipoTramite == 'NACIONAL'">
               <td>
-                <i
-                  *ngIf="tramite.estado === 'APROBADO'"
-                  class="estatus hecho"
-                ></i>
-                <i
-                  *ngIf="tramite.estado === 'RECHAZADO'"
-                  class="estatus rechazado"
-                ></i>
-                <i
-                  *ngIf="tramite.estado === 'PENDIENTE'"
-                  class="estatus pendiente"
-                ></i>
-                <i
-                  *ngIf="tramite.estado === 'EN_REVISION'"
-                  class="estatus pendiente"
-                ></i>
+                <i *ngIf="tramite.estado === 'APROBADO'" class="estatus hecho"></i>
+                <i *ngIf="tramite.estado === 'RECHAZADO'" class="estatus rechazado"></i>
+                <i *ngIf="tramite.estado === 'PENDIENTE'" class="estatus pendiente"></i>
+                <i *ngIf="tramite.estado === 'EN_REVISION'" class="estatus pendiente"></i>
               </td>
 
               <td>
@@ -47,7 +34,7 @@
                 <div class="progress-bar">
                   <div
                     class="progress"
-                    [style.width.%]="tramite.progreso"
+                    [style.width.%]="getProgresoEntero(tramite.progreso)"
                     [ngClass]="getProgressClass(tramite.progreso)"
                   ></div>
                 </div>
@@ -59,7 +46,7 @@
       </ng-container>
     </div>
 
-    <!-- Tabla 2 -->
+    <!-- Tabla 2: Tramites Sanitarios Internacionales -->
     <div class="ContenedorPendientes">
       <div class="TituloTabla">
         <h2>Tramites Sanitarios Internacionales</h2>
@@ -76,22 +63,10 @@
           <tr *ngFor="let tramite of tramites">
             <ng-container *ngIf="tramite.tipoTramite == 'INTERNACIONAL'">
               <td>
-                <i
-                  *ngIf="tramite.estado === 'APROBADO'"
-                  class="estatus hecho"
-                ></i>
-                <i
-                  *ngIf="tramite.estado === 'RECHAZADO'"
-                  class="estatus rechazado"
-                ></i>
-                <i
-                  *ngIf="tramite.estado === 'PENDIENTE'"
-                  class="estatus pendiente"
-                ></i>
-                <i
-                  *ngIf="tramite.estado === 'EN_REVISION'"
-                  class="estatus pendiente"
-                ></i>
+                <i *ngIf="tramite.estado === 'APROBADO'" class="estatus hecho"></i>
+                <i *ngIf="tramite.estado === 'RECHAZADO'" class="estatus rechazado"></i>
+                <i *ngIf="tramite.estado === 'PENDIENTE'" class="estatus pendiente"></i>
+                <i *ngIf="tramite.estado === 'EN_REVISION'" class="estatus pendiente"></i>
               </td>
 
               <td>
@@ -105,7 +80,7 @@
                 <div class="progress-bar">
                   <div
                     class="progress"
-                    [style.width.%]="tramite.progreso"
+                    [style.width.%]="getProgresoEntero(tramite.progreso)"
                     [ngClass]="getProgressClass(tramite.progreso)"
                   ></div>
                 </div>
@@ -115,6 +90,13 @@
           </tr>
         </table>
       </ng-container>
+
+      <!-- Botón para navegar a /documentos/:id -->
+      <div class="navegacion-documentos">
+        <button (click)="navegarADocumentos(1)">
+          Ver Documentos de Tramite Seleccionado
+        </button>
+      </div>
     </div>
   </div>
 </app-ar-layout>

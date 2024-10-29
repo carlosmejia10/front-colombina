@@ -119,7 +119,7 @@ const routes: Routes = [
     data: { roles: [Role.Admin] },
   },
   {
-    path: 'documentos',
+    path: 'documentos/:id',
     component: RevisionDocumentacionComponent
   },
   {
