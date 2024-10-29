@@ -143,7 +143,7 @@ input#search-bar {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Sombra del menú */
   z-index: 1; /* Asegura que el menú se muestre sobre otros elementos */
   right: 0;
-  transform: translateX(-20px);
+  transform: translateX(-5%);
   border-radius: 10px;
 }
 .Cajaa{
@@ -181,7 +181,7 @@ input#search-bar {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Sombra del menú */
   z-index: 1; /* Asegura que el menú se muestre sobre otros elementos */
   right: 0;
-  transform: translateX(-20px);
+  transform: translateX(-3%);
   border-radius: 10px;
 }
 .Cajaa {
