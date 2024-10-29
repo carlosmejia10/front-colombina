@@ -31,7 +31,7 @@ export class TablaTramiteComponent implements OnInit {
 
   // Obtener la lista de trámites
   getTramites(): void {
-    this.solicitudService.findAll().subscribe(
+    this.solicitudService.findBySolicitante().subscribe(
       (data: SolicitudDTO[]) => {
         this.solicitudes = data;
         this.filteredSolicitudes = data;

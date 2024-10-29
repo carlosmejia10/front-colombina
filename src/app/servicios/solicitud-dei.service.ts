@@ -19,8 +19,12 @@ export class SolicitudDEIService {
     });
   }
 
-  findAll(): Observable<SolicitudDTO[]> {
+  findBySolicitante(): Observable<SolicitudDTO[]> {
     return this.http.get<SolicitudDTO[]>(this.apiUrl, { headers: this.headers });
+  }
+
+  findAll(): Observable<SolicitudDTO[]> {
+    return this.http.get<SolicitudDTO[]>(this.apiUrl+"/todos", { headers: this.headers });
   }
 
   findById(id: number): Observable<SolicitudDTO> {
