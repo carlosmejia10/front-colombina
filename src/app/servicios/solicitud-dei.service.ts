@@ -1,5 +1,4 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Solicitud } from '../modelos/solicitud';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BASE_URL } from '../config/environment/urls';
@@ -20,22 +19,23 @@ export class SolicitudDEIService {
     });
   }
 
-  findAll(): Observable<SolicitudDTO[]> {
+  findBySolicitante(): Observable<SolicitudDTO[]> {
     return this.http.get<SolicitudDTO[]>(this.apiUrl, { headers: this.headers });
   }
 
-  findById(id: number): Observable<Solicitud> {
-    return this.http.get<Solicitud>(`${this.apiUrl}/${id}`);
+  findAll(): Observable<SolicitudDTO[]> {
+    return this.http.get<SolicitudDTO[]>(this.apiUrl+"/todos", { headers: this.headers });
   }
 
-  addSolicitudDEI(solicitudDEI: Solicitud): Observable<Solicitud> {
-    return this.http.post<Solicitud>(this.apiUrl + '/add', solicitudDEI);
+  findById(id: number): Observable<SolicitudDTO> {
+    return this.http.get<SolicitudDTO>(`${this.apiUrl}/${id}`, { headers: this.headers });
   }
 
-  updateSolicitudDEI(solicitudDEI: Solicitud): Observable<Solicitud> {
-    return this.http.put<Solicitud>(
-      `${this.apiUrl}/${solicitudDEI.id}`,
-      solicitudDEI
-    );
+  addSolicitudDEI(solicitudDEI: SolicitudDTO): Observable<SolicitudDTO> {
+    return this.http.post<SolicitudDTO>(`${this.apiUrl}/add`, solicitudDEI, { headers: this.headers });
+  }
+
+  updateSolicitudDEI(solicitudDEI: SolicitudDTO): Observable<SolicitudDTO> {
+    return this.http.put<SolicitudDTO>(`${this.apiUrl}/${solicitudDEI.id}`, solicitudDEI, { headers: this.headers });
   }
 }

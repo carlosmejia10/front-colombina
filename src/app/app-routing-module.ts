@@ -128,7 +128,9 @@ const routes: Routes = [
   },
   {
     path:`perfil`,
-    component: PerfilComponent
+    component: PerfilComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] }, //Usuario no logueado no puede acceder
   }
 ];
 

@@ -6,20 +6,24 @@
   display: flex;
 }
 
+/* Contenedor principal */
 .ContenedorPendientes {
-  width: 1000px;
-  background-color: #E7EBF5;
-  margin: 20px;
+  width: 77vw;
+  margin: 2vw 8vw;
+  background-color: #e7ebf5;
   border-radius: 10px;
 }
-.TituloTabla{
-  position: relative;
-  background-color: #A3B6E6;
+
+/* Alineación de la cabecera y tabla */
+.TituloTabla {
+  background-color: #a3b6e6;
   border-radius: 10px 10px 0 0;
   height: 40px;
   display: flex;
-  padding: 10px;
+  justify-content: space-between; /* Espacia los elementos dentro de la cabecera */
+  padding: 10px 20px; /* Añade espacio lateral para alinearlo con la tabla */
 }
+
 .tablas{
   display: flex;
   min-height: 100vh;
@@ -32,14 +36,17 @@
   margin: 0 0 15px;
 }
 
+/* Tabla */
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
+  padding: 0 20px; /* Ajusta el espacio lateral dentro de la tabla */
 }
 
 table td {
   border-bottom: 1px solid #000000;
+  padding: 8px 12px; /* Espacio interno en las celdas */
 }
 
 .pendientes {
@@ -93,9 +100,39 @@ table td {
 .Desplegable{
   width: 25px;
 }
-.registro{
+/* Registro (primer nivel de información) */
+.registro {
   display: flex;
-  height: 30px;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #4e5a7d;
+  padding: 10px 0;
+}
+/* Detalle (segundo nivel de información) */
+.detalle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  color: #4e5a7d;
+  font-size: 12px;
+}
+
+.detalle-nombre {
+  flex: 2;
+}
+
+.nombre {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.detalle-fechas {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  color: #4e5a7d;
 }
 td p{
   color: #D0CFCE;
@@ -109,7 +146,7 @@ td p{
 /*ESTADO DEL REGISTRO*/
 .InfoContenedor {
   right:0;
-  height: 100hv;
+  height: 100vw;
   width: 25%;
   background-color: #BCC9E5;
   padding: 20px;
@@ -126,15 +163,22 @@ td p{
 .InfoContenedor a{
   font-size: 16px;
 }
+.progreso-contenedor {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Progreso de color */
 .progress-bar {
   width: 100%;
-  background-color: #E7EBF5;
+  background-color: #e7ebf5;
   height: 15px;
   border-radius: 10px;
   margin: 10px 0;
   position: relative;
 }
-
 
 .progress {
   height: 100%;
@@ -143,25 +187,23 @@ td p{
 }
 
 .progress-success {
-  background-color: #4caf50; /* Verde */
+  background-color: #4caf50;
 }
 
 .progress-warning {
-  background-color: #ff9800; /* Naranja */
+  background-color: #ff9800;
 }
 
 .progress-danger {
-  background-color: #f44336; /* Rojo */
+  background-color: #f44336;
 }
 
 .progress-percent {
   text-align: right;
   font-size: 14px;
   font-weight: bold;
-  color: red;
+  color: #d0cfce;
 }
-
-
 
 .nav-item p{
   font-size: 13px;
@@ -277,10 +319,6 @@ input#search-bar{
        transition: opacity 0.45s ease;
          opacity: 0;
       }
-     &:-ms-placeholder {
-      transition: opacity 0.45s ease;
-        opacity: 0;
-      }
   }
 }
 .icons img {
@@ -296,4 +334,30 @@ input#search-bar{
 
 .icono{
   width: 40px;
+}
+
+/*Filtros--------------*/
+.filter-container {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4e5a7d;
+}
+
+.filter label {
+  margin-right: 5px;
+}
+
+.no-results {
+  text-align: center;
+  color: #a3a3a3;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px 0;
 }
