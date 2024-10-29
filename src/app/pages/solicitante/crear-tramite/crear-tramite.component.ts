@@ -29,7 +29,7 @@ export class CrearTramiteComponent implements OnInit {
 
   // Lista de entidades sanitarias y países
   listaPaises: string[] = [];
-  entidadSanitariaId: number | undefined;
+  entidadSanitariaId?: number;
 
   // Archivos y nombres seleccionados
   fileNames: { [key: string]: string[] | string | null } = {
@@ -99,6 +99,48 @@ export class CrearTramiteComponent implements OnInit {
     }
   }
 
+  // Método para crear la solicitud y el trámite
+  crearSolicitudYTramite(): Observable<SolicitudDTO> {
+    console.log('Creando solicitud y trámite...ts');
+    // Validamos los campos requeridos
+    if (
+      !this.nombreProducto ||
+      !this.descripcionProducto ||
+      !this.tipoProductoSeleccionado ||
+      !this.tipoTramiteSeleccionado
+    ) {
+      alert('Por favor complete todos los campos obligatorios.');
+      return new Observable();
+    }
+
+    // Crear TramiteDTO
+    const tramite = new TramiteDTO(
+      this.nombreProducto,
+      this.descripcionProducto,
+      this.tipoProductoSeleccionado,
+      this.tipoTramiteSeleccionado,
+      'PENDIENTE', // estado inicial
+      new Date(), // fecha de radicación
+      2, // progreso inicial
+      0, // llave (sin valor inicial, el backend debería generarlo)
+      this.entidadSanitariaId,
+      [] // historial de cambios vacío inicialmente
+    );
+
+    // Crear SolicitudDTO
+    const solicitud = new SolicitudDTO(
+      0, // El backend generará el ID de solicitud
+      new Date() // fecha actual como fecha de solicitud
+    );
+
+    // Crear el RequestTramiteSolicitudDTO
+    const request = new RequestTramiteSolicitudDTO(solicitud, tramite);
+
+    // Llamar al servicio para crear la solicitud con trámite
+    console.log('Antes de mandar a servicio:', request);
+    return this.solicitudDEIService.crearSolicitudConTramite(request)
+  }
+
   onSubmit(): void {
     this.resetErrorMessages();
 
@@ -161,49 +203,6 @@ export class CrearTramiteComponent implements OnInit {
     archivosAdicionales.forEach((file, index) => {
       this.subirArchivoIndividual(file, `archivosAdicionales-${index + 1}`);
     });
-  }
-
-  // Método para crear la solicitud y el trámite
-  crearSolicitudYTramite(): Observable<SolicitudDTO> {
-    console.log('Creando solicitud y trámite...ts');
-    // Validamos los campos requeridos
-    if (
-      !this.nombreProducto ||
-      !this.descripcionProducto ||
-      !this.tipoProductoSeleccionado ||
-      !this.tipoTramiteSeleccionado ||
-      !this.entidadSanitariaId
-    ) {
-      alert('Por favor complete todos los campos obligatorios.');
-      return;
-    }
-
-    // Crear TramiteDTO
-    const tramite = new TramiteDTO(
-      this.nombreProducto,
-      this.descripcionProducto,
-      this.tipoProductoSeleccionado,
-      this.tipoTramiteSeleccionado,
-      'PENDIENTE', // estado inicial
-      new Date(), // fecha de radicación
-      2, // progreso inicial
-      0, // llave (sin valor inicial, el backend debería generarlo)
-      this.entidadSanitariaId,
-      [] // historial de cambios vacío inicialmente
-    );
-
-    // Crear SolicitudDTO
-    const solicitud = new SolicitudDTO(
-      0, // El backend generará el ID de solicitud
-      new Date() // fecha actual como fecha de solicitud
-    );
-
-    // Crear el RequestTramiteSolicitudDTO
-    const request = new RequestTramiteSolicitudDTO(solicitud, tramite);
-
-    // Llamar al servicio para crear la solicitud con trámite
-    console.log('Antes de mandar a servicio:', request);
-    return this.solicitudDEIService.crearSolicitudConTramite(request)
   }
 
   // Método para restablecer mensajes de error

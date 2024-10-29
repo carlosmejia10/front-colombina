@@ -4,17 +4,17 @@ import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
 import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
-import {SolicitudDTO} from "@/app/modelos/solicitud.dto";
-import {DocumentoDTO} from "@/app/modelos/DocumentoDTO";
-import {UsuarioDTO} from "@/app/modelos/usuarioDTO";
+import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
+import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
+import { UsuarioDTO } from '@/app/modelos/usuarioDTO';
 
 @Component({
   selector: 'app-info-tramite',
   templateUrl: './info-tramite.component.html',
-  styleUrls: ['./info-tramite.component.css']
+  styleUrls: ['./info-tramite.component.css'],
 })
 export class InfoTramiteComponent implements OnInit {
-  mostrarBoton:boolean=true;
+  mostrarBoton: boolean = true;
   tramite!: TramiteDTO;
   entidadSanitaria!: EntidadSanitaria;
   solicitud!: SolicitudDTO;
@@ -24,7 +24,7 @@ export class InfoTramiteComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private tramiteService: TramiteService,
-    private entidadSanitariaService: EntidadSanitariaService  // Inyecta el servicio
+    private entidadSanitariaService: EntidadSanitariaService // Inyecta el servicio
   ) {}
 
   ngOnInit(): void {
@@ -38,15 +38,17 @@ export class InfoTramiteComponent implements OnInit {
   getTramiteDetails(id: number): void {
     this.tramiteService.findById(id).subscribe((data: TramiteDTO) => {
       this.tramite = data;
-      this.getEntidadSanitariaDetails(data.entidadSanitariaId);  // Llama a la función para cargar la entidad
+      this.getEntidadSanitariaDetails(data.entidadSanitariaId); // Llama a la función para cargar la entidad
     });
   }
 
   // Obtiene la entidad sanitaria completa por su ID
   getEntidadSanitariaDetails(id: number): void {
-    this.entidadSanitariaService.findById(id).subscribe((entidad: EntidadSanitaria) => {
-      this.entidadSanitaria = entidad;
-    });
+    this.entidadSanitariaService
+      .findById(id)
+      .subscribe((entidad: EntidadSanitaria) => {
+        this.entidadSanitaria = entidad;
+      });
   }
 
   escalarTramite() {
@@ -62,7 +64,9 @@ export class InfoTramiteComponent implements OnInit {
     });
     */
     //eliminar despues
-    alert(`El trámite con número de radicado ${this.tramite.numeroRadicado} ha sido escalado.`);
-    this.mostrarBoton=false;
+    alert(
+      `El trámite con número de radicado ${this.tramite.numeroRadicado} ha sido escalado.`
+    );
+    this.mostrarBoton = false;
   }
 }
