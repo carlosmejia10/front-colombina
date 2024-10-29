@@ -24,6 +24,7 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
+import { AprobacionInvimaComponent} from './pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -129,7 +130,14 @@ const routes: Routes = [
   {
     path:`perfil`,
     component: PerfilComponent
+  },
+  {
+    path: 'aprobacion-invima',
+    component: AprobacionInvimaComponent
   }
+
+
+
 ];
 
 @NgModule({
