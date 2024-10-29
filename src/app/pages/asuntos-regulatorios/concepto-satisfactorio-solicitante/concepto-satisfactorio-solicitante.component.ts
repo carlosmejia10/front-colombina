@@ -4,39 +4,30 @@ import {NotificacionDto} from "@/app/modelos/notificacion-dto";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-aprobacion-solicitante',
+  selector: 'app-concepto-satisfactorio',
   standalone: true,
   imports: [],
-  templateUrl: './aprobacion-solicitante.component.html',
-  styleUrl: './aprobacion-solicitante.component.css'
+  templateUrl: './concepto-satisfactorio-solicitante.component.html',
+  styleUrl: './concepto-satisfactorio-solicitante.component.css'
 })
-export class AprobacionSolicitanteComponent {
+export class ConceptoSatisfactorioSolicitanteComponent {
   @Input() tramite!: TramiteDTO;
   notificacion: NotificacionDto = new NotificacionDto();
 
   constructor(private router: Router) {}
 
-  aprobarTramite() {
+  aprobarResolucion() {
     this.tramite.estado = "APROBADO";
     alert(`El trámite "${this.tramite.numeroRadicado}" ha sido aprobado.`);
     this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
   }
 
-  autoRequerimiento() {
-    this.tramite.estado = "EN_REVISION";
-    this.notificacion.mensaje = `Autorequerimiento en el trámite número: ${this.tramite.numeroRadicado}`;
-    this.notificacion.fecha = new Date();
-    alert(this.notificacion.mensaje);
-    console.log(this.notificacion.mensaje);
-  }
-
-  rechazarTramite() {
+  rechazarResolucion() {
     this.tramite.estado = "RECHAZADO";
     this.notificacion.mensaje = `Rechazado por el INVIMA el trámite número: ${this.tramite.numeroRadicado}`;
     this.notificacion.fecha = new Date();
     alert(this.notificacion.mensaje);
     console.log(this.notificacion.mensaje);
-    this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
 
   }
 

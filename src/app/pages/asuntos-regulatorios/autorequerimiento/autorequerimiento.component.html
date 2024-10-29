@@ -1,0 +1,20 @@
+<div class="decision-container">
+  <h2 class="titulo">Revisar Documento</h2>
+  <div class="documento-info">
+    <strong>Nombre del Documento:</strong> {{ documento.name }} <br>
+    <strong>Tipo:</strong> {{ documento.tipo }} <br>
+    <strong>Aprobado:</strong> {{ documento.aprobado ? 'Sí' : 'No' }} <br>
+    <strong>Cumple Normativas:</strong> {{ documento.cumpleNormativas ? 'Sí' : 'No' }} <br>
+  </div>
+
+  <div class="comentarios">
+    <label for="comentarios">Comentarios:</label>
+    <textarea id="comentarios" placeholder="Añadir comentarios sobre el documento..."></textarea>
+  </div>
+
+  <div class="button-group">
+    <button class="btn-aprobar" (click)="aprobarORechazar(true)">Aprobar</button>
+    <button class="btn-rechazar" (click)="aprobarORechazar(false)">Rechazar</button>
+  </div>
+  <button class="btn-regresar" onclick="window.location.href='documento'">Regresar</button>
+</div>

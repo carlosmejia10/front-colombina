@@ -20,7 +20,7 @@ export class AprobacionInvimaComponent {
   aprobarTramite() {
     this.tramite.estado = "APROBADO";
     alert(`El trámite "${this.tramite.numeroRadicado}" ha sido aprobado.`);
-    this.router.navigate(['/concepto-satisfactorio']);
+    this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
   }
 
   autoRequerimiento() {
@@ -37,6 +37,8 @@ export class AprobacionInvimaComponent {
     this.notificacion.fecha = new Date();
     alert(this.notificacion.mensaje);
     console.log(this.notificacion.mensaje);
+    this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
+
   }
 
   volver() {
