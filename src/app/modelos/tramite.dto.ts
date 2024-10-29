@@ -12,6 +12,7 @@ export class TramiteDTO {
     progreso: number;
     llave: number;
     entidadSanitariaId: number;
+    etapa: string;
     historialCambioDTOList: HistorialCambioDTO[];
 
     constructor(

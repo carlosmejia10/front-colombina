@@ -70,8 +70,9 @@
                     <span>Estado trámite: {{ solicitud.tramite.estado }}</span>
                   </div>
                   <div class="detalle">
-                    <div class="detalle-nombre">
+                    <div class="detalle-nombre" style="display: flex; gap: 1rem;">
                       <span class="nombre">Solicitante: {{ solicitud.solicitante.nombre }}</span>
+                      <p class="nombre">{{ solicitud.tramite.etapa }}</p>
                     </div>
                     <div class="detalle-fechas">
                       <span class="fecha">Fecha inicio: {{ solicitud.fechaSolicitud | date: 'dd/MM/yyyy' }}</span>
