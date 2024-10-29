@@ -16,7 +16,6 @@ export class RevisionDocumentacionComponent implements OnInit { // Implementa On
   ngOnInit() {
     // Crear una instancia de DocumentoDTO para un archivo de texto
     const documentoTexto = new DocumentoDTO(
-        "txt",                       // tipo
         false,                       // aprobado
         false,                       // cumpleNormativas
         "informe_anual.txt",        // name
@@ -25,7 +24,6 @@ export class RevisionDocumentacionComponent implements OnInit { // Implementa On
 
     // Crear una instancia de DocumentoDTO para un archivo PDF
     const documentoPDF = new DocumentoDTO(
-        "pdf",                       // tipo
         true,                        // aprobado
         true,                        // cumpleNormativas
         "presentacion.pdf",         // name

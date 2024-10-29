@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BASE_URL } from '../config/environment/urls';
 import { SolicitudDTO } from '../modelos/solicitud.dto';
 import { AuthService } from './auth.service';
+import {RequestTramiteSolicitudDTO} from "@/app/modelos/RequestTramiteSolicitudDTO";
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,11 @@ export class SolicitudDEIService {
     this.headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
+  }
+
+  crearSolicitudConTramite(request: RequestTramiteSolicitudDTO): Observable<SolicitudDTO> {
+    console.log('Dentro de servicio' ,request);
+    return this.http.post<SolicitudDTO>(`${this.apiUrl}/crear-solicitud`, request, { headers: this.headers });
   }
 
   findBySolicitante(): Observable<SolicitudDTO[]> {

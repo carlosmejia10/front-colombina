@@ -1,71 +1,168 @@
 <app-solicitante-layout>
-    <div class="container">
-      <div class="titulo">
-          <h2>Crear Nueva Solicitud de Trámite</h2>
+  <div class="container">
+    <div class="titulo">
+      <h2>Crear Nueva Solicitud de Trámite</h2>
+    </div>
+
+    <div class="flex">
+      <div class="left">
+        <!-- Campo de Tipo de Trámite -->
+        <div class="form-group">
+          <label for="tipoTramite">Tipo de trámite</label>
+          <select id="tipoTramite" [(ngModel)]="tipoTramiteSeleccionado" (change)="onTipoTramiteChange(tipoTramiteSeleccionado)">
+            <option value="">Seleccionar el tipo de trámite</option>
+            <option *ngFor="let tramite of tiposTramite" [value]="tramite">{{ tramite }}</option>
+          </select>
+          <div *ngIf="errorMessages.tipoTramite" class="error-message">Por favor seleccione el tipo de trámite</div>
+        </div>
+
+        <!-- Campo de Nombre del Producto -->
+        <div class="form-group">
+          <label for="nombreProducto">Nombre del producto</label>
+          <input
+            type="text"
+            id="nombreProducto"
+            placeholder="Nombre del producto"
+            [(ngModel)]="nombreProducto"
+            (input)="removeErrorMessage('nombreProducto')"
+          />
+          <div *ngIf="errorMessages.nombreProducto" class="error-message">Por favor ingrese el nombre del producto</div>
+        </div>
+
+        <!-- Campo de Descripción del Producto -->
+        <div class="form-group">
+          <label for="descripcionProducto">Descripción del producto</label>
+          <textarea
+            id="descripcionProducto"
+            placeholder="Escriba una descripción detallada del producto"
+            rows="3"
+            style="resize: none; overflow-y: auto;"
+            [(ngModel)]="descripcionProducto"
+            (input)="removeErrorMessage('descripcionProducto')"
+          ></textarea>
+          <div *ngIf="errorMessages.descripcionProducto" class="error-message">Por favor ingrese la descripción del producto</div>
+        </div>
+
+        <!-- Campo de País -->
+        <div class="form-group">
+          <label for="pais">País</label>
+          <select id="pais" [(ngModel)]="pais" [disabled]="tipoTramiteSeleccionado === 'NACIONAL'" (change)="removeErrorMessage('pais')">
+            <option *ngIf="tipoTramiteSeleccionado === 'NACIONAL'" value="Colombia">Colombia</option>
+            <option *ngIf="tipoTramiteSeleccionado === 'INTERNACIONAL'" value="">Seleccionar país</option>
+            <option *ngFor="let pais of listaPaises" [value]="pais">{{ pais }}</option>
+          </select>
+          <div *ngIf="errorMessages.pais" class="error-message">Por favor seleccione el país</div>
+        </div>
+
+        <!-- Campo de Tipo de Producto -->
+        <div class="form-group">
+          <label for="tipoProducto">Tipo de producto</label>
+          <select id="tipoProducto" [(ngModel)]="tipoProductoSeleccionado" (change)="removeErrorMessage('tipoProducto')">
+            <option value="">Seleccionar el tipo de producto</option>
+            <option *ngFor="let tipo of tiposProducto" [value]="tipo">{{ tipo }}</option>
+          </select>
+          <div *ngIf="errorMessages.tipoProducto" class="error-message">Por favor seleccione el tipo de producto</div>
+        </div>
       </div>
-    
-      <div class="flex">
-          <div class="left">
-              <div class="form-group">
-              <label for="tipoTramite">Tipo de trámite</label>
-              <select id="tipoTramite">
-                  <option value="">Seleccionar el tipo de trámite</option>
-                  </select>
+
+      <!-- Sección de adjuntar documentos -->
+      <div class="right">
+        <div class="form-group">
+          <label>Adjunte los siguientes documentos:</label>
+          <ul>
+            <li>
+              <label for="fichaTecnica">Ficha técnica INVIMA</label>
+              <div class="cuadro upload-area" id="upload-area-fichaTecnica" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'fichaTecnica')" (dragleave)="onDragLeave($event)">
+                <button type="button" class="fl">
+                  <input type="file" id="file-input-fichaTecnica" (change)="onFileSelected($event, 'fichaTecnica')" hidden>
+                  <label for="file-input-fichaTecnica" class="file-label">Seleccionar archivo</label>
+                </button>
+                <div *ngIf="fileNames.fichaTecnica" class="file-entry">
+                  <span>{{ fileNames.fichaTecnica }}</span>
+                  <span class="remove-icon" (click)="removeFile('fichaTecnica')">❌</span>
+                </div>
               </div>
-    
-              <div class="form-group">
-              <label for="nombreProducto">Nombre del producto</label>
-              <input type="text" id="nombreProducto" placeholder="Value">
-    
-    
-              <div class="form-group">
-                  <label for="tipoProducto">Tipo de producto</label>
-                  <select id="tipoProducto">
-                      <option value="">Seleccionar el tipo de producto</option>
-                      </select>
-                  </div>
+              <div *ngIf="errorMessages.fichaTecnica" class="error-message">Por favor adjunte la ficha técnica</div>
+            </li>
+
+            <li>
+              <label for="formatoInterno">Formato Interno de Solicitud</label>
+              <div class="cuadro upload-area" id="upload-area-formatoInterno" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'formatoInterno')" (dragleave)="onDragLeave($event)">
+                <button type="button" class="fl">
+                  <input type="file" id="file-input-formatoInterno" (change)="onFileSelected($event, 'formatoInterno')" hidden>
+                  <label for="file-input-formatoInterno" class="file-label">Seleccionar archivo</label>
+                </button>
+                <div *ngIf="fileNames.formatoInterno" class="file-entry">
+                  <span>{{ fileNames.formatoInterno }}</span>
+                  <span class="remove-icon" (click)="removeFile('formatoInterno')">❌</span>
+                </div>
               </div>
-          </div>
-          <div class="right">
-              <div class="form-group">
-              <label>Adjunte los siguientes documentos:</label>
-              <ul>
-                  <li>
-                  <label for="fichaTecnica">Ficha técnica INVIMA</label>
-                  <div class="cuadro">
-                      <!--<input type="file" id="fichaTecnica">-->
-                      <button type="submit" class="fl"><a [routerLink]="['/arrastrar']">seleccionar archivo</a></button>
-                      <p>Ningun archivo seleccionado</p>
-                  </div>
-                  </li>
-                  <li>
-                  <label for="formatoInterno">Formato Interno de Solicitud</label>
-                  <div class="cuadro">
-                      <button type="submit" class="fl"><a [routerLink]="['/arrastrar']">seleccionar archivo</a></button>
-                      <p>Ningun archivo seleccionado</p>
-                  </div>
-                  </li>
-                  <li>
-                  <label for="certificadoAnalisis">Certificado de Análisis</label>
-                  <div class="cuadro">
-                      <button type="submit" class="fl"><a [routerLink]="['/arrastrar']">seleccionar archivo</a></button>
-                      <p>Ningun archivo seleccionado</p>
-                  </div>
-                  </li>
-                  <li>
-                  <label for="certificadoAditivos">Certificado de Aditivos</label>
-                  <div class="cuadro">
-    
-                      <button type="submit" class="fl"><a [routerLink]="['/arrastrar']">seleccionar archivo</a></button>
-                      <p>Ningun archivo seleccionado</p>
-                  </div>
-                  </li>
-              </ul>
+              <div *ngIf="errorMessages.formatoInterno" class="error-message">Por favor adjunte el formato interno</div>
+            </li>
+
+            <li>
+              <label for="certificadoAnalisis">Certificado de Análisis</label>
+              <div class="cuadro upload-area" id="upload-area-certificadoAnalisis" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'certificadoAnalisis')" (dragleave)="onDragLeave($event)">
+                <button type="button" class="fl">
+                  <input type="file" id="file-input-certificadoAnalisis" (change)="onFileSelected($event, 'certificadoAnalisis')" hidden>
+                  <label for="file-input-certificadoAnalisis" class="file-label">Seleccionar archivo</label>
+                </button>
+                <div *ngIf="fileNames.certificadoAnalisis" class="file-entry">
+                  <span>{{ fileNames.certificadoAnalisis }}</span>
+                  <span class="remove-icon" (click)="removeFile('certificadoAnalisis')">❌</span>
+                </div>
               </div>
-          </div>
-      </div>
-      <div class="fin">
-          <button type="submit" ><a [routerLink]="['/confirmacion']">Enviar</a></button>
+              <div *ngIf="errorMessages.certificadoAnalisis" class="error-message">Por favor adjunte el certificado de análisis</div>
+            </li>
+
+            <li>
+              <label for="certificadoAditivos">Certificado de Aditivos</label>
+              <div class="cuadro upload-area" id="upload-area-certificadoAditivos" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'certificadoAditivos')" (dragleave)="onDragLeave($event)">
+                <button type="button" class="fl">
+                  <input type="file" id="file-input-certificadoAditivos" (change)="onFileSelected($event, 'certificadoAditivos')" hidden>
+                  <label for="file-input-certificadoAditivos" class="file-label">Seleccionar archivo</label>
+                </button>
+                <div *ngIf="fileNames.certificadoAditivos" class="file-entry">
+                  <span>{{ fileNames.certificadoAditivos }}</span>
+                  <span class="remove-icon" (click)="removeFile('certificadoAditivos')">❌</span>
+                </div>
+              </div>
+              <div *ngIf="errorMessages.certificadoAditivos" class="error-message">Por favor adjunte el certificado de aditivos</div>
+            </li>
+
+            <li>
+              <label for="archivosAdicionales">Archivos Adicionales</label>
+              <div class="cuadro upload-area" id="upload-area-archivosAdicionales" (dragover)="onDragOver($event)" (drop)="onDropMultiple($event, 'archivosAdicionales')" (dragleave)="onDragLeave($event)">
+                <button type="button" class="fl">
+                  <input type="file" id="file-input-archivosAdicionales" (change)="onFilesSelected($event, 'archivosAdicionales')" multiple hidden>
+                  <label for="file-input-archivosAdicionales" class="file-label">Seleccionar archivos</label>
+                </button>
+                <div *ngIf="fileNames.archivosAdicionales.length === 0">Ningún archivo seleccionado</div>
+                <ul *ngIf="fileNames.archivosAdicionales.length > 0" class="file-list">
+                  <li *ngFor="let fileName of fileNames.archivosAdicionales; let i = index" class="file-entry">
+                    <span>{{ fileName }}</span>
+                    <span class="remove-icon" (click)="removeAdditionalFile(i)">❌</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+
+    <!-- Botón de Enviar -->
+    <div class="fin">
+      <button type="button" (click)="onSubmit()">Enviar</button>
+    </div>
+  </div>
 </app-solicitante-layout>
+
+<!-- Agrega estilos para mensajes de error -->
+<style>
+  .error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+  }
+</style>
