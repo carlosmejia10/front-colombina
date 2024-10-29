@@ -1,66 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import  {Tramite, EstadoTramite} from '../../../modelos/tramite';
-import { EntidadSanitaria } from '../../../modelos/entidad-sanitaria';
-import { Solicitud } from '../../../modelos/solicitud';
-import { Usuario } from '../../../modelos/usuario';
-import { Documento } from '../../../modelos/documento';
+import { ActivatedRoute } from '@angular/router';
+import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
+import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
+import { TramiteDTO } from '@/app/modelos/tramite.dto';
+import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
+import {SolicitudDTO} from "@/app/modelos/solicitud.dto";
+import {DocumentoDTO} from "@/app/modelos/DocumentoDTO";
+import {UsuarioDTO} from "@/app/modelos/usuarioDTO";
 
 @Component({
   selector: 'app-info-tramite',
   templateUrl: './info-tramite.component.html',
-  styleUrl: './info-tramite.component.css'
+  styleUrls: ['./info-tramite.component.css']
 })
-export class InfoTramiteComponent {
+export class InfoTramiteComponent implements OnInit {
   mostrarBoton:boolean=true;
-  tramite!: Tramite;
+  tramite!: TramiteDTO;
   entidadSanitaria!: EntidadSanitaria;
-  solicitud!: Solicitud;
-  solicitante!: Usuario;
-  documentos!: Documento[];
+  solicitud!: SolicitudDTO;
+  solicitante!: UsuarioDTO;
+  documentos!: DocumentoDTO[];
+
+  constructor(
+    private route: ActivatedRoute,
+    private tramiteService: TramiteService,
+    private entidadSanitariaService: EntidadSanitariaService  // Inyecta el servicio
+  ) {}
 
   ngOnInit(): void {
-    // Datos falsos para mostrar en la pantalla
-    this.solicitante = {
-      id: 1,
-      nombre: 'Juan Pérez',
-      contrasena: '1234',
-      rol: { id: 1, tipoRol: 'Administrador' },
-      correoElectronico: 'juan.perez@example.com'
-    };
+    const tramiteId = this.route.snapshot.paramMap.get('id');
+    if (tramiteId) {
+      this.getTramiteDetails(+tramiteId);
+    }
+  }
 
-    this.solicitud = new Solicitud(
-      1,
-      'Galletas',
-      'Comida',
-      new Date('2024-09-01'),
-      'Nacional'
-    );
+  // Obtiene los detalles del trámite y luego carga la entidad sanitaria
+  getTramiteDetails(id: number): void {
+    this.tramiteService.findById(id).subscribe((data: TramiteDTO) => {
+      this.tramite = data;
+      this.getEntidadSanitariaDetails(data.entidadSanitariaId);  // Llama a la función para cargar la entidad
+    });
+  }
 
-    this.entidadSanitaria = {
-      id: 1,
-      nombre: 'INVIMA',
-      pais: 'Colombia'
-    };
-
-    this.documentos = [
-      { id: 1, tipo: 'Envío de documentación adicional', aprobado: true, tempUrl: 'http://accioneduca.org/admin/archivos/modulos/ayudanos/prueba.pdf' },
-      { id: 2, tipo: 'Recepción de documentos', aprobado: false, tempUrl: 'http://accioneduca.org/admin/archivos/modulos/ayudanos/prueba.pdf' }
-    ];
-
-    this.tramite = new Tramite(
-      1,
-      'AR-0001-2024',
-      EstadoTramite.RECHAZADO,
-      new Date('2024-09-15'),
-      new Date('2024-10-26'),
-      this.entidadSanitaria,
-      this.documentos,
-      [],
-      [],
-      [],
-      this.solicitud,
-      'A'
-    );
+  // Obtiene la entidad sanitaria completa por su ID
+  getEntidadSanitariaDetails(id: number): void {
+    this.entidadSanitariaService.findById(id).subscribe((entidad: EntidadSanitaria) => {
+      this.entidadSanitaria = entidad;
+    });
   }
 
   escalarTramite() {
@@ -75,7 +61,7 @@ export class InfoTramiteComponent {
       }
     });
     */
-   //eliminar despues
+    //eliminar despues
     alert(`El trámite con número de radicado ${this.tramite.numeroRadicado} ha sido escalado.`);
     this.mostrarBoton=false;
   }

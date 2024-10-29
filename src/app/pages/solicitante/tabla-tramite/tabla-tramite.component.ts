@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 import { SolicitudDEIService } from '@/app/servicios/solicitud-dei.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tabla-tramite',
@@ -22,12 +23,18 @@ export class TablaTramiteComponent implements OnInit {
 
   mostrarTabla1: boolean = true; // Controla la visibilidad de la tabla
 
-  constructor(private solicitudService: SolicitudDEIService) {}
+  constructor(private solicitudService: SolicitudDEIService, private router: Router) {}
 
   ngOnInit(): void {
     this.getTramites();
     this.getNombreSolicitante();
   }
+
+  // Navegar a la página de detalles del trámite
+  goToTramiteInfo(tramiteId: number): void {
+    this.router.navigate(['/info-tramite', tramiteId]); // asegúrate de usar 'info-tramite' aquí
+  }
+
 
   // Obtener la lista de trámites
   getTramites(): void {
