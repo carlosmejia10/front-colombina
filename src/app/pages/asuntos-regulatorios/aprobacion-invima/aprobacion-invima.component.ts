@@ -25,7 +25,7 @@ export class AprobacionInvimaComponent {
 
   autoRequerimiento() {
     this.tramite.estado = "EN_REVISION";
-    this.notificacion.mensaje = `Autorequerimiento en el trámite número: ${this.tramite.numeroRadicado}`;
+    this.notificacion.mensaje = `Autorequerimiento en el trámite número: ${this.tramite.id}`;
     this.notificacion.fecha = new Date();
     alert(this.notificacion.mensaje);
     console.log(this.notificacion.mensaje);
@@ -33,7 +33,7 @@ export class AprobacionInvimaComponent {
 
   rechazarTramite() {
     this.tramite.estado = "RECHAZADO";
-    this.notificacion.mensaje = `Rechazado por el INVIMA el trámite número: ${this.tramite.numeroRadicado}`;
+    this.notificacion.mensaje = `Rechazado por el INVIMA el trámite número: ${this.tramite.id}`;
     this.notificacion.fecha = new Date();
     alert(this.notificacion.mensaje);
     console.log(this.notificacion.mensaje);
@@ -42,6 +42,7 @@ export class AprobacionInvimaComponent {
   }
 
   volver() {
+
 
 
   }

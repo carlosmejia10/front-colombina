@@ -24,9 +24,12 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
-import {ConceptoSatisfactorioComponent} from "@/app/concepto-satisfactorio/concepto-satisfactorio.component";
 import {NotificationsComponent} from "@/app/pages/shared/notifications/notifications.component";
 import {AprobacionInvimaComponent} from "@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component";
+import {AprobacionResolucionSolicitanteComponent} from "@/app/pages/asuntos-regulatorios/aprobacion-resolucion-solicitante/aprobacion-resolucion-solicitante.component";
+import {
+  AutorequerimientoComponent
+} from "@/app/pages/asuntos-regulatorios/autorequerimiento/autorequerimiento.component";
 
 
 const routes: Routes = [
@@ -124,7 +127,7 @@ const routes: Routes = [
     data: { roles: [Role.Admin] },
   },
   {
-    path: 'documentos/:numeroRadicado',
+    path: 'documentos/:id',
     component: RevisionDocumentacionComponent
   },
   {
@@ -139,12 +142,18 @@ const routes: Routes = [
   },
 
   {
-    path:`aprobacion-invima/:numeroRadicado`,
+    path:`aprobacion-invima/:id`,
     component: AprobacionInvimaComponent
   },
 
-  { path: 'concepto-satisfactorio-solicitante/:numeroRadicado',
-    component: ConceptoSatisfactorioComponent
+  {
+    path: 'aprobacion-resolucion-solicitante/:id',
+    component: AprobacionResolucionSolicitanteComponent
+  },
+
+  {
+    path: 'autorequerimiento/:id',
+    component: AutorequerimientoComponent
   },
 
 
