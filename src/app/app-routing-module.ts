@@ -24,6 +24,7 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
+import { NotificationsComponent } from './pages/shared/notifications/notifications.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante] },
   },
+  {path: 'notificaciones', component: NotificationsComponent},
   {
     path: 'tabla-tramite',
     component: TablaTramiteComponent,

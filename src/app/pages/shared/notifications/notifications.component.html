@@ -1,25 +1,45 @@
-<div id="page">
-  <div class="container">
-    <div class="titulo">
-      <h2>Notificaciones</h2>
-      <div>
-        <table>
-          <thead>
-            <th>ID</th>
-            <th>Estado</th>
-            <th>Mensaje</th>
-            <th>Tipo notificación</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let notificacion of notificaciones">
-              <td>{{ notificacion.id }}</td>
-              <td>{{ notificacion.mensaje }}</td>
-              <td>{{ notificacion.fecha }}</td>
-              <td>{{ notificacion.destinatario }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+<app-admin-layout>
+  <!-- Barra de navegación superior -->
+  <header>
+      <h1>Centro de Notificaciones</h1>
+  </header>
+
+  <!-- Contenedor principal -->
+  <div class="main-container">
+
+    <!-- Menú lateral -->
+    <aside>
+        <ul>
+            <li><a href="#">Pendientes</a></li>
+            <li><a href="#">En Proceso</a></li>
+            <li><a href="#">Cumplidos</a></li>
+            <li><a href="#">Requerimientos</a></li>
+        </ul>
+    </aside>
+
+    <!-- Panel principal de notificaciones -->
+    <section class="notification-panel">
+        <div class="notification-card">
+            <h2>Solicitud de Registro</h2>
+            <p class="date">2024-10-28</p>
+            <p class="status in-progress">Estado: En Progreso</p>
+            <button class="details-button">Ver Detalles</button>
+        </div>
+
+        <div class="notification-card">
+            <h2>Revisión de Documentos</h2>
+            <p class="date">2024-10-27</p>
+            <p class="status completed">Estado: Cumple Requisitos</p>
+            <button class="details-button">Ver Detalles</button>
+        </div>
+        
+        <div class="notification-card">
+            <h2>Actualización Requerida</h2>
+            <p class="date">2024-10-26</p>
+            <p class="status not-met">Estado: No Cumple Requisitos</p>
+            <textarea placeholder="Razón del incumplimiento..."></textarea>
+            <button class="send-button">Notificar Solicitante</button>
+        </div>
+    </section>
 </div>
+</app-admin-layout>
