@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { BASE_URL } from '../config/environment/urls';
 
 interface Notificacion {
   id: number;
@@ -15,26 +16,30 @@ interface Notificacion {
   providedIn: 'root',
 })
 export class NotificacionService {
-  private apiUrl = 'http://localhost:8080/notificacion';
+  private apiUrl = `${BASE_URL}/notificacion`;
+
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Obtener todas las notificaciones de un usuario
-  obtenerNotificacionesPorUsuario(
-    usuarioId: number
-  ): Observable<any> {
+  private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
-    const headers  = new HttpHeaders({
+    return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    
-    return this.http.get<Notificacion[]>(`${this.apiUrl}/usuario/${usuarioId}`, { headers});
+  }
+
+  // Obtener todas las notificaciones de un usuario
+  obtenerNotificacionesPorUsuario(usuarioId: number): Observable<Notificacion[]> {
+    return this.http.get<Notificacion[]>(`${this.apiUrl}/usuario/${usuarioId}`, {
+      headers: this.getHeaders(),
+    });
   }
 
   // Marcar una notificación como leída
   marcarNotificacionComoLeida(notificacionId: number): Observable<string> {
     return this.http.post<string>(
       `${this.apiUrl}/marcarLeida/${notificacionId}`,
-      {}
+      {},
+      { headers: this.getHeaders() }
     );
   }
 
@@ -42,7 +47,8 @@ export class NotificacionService {
   notificarExpiracionTramite(tramiteId: number): Observable<string> {
     return this.http.post<string>(
       `${this.apiUrl}/expiracionTramite/${tramiteId}`,
-      {}
+      {},
+      { headers: this.getHeaders() }
     );
   }
 
@@ -53,7 +59,8 @@ export class NotificacionService {
   ): Observable<string> {
     return this.http.post<string>(
       `${this.apiUrl}/documentosFaltantes/${tramiteId}`,
-      documentosFaltantes
+      documentosFaltantes,
+      { headers: this.getHeaders() }
     );
   }
 }
