@@ -1,25 +1,41 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
 import { DocumentoService } from '@/app/servicios/documento.service';
-import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common'; // Importa CommonModule
 
 @Component({
   selector: 'app-documento-escogido',
   standalone: true,
-  imports: [],
+  imports: [CommonModule], // Asegúrate de agregar CommonModule aquí
   templateUrl: './documento-escogido.component.html',
-  styleUrl: './documento-escogido.component.css'
+  styleUrls: ['./documento-escogido.component.css'] // Corrige aquí a styleUrls
 })
-export class DocumentoEscogidoComponent {
+export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
 
-  documento = {
-    name: 'Nombre del Documento',
-    tipo: 'Tipo de Documento',
-    aprobado: false,
-    cumpleNormativas: true,
-  };
+  documento!: DocumentoDTO;
+  fileUrl!: SafeUrl;
 
-  constructor(private router: Router,private location: Location, private documentoService: DocumentoService) {}
+  constructor(
+    private documentoService: DocumentoService,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    const documentoId = Number(this.route.snapshot.paramMap.get('id'));
+    this.documentoService.findById(documentoId).subscribe((data) => {
+      this.documento = data;
+      this.createFileUrl(data.file);
+    });
+  }
+
+  createFileUrl(file: File) {
+    const objectUrl = URL.createObjectURL(file);
+    this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+  }
 
   aprobarORechazar(aprobado: boolean) {
     this.documento.aprobado = aprobado;
@@ -27,8 +43,6 @@ export class DocumentoEscogidoComponent {
     const estado = aprobado ? 'aprobado' : 'rechazado';
     alert(`El documento "${this.documento.name}" ha sido ${estado}.`);
   
-    this.router.navigate(['/documentos']);
+    //this.router.navigate(['/documentos']);
   }
-
-  
 }

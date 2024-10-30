@@ -1,7 +1,7 @@
 export class DocumentoDTO {
   id?: number; // Propiedad opcional
   tipo: string;
-  aprobado: boolean;
+  aprobado: boolean | null;
   tempUrl?: string;  // Ruta temporal para acceso al archivo
   fechaExpiracion?: Date; // Utiliza el tipo Date para fechas
   cumpleNormativas: boolean;

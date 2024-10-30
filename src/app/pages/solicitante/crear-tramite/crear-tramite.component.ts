@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileService } from '@/app/servicios/file.service';
 import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
 import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
@@ -8,6 +8,8 @@ import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitudDTO';
 import { Observable } from 'rxjs';
+import { FileSizeComponent } from '../file-size/file-size.component';
+
 
 @Component({
   selector: 'app-crear-tramite',
@@ -15,6 +17,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./crear-tramite.component.css'],
 })
 export class CrearTramiteComponent implements OnInit {
+  @ViewChild(FileSizeComponent, { static: false }) fileSizeComponent!: FileSizeComponent;
   // Opciones para los selectores
   tiposProducto: string[] = ['Tipo 1', 'Tipo 2', 'Tipo 3', 'Tipo 4', 'Tipo 5'];
   tiposTramite: string[] = ['NACIONAL', 'INTERNACIONAL'];
@@ -248,11 +251,25 @@ export class CrearTramiteComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      const fileSizeMB = file.size / (1024 * 1024);
+  
+      console.log(`Tamaño del archivo seleccionado: ${fileSizeMB} MB`);
+  
+      // Mostrar el pop-up si el archivo excede el tamaño permitido
+      if (fileSizeMB > 2048) {
+        console.log('El archivo excede el límite de 2GB, mostrando pop-up');
+        this.fileSizeComponent.open(fileSizeMB); // Abre el pop-up
+        return; // No almacena el archivo si excede el límite
+      }
+  
+      // Si el tamaño es válido, asigna el archivo y procede
       this.selectedFiles[tipoArchivo] = file;
       this.fileNames[tipoArchivo] = file.name;
       this.removeErrorMessage(tipoArchivo);
     }
   }
+  
+  
 
   // Método para manejar la selección de múltiples archivos en "Archivos Adicionales"
   onFilesSelected(event: Event, tipoArchivo: string): void {
@@ -307,11 +324,12 @@ export class CrearTramiteComponent implements OnInit {
 
   private subirArchivoIndividual(file: File, tipoArchivo: string): void {
     const documentoDTO = new DocumentoDTO(false, false, file.name, file);
-
+  
     this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
       (response) => {
         console.log(`Archivo ${tipoArchivo} subido con éxito`, response);
-        alert(`Archivo ${tipoArchivo} subido con éxito`);
+        // Muestra el pop-up de éxito en lugar de alert
+        this.fileSizeComponent.openSuccess(`Archivo ${tipoArchivo} subido con éxito`);
       },
       (error) => {
         console.error(`Error al subir el archivo ${tipoArchivo}`, error);
@@ -319,4 +337,7 @@ export class CrearTramiteComponent implements OnInit {
       }
     );
   }
+  
+
+  
 }
