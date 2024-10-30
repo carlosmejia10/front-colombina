@@ -41,6 +41,13 @@ import {
   AprobacionResolucionRechazadaComponent
 } from "@/app/pages/asuntos-regulatorios/aprobacion-resolucion-rechazada/aprobacion-resolucion-rechazada.component";
 import { InfoControlComponent } from './pages/asuntos-regulatorios/info-control/info-control.component';
+import {AsignacionRadicadoLlaveComponent} from "@/app/pages/asuntos-regulatorios/asignacion-radicado-llave/asignacion-radicado-llave.component";
+import {
+  SeguimientoTramiteComponent
+} from "@/app/pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component";
+import {
+  RevisionPreliminarComponent
+} from "@/app/pages/asuntos-regulatorios/revision-preliminar/revision-preliminar.component";
 
 
 const routes: Routes = [
@@ -176,22 +183,41 @@ const routes: Routes = [
     path: `autorequerimiento`,
     component: AutorequerimientoComponent,
   },
+
   {
     path: `concepto-satisfactorio`,
     component: ConceptoSatisfactorioComponent,
   },
+
   {
     path: `aprobacion-solicitante`,
     component: AprobacionSolicitanteComponent,
   },
+
   {
     path: `apertura-tramite`,
     component: AperturaTramiteComponent,
   },
+
   {
     path: `aprobacion-resolucion-rechazada`,
     component: AprobacionResolucionRechazadaComponent,
-  }
+  },
+
+  {
+    path: `asignacion-radicado-llave`,
+    component: AsignacionRadicadoLlaveComponent,
+  },
+
+  {
+    path: `seguimiento-tramite`,
+    component: SeguimientoTramiteComponent,
+  },
+
+  {
+    path: `revision-preliminar`,
+    component: RevisionPreliminarComponent,
+  },
 
 
 ];
