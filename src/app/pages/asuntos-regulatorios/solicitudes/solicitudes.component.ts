@@ -38,7 +38,7 @@ export class SolicitudesComponent {
 
   // Navegar a la página de detalles del trámite
   goToTramiteInfo(tramiteId: number): void {
-    this.router.navigate(['/info-tramite', tramiteId]); // asegúrate de usar 'info-tramite' aquí
+    this.router.navigate(['/info-solicitud', tramiteId]); // asegúrate de usar 'info-tramite' aquí
   }
 
   // Obtener la lista de trámites

@@ -6,7 +6,6 @@ import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.comp
 import { CalendarioComponent } from './pages/asuntos-regulatorios/calendario/calendario.component';
 import { ConfirmacionComponent } from './pages/solicitante/confirmacion/confirmacion.component';
 import { CrearTramiteComponent } from './pages/solicitante/crear-tramite/crear-tramite.component';
-import { EstadisticasComponent } from './pages/admin/estadisticas/estadisticas.component';
 import { HistorialComponent } from './pages/solicitante/historial/historial.component';
 import { InfoTramiteComponent } from './pages/solicitante/info-tramite/info-tramite.component';
 import { LoginComponent } from './pages/shared/login/login.component';
@@ -24,13 +23,11 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
-import {NotificationsComponent} from "@/app/pages/shared/notifications/notifications.component";
-import {AprobacionInvimaComponent} from "@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component";
-import {AprobacionResolucionSolicitanteComponent} from "@/app/pages/asuntos-regulatorios/aprobacion-resolucion-solicitante/aprobacion-resolucion-solicitante.component";
-import {
-  AutorequerimientoComponent
-} from "@/app/pages/asuntos-regulatorios/autorequerimiento/autorequerimiento.component";
-
+import { ConceptoSatisfactorioComponent } from '@/app/concepto-satisfactorio/concepto-satisfactorio.component';
+import { NotificationsComponent } from '@/app/pages/shared/notifications/notifications.component';
+import { AprobacionInvimaComponent } from '@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
+import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
+import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -52,7 +49,13 @@ const routes: Routes = [
     path: 'info-tramite/:id',
     component: InfoTramiteComponent,
     canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] },
+    data: { roles: [Role.Solitante] },
+  },
+  {
+    path: 'info-solicitud/:id',
+    component: InfoSolicitudComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios, Role.Admin] },
   },
   {
     path: 'historial',
@@ -127,12 +130,12 @@ const routes: Routes = [
     data: { roles: [Role.Admin] },
   },
   {
-    path: 'documentos/:id',
-    component: RevisionDocumentacionComponent
+    path: 'documentos/:numeroRadicado',
+    component: RevisionDocumentacionComponent,
   },
   {
-    path:`revision`,
-    component: DocumentoEscogidoComponent
+    path: `revision`,
+    component: DocumentoEscogidoComponent,
   },
   {
     path:`perfil`,
@@ -142,19 +145,10 @@ const routes: Routes = [
   },
 
   {
-    path:`aprobacion-invima/:id`,
-    component: AprobacionInvimaComponent
+    path: `aprobacion-invima/:numeroRadicado`,
+    component: AprobacionInvimaComponent,
   },
 
-  {
-    path: 'aprobacion-resolucion-solicitante/:id',
-    component: AprobacionResolucionSolicitanteComponent
-  },
-
-  {
-    path: 'autorequerimiento/:id',
-    component: AutorequerimientoComponent
-  },
 
 
 

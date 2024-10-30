@@ -53,6 +53,7 @@ import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 //PARA PRUEBAS DE ESTADISTICA
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
+import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-
     AdminSidebarComponent,
     NotificationsComponent,
     AperturaTramiteComponent,
+    InfoSolicitudComponent,
   ],
   imports: [
     RouterModule,
