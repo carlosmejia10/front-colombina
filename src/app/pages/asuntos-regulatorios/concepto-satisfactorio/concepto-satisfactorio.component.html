@@ -7,18 +7,21 @@
     <p><strong>Descripción del Producto:</strong> {{ tramite.descripcionProducto }}</p>
     <p><strong>Tipo de Producto:</strong> {{ tramite.tipoProducto }}</p>
     <p><strong>Tipo de Trámite:</strong> {{ tramite.tipoTramite }}</p>
+    <p><strong>Solicitante ID:</strong> {{ tramite.solicitanteId }}</p>
 
 
-    <p>Selecciona una opción acorde a la respuesta del Invima</p>
+    <p>Seleccione una opción acorde a la respuesta del Invima</p>
 
     <div class="action-buttons">
-      <button (click)="aprobarResolucion()">Aceptado</button>
-      <button (click)="rechazarResolucion()">Rechazado</button>
+      <button (click)="conceptoSatisfactorio()">Aceptado</button>
+      <button (click)="autoRequerimiento()">Autorequerimiento</button>
     </div>
 
     <div>
       <button (click)="volver()">Anterior</button>
     </div>
   </div>
+
+
 
 </div>

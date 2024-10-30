@@ -16,19 +16,12 @@ export class AprobacionSolicitanteComponent {
 
   constructor(private router: Router) {}
 
-  aprobarTramite() {
+  aprobarReclamacion() {
     this.tramite.estado = "APROBADO";
     alert(`El trámite "${this.tramite.numeroRadicado}" ha sido aprobado.`);
     this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
   }
 
-  autoRequerimiento() {
-    this.tramite.estado = "EN_REVISION";
-    this.notificacion.mensaje = `Autorequerimiento en el trámite número: ${this.tramite.numeroRadicado}`;
-    this.notificacion.fecha = new Date();
-    alert(this.notificacion.mensaje);
-    console.log(this.notificacion.mensaje);
-  }
 
   rechazarTramite() {
     this.tramite.estado = "RECHAZADO";

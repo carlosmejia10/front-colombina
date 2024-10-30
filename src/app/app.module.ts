@@ -117,5 +117,8 @@ import {InfoControlComponent} from "@/app/pages/asuntos-regulatorios/info-contro
     EstadisticasService,
   ],
   bootstrap: [AppComponent],
+  exports: [
+    ArLayoutComponent
+  ]
 })
 export class AppModule {}
