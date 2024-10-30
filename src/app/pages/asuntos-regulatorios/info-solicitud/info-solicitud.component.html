@@ -20,6 +20,8 @@
 
         <div class="info-box">
           <!-- Información de la Entidad Sanitaria -->
+          <strong>Etapa trámite</strong>
+          <button (click)="handleEtapa()">Etapa: {{ tramite.etapa }}</button>
           <strong>ID Entidad Sanitaria:</strong>
           <p>{{ entidadSanitaria?.id }}</p>
           <strong>Nombre de Entidad Sanitaria:</strong>
