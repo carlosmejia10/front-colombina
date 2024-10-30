@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
-import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
-import { TramiteDTO } from '@/app/modelos/tramite.dto';
+import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
 import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
-import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
+import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { UsuarioDTO } from '@/app/modelos/usuarioDTO';
+import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
+import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-info-tramite',
-  templateUrl: './info-tramite.component.html',
-  styleUrls: ['./info-tramite.component.css'],
+  selector: 'app-info-solicitud',
+  templateUrl: './info-solicitud.component.html',
+  styleUrl: './info-solicitud.component.css'
 })
-export class InfoTramiteComponent implements OnInit {
+export class InfoSolicitudComponent {
   mostrarBoton: boolean = true;
   tramite!: TramiteDTO;
   entidadSanitaria!: EntidadSanitaria;

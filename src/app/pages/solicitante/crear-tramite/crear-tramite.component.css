@@ -1,22 +1,28 @@
 .containerM {
   display: flex;
   background-color: #E7EBF5;
-
 }
-.contenedor{
+
+.contenedor {
   width: 100%;
 }
+
 .container {
-    width: 80%;
-    margin:  50px;
-    height: 500px;
-    padding: 0;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
+  width: 80%;
+  margin: 50px;
+  padding: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  height: auto; /* Deja que la altura crezca según el contenido */
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
-a{
+
+a {
   text-decoration: none;
 }
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -26,7 +32,8 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="text"], select {
+input[type="text"],
+select {
   width: 100%;
   height: 40px;
   padding: 10px;
@@ -36,56 +43,118 @@ input[type="text"], select {
 
 button {
   padding: 10px 20px;
-  border: solir 1px black;
+  border: solid 1px black;
   border-radius: 4px;
   cursor: pointer;
 }
-.titulo{
-    padding: 10px;
+
+.titulo {
+  padding: 10px;
   background-color: #A3B6E6;
   height: 40px;
 }
-.flex{
-    display: flex;
-    height: 200px;
-}
-.left{
-    width: 50%;
-    padding: 40px;
 
+.flex {
+  display: flex;
 }
-.right{
-    padding: 40px;
-    width: 50%;
-    height: 400px;
-    border-left: solid 2px #ccc;
+
+.left {
+  width: 50%;
+  padding: 40px;
 }
-.titulo h2{
-    color: white;
+
+.right {
+  padding: 40px;
+  width: 50%;
+  border-left: solid 2px #ccc;
+  display: flex;
+  flex-direction: column;
 }
-.cuadro{
-    padding: 7px;
-    display: flex;
-    margin: 15px;
-    border:solid 1px #ccc;
-    border-radius: 8px;
+
+.titulo h2 {
+  color: white;
 }
-.fin{
-    margin-top: 210px;
-    margin-left: 47%;
+
+.cuadro {
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+  width: 33vw;
 }
-#datosSol{
-    margin-top: 70px;
-    margin-left: 25%;
-    width: 60%;
+
+.fin {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
-.fl{
+
+#datosSol {
+  margin-top: 70px;
+  margin-left: 25%;
+  width: 60%;
+}
+
+.fl {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 15px;
 }
-p{
+
+p {
   font-size: 15px;
   margin-left: 5px;
+}
+
+/* Asegura que el textarea crezca según el texto */
+textarea#descripcionProducto {
+  width: 100%;
+  min-height: 60px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: vertical; /* Permite el ajuste vertical */
+  overflow-y: auto;
+}
+
+/* Ajusta el campo de país para que tenga el mismo diseño */
+input#pais {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.drag-over {
+  background-color: #f0f0f0;
+  border: 2px dashed #007bff;
+}
+
+.file-entry {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.remove-icon {
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+.file-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+p, .file-entry span {
+  font-size: 15px;
 }

@@ -52,6 +52,8 @@ import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 
 //PARA PRUEBAS DE ESTADISTICA
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
+import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
+import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -77,10 +79,7 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
     SolicitudesComponent,
     LateralArComponent,
     PerfilComponent,
-
-
     EstadisticaComponent,  //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
-
     LayoutComponent,
     SolicitanteLayoutComponent,
     SolicitanteSidebarComponent,
@@ -92,6 +91,8 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
     AdminLayoutComponent,
     AdminSidebarComponent,
     NotificationsComponent,
+    AperturaTramiteComponent,
+    InfoSolicitudComponent,
   ],
   imports: [
     RouterModule,

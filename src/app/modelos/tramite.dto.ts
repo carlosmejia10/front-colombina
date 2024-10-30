@@ -1,8 +1,8 @@
 import { HistorialCambioDTO } from "./historialcambio.dto";
 
 export class TramiteDTO {
-    id: number;
-    numeroRadicado: string;
+    id?: number;
+    numeroRadicado?: string;
     nombreProducto: string;
     descripcionProducto: string;
     tipoProducto: string;
@@ -11,13 +11,11 @@ export class TramiteDTO {
     fechaRadicacion: Date;
     progreso: number;
     llave: number;
-    solicitanteId: number;
     entidadSanitariaId: number;
+    etapa: string;
     historialCambioDTOList: HistorialCambioDTO[];
 
     constructor(
-        id: number,
-        numeroRadicado: string,
         nombreProducto: string,
         descripcionProducto: string,
         tipoProducto: string,
@@ -26,12 +24,9 @@ export class TramiteDTO {
         fechaRadicacion: Date,
         progreso: number,
         llave: number,
-        solicitanteId: number,
         entidadSanitariaId: number,
         historialCambioDTOList: HistorialCambioDTO[]
     ) {
-        this.id = id;
-        this.numeroRadicado = numeroRadicado;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.tipoProducto = tipoProducto;
@@ -40,7 +35,6 @@ export class TramiteDTO {
         this.fechaRadicacion = fechaRadicacion;
         this.progreso = progreso;
         this.llave = llave;
-        this.solicitanteId = solicitanteId;
         this.entidadSanitariaId = entidadSanitariaId;
         this.historialCambioDTOList = historialCambioDTOList;
     }

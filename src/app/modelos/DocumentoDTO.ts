@@ -9,22 +9,18 @@ export class DocumentoDTO {
   file: File;       // Tipo File para el archivo
 
   constructor(
-    tipo: string,
     aprobado: boolean,
     cumpleNormativas: boolean,
     name: string,
     file: File,
     id?: number,
-    tempUrl?: string,
     fechaExpiracion?: Date
   ) {
-    this.tipo = tipo;
     this.aprobado = aprobado;
     this.cumpleNormativas = cumpleNormativas;
     this.name = name;
     this.file = file;
     this.id = id;
-    this.tempUrl = tempUrl;
     this.fechaExpiracion = fechaExpiracion;
   }
 }

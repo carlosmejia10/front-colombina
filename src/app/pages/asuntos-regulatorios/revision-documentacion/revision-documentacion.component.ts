@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core'; // Importa OnInit
 import { NgFor } from '@angular/common';
 import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
@@ -10,35 +9,35 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [NgFor],
   templateUrl: './revision-documentacion.component.html',
-  styleUrls: ['./revision-documentacion.component.css'] // Corrige styleUrl a styleUrls
+  styleUrls: ['./revision-documentacion.component.css'], // Corrige styleUrl a styleUrls
 })
-export class RevisionDocumentacionComponent implements OnInit { // Implementa OnInit
+export class RevisionDocumentacionComponent implements OnInit {
+  // Implementa OnInit
   documentos: DocumentoDTO[] = []; // Inicializa como un array vacío
 
   constructor(private route: ActivatedRoute,private documentoService:DocumentoService){}
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      if (id) {
-        console.log("recibido" + id)
-        this.cargarArchivos(id);
-      } else {
-        console.error('ID no válido en la ruta');
-      }
-    });
-}
+    // Crear una instancia de DocumentoDTO para un archivo de texto
+    const documentoTexto = new DocumentoDTO(
+      false, // aprobado
+      false, // cumpleNormativas
+      'informe_anual.txt', // name
+      new File(['Contenido del informe'], 'informe_anual.txt', {
+        type: 'text/plain',
+      }) // file
+    );
 
-cargarArchivos(id: number): void {
-  this.documentoService.findAll(id).subscribe(
-    (data: DocumentoDTO[]) => {
-      console.log('Datos recibidos:', data); // Agrega esta línea
-      this.documentos = data;
-    },
-    (error) => {
-      console.error('Error al cargar los archivos:', error);
-    }
-  );
-}
+    // Crear una instancia de DocumentoDTO para un archivo PDF
+    const documentoPDF = new DocumentoDTO(
+      true, // aprobado
+      true, // cumpleNormativas
+      'presentacion.pdf', // name
+      new File(['Contenido de la presentación'], 'presentacion.pdf', {
+        type: 'application/pdf',
+      }) // file
+    );
 
-
+    // Agregar documentos al array
+    this.documentos.push(documentoTexto, documentoPDF);
+  }
 }
