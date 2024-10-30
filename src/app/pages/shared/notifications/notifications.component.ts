@@ -19,19 +19,23 @@ export class NotificationsComponent {
   }
 
   obtenerNotificaciones(): void {
-    this.notificacionService.obtenerNotificacionesPorUsuario(this.usuarioId).subscribe(
-      (data) => this.notificaciones = data,
-      (error) => console.error('Error al obtener notificaciones:', error)
-    );
-  }
-
-  marcarComoLeida(notificacionId: number): void {
-    this.notificacionService.marcarNotificacionComoLeida(notificacionId).subscribe(
-      (response) => {
-        console.log(response);
-        this.obtenerNotificaciones(); // Refresca las notificaciones
+    this.notificacionService.obtenerNotificacionesPorUsuario(this.usuarioId).subscribe({
+      next: (data) => {
+        this.notificaciones = data;
+        console.log('Notificaciones:', data);
       },
-      (error) => console.error('Error al marcar como leída:', error)
-    );
+      error: (error) => console.error('Error al obtener notificaciones:', error)
+    });
   }
+  
+
+marcarComoLeida(notificacionId: number): void {
+  this.notificacionService.marcarNotificacionComoLeida(notificacionId).subscribe({
+    next: (response) => {
+      console.log(response);
+      this.obtenerNotificaciones(); // Refresca las notificaciones
+    },
+    error: (error) => console.error('Error al marcar como leída:', error)
+  });
+}
 }

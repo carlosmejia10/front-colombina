@@ -30,7 +30,7 @@
   
             <!-- Listar los eventos del día -->
             <div *ngFor="let evento of eventosDelDia">
-              <p><strong>Trámite:</strong> {{ evento.numeroRadicado }} - {{ evento.estado }}</p>
+              <p><strong>•Trámite:</strong> {{ evento.numeroRadicado }} - {{ evento.estado }}</p>
               <p><strong>Fecha de Radicación:</strong> {{ evento.fechaRadicacion | date:'shortDate' }}</p>
             </div>
           </div>
