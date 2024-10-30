@@ -252,7 +252,7 @@ export class CrearTramiteComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       const fileSizeMB = file.size / (1024 * 1024);
-      
+  
       console.log(`Tamaño del archivo seleccionado: ${fileSizeMB} MB`);
   
       // Mostrar el pop-up si el archivo excede el tamaño permitido
@@ -262,11 +262,13 @@ export class CrearTramiteComponent implements OnInit {
         return; // No almacena el archivo si excede el límite
       }
   
+      // Si el tamaño es válido, asigna el archivo y procede
       this.selectedFiles[tipoArchivo] = file;
       this.fileNames[tipoArchivo] = file.name;
       this.removeErrorMessage(tipoArchivo);
     }
   }
+  
   
 
   // Método para manejar la selección de múltiples archivos en "Archivos Adicionales"
@@ -322,11 +324,12 @@ export class CrearTramiteComponent implements OnInit {
 
   private subirArchivoIndividual(file: File, tipoArchivo: string): void {
     const documentoDTO = new DocumentoDTO(false, false, file.name, file);
-
+  
     this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
       (response) => {
         console.log(`Archivo ${tipoArchivo} subido con éxito`, response);
-        alert(`Archivo ${tipoArchivo} subido con éxito`);
+        // Muestra el pop-up de éxito en lugar de alert
+        this.fileSizeComponent.openSuccess(`Archivo ${tipoArchivo} subido con éxito`);
       },
       (error) => {
         console.error(`Error al subir el archivo ${tipoArchivo}`, error);
@@ -334,6 +337,7 @@ export class CrearTramiteComponent implements OnInit {
       }
     );
   }
+  
 
   
 }
