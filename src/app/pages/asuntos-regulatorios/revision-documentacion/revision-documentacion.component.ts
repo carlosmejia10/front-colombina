@@ -17,29 +17,10 @@ export class RevisionDocumentacionComponent implements OnInit { // Implementa On
 
   constructor(private route: ActivatedRoute,private documentoService:DocumentoService){}
   ngOnInit() {
-    /*// Crear una instancia de DocumentoDTO para un archivo de texto
-    const documentoTexto = new DocumentoDTO(
-        "txt",                       // tipo
-        null,                       // aprobado
-        false,                       // cumpleNormativas
-        "informe_anual.txt",        // name
-        new File(["Contenido del informe"], "informe_anual.txt", { type: "text/plain" }) // file
-    );
-
-    // Crear una instancia de DocumentoDTO para un archivo PDF
-    const documentoPDF = new DocumentoDTO(
-        "pdf",                       // tipo
-        null,                        // aprobado
-        true,                        // cumpleNormativas
-        "presentacion.pdf",         // name
-        new File(["Contenido de la presentación"], "presentacion.pdf", { type: "application/pdf" }) // file
-    );
-    // Agregar documentos al array
-    this.documentos.push(documentoTexto, documentoPDF);*/
-
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       if (id) {
+        console.log("recibido" + id)
         this.cargarArchivos(id);
       } else {
         console.error('ID no válido en la ruta');
