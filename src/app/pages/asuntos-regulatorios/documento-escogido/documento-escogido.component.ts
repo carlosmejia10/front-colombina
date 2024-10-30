@@ -29,7 +29,10 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
     this.documentoService.findById(documentoId).subscribe((data) => {
       this.documento = data;
       this.createFileUrl(data.file);
+      //this.documentoService.descargarArchivo(this.documento.name,)
     });
+
+    
   }
 
   createFileUrl(file: File) {
