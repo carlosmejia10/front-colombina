@@ -29,4 +29,12 @@ export class DocumentoService {
     });
       return this.http.get<DocumentoDTO>(`${BASE_URL}/files/${id}`,{headers});
     }
+
+    descargarArchivo(nombre:string, id:number):any{
+      const token = this.authService.getToken(); 
+      const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+      return this.http.get<any>(`${BASE_URL}/descargar-archivo/${id}/${nombre}"`)
+    }
 }

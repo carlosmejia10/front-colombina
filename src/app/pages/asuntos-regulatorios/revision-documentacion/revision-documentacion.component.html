@@ -3,7 +3,7 @@
   <div class="documentos">
     <div *ngFor="let documento of documentos" class="documento">
       <strong>{{ documento.name }}:</strong>
-      <button class="btn-revisar" (click)="revisarDocumento(documento.id)">Revisar</button>
+      <button class="btn-revisar" (click)="revisarDocumento(documento.name)">Revisar</button>
     </div>
   </div>
   <button class="btn-regresar" (click)="regresar()">Regresar</button>
