@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core'; // Importa OnInit
 import { NgFor } from '@angular/common';
 import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
 import { DocumentoService } from '@/app/servicios/documento.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
+import { catchError,throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-revision-documentacion',
@@ -15,29 +18,46 @@ export class RevisionDocumentacionComponent implements OnInit {
   // Implementa OnInit
   documentos: DocumentoDTO[] = []; // Inicializa como un array vacío
 
-  constructor(private route: ActivatedRoute,private documentoService:DocumentoService){}
+  constructor(private router:Router, private route: ActivatedRoute,private documentoService:DocumentoService){}
   ngOnInit() {
-    // Crear una instancia de DocumentoDTO para un archivo de texto
-    const documentoTexto = new DocumentoDTO(
-      false, // aprobado
-      false, // cumpleNormativas
-      'informe_anual.txt', // name
-      new File(['Contenido del informe'], 'informe_anual.txt', {
-        type: 'text/plain',
-      }) // file
-    );
-
-    // Crear una instancia de DocumentoDTO para un archivo PDF
-    const documentoPDF = new DocumentoDTO(
-      true, // aprobado
-      true, // cumpleNormativas
-      'presentacion.pdf', // name
-      new File(['Contenido de la presentación'], 'presentacion.pdf', {
-        type: 'application/pdf',
-      }) // file
-    );
-
-    // Agregar documentos al array
-    this.documentos.push(documentoTexto, documentoPDF);
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+  
+    if (id) {
+      this.getDocumentos(id).subscribe(
+        (data) => {
+          this.documentos = data;
+          console.log('Documentos cargados:', this.documentos);
+          this.documentos.forEach(doc => {
+            console.log('ID del documento:', doc.id); // Asegúrate de que los IDs son válidos
+          });
+        },
+        (error) => {
+          console.error('Error al cargar documentos:', error);
+        }
+      );
+    } else {
+      console.error('ID no encontrado en la ruta');
+    }
   }
+
+  getDocumentos(id: number): Observable<DocumentoDTO[]> {
+    return this.documentoService.findAll(id).pipe(
+      catchError((error: any) => {
+        console.error('Error al obtener documentos:', error);
+        return throwError(() => new Error('Error al obtener documentos'));
+      })
+    );
+  }
+  
+
+
+  revisarDocumento(documentoId: number): void {
+    console.log('ID del documento a revisar:', documentoId);
+    if (documentoId) {
+      this.router.navigate(['/revision', documentoId]);
+    } else {
+      console.error('ID del documento no es válido:', documentoId);
+    }
+  }
+
 }
