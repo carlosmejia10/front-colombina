@@ -55,6 +55,8 @@ import { FileSizeComponent } from './pages/solicitante/file-size/file-size.compo
 //PARA PRUEBAS DE ESTADISTICA
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
+import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
+import {InfoControlComponent} from "@/app/pages/asuntos-regulatorios/info-control/info-control.component";
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-
     AdminSidebarComponent,
     NotificationsComponent,
     AperturaTramiteComponent,
-    FileSizeComponent
+    FileSizeComponent,
+    InfoSolicitudComponent,
+    InfoControlComponent
   ],
   imports: [
     RouterModule,

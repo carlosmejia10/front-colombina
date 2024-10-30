@@ -27,6 +27,8 @@ import { ConceptoSatisfactorioComponent } from '@/app/concepto-satisfactorio/con
 import { NotificationsComponent } from '@/app/pages/shared/notifications/notifications.component';
 import { AprobacionInvimaComponent } from '@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
+import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
+import { InfoControlComponent } from './pages/asuntos-regulatorios/info-control/info-control.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -48,7 +50,13 @@ const routes: Routes = [
     path: 'info-tramite/:id',
     component: InfoTramiteComponent,
     canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] },
+    data: { roles: [Role.Solitante] },
+  },
+  {
+    path: 'info-solicitud/:id',
+    component: InfoSolicitudComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios, Role.Admin] },
   },
   {
     path: 'historial',
@@ -135,6 +143,10 @@ const routes: Routes = [
     component: PerfilComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] }, //Usuario no logueado no puede acceder
+  },
+  {
+    path: `info-control`,
+    component: InfoControlComponent,
   },
   {
     path: `aprobacion-invima/:numeroRadicado`,

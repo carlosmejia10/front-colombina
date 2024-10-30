@@ -1,0 +1,67 @@
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* Contenedor principal */
+.form-tramite {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f3f6fb;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+/* Filas de formularios */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Grupos de campos */
+.form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Etiquetas */
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Entradas de texto */
+.input-text {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Botones */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
