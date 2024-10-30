@@ -1,40 +1,51 @@
-import { Component, OnInit } from '@angular/core'; // Importa OnInit
-import { NgFor } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
+import { Router } from '@angular/router'; // Importamos el Router
 
 @Component({
   selector: 'app-revision-documentacion',
-  standalone: true,
-  imports: [NgFor],
   templateUrl: './revision-documentacion.component.html',
-  styleUrls: ['./revision-documentacion.component.css'], // Corrige styleUrl a styleUrls
+  styleUrls: ['./revision-documentacion.component.css'],
 })
 export class RevisionDocumentacionComponent implements OnInit {
-  // Implementa OnInit
-  documentos: DocumentoDTO[] = []; // Inicializa como un array vacío
+  documentos: DocumentoDTO[] = [];
+
+  constructor(private router: Router) {} // Inyectamos el Router en el constructor
 
   ngOnInit() {
-    // Crear una instancia de DocumentoDTO para un archivo de texto
     const documentoTexto = new DocumentoDTO(
-      false, // aprobado
-      false, // cumpleNormativas
-      'informe_anual.txt', // name
+      false,
+      false,
+      'informe_anual.txt',
       new File(['Contenido del informe'], 'informe_anual.txt', {
         type: 'text/plain',
-      }) // file
+      })
     );
 
-    // Crear una instancia de DocumentoDTO para un archivo PDF
     const documentoPDF = new DocumentoDTO(
-      true, // aprobado
-      true, // cumpleNormativas
-      'presentacion.pdf', // name
+      true,
+      true,
+      'presentacion.pdf',
       new File(['Contenido de la presentación'], 'presentacion.pdf', {
         type: 'application/pdf',
-      }) // file
+      })
     );
 
-    // Agregar documentos al array
     this.documentos.push(documentoTexto, documentoPDF);
+  }
+
+  // Función para redirigir al componente de InfoControl
+  continuar() {
+    // Lógica que tengas adicional antes de redirigir (si aplica)
+    console.log('Redirigiendo a Info Control...');
+    this.router.navigate(['/info-control']);
+  }
+
+  regresar() {
+    this.router.navigate(['/info-tramite']); // Redirige al componente de InfoTramite
+  }
+
+  revisarDocumento() {
+    this.router.navigate(['/revision']); // Redirige a la página de revisión
   }
 }
