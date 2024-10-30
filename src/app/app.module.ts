@@ -49,6 +49,8 @@ import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-si
 import { NotificationsComponent } from './pages/shared/notifications/notifications.component';
 import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
+import { FileSizeComponent } from './pages/solicitante/file-size/file-size.component';
+
 
 //PARA PRUEBAS DE ESTADISTICA
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
@@ -91,6 +93,7 @@ import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-
     AdminSidebarComponent,
     NotificationsComponent,
     AperturaTramiteComponent,
+    FileSizeComponent
   ],
   imports: [
     RouterModule,
