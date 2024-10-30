@@ -1,63 +1,52 @@
-import { Component, OnInit } from '@angular/core'; // Importa OnInit
-import { NgFor } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
-import { DocumentoService } from '@/app/servicios/documento.service';
-import { ActivatedRoute,Router } from '@angular/router';
-import { catchError,throwError } from 'rxjs';
-import { Observable } from 'rxjs';
-
+import { Router } from '@angular/router'; // Importamos el Router
 
 @Component({
   selector: 'app-revision-documentacion',
-  standalone: true,
-  imports: [NgFor],
   templateUrl: './revision-documentacion.component.html',
-  styleUrls: ['./revision-documentacion.component.css'], // Corrige styleUrl a styleUrls
+  styleUrls: ['./revision-documentacion.component.css'],
 })
 export class RevisionDocumentacionComponent implements OnInit {
-  // Implementa OnInit
-  documentos: DocumentoDTO[] = []; // Inicializa como un array vacío
+  documentos: DocumentoDTO[] = [];
+
+  constructor(private router: Router) {} // Inyectamos el Router en el constructor
 
   constructor(private router:Router, private route: ActivatedRoute,private documentoService:DocumentoService){}
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-  
-    if (id) {
-      this.getDocumentos(id).subscribe(
-        (data) => {
-          this.documentos = data;
-          console.log('Documentos cargados:', this.documentos);
-          this.documentos.forEach(doc => {
-            console.log('ID del documento:', doc.id); // Asegúrate de que los IDs son válidos
-          });
-        },
-        (error) => {
-          console.error('Error al cargar documentos:', error);
-        }
-      );
-    } else {
-      console.error('ID no encontrado en la ruta');
-    }
-  }
-
-  getDocumentos(id: number): Observable<DocumentoDTO[]> {
-    return this.documentoService.findAll(id).pipe(
-      catchError((error: any) => {
-        console.error('Error al obtener documentos:', error);
-        return throwError(() => new Error('Error al obtener documentos'));
+    const documentoTexto = new DocumentoDTO(
+      false,
+      false,
+      'informe_anual.txt',
+      new File(['Contenido del informe'], 'informe_anual.txt', {
+        type: 'text/plain',
       })
     );
+
+    const documentoPDF = new DocumentoDTO(
+      true,
+      true,
+      'presentacion.pdf',
+      new File(['Contenido de la presentación'], 'presentacion.pdf', {
+        type: 'application/pdf',
+      })
+    );
+
+    this.documentos.push(documentoTexto, documentoPDF);
   }
-  
 
-
-  revisarDocumento(documentoId: number): void {
-    console.log('ID del documento a revisar:', documentoId);
-    if (documentoId) {
-      this.router.navigate(['/revision', documentoId]);
-    } else {
-      console.error('ID del documento no es válido:', documentoId);
-    }
+  // Función para redirigir al componente de InfoControl
+  continuar() {
+    // Lógica que tengas adicional antes de redirigir (si aplica)
+    console.log('Redirigiendo a Info Control...');
+    this.router.navigate(['/info-control']);
   }
 
+  regresar() {
+    this.router.navigate(['/info-tramite']); // Redirige al componente de InfoTramite
+  }
+
+  revisarDocumento() {
+    this.router.navigate(['/revision']); // Redirige a la página de revisión
+  }
 }

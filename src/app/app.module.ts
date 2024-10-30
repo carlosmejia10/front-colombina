@@ -54,6 +54,7 @@ import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
+import {InfoControlComponent} from "@/app/pages/asuntos-regulatorios/info-control/info-control.component";
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solici
     NotificationsComponent,
     AperturaTramiteComponent,
     InfoSolicitudComponent,
+    InfoControlComponent
   ],
   imports: [
     RouterModule,

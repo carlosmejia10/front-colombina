@@ -6,12 +6,12 @@ import { UsuarioDTO } from '@/app/modelos/usuarioDTO';
 import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-info-solicitud',
   templateUrl: './info-solicitud.component.html',
-  styleUrl: './info-solicitud.component.css'
+  styleUrl: './info-solicitud.component.css',
 })
 export class InfoSolicitudComponent {
   mostrarBoton: boolean = true;
@@ -24,7 +24,8 @@ export class InfoSolicitudComponent {
   constructor(
     private route: ActivatedRoute,
     private tramiteService: TramiteService,
-    private entidadSanitariaService: EntidadSanitariaService // Inyecta el servicio
+    private entidadSanitariaService: EntidadSanitariaService, // Inyecta el servicio
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class InfoSolicitudComponent {
     this.tramiteService.findById(id).subscribe((data: TramiteDTO) => {
       this.tramite = data;
       this.getEntidadSanitariaDetails(data.entidadSanitariaId); // Llama a la función para cargar la entidad
+      console.log(data);
     });
   }
 
@@ -68,5 +70,27 @@ export class InfoSolicitudComponent {
       `El trámite con número de radicado ${this.tramite.numeroRadicado} ha sido escalado.`
     );
     this.mostrarBoton = false;
+  }
+
+  handleEtapa() {
+    if (
+      this.tramite.etapa.endsWith('1') ||
+      this.tramite.etapa.endsWith('2') ||
+      this.tramite.etapa.endsWith('3')
+    ) {
+      this.router.navigate(['/apertura-tramite', this.tramite.id]);
+    } else if (this.tramite.etapa.endsWith('4')) {
+      this.router.navigate(['/documentos', this.tramite.id]);
+    } else if (this.tramite.etapa.endsWith('5')) {
+      // TODO
+    } else if (this.tramite.etapa.endsWith('6')) {
+      this.router.navigate(['/aprobacion-invima', this.tramite.id]);
+    } else if (this.tramite.etapa.endsWith('7')) {
+      // TODO
+    } else if (this.tramite.etapa.endsWith('8')) {
+      // TODO
+    } else if (this.tramite.etapa.endsWith('9')) {
+      // TODO
+    }
   }
 }
