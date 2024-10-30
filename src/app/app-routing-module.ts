@@ -23,7 +23,7 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
-import { ConceptoSatisfactorioComponent } from '@/app/pages/asuntos-regulatorios/concepto-satisfactorio/concepto-satisfactorio.component';
+import { ConceptoSatisfactorioComponent } from '@/app/concepto-satisfactorio/concepto-satisfactorio.component';
 import { NotificationsComponent } from '@/app/pages/shared/notifications/notifications.component';
 import { AprobacionInvimaComponent } from '@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
@@ -40,6 +40,8 @@ import {
 import {
   AprobacionResolucionRechazadaComponent
 } from "@/app/pages/asuntos-regulatorios/aprobacion-resolucion-rechazada/aprobacion-resolucion-rechazada.component";
+import { InfoControlComponent } from './pages/asuntos-regulatorios/info-control/info-control.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -156,6 +158,10 @@ const routes: Routes = [
     data: { roles: [Role.Solitante, Role.AsuntosRegulatorios, Role.Admin] }, //Usuario no logueado no puede acceder
   },
 
+  {
+    path: `info-control`,
+    component: InfoControlComponent,
+  },
   {
     path: `aprobacion-invima/:numeroRadicado`,
     component: AprobacionInvimaComponent,

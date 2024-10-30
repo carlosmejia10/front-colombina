@@ -15,6 +15,13 @@ export class TramiteDTO {
     entidadSanitariaId: number;
     etapa: string;
     historialCambioDTOList: HistorialCambioDTO[];
+    pt?: string;
+    unidadNegocio?: string;
+    numProyectoSap?: number;
+    proyecto?: string;
+    tipoModificacion?: string;
+    descripcionTramite?: string;
+    claseTramite?: string;
 
     constructor(
         nombreProducto: string,

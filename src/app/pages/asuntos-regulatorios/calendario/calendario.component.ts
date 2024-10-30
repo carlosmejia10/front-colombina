@@ -1,75 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Solicitud } from '../../../modelos/solicitud';
-import { Tramite, EstadoTramite } from '../../../modelos/tramite';
+import { TramiteService } from '../../../servicios/tramite-regulatorio.service';
+import { TramiteDTO } from '../../../modelos/tramite.dto';
 
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styleUrls: ['../../../app.component.css','./calendario.component.css']
+  styleUrls: ['../../../app.component.css', './calendario.component.css']
 })
 export class CalendarioComponent implements OnInit {
   date: Date[] | undefined;
   selectedDate: Date = new Date();
-  tramites: Tramite[] = []; // Lista de trámites cargados
-  eventosDelDia: Tramite[] = []; // Trámites que coinciden con la fecha seleccionada
+  tramites: TramiteDTO[] = []; // Lista de trámites cargados desde el backend
+  eventosDelDia: TramiteDTO[] = []; // Trámites que coinciden con la fecha seleccionada
 
-   constructor(){}
+  constructor(private tramiteService: TramiteService) {}
 
   ngOnInit(): void {
-    // Cargar trámites de prueba
-    this.tramites = [
-      new Tramite(
-        1,
-        'AR-0001-2024',
-        EstadoTramite.APROBADO,
-        new Date('2024-10-01'),
-        new Date('2024-10-19'),
-        {} as any, // Entidad sanitaria (vacía para este ejemplo)
-        [],
-        [],
-        [],
-        [],
-        new Solicitud(1, 'Producto A', 'Tipo A', new Date(), 'Tipo 1'),
-        'Nacional'
-      ),
-      new Tramite(
-        2,
-        'AR-0002-2024',
-        EstadoTramite.PENDIENTE,
-        new Date('2024-10-05'),
-        new Date('2024-11-15'),
-        {} as any,
-        [],
-        [],
-        [],
-        [],
-        new Solicitud(2, 'Producto B', 'Tipo B', new Date(), 'Tipo 1'),
-        'Internacional'
-      )
-    ];
-
-    // Al cargar el componente, mostrar los eventos del día seleccionado
-    this.onDateSelect(this.selectedDate);
+    // Cargar trámites desde el backend usando TramiteService
+    this.tramiteService.findAll().subscribe(
+      (data: TramiteDTO[]) => {
+        this.tramites = data;
+        // Mostrar los eventos del día seleccionado
+        this.onDateSelect(this.selectedDate);
+      },
+      (error) => {
+        console.error("Error al cargar trámites: ", error);
+      }
+    );
   }
 
   // Método que se ejecuta cuando se selecciona una fecha
   onDateSelect(date: Date) {
     this.selectedDate = date;
     this.eventosDelDia = this.tramites.filter(tramite =>
-      this.isSameDate(this.adjustDate(tramite.fechaRespuesta), this.selectedDate)
+      this.isSameDate(new Date(tramite.fechaRadicacion), this.selectedDate)
     );
-  }
-
-  // Ajustar fecha sumando un día
-  adjustDate(date: Date): Date {
-    const adjustedDate = new Date(date);
-    adjustedDate.setDate(adjustedDate.getDate() + 1);
-    return adjustedDate;
   }
 
   hasEventOnDate(date: any): boolean {
     return this.tramites.some(tramite =>
-      this.isSameDate(new Date(tramite.fechaRespuesta), new Date(date.year, date.month - 1, date.day))
+      this.isSameDate(new Date(tramite.fechaRadicacion), new Date(date.year, date.month - 1, date.day))
     );
   }
 
@@ -87,4 +57,3 @@ export class CalendarioComponent implements OnInit {
     return this.hasEventOnDate(date) ? 'event-day' : '';
   }
 }
-
