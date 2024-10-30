@@ -112,5 +112,8 @@ import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solici
     EstadisticasService,
   ],
   bootstrap: [AppComponent],
+  exports: [
+    ArLayoutComponent
+  ]
 })
 export class AppModule {}

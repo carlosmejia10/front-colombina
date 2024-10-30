@@ -23,11 +23,23 @@ import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.comp
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
-import { ConceptoSatisfactorioComponent } from '@/app/concepto-satisfactorio/concepto-satisfactorio.component';
+import { ConceptoSatisfactorioComponent } from '@/app/pages/asuntos-regulatorios/concepto-satisfactorio/concepto-satisfactorio.component';
 import { NotificationsComponent } from '@/app/pages/shared/notifications/notifications.component';
 import { AprobacionInvimaComponent } from '@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
+import {
+  AprobacionResolucionSolicitanteComponent
+} from "@/app/pages/asuntos-regulatorios/aprobacion-resolucion-solicitante/aprobacion-resolucion-solicitante.component";
+import {
+  AutorequerimientoComponent
+} from "@/app/pages/asuntos-regulatorios/autorequerimiento/autorequerimiento.component";
+import {
+  AprobacionSolicitanteComponent
+} from "@/app/pages/solicitante/aprobacion-solicitante/aprobacion-solicitante.component";
+import {
+  AprobacionResolucionRechazadaComponent
+} from "@/app/pages/asuntos-regulatorios/aprobacion-resolucion-rechazada/aprobacion-resolucion-rechazada.component";
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -149,7 +161,31 @@ const routes: Routes = [
     component: AprobacionInvimaComponent,
   },
 
+  {
+    path:`aprobacion-resolucion-solicitante`,
+    component: AprobacionResolucionSolicitanteComponent,
+  },
 
+  {
+    path: `autorequerimiento`,
+    component: AutorequerimientoComponent,
+  },
+  {
+    path: `concepto-satisfactorio`,
+    component: ConceptoSatisfactorioComponent,
+  },
+  {
+    path: `aprobacion-solicitante`,
+    component: AprobacionSolicitanteComponent,
+  },
+  {
+    path: `apertura-tramite`,
+    component: AperturaTramiteComponent,
+  },
+  {
+    path: `aprobacion-resolucion-rechazada`,
+    component: AprobacionResolucionRechazadaComponent,
+  }
 
 
 ];

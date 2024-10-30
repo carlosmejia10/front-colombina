@@ -3,12 +3,13 @@ import { TramiteDTO } from "@/app/modelos/tramite.dto";
 import { NotificacionDto } from "@/app/modelos/notificacion-dto";
 import { Router } from '@angular/router';
 import { NgForOf } from "@angular/common";
+import {AppModule} from "@/app/app.module";
 
 @Component({
   selector: 'app-aprobacion-invima',
   templateUrl: './aprobacion-invima.component.html',
   styleUrls: ['./aprobacion-invima.component.css'],
-  imports: [NgForOf],
+  imports: [NgForOf, AppModule],
   standalone: true
 })
 export class AprobacionInvimaComponent {
@@ -20,7 +21,7 @@ export class AprobacionInvimaComponent {
   aprobarTramite() {
     this.tramite.estado = "APROBADO";
     alert(`El trámite "${this.tramite.numeroRadicado}" ha sido aprobado.`);
-    this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
+    this.router.navigate(['/aprobacion-resolucion-solicitante', this.tramite.numeroRadicado]);
   }
 
   autoRequerimiento() {
@@ -37,13 +38,9 @@ export class AprobacionInvimaComponent {
     this.notificacion.fecha = new Date();
     alert(this.notificacion.mensaje);
     console.log(this.notificacion.mensaje);
-    this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
+    this.router.navigate(['/aprobacion-resolucion-solicitante', this.tramite.numeroRadicado]);
 
   }
 
-  volver() {
 
-
-
-  }
 }
