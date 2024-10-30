@@ -181,7 +181,7 @@ export class CrearTramiteComponent implements OnInit {
 
     this.crearSolicitudYTramite().subscribe((solicitud) => {
       console.log('Solicitud creada:', solicitud);
-      this.idTramite = solicitud.tramite?.llave || 0;
+      this.idTramite = solicitud.tramite.id;
       this.enviarArchivos();
     });
   }
