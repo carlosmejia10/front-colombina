@@ -1,0 +1,25 @@
+<app-ar-layout>
+  <div class="container">
+    <div class="tramite-info">
+      <h3>Información del Trámite</h3>
+      <p><strong>ID:</strong> {{ tramite.id }}</p>
+      <p><strong>Número Radicado:</strong> {{ tramite.numeroRadicado }}</p>
+      <p><strong>Nombre del Producto:</strong> {{ tramite.nombreProducto }}</p>
+      <p><strong>Descripción del Producto:</strong> {{ tramite.descripcionProducto }}</p>
+      <p><strong>Tipo de Producto:</strong> {{ tramite.tipoProducto }}</p>
+      <p><strong>Tipo de Trámite:</strong> {{ tramite.tipoTramite }}</p>
+      <p><strong>Solicitante ID:</strong></p>
+
+
+      <p>Seleccione una opción acorde a la respuesta del Invima</p>
+
+      <div class="action-buttons">
+        <button (click)="tramiteAprobado()">Aceptado</button>
+        <button (click)="tramiteRechazado()">Rechazado</button>
+      </div>
+
+
+    </div>
+
+  </div>
+</app-ar-layout>
