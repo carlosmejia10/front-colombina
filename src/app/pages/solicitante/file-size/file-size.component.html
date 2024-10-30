@@ -1,9 +1,21 @@
-<!-- file-size.component.html -->
 <div class="modal-backdrop" *ngIf="isVisible" (click)="close()"></div>
 <div class="modal-content" *ngIf="isVisible">
-  <h3 class="modal-title">Tamaño del Archivo Excedido</h3>
-  <p class="modal-message">El archivo seleccionado tiene un tamaño de <strong>{{ fileSizeMB }} MB</strong>, que excede el límite de 2GB permitido.</p>
-  
+  <h3 class="modal-title">
+    <ng-container *ngIf="errorMessage">Error de Archivo</ng-container>
+    <ng-container *ngIf="successMessage && !errorMessage">Archivo Subido</ng-container>
+    <ng-container *ngIf="fileSizeMB > 0 && !errorMessage">Tamaño del Archivo Excedido</ng-container>
+  </h3>
+  <p class="modal-message">
+    <ng-container *ngIf="errorMessage">
+      {{ errorMessage }}
+    </ng-container>
+    <ng-container *ngIf="fileSizeMB > 0 && !errorMessage">
+      El archivo seleccionado tiene un tamaño de <strong>{{ fileSizeMB }} MB</strong>, que excede el límite de 2GB permitido.
+    </ng-container>
+    <ng-container *ngIf="successMessage && !errorMessage">
+      {{ successMessage }}
+    </ng-container>
+  </p>
   <div class="modal-buttons">
     <button (click)="close()" class="ok-button">Aceptar</button>
   </div>

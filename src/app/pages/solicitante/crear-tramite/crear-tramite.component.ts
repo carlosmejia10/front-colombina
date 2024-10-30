@@ -184,7 +184,7 @@ export class CrearTramiteComponent implements OnInit {
 
     this.crearSolicitudYTramite().subscribe((solicitud) => {
       console.log('Solicitud creada:', solicitud);
-      this.idTramite = solicitud.tramite?.llave || 0;
+      this.idTramite = solicitud.tramite.id;
       this.enviarArchivos();
     });
   }
@@ -246,27 +246,40 @@ export class CrearTramiteComponent implements OnInit {
     }
   }
 
+
   // Método para manejar la selección de archivos en campos individuales
   onFileSelected(event: Event, tipoArchivo: string): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       const fileSizeMB = file.size / (1024 * 1024);
-      
+      const allowedExtensions = ['pdf', 'docx', 'xlsx'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      // Validación de extensión de archivo
+      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+        console.log('Formato de archivo no permitido');
+        this.fileSizeComponent.openError('Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.');
+        return;
+      }
+
       console.log(`Tamaño del archivo seleccionado: ${fileSizeMB} MB`);
-  
+
       // Mostrar el pop-up si el archivo excede el tamaño permitido
       if (fileSizeMB > 2048) {
         console.log('El archivo excede el límite de 2GB, mostrando pop-up');
         this.fileSizeComponent.open(fileSizeMB); // Abre el pop-up
         return; // No almacena el archivo si excede el límite
       }
-  
+
+      // Si el tamaño y el formato son válidos, asigna el archivo y procede
       this.selectedFiles[tipoArchivo] = file;
       this.fileNames[tipoArchivo] = file.name;
       this.removeErrorMessage(tipoArchivo);
     }
   }
+
+  
   
 
   // Método para manejar la selección de múltiples archivos en "Archivos Adicionales"
@@ -322,18 +335,20 @@ export class CrearTramiteComponent implements OnInit {
 
   private subirArchivoIndividual(file: File, tipoArchivo: string): void {
     const documentoDTO = new DocumentoDTO(false, false, file.name, file);
-
+  
     this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
       (response) => {
         console.log(`Archivo ${tipoArchivo} subido con éxito`, response);
-        alert(`Archivo ${tipoArchivo} subido con éxito`);
+        this.fileSizeComponent.openSuccess(`Archivo ${tipoArchivo} subido con éxito`);
       },
       (error) => {
         console.error(`Error al subir el archivo ${tipoArchivo}`, error);
-        alert(`Error al subir el archivo ${tipoArchivo}`);
+        this.fileSizeComponent.openError(`Error al subir el archivo ${tipoArchivo}`);
       }
     );
   }
+  
+  
 
   
 }
