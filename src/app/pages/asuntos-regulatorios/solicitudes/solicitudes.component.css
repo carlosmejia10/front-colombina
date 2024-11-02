@@ -361,3 +361,11 @@ input#search-bar{
   font-weight: bold;
   margin: 20px 0;
 }
+
+/* Exportar a excel */
+.exportar{
+  margin-left: 5px;
+  background-color: #8f9fc8;
+  border-radius: 5px;
+  color: white;
+}
