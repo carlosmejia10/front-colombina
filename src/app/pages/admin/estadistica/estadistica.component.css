@@ -1,13 +1,15 @@
 /****************CSS para el fondo**********************/
 .PANTALLA {
   display: flex;
-  height: 100vh;
+  height: 100%;
 }
 .estadisticas {
-  height: 90%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  margin-left: 420px; /* Ajusta según el ancho del contenedor de estadísticas */
   overflow-y: auto;
-  overflow-x: hidden;
+  padding-top: 20px; /* Espacio superior para evitar que el contenido quede oculto */
 }
 
 /****************CSS para datos de combobox**************/
@@ -36,12 +38,16 @@ button {
 /****************CSS para tabla de datos****************/
 /* Estilos generales para la caja de estadísticas */
 .Datos {
-  margin: 20px;
+  position: fixed;
+  top: 250px; /* Ajusta este valor para la distancia desde la parte superior */
+  left: 110px; /* Ajusta este valor para la distancia desde la izquierda */
+  width: 380px; /* Asegúrate de que este valor sea consistente con el diseño */
+  margin: 0;
   padding: 20px;
   background-color: #e3e3f1;
   border-radius: 8px;
-  max-width: 400px;
   box-shadow: 0 4px 8px rgba(11, 227, 255, 0.1);
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
 }
 
 .Datos h1 {
@@ -102,14 +108,16 @@ button {
   box-sizing: border-box;
 }
 
-.container {
+.containerEst {
   width: 100%;
-  height: 400px;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  grid-template-rows: 1fr 1fr;           /* Dos filas */
   gap: 10px;
+  grid-auto-rows: minmax(auto, max-content); /* Ajusta la altura de las filas al contenido */
+  align-items: start; /* Alinea los elementos al inicio para que el tamaño de las filas dependa de ellos */
+  margin-bottom: 25px;
 }
+
 
 #cuadro-container {
   padding: 20px;
@@ -166,4 +174,66 @@ button {
 
 #add-btn:hover {
   background-color: #8fd98f;
+}
+
+/********************** TOGGLE ESTATICO VS DINAMICO*/
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.focused {
+  background-color: #a9afc1;
+  color: #fff;
+}
+
+.toggle-container.active .toggle-option:last-child {
+  background-color: #b3c7ff;
+  color: #fff;
+}
+
+.toggle-container:not(.active) .toggle-option:first-child {
+  background-color: #b3c7ff;
+  color: #fff;
+}
+.toggle-container {
+  margin-left: 44%;
+  margin-top: 15px;
+  margin-bottom: 15PX;
+  display: flex;
+  border-radius: 30px;
+  overflow: hidden;
+  background-color: #ccc;
+  border: 2px solid #b3c7ff;
+  cursor: pointer;
+  width: 200px;
+}
+
+/***********************************gRAFICOS ESTATICOS****/
+.static-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.static-chart {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.static-chart h2 {
+  margin-bottom: 15px; /* Espacio entre el título y la gráfica */
+  text-align: center; /* Centrar el título */
+}
+
+.double-width {
+  grid-column: span 2;
 }

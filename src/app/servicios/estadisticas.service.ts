@@ -60,4 +60,54 @@ export class EstadisticasService {
     return this.http.get<any>(`${this.baseUrl}/totales`, { headers });
   }
 
+  getTramitesActivosYCerradosPorTipo(): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any>(`${this.baseUrl}/tramitesActivosYCerradosPorTipo`, { headers });
+  }
+
+  getTramitesTotalesDelAnoActual(): Observable<any> {
+    const token = this.authService.getToken(); // Obtener el token desde AuthService
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<any>(`${this.baseUrl}/actual`, { headers });
+  }
+
+
+  getTramitesNacionalesActivosYCerradosPorProducto(): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<any>(`${this.baseUrl}/tramitesNacionalesActivosYCerradosPorProducto`, { headers });
+  }
+  
+  getTramitesInternacionalesActivosYCerradosPorProducto(): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<any>(`${this.baseUrl}/tramitesInternacionalesActivosYCerradosPorProducto`, { headers });
+  }
+  
+
+  getRegistrosPorVencer(): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any>(`${this.baseUrl}/registrosPorVencer`, { headers });
+  }
+
+  
+  
+
 }

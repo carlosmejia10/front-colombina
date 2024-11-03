@@ -28,4 +28,5 @@ export class RevisionPreliminarComponent {
     this.router.navigate(['/info-control', this.tramite.numeroRadicado]);
   }
 
+  volver(){}
 }

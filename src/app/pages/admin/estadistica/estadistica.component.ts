@@ -4,9 +4,23 @@ import { EstadisticasService } from '@/app/servicios/estadisticas.service';
 @Component({
   selector: 'app-estadistica',
   templateUrl: './estadistica.component.html',
-  styleUrl: './estadistica.component.css'
+  styleUrls: ['./estadistica.component.css']
 })
 export class EstadisticaComponent {
+  // Datos para gráficos estáticos
+  tramitesActivosData: any;
+  tramitesNacionalesData: any;
+  tramitesInternacionalesData: any;
+  tramitesPorUsuarioData: any;
+  tramitesTotalesData: any;
+  registrosPorVencerData: any;
+  inversionAnualData: any;
+  tasaRechazosData: any;
+  tasaRequerimientosData: any;
+  tramitesInterNacionalesDataBarras:any;
+  
+
+  isEstatico: boolean = true;
  
   cuadros: number[] = [1]; // Inicia con un cuadro
   mostrarBoton: boolean = true; // Controla la visibilidad del botón
@@ -19,16 +33,66 @@ export class EstadisticaComponent {
   graficos: boolean[] = []; // Para controlar cuándo mostrar el gráfico
   graficoData: any[] = []; // Datos de gráficos
   chartOptions: any = {}; // Opciones para configurar el gráfico con PrimeNG
+  chartOptionsHorizontal: any;
+  chartOptionsDefault: any;
+  chartOptionsStacked: any;
 
-  
   totales: any;
+  currentYear: number;
 
   constructor(private estadisticasService: EstadisticasService) {} // Inyectar el servicio
 
   ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
+    // Opciones generales
+    this.chartOptions = {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    };
+
+    // Opciones específicas para gráficas horizontales
+    this.chartOptionsHorizontal = {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    };
+
+    // Opciones por defecto para otras gráficas
+    this.chartOptionsDefault = {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    };
+
+    // Opciones para gráficos apilados
+    this.chartOptionsStacked = {
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true
+        },
+        y: {
+          stacked: true
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    };
+    //Cargar datos
+
     this.obtenerTotales();
+    this.cargarDatosGraficas();
   }
-  
+
+  toggle(): void {
+    this.isEstatico = !this.isEstatico;
+  }
 
   obtenerTotales() {
     this.estadisticasService.getTotales().subscribe(
@@ -40,7 +104,7 @@ export class EstadisticaComponent {
         console.error('Error al obtener los totales', error);
       }
     );
-}
+  }
 
   addCuadro() {
     if (this.cuadros.length < 6) {
@@ -51,12 +115,11 @@ export class EstadisticaComponent {
       this.graficos.push(false); // Añadir indicador de gráfico no mostrado
       this.graficoData.push({}); // Inicializar datos vacíos para el gráfico
     }
-  
+
     if (this.cuadros.length === 6) {
-      this.mostrarBoton = false; // Oculta el botón cuando hay 4 cuadros
+      this.mostrarBoton = false; // Oculta el botón cuando hay 6 cuadros
     }
   }
-  
 
   removeCuadro(index: number) {
     this.cuadros.splice(index, 1); // Elimina el cuadro
@@ -67,7 +130,7 @@ export class EstadisticaComponent {
     this.graficoData.splice(index, 1); // Elimina los datos del gráfico
 
     if (this.cuadros.length < 6) {
-      this.mostrarBoton = true; // Vuelve a mostrar el botón si hay menos de 4 cuadros
+      this.mostrarBoton = true; // Vuelve a mostrar el botón si hay menos de 6 cuadros
     }
   }
 
@@ -78,16 +141,15 @@ export class EstadisticaComponent {
 
     // Llamar al servicio para obtener los datos según las selecciones
     this.estadisticasService.getChartData(queGraficar, enFuncionDe).subscribe(data => {
-        this.graficoData[index] = {
-            labels: data.labels, 
-            datasets: [
-                { label: queGraficar, data: data.values, backgroundColor: data.colors }
-            ]
-        };
-        this.graficos[index] = true;
+      this.graficoData[index] = {
+        labels: data.labels,
+        datasets: [
+          { label: queGraficar, data: data.values, backgroundColor: data.colors }
+        ]
+      };
+      this.graficos[index] = true;
     });
   }
-
 
   getButtonStyles() {
     if (this.cuadros.length === 1) {
@@ -117,6 +179,174 @@ export class EstadisticaComponent {
       };
     }
     return {};
-}
+  }
 
+  cargarDatosGraficas(): void {
+    //***************************************************************************** OK*/
+    this.estadisticasService.getChartData('Trámites Activos', 'Productos').subscribe(data => {
+      console.log('Datos recibidos:', data); // Verifica el contenido de los datos
+      if (data.labels.length > 1 && data.values.length > 1) { // Verifica que haya más de un dato
+        this.tramitesActivosData = {
+          labels: data.labels,
+          datasets: [{
+            label: 'Trámites Activos',
+            data: data.values,
+            backgroundColor: data.labels.map(() => this.getRandomColor()) // Genera colores aleatorios
+          }]
+        };
+      } else {
+        console.warn('Solo se recibió un dato o los datos están incompletos.');
+      }
+    });
+    
+    //***************************************************************************** OK*/
+    this.estadisticasService.getTramitesNacionalesActivosYCerradosPorProducto().subscribe(
+      data => {
+        this.tramitesNacionalesData = {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Trámites activos',
+              data: data.activos,
+              backgroundColor: 'rgba(75, 192, 192, 0.5)'
+            },
+            {
+              label: 'Trámites cerrados',
+              data: data.cerrados,
+              backgroundColor: 'rgba(255, 99, 132, 0.5)'
+            }
+          ]
+        };
+      },
+      error => {
+        console.error('Error al cargar datos de trámites nacionales', error);
+      }
+    );
+    //************************************************************************************ OK */
+    this.estadisticasService.getTramitesInternacionalesActivosYCerradosPorProducto().subscribe(
+      data => {
+        this.tramitesInterNacionalesDataBarras = {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Trámites activos',
+              data: data.activos,
+              backgroundColor: 'rgba(75, 192, 192, 0.5)'
+            },
+            {
+              label: 'Trámites cerrados',
+              data: data.cerrados,
+              backgroundColor: 'rgba(255, 99, 132, 0.5)'
+            }
+          ]
+        };
+      },
+      error => {
+        console.error('Error al cargar datos de trámites nacionales', error);
+      }
+    );
+
+    //INTERNACIONALES X PRODUCTOS ACTIVOS E INACTIVOS
+    //************************************************************************************ OK*/
+    
+
+    this.estadisticasService.getChartData('Trámites Internacionales', 'pais').subscribe(data => {
+      this.tramitesInternacionalesData = {
+        labels: data.labels,
+        datasets: [{
+          label: 'Trámites Internacionales',
+          data: data.values,
+          backgroundColor: data.labels.map(() => this.getRandomColor()) 
+        }]
+      };
+    });
+
+     //************************************************************************************ OK*/
+    this.estadisticasService.getChartData('Trámites Activos', 'Usuario').subscribe(data => {
+      this.tramitesPorUsuarioData = {
+        labels: data.labels,
+        datasets: [{
+          label: 'Trámites Activos',
+          data: data.values,
+          backgroundColor: data.labels.map(() => this.getRandomColor()) 
+        }]
+      };
+    });
+
+     //************************************************************************************ OK*/
+     this.estadisticasService.getTramitesTotalesDelAnoActual().subscribe(data => {
+      this.tramitesTotalesData = {
+        labels: data.labels, // Los nombres de los meses
+        datasets: [{
+          label: 'Trámites Totales',
+          data: data.values, // Los valores de los trámites
+          backgroundColor: data.labels.map(() => this.getRandomColor())
+        }]
+      };
+    }, error => {
+      console.error('Error al cargar los datos de los trámites totales del año actual:', error);
+    });
+    
+     //************************************************************************************ FALTAN*/
+   
+     this.estadisticasService.getRegistrosPorVencer().subscribe(
+      data => {
+        this.registrosPorVencerData = {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Registros por Vencer',
+              data: data.values,
+              backgroundColor: 'rgba(153, 102, 255, 0.5)'
+            }
+          ]
+        };
+      },
+      error => {
+        console.error('Error al cargar datos de registros por vencer', error);
+      }
+    );
+    
+    
+   
+    //************************************************************************************ OK*/
+
+    this.estadisticasService.getChartData('Tasa de rechazos', 'Productos').subscribe(data => {
+      console.log('Datos recibidos:', data); // Verifica el contenido de los datos
+      if (data.labels.length > 1 && data.values.length > 1) { // Verifica que haya más de un dato
+        this.tasaRechazosData = {
+          labels: data.labels,
+          datasets: [{
+            label: 'Tasa de rechazos',
+            data: data.values,
+            backgroundColor: data.labels.map(() => this.getRandomColor()) // Genera colores aleatorios
+          }]
+        };
+      } else {
+        console.warn('Solo se recibió un dato o los datos están incompletos.');
+      }
+    });
+
+     //************************************************************************************ OK*/
+    this.estadisticasService.getChartData('Tasa de requerimientos', 'Productos').subscribe(data => {
+      this.tasaRequerimientosData = {
+        labels: data.labels,
+        datasets: [{
+          label: 'Trámites de productos',
+          data: data.values,
+          backgroundColor: data.labels.map(() => this.getRandomColor()) // Genera colores aleatorios
+        }]
+      };
+    });
+  }
+
+
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 }
