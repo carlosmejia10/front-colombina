@@ -107,74 +107,95 @@ button {
   padding: 0;
   box-sizing: border-box;
 }
-
 .containerEst {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  gap: 10px;
+  display: inline-grid; /* Hace que el contenedor solo ocupe el espacio necesario en ambas direcciones */
+  grid-template-columns: repeat(3, minmax(200px, 1fr)); /* Ajusta el ancho mínimo de las columnas */
+  gap: 15px; /* Espaciado entre los elementos */
   grid-auto-rows: minmax(auto, max-content); /* Ajusta la altura de las filas al contenido */
-  align-items: start; /* Alinea los elementos al inicio para que el tamaño de las filas dependa de ellos */
+  align-items: center; /* Alinea los elementos al inicio para que el tamaño de las filas dependa de ellos */
+  justify-content: center;
   margin-bottom: 25px;
+  background-color: #f9f9fb; /* Fondo claro para un look moderno */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 97%; /* Limita el ancho máximo del contenedor */
 }
-
 
 #cuadro-container {
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Tres columnas */
   grid-template-rows: repeat(2, 1fr);    /* Dos filas */
-  gap: 10px;
-  width: 100%;
+  gap: 15px;
+  width: 250%;
   height: 100%;
+  border-radius: 12px;
+
 }
 
+
+
+
 .cuadro {
-  background-color: #e8f0ff;
-  border: 1px solid #b3c7ff;
-  border-radius: 8px;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #d3d3e8; /* Borde claro */
+  border-radius: 10px;
   width: 100%;
   height: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), inset 0 1px 3px rgba(255, 255, 255, 0.5);
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cuadro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .remove-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  background-color: #ff6b6b;
+  top: 10px;
+  right: 10px;
+  background-color: #ff5252; /* Rojo brillante */
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 6px 10px;
   font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .remove-btn:hover {
-  background-color: #ff5252;
+  background-color: #d32f2f;
+  transform: scale(1.05);
 }
 
 #add-btn {
-  background-color: #a3e6a3;
-  color: #333;
+  background-color: #4caf50; /* Verde claro */
+  color: #ffffff;
   font-size: 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   width: 100%;
   height: 100%;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 
 #add-btn:hover {
-  background-color: #8fd98f;
+  background-color: #388e3c; /* Verde más oscuro */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
+
 
 /********************** TOGGLE ESTATICO VS DINAMICO*/
 .toggle-option {
