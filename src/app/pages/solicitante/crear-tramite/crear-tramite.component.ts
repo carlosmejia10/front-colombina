@@ -19,7 +19,7 @@ import { FileSizeComponent } from '../file-size/file-size.component';
 export class CrearTramiteComponent implements OnInit {
   @ViewChild(FileSizeComponent, { static: false }) fileSizeComponent!: FileSizeComponent;
   // Opciones para los selectores
-  tiposProducto: string[] = ['Tipo 1', 'Tipo 2', 'Tipo 3', 'Tipo 4', 'Tipo 5'];
+  tiposProducto: string[] = ['Nuevo Registro Sanitarios Nacional', 'Nuevo Registro Sanitario Internacional', 'Modificación Registro Sanitario Nacional', 'Modificación Registro Sanitario Internacional', 'Renovación de Registro Sanitario'];
   tiposTramite: string[] = ['NACIONAL', 'INTERNACIONAL'];
 
   // Variables del formulario
