@@ -13,6 +13,10 @@
   border: 1px solid #ddd;
 }
 
+.RegNotPer {
+  margin-top: 20px;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -46,11 +50,11 @@ button {
   display: flex;
 }
 .left {
-  width: 35%; 
+  width: 35%;
   padding: 40px;
 }
 .right {
-  width: 65%; 
+  width: 65%;
   padding: 40px;
   border-left: solid 2px #ccc;
 }

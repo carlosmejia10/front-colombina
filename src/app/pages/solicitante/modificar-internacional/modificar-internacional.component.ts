@@ -17,6 +17,9 @@ export class ModificarInternacionalComponent implements OnInit {
   pais: string = '';
   nombreProducto: string = '';
   descripcionTramite: string = '';  // Nueva propiedad
+  SubCategoria: string = '';
+  Riesgo: string = '';
+  RegNotPer: string = '';
   listaPaises: string[] = [];
 
   listaModificaciones = [
@@ -50,6 +53,9 @@ export class ModificarInternacionalComponent implements OnInit {
     pais: null,
     nombreProducto: null,
     descripcionTramite: null,  // Nueva propiedad para manejo de errores
+    SubCategoria : null,
+    Riesgo: null,
+    RegNotPer: null,
     fichaTecnica: null,
     certificadoAditivos: null,
   };
@@ -153,6 +159,9 @@ export class ModificarInternacionalComponent implements OnInit {
     if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
     if (!this.nombreProducto) this.errorMessages.nombreProducto = 'Por favor ingrese el nombre del producto';
     if (!this.descripcionTramite) this.errorMessages.descripcionTramite = 'Por favor ingrese la descripción del trámite';
+    if(!this.SubCategoria) this.errorMessages.SubCategoria = 'Por favor seleccione la subcategoria';
+    if(!this.Riesgo) this.errorMessages.Riesgo = 'Por favor seleccione el riesgo';
+    if(!this.RegNotPer) this.errorMessages.RegNotPer = 'Por favor seleccione el registro, notificación o permiso';
 
     const formIsValid = Object.values(this.errorMessages).every(error => !error);
     if (!formIsValid) {

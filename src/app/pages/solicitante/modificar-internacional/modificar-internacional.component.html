@@ -9,11 +9,19 @@
         <!-- Campo de Tipo de Modificación -->
         <div class="form-group">
           <label for="tipoModificacion">Tipo de Trámite</label>
-          <select id="tipoModificacion" [(ngModel)]="tipoModificacionSeleccionado" (change)="onTipoModificacionChange(tipoModificacionSeleccionado)">
+          <select
+            id="tipoModificacion"
+            [(ngModel)]="tipoModificacionSeleccionado"
+            (change)="onTipoModificacionChange(tipoModificacionSeleccionado)"
+          >
             <option value="">Seleccionar el tipo de trámite</option>
-            <option *ngFor="let tramite of tiposTramite" [value]="tramite">{{ tramite }}</option>
+            <option *ngFor="let tramite of tiposTramite" [value]="tramite">
+              {{ tramite }}
+            </option>
           </select>
-          <div *ngIf="errorMessages.tipoModificacion" class="error-message">Por favor seleccione el tipo de modificación</div>
+          <div *ngIf="errorMessages.tipoModificacion" class="error-message">
+            Por favor seleccione el tipo de modificación
+          </div>
         </div>
 
         <!-- Campo de Nombre del Producto -->
@@ -26,7 +34,9 @@
             [(ngModel)]="nombreProducto"
             (input)="removeErrorMessage('nombreProducto')"
           />
-          <div *ngIf="errorMessages.nombreProducto" class="error-message">Por favor ingrese el nombre del producto</div>
+          <div *ngIf="errorMessages.nombreProducto" class="error-message">
+            Por favor ingrese el nombre del producto
+          </div>
         </div>
 
         <!-- Campo de Descripción del Trámite -->
@@ -39,12 +49,16 @@
             [(ngModel)]="descripcionTramite"
             (input)="removeErrorMessage('descripcionTramite')"
           />
-          <div *ngIf="errorMessages.descripcionTramite" class="error-message">Por favor ingrese la descripción del trámite</div>
+          <div *ngIf="errorMessages.descripcionTramite" class="error-message">
+            Por favor ingrese la descripción del trámite
+          </div>
         </div>
 
         <!-- Botón para Datos del Solicitante -->
         <div class="form-group">
-          <button type="button" id="datosSol" (click)="verDatosSolicitante()">Datos del solicitante</button>
+          <button type="button" id="datosSol" (click)="verDatosSolicitante()">
+            Datos del solicitante
+          </button>
         </div>
       </div>
 
@@ -74,6 +88,52 @@
           </table>
         </div>
       </div>
+
+      <!-- seccion derecha para los campos necesario cuando es renovacion -->
+
+      <div class="right" *ngIf="tipoModificacionSeleccionado === 'RENOVACION'|| tipoModificacionSeleccionado === 'NUEVO REGISTRO'">
+        <!-- Campo de SubCategoria -->
+        <div class="form-group">
+          <label for="SubCategoria">Subcategoria (RES.719/2015):</label>
+          <input
+            type="text"
+            id="SubCategoria"
+            [(ngModel)]="SubCategoria"
+            (input)="removeErrorMessage('SubCategoria')"
+          />
+          <div *ngIf="errorMessages.SubCategoria" class="error-message">
+            Por favor ingrese la SubCategoria
+          </div>
+        </div>
+        <!-- Campo de Riesgo -->
+        <div class="form-group">
+          <label for="Riesgo">Riesgo (RES.719/2015):</label>
+          <input
+            type="text"
+            id="Riesgo"
+            [(ngModel)]="Riesgo"
+            (input)="removeErrorMessage('Riesgo')"
+          />
+          <div *ngIf="errorMessages.Riesgo" class="error-message">
+            Por favor ingrese el Riesgo
+          </div>
+          <!-- Campo de Registro, notificacion o permiso -->
+          <div class="form-group">
+            <label class="RegNotPer" for="RegNotPer"
+              >Registro, notificación o permiso (RES.719/2015):</label
+            >
+            <input
+              type="text"
+              id="RegNotPer"
+              [(ngModel)]="RegNotPer"
+              (input)="removeErrorMessage('RegNotPer')"
+            />
+            <div *ngIf="errorMessages.RegNotPer" class="error-message">
+              Por favor ingrese el Registro, notificación o permiso
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Botón de Enviar -->
@@ -89,7 +149,8 @@
     width: 100%;
     border-collapse: collapse;
   }
-  th, td {
+  th,
+  td {
     padding: 8px;
     border: 1px solid #ccc;
     text-align: center;
