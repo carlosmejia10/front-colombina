@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="title">
+    <h1>Perfil</h1>
+    <!--Implementacion reducida del header-->
+    <div class="icons">
+        <a (click)="home()"
+          ><img src="images/Home.png" alt="Icon 3" class="icono"
+        /></a>
+    </div>
+</div>  
+<div class="container">
+    <div class="user-card">
+        <img class="user-image" src="images/Perfil.png" alt="Usuario">
+        <div class="user-info">
+            <p><span>Nombre de Usuario:</span> {{ nomUsuario }}</p>
+            <p><span>Correo:</span> {{ usuarioDTO.correoElectronico }}</p>
+            <p><span>Rol Asignado:</span> {{ usuarioDTO.rol.tipoRol | lowercase }}</p>
+        </div>
+        <div class="button-container">
+            <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+</div>
+

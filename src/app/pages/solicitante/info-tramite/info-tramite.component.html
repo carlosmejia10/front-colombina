@@ -1,0 +1,71 @@
+<app-solicitante-layout>
+  <div id="page">
+    <div class="containerint">
+      <h1>Información del Trámite</h1>
+
+      <div class="info-section">
+        <div class="info-box">
+          <!-- Información del Trámite -->
+          <strong>ID Trámite:</strong>
+          <p>{{ tramite.id }}</p>
+          <strong>Numero Radicado:</strong>
+          <p>{{ tramite.numeroRadicado }}</p>
+          <strong>Estado:</strong>
+          <p>{{ tramite.estado }}</p>
+          <strong>Fecha Radicación:</strong>
+          <p>{{ tramite.fechaRadicacion | date }}</p>
+          <strong>Tipo de Trámite:</strong>
+          <p>{{ tramite.tipoTramite }}</p>
+        </div>
+
+        <div class="info-box">
+          <!-- Información de la Entidad Sanitaria -->
+          <strong>ID Entidad Sanitaria:</strong>
+          <p>{{ entidadSanitaria?.id }}</p>
+          <strong>Nombre de Entidad Sanitaria:</strong>
+          <p>{{ entidadSanitaria?.nombre }}</p>
+          <strong>País:</strong>
+          <p>{{ entidadSanitaria?.pais }}</p>
+        </div>
+
+        <div class="info-box">
+          <!-- Información de la Solicitud -->
+          <strong>Descripción del Producto:</strong>
+          <p>{{ tramite.descripcionProducto }}</p>
+          <strong>Tipo de Producto:</strong>
+          <p>{{ tramite.tipoProducto }}</p>
+          <strong>Fecha de Solicitud:</strong>
+          <p>{{ tramite.fechaRadicacion | date }}</p>
+        </div>
+      </div>
+
+      <h2>Registros del Trámite</h2>
+      <!--DOCUMENTOS-->
+      <!--<table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Fecha de Registro</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let documento of tramite.documentos">
+            <td>{{ documento.id }}</td>
+            <td>{{ documento.tipo }}</td>
+            <td>{{ documento.aprobado }}</td>
+            <td>
+              <a href="{{ documento.tempUrl }}" target="_blank">{{
+                documento.tempUrl
+              }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>-->
+      <ng-container *ngIf="tramite.estado === 'RECHAZADO' && mostrarBoton">
+        <button (click)="escalarTramite()" class="btn-primary">Escalar</button>
+      </ng-container>
+    </div>
+  </div>
+</app-solicitante-layout>

@@ -1,0 +1,29 @@
+<div class="decision-container">
+    <h2 class="titulo">Revisar Documento</h2>
+    <div class="documento-info">
+        <h3>{{ documento.name }}</h3>
+        <p>Tipo: {{ documento.tipo }}</p>
+        <p>Fecha de Expiración: {{ documento.fechaExpiracion | date }}</p>
+        <p>Cumple Normativas: {{ documento.cumpleNormativas ? 'Sí' : 'No' }}</p>
+        <p>Aprobado: {{ documento.aprobado ? 'Sí' : 'No' }}</p>
+        
+        <div *ngIf="fileUrl">
+          <ng-container [ngSwitch]="documento.tipo">
+            <img *ngSwitchCase="'imagen'" [src]="fileUrl" alt="Vista previa de la imagen" width="200">
+            <iframe *ngSwitchCase="'pdf'" [src]="fileUrl" width="100%" height="400px"></iframe>
+            <a *ngSwitchDefault [href]="fileUrl" download="{{ documento.name }}">Descargar Archivo</a>
+          </ng-container>
+        </div>
+      </div>
+
+    <div class="comentarios">
+        <label for="comentarios">Comentarios:</label>
+        <textarea id="comentarios" placeholder="Añadir comentarios sobre el documento..."></textarea>
+    </div>
+
+    <div class="button-group">
+        <button class="btn-aprobar" (click)="aprobarORechazar(true)">Aprobar</button>
+        <button class="btn-rechazar" (click)="aprobarORechazar(false)">Rechazar</button>
+    </div>
+    <button class="btn-regresar" onclick="window.location.href='documentos'">Regresar</button>
+</div>

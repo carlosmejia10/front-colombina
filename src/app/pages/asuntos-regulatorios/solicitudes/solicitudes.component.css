@@ -1,0 +1,371 @@
+.container {
+  display: flex;
+}
+
+.main-content {
+  display: flex;
+}
+
+/* Contenedor principal */
+.ContenedorPendientes {
+  width: 77vw;
+  margin: 2vw 8vw;
+  background-color: #e7ebf5;
+  border-radius: 10px;
+}
+
+/* Alineación de la cabecera y tabla */
+.TituloTabla {
+  background-color: #a3b6e6;
+  border-radius: 10px 10px 0 0;
+  height: 40px;
+  display: flex;
+  justify-content: space-between; /* Espacia los elementos dentro de la cabecera */
+  padding: 10px 20px; /* Añade espacio lateral para alinearlo con la tabla */
+}
+
+.tablas{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.TituloTabla h2{
+  color: white;
+}
+.ContenedorPendientes h2 {
+  margin: 0 0 15px;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  padding: 0 20px; /* Ajusta el espacio lateral dentro de la tabla */
+}
+
+table td {
+  border-bottom: 1px solid #000000;
+  padding: 8px 12px; /* Espacio interno en las celdas */
+}
+
+.pendientes {
+  font-size: 14px;
+}
+
+.estatus {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pendiente {
+  background-color: rgb(255, 238, 0);
+  margin-left: 6px;
+}
+
+.hecho {
+  background-color: rgb(26, 187, 26);
+  margin-left: 6px;
+}
+.EstadoText{
+  padding-left: 600px;
+}
+.EstadoText h2{
+  color: #4E5A7D;
+  font-weight: bold;
+  font-size: 12px;
+}
+.rechazado{
+  background-color: red;
+  margin-left: 6px;
+}
+
+.fecha {
+  color: #4E5A7D;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.estatusTexto {
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
+}
+.Desplegar{
+  position:absolute ;
+  right: 8px;
+}
+.Desplegable{
+  width: 25px;
+}
+/* Registro (primer nivel de información) */
+.registro {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #4e5a7d;
+  padding: 10px 0;
+}
+/* Detalle (segundo nivel de información) */
+.detalle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  color: #4e5a7d;
+  font-size: 12px;
+}
+
+.detalle-nombre {
+  flex: 2;
+}
+
+.nombre {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.detalle-fechas {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  color: #4e5a7d;
+}
+td p{
+  color: #D0CFCE;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+/*****/
+
+
+/*ESTADO DEL REGISTRO*/
+.InfoContenedor {
+  right:0;
+  height: 100vw;
+  width: 25%;
+  background-color: #BCC9E5;
+  padding: 20px;
+}
+
+.registro-info h2 {
+  font-size: 17px;
+  color: #000000;
+}
+.InfoContenedor p{
+  font-size: 14px;
+  color: #857c7c;
+}
+.InfoContenedor a{
+  font-size: 16px;
+}
+.progreso-contenedor {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Progreso de color */
+.progress-bar {
+  width: 100%;
+  background-color: #e7ebf5;
+  height: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+  position: relative;
+}
+
+.progress {
+  height: 100%;
+  transition: width 0.5s;
+  border-radius: 10px;
+}
+
+.progress-success {
+  background-color: #4caf50;
+}
+
+.progress-warning {
+  background-color: #ff9800;
+}
+
+.progress-danger {
+  background-color: #f44336;
+}
+
+.progress-percent {
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  color: #d0cfce;
+}
+
+.nav-item p{
+  font-size: 13px;
+  text-align: center;
+}
+button{
+  background-color: transparent;
+  border: none;
+}
+
+
+
+.dropbtn {
+  margin: 8px;
+  height: 40px;
+  width: 40px;
+  padding: 0  ;
+}
+img{
+  width: 25px;
+
+}
+
+.title{
+  width: 100%;
+}
+
+
+/* Contenedor del menú desplegable */
+.dropdown {
+  position: relative; /* Posición relativa para alinear el contenido */
+  display: inline-block; /* Alinea el contenedor en línea */
+}
+
+/* Contenido del menú desplegable */
+.dropdown-content {
+  display: none; /* Oculta el contenido por defecto */
+  position: absolute; /* Posiciona el contenido de forma absoluta */
+  background-color: #D7D7D7; /* Color de fondo del menú */
+  min-width: 160px; /* Ancho mínimo del menú */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Sombra del menú */
+  z-index: 1; /* Asegura que el menú se muestre sobre otros elementos */
+}
+.Cajaa{
+  background-color: white;
+  margin: 5px;
+  border-radius: 4px;
+}
+/* Estilo para los enlaces dentro del menú */
+.dropdown-content a {
+  margin: 5px;
+  color: black; /* Color del texto */
+  padding: 12px 16px; /* Espaciado interno */
+  text-decoration: none; /* Quita el subrayado */
+  display: block; /* Alinea los enlaces en bloque */
+}
+
+/* Estilo para los enlaces cuando se pasa el cursor sobre ellos */
+.Cajaa:hover {
+  background-color: #f1f1f1; /* Color de fondo al pasar el cursor */
+}
+
+/* Muestra el contenido del menú cuando el botón se pasa sobre él */
+.dropdown:hover .dropdown-content {
+  display: block; /* Muestra el contenido */
+}
+
+
+/**/
+
+.title {
+  background-color: #A3B6E6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title h1 {
+  font-size: 37px;
+  margin-left: 70px;
+  color: #ffffff;
+}
+
+
+
+/*****/
+
+.search-container{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+}
+
+input#search-bar{
+  margin: 0 auto;
+  width: 800px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  border-radius: 20px;
+  outline: none;
+  &:focus{
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+    &::-webkit-input-placeholder{
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+  }
+}
+.icons img {
+  margin-right: 20px;
+}
+.search-icon{
+  position: relative;
+  float: right;
+  width: 75px;
+  height: 75px;
+  right: 60px;
+}
+
+.icono{
+  width: 40px;
+}
+
+/*Filtros--------------*/
+.filter-container {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4e5a7d;
+}
+
+.filter label {
+  margin-right: 5px;
+}
+
+.no-results {
+  text-align: center;
+  color: #a3a3a3;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* Exportar a excel */
+.exportar{
+  margin-left: 5px;
+  background-color: #8f9fc8;
+  border-radius: 5px;
+  color: white;
+}

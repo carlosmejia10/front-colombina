@@ -1,0 +1,102 @@
+
+
+.container {
+  display: flex;
+
+}
+
+.contenedor {
+  width: 100%;
+  height: calc(100vh - 60px); /* Ajusta para que ocupe el espacio restante */
+  box-sizing: border-box; /* Incluye padding en el cálculo del ancho/alto */
+}
+
+.main-content {
+  padding: 20px;
+}
+
+h2 {
+  background-color: #A3B6E6;
+  padding: 10px;
+  color: #ffffff;
+  text-align: left; /* Alinea el texto a la izquierda */
+  margin: 0; /* Elimina márgenes adicionales */
+}
+
+.table-container {
+  background-color: #fff; /* Fondo blanco para el recuadro */
+  padding: 20px; /* Espacio interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin-top: 20px; /* Espacio arriba del contenedor */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #ccc;
+}
+
+thead th {
+  background-color: #A3B6E6;
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  border: 2px solid #ccc;
+}
+
+tbody td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.aprobado {
+  background-color: #002d5e;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.rechazado {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.pendiente {
+  background-color: #feca57;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+  app-lateral {
+    width: 200px; /* Reduce el ancho en pantallas más pequeñas */
+    top: 0; /* Ajusta para que el lateral esté en la parte superior */
+    height: calc(100vh - 50px); /* Ajusta según el alto del header */
+  }
+
+  .contenedor {
+    margin-left: 0; /* Elimina el margen para pantallas pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  app-lateral {
+    width: 100%; /* Hace que el lateral ocupe el 100% del ancho en pantallas muy pequeñas */
+    height: auto; /* Ajusta la altura automáticamente */
+    position: relative; /* Cambia la posición a relativa */
+    top: 0; /* Ajusta para que el lateral esté en la parte superior */
+  }
+
+  .contenedor {
+    margin-left: 0; /* Elimina el margen para pantallas pequeñas */
+  }
+}

@@ -1,0 +1,17 @@
+<div class="container">
+  <h2 class="titulo">Lista de Documentos</h2>
+  <div class="documentos">
+    <div *ngFor="let documento of documentos" class="documento">
+      <strong>{{ documento.name }}:</strong>
+      <button class="btn-revisar" (click)="revisarDocumento(documento.name)">Revisar</button>
+    </div>
+  </div>
+  <button class="btn-regresar" (click)="regresar()">Regresar</button>
+  <button class="btn-continuar" (click)="continuar()">Continuar</button>
+</div>
+
+
+
+
+
+

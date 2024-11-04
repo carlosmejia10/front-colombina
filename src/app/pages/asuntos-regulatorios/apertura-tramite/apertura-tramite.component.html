@@ -1,0 +1,98 @@
+<app-ar-layout>
+    <head>
+        <link rel="stylesheet" href="apertura-tramite.component.css">
+    </head>
+    <form class="form-tramite" (submit)="submit()">
+        <div class="header">
+            <p>Formulario apertura de tramite</p>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Número radicado</p>
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" disabled [value]="tramite.numeroRadicado">
+            </div>  
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Nombre producto</p>
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" disabled [value]="tramite.nombreProducto">
+            </div>  
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">PT</p>
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" [(ngModel)]="tramite.pt">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Unidad de negocio</p>
+            
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" [(ngModel)]="tramite.unidadNegocio">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Número de proyecto SAP</p>
+                
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" [(ngModel)]="tramite.numProyectoSap">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Nombre proyecto</p>
+        
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" [(ngModel)]="tramite.proyecto">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Tipo de modificación</p>
+    
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" [(ngModel)]="tramite.tipoModificacion">
+            </div>
+        </div>        
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Descripción del trámite</p>
+                
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" [(ngModel)]="tramite.descripcionTramite">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <p class="label">Tipo trámite</p>
+                
+            </div>
+            <div class="form-group">
+                <p class="label">Datos:</p>
+                <input type="text" class="input-text" [(ngModel)]="tramite.claseTramite">
+            </div>
+        </div>
+        <button style="width: 25%; margin: auto;">Siguiente</button>
+    </form>
+</app-ar-layout>

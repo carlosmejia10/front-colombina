@@ -1,0 +1,136 @@
+/* Barra de navegación superior */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #03045E;
+  color: #fff;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header nav a {
+  color: #fff;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  margin: 2rem;
+}
+
+/* Menú lateral */
+aside {
+  width: 200px;
+  padding: 1rem;
+  background-color: #e9ecef;
+  border-radius: 8px;
+}
+
+aside ul {
+  list-style-type: none;
+}
+
+aside ul li a {
+  display: block;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: #03045E;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+aside ul li a:hover {
+  background-color: #d1e7ff;
+  color: #0056b3;
+}
+
+/* Panel de notificaciones */
+.notification-panel {
+  flex-grow: 1;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* Tarjeta de notificación */
+.notification-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.notification-card h2 {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.notification-card .date {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.notification-card .status {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.status.in-progress {
+  background-color: #ffc107;
+}
+
+.status.completed {
+  background-color: #28a745;
+}
+
+.status.not-met {
+  background-color: #dc3545;
+}
+
+.notification-card .details-button,
+.notification-card .send-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #03045E;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-weight: bold;
+  
+}
+
+.notification-card .details-button:hover,
+.notification-card .send-button:hover {
+  background-color: #0056b3;
+}
+
+.notification-card textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  font-size: 0.9rem;
+}

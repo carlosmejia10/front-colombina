@@ -1,0 +1,149 @@
+<app-ar-layout> 
+  <head>
+    <link rel="stylesheet" href="./info-control.component.css">
+  </head>
+  <form class="form-tramite" (ngSubmit)="guardarCambios()" #tramiteForm="ngForm">
+    <div class="header">
+      <p>Formulario de Información del Trámite</p>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Fecha Solicitud</p>
+        <input type="date" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha Envío Documentos</p>
+        <input type="date" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Fecha Terminación Trámite</p>
+        <input type="date" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha de Notificación</p>
+        <input type="date" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">País</p>
+        <input type="text" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label">Registro Sanitario (RSA) de Colombia</p>
+        <input type="text" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Expediente RSA</p>
+        <input type="text" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label"># Intención (ID de seguimiento)</p>
+        <input type="text" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Radicado o Exp.</p>
+        <input type="text" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label">Llave RSA Colombia</p>
+        <input type="text" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Fecha Radicado INVIMA</p>
+        <input type="date" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label">Estado Trámite</p>
+        <input type="text" class="input-text" [(ngModel)]="tramite.estadoTramite" name="estado" />
+        <select class="input-text">
+          <option value="APROBADO">APROBADO</option>
+          <option value="EN_REVISION">EN_REVISION</option>
+          <option value="RECHAZADO">RECHAZADO</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group requerimiento">
+        <p class="label">¿Urgente?</p>
+        <input type="checkbox" />
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha de llegada resol</p>
+        <input type="date" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group requerimiento">
+        <p class="label">¿OK satisfactorio INVIMA?</p>
+        <input type="checkbox" />
+      </div>
+      <div class="form-group">
+        <p class="label"># RSA/NSA PAIS</p>
+        <input type="text" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Vencimiento RSA</p>
+        <input type="date" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label">Solicitado por</p>
+        <input type="text" class="input-text" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Planta</p>
+        <input type="text" class="input-text" />
+      </div>
+      <div class="form-group">
+        <p class="label">OBSERVACIONES</p>
+        <textarea class="input-text" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Pagado / Factura No.</p>
+        <input type="text" class="input-text" />
+      </div>
+    </div>
+
+    <!-- <button style="width: 25%; margin: auto;" (click)="submit()">Siguiente</button> -->
+
+    <div class="container">
+      <form >
+        <div class="header">
+          <p>Formulario de Información del Trámite</p>
+        </div>
+    
+        <!-- Tus form-rows actuales -->
+        
+        <div class="buttons-container">
+          <button type="button" class="btn btn-primary" (click)="guardarCambios()">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+
+  </form>
+</app-ar-layout>

@@ -1,0 +1,32 @@
+<nav>
+  <ul>
+    <li class="nav-item">
+      <a routerLink="/solicitudes"
+        ><img src="images/Tramites.png" alt="Mis Trámites" class="icono" />
+        <p>Trámites</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/calendario"
+        ><img src="images/Calendario.png" alt="Calendario" class="icono" />
+        <p>Calendario</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/estadisticas"
+        ><img src="images/Estadisticas.png" alt="Estadísticas" class="icono" />
+        <p>Estadisticas</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/historial"
+        ><img src="images/Historial.png" alt="Historial" class="icono" />
+        <p>Historial</p>
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <p>{{ usuarioDTO.nombre }}</p>
+    <p>{{ usuarioDTO.rol.tipoRol }}</p>
+  </div>
+</nav>

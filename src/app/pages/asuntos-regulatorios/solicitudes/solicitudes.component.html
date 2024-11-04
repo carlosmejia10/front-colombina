@@ -1,0 +1,103 @@
+<app-ar-layout>
+  <div class="main-content">
+    <div class="tablas">
+      <div class="ContenedorPendientes">
+        <div class="TituloTabla">
+          <h2>Trámites</h2>
+
+          <!-- Contenedor de filtros -->
+          <div class="filter-container">
+            <div class="filter">
+              <label for="filterTipoProducto">Tipo Producto:</label>
+              <select id="filterTipoProducto" [(ngModel)]="selectedTipoProducto" (change)="filterTramites()">
+                <option value="">Todos</option>
+                <option *ngFor="let option of tipoProductoOptions" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+
+            <div class="filter">
+              <label for="filterTipoTramite">Tipo Trámite:</label>
+              <select id="filterTipoTramite" [(ngModel)]="selectedTipoTramite" (change)="filterTramites()">
+                <option value="">Todos</option>
+                <option *ngFor="let option of tipoTramiteOptions" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+
+            <div class="filter">
+              <label for="filterEstadoTramite">Estado Trámite:</label>
+              <select id="filterEstadoTramite" [(ngModel)]="selectedEstadoTramite" (change)="filterTramites()">
+                <option value="">Todos</option>
+                <option *ngFor="let option of estadoTramiteOptions" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="exportar" (click)="exportarAExcel()">Exportar a Excel</button>
+          
+          <button href="#" (click)="toggleTabla(); $event.preventDefault()" class="Desplegar">
+            <img src="images/Desplegar.png" alt="Desplegar" class="Desplegable" />
+          </button>
+        </div>
+
+        <!-- Mostrar mensaje si no hay coincidencias -->
+        <ng-container *ngIf="filteredSolicitudes.length === 0">
+          <p class="no-results" *ngIf="isOnlyEstadoActive(); else noResultsOtherFilters">
+            No hay trámites con estado "{{ selectedEstadoTramite }}".
+          </p>
+          <ng-template #noResultsOtherFilters>
+            <p class="no-results">No hay trámites que coincidan con esos filtros de búsqueda.</p>
+          </ng-template>
+        </ng-container>
+
+
+
+        <!-- Tabla de resultados si hay coincidencias -->
+        <!-- tabla-tramite.component.html -->
+        <ng-container class="pendientes" *ngIf="filteredSolicitudes.length > 0 && mostrarTabla1">
+          <table>
+            <tr *ngFor="let solicitud of filteredSolicitudes" (click)="goToTramiteInfo(solicitud.tramite.id)" style="cursor: pointer;">
+              <ng-container *ngIf="solicitud.tramite?.tipoTramite">
+                <td>
+                  <i *ngIf="solicitud.tramite.estado === 'APROBADO'" class="estatus hecho"></i>
+                  <i *ngIf="solicitud.tramite.estado === 'RECHAZADO'" class="estatus rechazado"></i>
+                  <i *ngIf="solicitud.tramite.estado === 'PENDIENTE'" class="estatus pendiente"></i>
+                  <i *ngIf="solicitud.tramite.estado === 'EN_REVISION'" class="estatus pendiente"></i>
+                </td>
+                <td>
+                  <div class="registro">
+                    <span>{{ solicitud.tramite.numeroRadicado }}</span>
+                    <span>Nombre producto: {{ solicitud.tramite.nombreProducto }}</span>
+                    <span>Tipo producto: {{ solicitud.tramite.tipoProducto }}</span>
+                    <span>Tipo trámite: {{ solicitud.tramite.tipoTramite }}</span>
+                    <span>Estado trámite: {{ solicitud.tramite.estado }}</span>
+                  </div>
+                  <div class="detalle">
+                    <div class="detalle-nombre" style="display: flex; gap: 1rem;">
+                      <span class="nombre">Solicitante: {{ solicitud.solicitante.nombre }}</span>
+                      <p class="nombre">{{ solicitud.tramite.etapa }}</p>
+                    </div>
+                    <div class="detalle-fechas">
+                      <span class="fecha">Fecha inicio: {{ solicitud.fechaSolicitud | date: 'dd/MM/yyyy' }}</span>
+                      <span class="fecha">Fecha fin: {{ getFechaAproxFin(solicitud.fechaSolicitud) | date: 'dd/MM/yyyy' }}</span>
+                    </div>
+                  </div>
+                  <div class="progreso-contenedor">
+                    <p class="progress-percent">{{ getProgresoEntero(solicitud.tramite.progreso) }}%</p>
+                    <div class="progress-bar">
+                      <div
+                        class="progress"
+                        [style.width.%]="getProgresoEntero(solicitud.tramite.progreso)"
+                        [ngClass]="getProgressClass(getProgresoEntero(solicitud.tramite.progreso))"
+                      ></div>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+            </tr>
+          </table>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</app-ar-layout>
