@@ -27,6 +27,7 @@ header nav a:hover {
 /* Contenedor principal */
 .main-container {
   display: flex;
+  gap: 2rem;
   margin: 2rem;
 }
 
@@ -40,6 +41,7 @@ aside {
 
 aside ul {
   list-style-type: none;
+  padding: 0;
 }
 
 aside ul li a {
@@ -68,6 +70,7 @@ aside ul li a:hover {
 
 /* Tarjeta de notificación */
 .notification-card {
+  transition: transform 0.2s;
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 8px;
@@ -117,12 +120,16 @@ aside ul li a:hover {
   cursor: pointer;
   transition: background 0.3s;
   font-weight: bold;
-  
 }
 
 .notification-card .details-button:hover,
 .notification-card .send-button:hover {
   background-color: #0056b3;
+}
+
+.notification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .notification-card textarea {
@@ -133,4 +140,19 @@ aside ul li a:hover {
   border-radius: 5px;
   resize: vertical;
   font-size: 0.9rem;
+}
+
+/* Barra de progreso */
+.progress-bar {
+  width: 80%;
+  margin: 1rem auto;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 16px;
+  background-color: #03045E;
+  transition: width 0.3s;
 }

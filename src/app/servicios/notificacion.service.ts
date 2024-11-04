@@ -6,9 +6,9 @@ import { BASE_URL } from '../config/environment/urls';
 
 interface Notificacion {
   id: number;
-  asunto: string;
   mensaje: string;
   fecha: string;
+  asunto: string;
   leida: boolean;
 }
 
