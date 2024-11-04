@@ -11,14 +11,7 @@
       
   
     <div class="main-container">
-      <aside>
-        <ul>
-          <li><a href="#" (click)="filtrarNotificaciones('pendientes')">Pendientes</a></li>
-          <li><a href="#" (click)="filtrarNotificaciones('enProceso')">En Proceso</a></li>
-          <li><a href="#" (click)="filtrarNotificaciones('cumplidos')">Cumplidos</a></li>
-          <li><a href="#" (click)="filtrarNotificaciones('requerimientos')">Requerimientos</a></li>
-        </ul>
-      </aside>
+    
   
       <section class="notification-panel">
         <div *ngFor="let notificacion of notificaciones" class="notification-card">
@@ -36,7 +29,7 @@
           -->
 
           
-           <!--<button class="details-button" (click)="verDetalles(notificacion.id)">Ver Detalles</button>-->
+          <button class="details-button">Ver Detalles</button>
           <button *ngIf="!notificacion.leida" class="send-button" (click)="marcarComoLeida(notificacion.id)">Marcar como Leída</button>
         </div>
       </section>

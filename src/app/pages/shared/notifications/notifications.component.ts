@@ -18,13 +18,12 @@ export class NotificationsComponent {
     private dialog: MatDialog
   ) { }
 
- /*
-verDetalles(notificacionId: number): void {
-  const dialogRef = this.dialog.open(DetalleNotificacionComponent, {
-    data: { id: notificacionId }
-  });
-}
-*/
+ 
+  verDetalles(notificacionId: number): void {
+    console.log(`Detalles de la notificación con ID: ${notificacionId}`);
+    // Aquí puedes añadir la lógica para mostrar un modal o redirigir a otra vista
+  }
+
 
 
   ngOnInit(): void {
