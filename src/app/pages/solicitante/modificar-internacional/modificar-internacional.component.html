@@ -6,74 +6,95 @@
 
     <div class="flex">
       <div class="left">
+        <!-- Campo de Tipo de Modificación -->
         <div class="form-group">
-          <label for="tipoTramite">Tipo de trámite</label>
-          <select id="tipoTramite">
+          <label for="tipoModificacion">Tipo de Trámite</label>
+          <select id="tipoModificacion" [(ngModel)]="tipoModificacionSeleccionado" (change)="onTipoModificacionChange(tipoModificacionSeleccionado)">
             <option value="">Seleccionar el tipo de trámite</option>
+            <option *ngFor="let tramite of tiposTramite" [value]="tramite">{{ tramite }}</option>
           </select>
+          <div *ngIf="errorMessages.tipoModificacion" class="error-message">Por favor seleccione el tipo de modificación</div>
         </div>
 
-        <label for="pais">pais</label>
-        <select id="pais">
-          <option value="">Seleccionar el pais</option>
-        </select>
-
+        <!-- Campo de Nombre del Producto -->
         <div class="form-group">
           <label for="nombreProducto">Nombre del producto</label>
-          <input type="text" id="nombreProducto" placeholder="Value" />
+          <input
+            type="text"
+            id="nombreProducto"
+            placeholder="Nombre del producto"
+            [(ngModel)]="nombreProducto"
+            (input)="removeErrorMessage('nombreProducto')"
+          />
+          <div *ngIf="errorMessages.nombreProducto" class="error-message">Por favor ingrese el nombre del producto</div>
+        </div>
 
-          <button type="submit" id="datosSol">Datos del solicitante</button>
+        <!-- Campo de Descripción del Trámite -->
+        <div class="form-group">
+          <label for="descripcionTramite">Descripción del trámite</label>
+          <input
+            type="text"
+            id="descripcionTramite"
+            placeholder="Descripción del trámite"
+            [(ngModel)]="descripcionTramite"
+            (input)="removeErrorMessage('descripcionTramite')"
+          />
+          <div *ngIf="errorMessages.descripcionTramite" class="error-message">Por favor ingrese la descripción del trámite</div>
+        </div>
+
+        <!-- Botón para Datos del Solicitante -->
+        <div class="form-group">
+          <button type="button" id="datosSol" (click)="verDatosSolicitante()">Datos del solicitante</button>
         </div>
       </div>
-      <div class="right">
+
+      <!-- Sección Derecha para Lista de Modificaciones (Solo visible cuando se selecciona "MODIFICAR") -->
+      <div class="right" *ngIf="tipoModificacionSeleccionado === 'MODIFICAR'">
         <div class="form-group">
-          <label>Adjunte los siguientes documentos:</label>
-          <ul>
-            <li>
-              <label for="fichaTecnica">Ficha técnica INVIMA</label>
-              <div class="cuadro">
-                <!--<input type="file" id="fichaTecnica">-->
-                <button type="submit" class="fl">
-                  <a [routerLink]="['/arrastrar']">seleccionar archivo</a>
-                </button>
-                <p>Ningun archivo seleccionado</p>
-              </div>
-            </li>
-            <li>
-              <label for="formatoInterno">Formato Interno de Solicitud</label>
-              <div class="cuadro">
-                <button type="submit" class="fl">
-                  <a [routerLink]="['/arrastrar']">seleccionar archivo</a>
-                </button>
-                <p>Ningun archivo seleccionado</p>
-              </div>
-            </li>
-            <li>
-              <label for="certificadoAnalisis">Certificado de Análisis</label>
-              <div class="cuadro">
-                <button type="submit" class="fl">
-                  <a [routerLink]="['/arrastrar']">seleccionar archivo</a>
-                </button>
-                <p>Ningun archivo seleccionado</p>
-              </div>
-            </li>
-            <li>
-              <label for="certificadoAditivos">Certificado de Aditivos</label>
-              <div class="cuadro">
-                <button type="submit" class="fl">
-                  <a [routerLink]="['/arrastrar']">seleccionar archivo</a>
-                </button>
-                <p>Ningun archivo seleccionado</p>
-              </div>
-            </li>
-          </ul>
+          <label>Seleccione las modificaciones aplicables:</label>
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo Modificación</th>
+                <th>Cambio</th>
+                <th>Adición</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let modificacion of listaModificaciones">
+                <td>{{ modificacion.nombre }}</td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="modificacion.cambio" />
+                </td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="modificacion.adicion" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+
+    <!-- Botón de Enviar -->
     <div class="fin">
-      <button type="submit">
-        <a [routerLink]="['/confirmacion']">Enviar</a>
-      </button>
+      <button type="button" (click)="onSubmit()">Enviar</button>
     </div>
   </div>
 </app-solicitante-layout>
+
+<!-- Estilos adicionales para la tabla -->
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
