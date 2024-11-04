@@ -3,6 +3,7 @@ import { NotificacionService } from '@/app/servicios/notificacion.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -15,7 +16,8 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private notificacionService: NotificacionService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -89,5 +91,9 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
     } else {
       console.error('Elemento canvas no encontrado');
     }
+  }
+
+  mostrarDetalles(notificacion: Notificacion) {
+    this.router.navigate(['/notificacion/detail', notificacion.id]);
   }
 }

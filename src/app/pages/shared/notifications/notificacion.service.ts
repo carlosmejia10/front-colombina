@@ -8,6 +8,7 @@ import { Notificacion } from '@/app/modelos/notificacion';
 })
 export class NotificacionService {
   private baseUrl = 'http://localhost:8080/notificacion'; // Asegúrate de que la URL base sea la correcta para tu backend
+  obtenerNotificacionPorId: any;
 
   constructor(private http: HttpClient) { }
 

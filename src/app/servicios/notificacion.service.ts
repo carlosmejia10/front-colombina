@@ -27,6 +27,13 @@ export class NotificacionService {
     });
   }
 
+    //obtener notificacion por ID
+    obtenerNotificacionPorId(id: number): Observable<Notificacion> {
+      return this.http.get<Notificacion>(`${this.apiUrl}/${id}`, {
+        headers: this.getHeaders(),
+      });
+    }
+
   // Obtener todas las notificaciones de un usuario
   obtenerNotificacionesPorUsuario(usuarioId: number): Observable<Notificacion[]> {
     return this.http.get<Notificacion[]>(`${this.apiUrl}/usuario/${usuarioId}`, {
