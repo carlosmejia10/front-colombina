@@ -9,6 +9,14 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
+  selector: 'app-info-control',
+  templateUrl: './info-control.component.html',
+  styleUrls: ['./info-Control.component.css'],
+})
+
+
+
+@Component({
   selector: 'app-info-solicitud',
   templateUrl: './info-solicitud.component.html',
   styleUrl: './info-solicitud.component.css',
@@ -94,3 +102,6 @@ export class InfoSolicitudComponent {
     }
   }
 }
+
+
+

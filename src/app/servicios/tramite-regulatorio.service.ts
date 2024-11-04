@@ -1,14 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TramiteDTO } from '../modelos/tramite.dto';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 import { BASE_URL } from '../config/environment/urls';
+import { TramiteDTO } from '../modelos/tramite.dto';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TramiteService {
+  private ApiUrl = '${environment.ApiUrl}/tramite';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -42,5 +43,11 @@ export class TramiteService {
 
   escalarTramite(idTramite: number): Observable<any> {
     return this.http.post(`${BASE_URL}/${idTramite}/escalar`, {}, { headers: this.getHeaders() });
+  }
+  obtenerTramite(idTramite: number): Observable<any> {
+    return this.http.get(`${BASE_URL}/${idTramite}/obtener`, { headers: this.getHeaders() });
+  }
+  actualizarTramite(idTramite: number, tramite : any): Observable <any> {
+    return this.http.put(`${this.ApiUrl}/${idTramite}/actualizar`, tramite);
   }
 }
