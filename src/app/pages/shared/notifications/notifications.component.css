@@ -1,3 +1,11 @@
+.notification-center-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 /* Barra de navegación superior */
 header {
   display: flex;
@@ -6,8 +14,12 @@ header {
   padding: 1rem 2rem;
   background-color: #03045E;
   color: #fff;
-  
+  margin: 0;  /* Elimina cualquier margen */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  position: relative; /* Ayuda a mantener el header en su lugar */
+  margin-top: -250px
 }
+
 #notificationChart {
   width: 300px; /* Ajusta el ancho según sea necesario */
   height: 300px; /* Ajusta la altura según sea necesario */
