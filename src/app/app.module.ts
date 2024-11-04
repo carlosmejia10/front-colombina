@@ -124,3 +124,4 @@ import {InfoControlComponent} from "@/app/pages/asuntos-regulatorios/info-contro
   ]
 })
 export class AppModule {}
+

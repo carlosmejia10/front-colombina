@@ -10,11 +10,11 @@
     <div class="form-row">
       <div class="form-group">
         <p class="label">Fecha Solicitud</p>
-        <input type="date" class="input-text" />
+        <input type="date" class="input-text" [(ngModel)]="tramite.fechaSolicitud" name="fechaSolicitud" />
       </div>
       <div class="form-group">
         <p class="label">Fecha Envío Documentos</p>
-        <input type="date" class="input-text" />
+        <input type="date" class="input-text" [(ngModel)]="tramite.fechaEnvioDocumentos" name="fechaEnvioDocumentos" />
       </div>
     </div>
 
@@ -69,7 +69,7 @@
       </div>
       <div class="form-group">
         <p class="label">Estado Trámite</p>
-        <input type="text" class="input-text" [(ngModel)]="tramite.estadoTramite" name="estado" />
+        <input type="text" class="input-text" [(ngModel)]="tramite.estado" name="estado" />
         <select class="input-text">
           <option value="APROBADO">APROBADO</option>
           <option value="EN_REVISION">EN_REVISION</option>
@@ -81,7 +81,7 @@
     <div class="form-row">
       <div class="form-group requerimiento">
         <p class="label">¿Urgente?</p>
-        <input type="checkbox" />
+        <input type="checkbox" [(ngModel)]="tramite.esUrgente" name="esUrgente" />
       </div>
       <div class="form-group">
         <p class="label">Fecha de llegada resol</p>

@@ -1,80 +1,119 @@
 export class EditarTramiteDTO {
     constructor(
         public id?: number,
-        public etapa?: number,
+        public fechaSolicitud?: Date,
+        public fechaEnvioDocumentos?: Date,
+        public fechaTerminacionTramite?: Date,
+        public fechaNotificacion?: Date,
         public fechaRadicacion?: Date,
+        public fechaRadicadoINVIMA?: Date,
+        public fechaLlegadaResolucion?: Date,
+        public vencimientoRSA?: Date,
+        
+        public numeroRadicado?: string,
+        public estado?: string,
+        public pais?: string,
+        public registroSanitarioColombia?: string,
+        public expedienteRSA?: string,
+        public numeroIntencion?: string,
+        public radicadoExp?: string,
+        public llaveRSAColombia?: string,
+        public numeroRSAPais?: string,
+        public solicitadoPor?: string,
+        public planta?: string,
+        public observaciones?: string,
+        public pagadoFacturaNo?: string,
+        
+        public esUrgente?: boolean,
+        public okSatisfactorioINVIMA?: boolean,
+        
+        public etapa?: number,
         public llave?: number,
         public numProyectoSap?: number,
         public progreso?: number,
         public entidadSanitariaId?: number,
-        public solicitudId?: number,
-        public claseTramite?: string,
-        public descripcionProducto?: string,
-        public descripcionTramite?: string,
-        public estadoTramite?: string, // Cambiado de estado a estadoTramite
-        public nombreProducto?: string,
-        public numeroRadicado?: string,
-        public proyecto?: string,
-        public pt?: string,
-        public tipoModificacion?: string,
-        public tipoProducto?: string,
         public tipoTramite?: string,
-        public unidadNegocio?: string,
-        public fechaSolicitud?: Date,
-        public solicitanteId?: number
+        public descripcionProducto?: string,
+        public tipoProducto?: string
     ) {}
 
     static fromJSON(json: any): EditarTramiteDTO {
         return new EditarTramiteDTO(
             json.id,
-            json.etapa,
+            json.fechaSolicitud ? new Date(json.fechaSolicitud) : undefined,
+            json.fechaEnvioDocumentos ? new Date(json.fechaEnvioDocumentos) : undefined,
+            json.fechaTerminacionTramite ? new Date(json.fechaTerminacionTramite) : undefined,
+            json.fechaNotificacion ? new Date(json.fechaNotificacion) : undefined,
             json.fechaRadicacion ? new Date(json.fechaRadicacion) : undefined,
+            json.fechaRadicadoINVIMA ? new Date(json.fechaRadicadoINVIMA) : undefined,
+            json.fechaLlegadaResolucion ? new Date(json.fechaLlegadaResolucion) : undefined,
+            json.vencimientoRSA ? new Date(json.vencimientoRSA) : undefined,
+            
+            json.numeroRadicado,
+            json.estado,
+            json.pais,
+            json.registroSanitarioColombia,
+            json.expedienteRSA,
+            json.numeroIntencion,
+            json.radicadoExp,
+            json.llaveRSAColombia,
+            json.numeroRSAPais,
+            json.solicitadoPor,
+            json.planta,
+            json.observaciones,
+            json.pagadoFacturaNo,
+            
+            json.esUrgente,
+            json.okSatisfactorioINVIMA,
+            
+            json.etapa,
             json.llave,
             json.numProyectoSap,
             json.progreso,
             json.entidadSanitariaId,
-            json.solicitudId,
-            json.claseTramite,
-            json.descripcionProducto,
-            json.descripcionTramite,
-            json.estado || json.estadoTramite, // Maneja ambos nombres
-            json.nombreProducto,
-            json.numeroRadicado,
-            json.proyecto,
-            json.pt,
-            json.tipoModificacion,
-            json.tipoProducto,
             json.tipoTramite,
-            json.unidadNegocio,
-            json.fechaSolicitud ? new Date(json.fechaSolicitud) : undefined,
-            json.solicitanteId
+            json.descripcionProducto,
+            json.tipoProducto
         );
     }
 
     toJSON(): any {
         return {
             id: this.id,
-            etapa: this.etapa,
+            fechaSolicitud: this.fechaSolicitud,
+            fechaEnvioDocumentos: this.fechaEnvioDocumentos,
+            fechaTerminacionTramite: this.fechaTerminacionTramite,
+            fechaNotificacion: this.fechaNotificacion,
             fechaRadicacion: this.fechaRadicacion,
+            fechaRadicadoINVIMA: this.fechaRadicadoINVIMA,
+            fechaLlegadaResolucion: this.fechaLlegadaResolucion,
+            vencimientoRSA: this.vencimientoRSA,
+            
+            numeroRadicado: this.numeroRadicado,
+            estado: this.estado,
+            pais: this.pais,
+            registroSanitarioColombia: this.registroSanitarioColombia,
+            expedienteRSA: this.expedienteRSA,
+            numeroIntencion: this.numeroIntencion,
+            radicadoExp: this.radicadoExp,
+            llaveRSAColombia: this.llaveRSAColombia,
+            numeroRSAPais: this.numeroRSAPais,
+            solicitadoPor: this.solicitadoPor,
+            planta: this.planta,
+            observaciones: this.observaciones,
+            pagadoFacturaNo: this.pagadoFacturaNo,
+            
+            esUrgente: this.esUrgente,
+            okSatisfactorioINVIMA: this.okSatisfactorioINVIMA,
+            
+            etapa: this.etapa,
             llave: this.llave,
             numProyectoSap: this.numProyectoSap,
             progreso: this.progreso,
             entidadSanitariaId: this.entidadSanitariaId,
-            solicitudId: this.solicitudId,
-            claseTramite: this.claseTramite,
-            descripcionProducto: this.descripcionProducto,
-            descripcionTramite: this.descripcionTramite,
-            estado: this.estadoTramite, // Mapea estadoTramite a estado para el backend
-            nombreProducto: this.nombreProducto,
-            numeroRadicado: this.numeroRadicado,
-            proyecto: this.proyecto,
-            pt: this.pt,
-            tipoModificacion: this.tipoModificacion,
-            tipoProducto: this.tipoProducto,
             tipoTramite: this.tipoTramite,
-            unidadNegocio: this.unidadNegocio,
-            fechaSolicitud: this.fechaSolicitud,
-            solicitanteId: this.solicitanteId
+            descripcionProducto: this.descripcionProducto,
+            tipoProducto: this.tipoProducto
         };
     }
 }

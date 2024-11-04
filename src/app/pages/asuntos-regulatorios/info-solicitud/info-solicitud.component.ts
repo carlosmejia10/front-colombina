@@ -23,6 +23,8 @@ export class InfoSolicitudComponent implements OnInit {
   solicitud!: SolicitudDTO;
   solicitante!: UsuarioDTO;
   documentos!: DocumentoDTO[];
+  cambiosRealizados: any = null;
+  objectKeys = Object.keys;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,9 +34,15 @@ export class InfoSolicitudComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const cambiosGuardados = localStorage.getItem('cambiosTramite');
+    if (cambiosGuardados) {
+      this.cambiosRealizados = JSON.parse(cambiosGuardados);
+    }
     const tramiteId = this.route.snapshot.paramMap.get('id');
     if (tramiteId) {
       this.getTramiteDetails(+tramiteId);
+
+      localStorage.removeItem('cambiosTramite');
     }
   }
 
@@ -108,6 +116,12 @@ export class InfoSolicitudComponent implements OnInit {
     }
   }
 
+  obtenerCampos(): string[] {
+    if (!this.cambiosRealizados) {
+      return [];
+    }
+    return Object.keys(this.cambiosRealizados);
+  }
   
 
 }

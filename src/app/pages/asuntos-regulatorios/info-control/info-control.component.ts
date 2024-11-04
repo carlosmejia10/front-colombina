@@ -17,6 +17,7 @@ export class InfoControlComponent implements OnInit {
   private apiUrl = `${BASE_URL}/tramite`;
   tramite: EditarTramiteDTO = new EditarTramiteDTO();
   tramiteId: number;
+  datosOriginales: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class InfoControlComponent implements OnInit {
     this.tramiteService.getTramite(this.tramiteId).subscribe({
       next: (data) => {
         this.tramite = EditarTramiteDTO.fromJSON(data);
+        this.datosOriginales = { ...data };
         
       },
       error: (error) => {
@@ -51,18 +53,37 @@ export class InfoControlComponent implements OnInit {
 
 guardarCambios() {
 
+  const cambios = this.identificarCambios();
   
+  console.log('Guardando cambios:', this.tramite);
   this.tramiteService.actualizarTramite(this.tramiteId, this.tramite).subscribe({
 
     next: (response) => {
       console.log('Respuesta exitosa:', response);
+      localStorage.setItem('cambiosTramite', JSON.stringify(cambios));
       this.tramite = EditarTramiteDTO.fromJSON(response);
       alert('Cambios guardados exitosamente'); 
+      this.router.navigate(['/asuntos-regulatorios/info-solicitud']);
     },
     
   });
 }
 
+private identificarCambios(): any {
+  const cambios: any = {};
+  Object.keys(this.tramite).forEach(key => {
+    const valorOriginal = this.datosOriginales[key];
+    const valorNuevo = (this.tramite as any)[key];
+    
+    if (valorOriginal !== valorNuevo && valorNuevo !== undefined) {
+      cambios[key] = {
+        anterior: valorOriginal,
+        nuevo: valorNuevo
+      };
+    }
+  });
+  return cambios;
 
 } 
 
+}

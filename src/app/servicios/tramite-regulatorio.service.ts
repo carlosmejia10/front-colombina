@@ -50,15 +50,15 @@ export class TramiteRegulatorioService {
   }
 
   getTramite(id: number): Observable<EditarTramiteDTO> {
-    return this.http.get<EditarTramiteDTO>(`${this.apiUrl}/${id}`);
+    return this.http.get<EditarTramiteDTO>(`${BASE_URL}/tramites/${id}`, { headers: this.getHeaders() });
   }
 
   
 
   actualizarTramite(id: number, tramite: EditarTramiteDTO): Observable<EditarTramiteDTO> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const headers = this.getHeaders().set('Content-Type', 'application/json');
     console.log('Enviando datos:', tramite.toJSON());
-    return this.http.put<EditarTramiteDTO>(`${this.apiUrl}/${id}`, tramite.toJSON(), { headers });
+    return this.http.put<EditarTramiteDTO>(`${BASE_URL}/tramites/update/${id}`, tramite.toJSON(), { headers });
   }
 
 }
