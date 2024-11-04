@@ -1,6 +1,6 @@
 import { Notificacion } from '@/app/modelos/notificacion';
 import { NotificacionService } from '@/app/servicios/notificacion.service';
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
-export class NotificationsComponent {
+export class NotificationsComponent implements OnInit, AfterViewInit {
   notificaciones: Notificacion[] = [];
   usuarioId = 1; // ID de usuario para pruebas; ajusta según la lógica de tu aplicación
 
@@ -18,17 +18,17 @@ export class NotificationsComponent {
     private dialog: MatDialog
   ) { }
 
- 
+  ngOnInit(): void {
+    this.obtenerNotificaciones();
+  }
+
+  ngAfterViewInit(): void {
+    this.generarGraficoDeNotificaciones();
+  }
+
   verDetalles(notificacionId: number): void {
     console.log(`Detalles de la notificación con ID: ${notificacionId}`);
     // Aquí puedes añadir la lógica para mostrar un modal o redirigir a otra vista
-  }
-
-
-
-  ngOnInit(): void {
-    this.obtenerNotificaciones();
-    this.generarGraficoDeNotificaciones();
   }
 
   calcularProgreso(): number {
@@ -36,7 +36,6 @@ export class NotificationsComponent {
     const leidas = this.contarNotificacionesLeidas();
     return totalNotificaciones > 0 ? (leidas / totalNotificaciones) * 100 : 0;
   }
-  
 
   obtenerNotificaciones(): void {
     this.notificacionService.obtenerNotificacionesPorUsuario(this.usuarioId).subscribe({
@@ -76,15 +75,19 @@ export class NotificationsComponent {
 
   generarGraficoDeNotificaciones(): void {
     const ctx = document.getElementById('notificationChart') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['Leídas', 'No Leídas'],
-        datasets: [{
-          data: [this.contarNotificacionesLeidas(), this.contarNotificacionesNoLeidas()],
-          backgroundColor: ['#28a745', '#dc3545']
-        }]
-      }
-    });
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Leídas', 'No Leídas'],
+          datasets: [{
+            data: [this.contarNotificacionesLeidas(), this.contarNotificacionesNoLeidas()],
+            backgroundColor: ['#28a745', '#dc3545']
+          }]
+        }
+      });
+    } else {
+      console.error('Elemento canvas no encontrado');
+    }
   }
 }

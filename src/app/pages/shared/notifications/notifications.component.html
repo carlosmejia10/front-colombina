@@ -1,38 +1,32 @@
 <app-admin-layout>
-    <canvas id="notificationChart"></canvas>
+  <div class="notification-center-container">
+    <!-- Gráfico de notificaciones -->
+    <div class="chart-container">
+      <canvas id="notificationChart"></canvas>
+    </div>
 
+    <!-- Título de Centro de Notificaciones -->
     <header>
       <h1>Centro de Notificaciones</h1>
     </header>
 
+    <!-- Barra de progreso -->
     <div class="progress-bar">
-        <div class="progress" [style.width.%]="calcularProgreso()"></div>
-      </div>
-      
-  
+      <div class="progress" [style.width.%]="calcularProgreso()"></div>
+    </div>
+
+    <!-- Panel de notificaciones -->
     <div class="main-container">
-    
-  
       <section class="notification-panel">
         <div *ngFor="let notificacion of notificaciones" class="notification-card">
           <h2>{{ notificacion.asunto }}</h2>
           <p class="date">{{ notificacion.fecha | date: 'yyyy-MM-dd' }}</p>
-          <!--
-          <p class="status" [ngClass]="{'in-progress': notificacion.estado === 'En Progreso', 'completed': notificacion.estado === 'Cumplido', 'not-met': notificacion.estado === 'No Cumple'}">
-            <i class="fa" [ngClass]="{
-                'fa-hourglass-half': notificacion.estado === 'En Progreso',
-                'fa-check-circle': notificacion.estado === 'Cumplido',
-                'fa-exclamation-circle': notificacion.estado === 'No Cumple'
-              }"></i>
-            Estado: {{ notificacion.estado }}
-          </p>
-          -->
 
-          
+          <!-- Botones de acciones -->
           <button class="details-button">Ver Detalles</button>
-          <button *ngIf="!notificacion.leida" class="send-button" (click)="marcarComoLeida(notificacion.id)">Marcar como Leída</button>
+          <!-- <button *ngIf="!notificacion.leida" class="send-button" (click)="marcarComoLeida(notificacion.id)">Marcar como Leída</button> -->
         </div>
       </section>
     </div>
-  </app-admin-layout>
-  
+  </div>
+</app-admin-layout>
