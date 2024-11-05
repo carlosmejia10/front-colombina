@@ -133,7 +133,7 @@ export class CrearTramiteComponent implements OnInit {
       this.tipoTramiteSeleccionado,
       'PENDIENTE', // estado inicial
       new Date(), // fecha de radicación
-      2, // progreso inicial
+      0, // progreso inicial
       0, // llave (sin valor inicial, el backend debería generarlo)
       this.entidadSanitariaId,
       [] // historial de cambios vacío inicialmente
