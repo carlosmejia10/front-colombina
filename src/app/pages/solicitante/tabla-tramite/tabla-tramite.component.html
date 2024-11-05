@@ -70,9 +70,6 @@
                     <span>Estado trámite: {{ solicitud.tramite.estado }}</span>
                   </div>
                   <div class="detalle">
-                    <div class="detalle-nombre">
-                      <span class="nombre">Solicitante: {{ nombreSolicitante }}</span>
-                    </div>
                     <div class="detalle-fechas">
                       <span class="fecha">Fecha inicio: {{ solicitud.fechaSolicitud | date: 'dd/MM/yyyy' }}</span>
                       <span class="fecha">Fecha fin: {{ getFechaAproxFin(solicitud.fechaSolicitud) | date: 'dd/MM/yyyy' }}</span>

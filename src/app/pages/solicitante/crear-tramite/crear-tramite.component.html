@@ -59,7 +59,7 @@
           <label for="tipoProducto">Tipo de trámite</label>
           <select id="tipoProducto" [(ngModel)]="tipoProductoSeleccionado" (change)="removeErrorMessage('tipoProducto')">
             <option value="">Seleccionar el tipo de trámite</option>
-            <option *ngFor="let tipo of tiposProducto" [value]="tipo">{{ tipo }}</option>
+            <option *ngFor="let tipo of tiposTramiteColombina" [value]="tipo">{{ tipo }}</option>
           </select>
           <div *ngIf="errorMessages.tipoProducto" class="error-message">Por favor seleccione el tipo de producto</div>
         </div>

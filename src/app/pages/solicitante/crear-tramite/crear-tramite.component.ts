@@ -20,6 +20,7 @@ export class CrearTramiteComponent implements OnInit {
 
   // Opciones para los selectores
   tiposProducto: string[] = ['Nuevo Registro Sanitarios Nacional', 'Nuevo Registro Sanitario Internacional', 'Modificación Registro Sanitario Nacional', 'Modificación Registro Sanitario Internacional', 'Renovación de Registro Sanitario'];
+  tiposTramiteColombina: string[] = ['Nuevo Registro Sanitarios Nacional', 'Nuevo Registro Sanitario Internacional', 'Modificación Registro Sanitario Nacional', 'Modificación Registro Sanitario Internacional', 'Renovación de Registro Sanitario'];
   tiposTramite: string[] = ['NACIONAL', 'INTERNACIONAL'];
 
   // Variables del formulario
@@ -105,9 +106,13 @@ export class CrearTramiteComponent implements OnInit {
     if (tipoTramite === 'NACIONAL') {
       this.pais = 'Colombia';
       this.listaPaises = [];
+      this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes("internacional"));
     } else if (tipoTramite === 'INTERNACIONAL') {
       this.pais = '';
       this.cargarEntidadesSanitarias();
+      this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes(" nacional"));
+    } else {
+      this.tiposTramiteColombina = this.tiposProducto;
     }
   }
 
