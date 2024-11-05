@@ -67,7 +67,7 @@ export class RevisionDocumentacionComponent implements OnInit {
   }
 
   regresar() {
-    this.router.navigate(['/info-tramite']); // Redirige al componente de InfoTramite
-  }
+    this.router.navigate(['/solicitudes']); // Redirige al componente de InfoTramite
+  }
 
 }

@@ -31,16 +31,16 @@
 
         <!-- Campo de Descripción del Producto -->
         <div class="form-group">
-          <label for="descripcionProducto">Descripción del producto</label>
+          <label for="descripcionProducto">Descripción del trámite</label>
           <textarea
             id="descripcionProducto"
-            placeholder="Escriba una descripción detallada del producto"
+            placeholder="Escriba una descripción detallada del trámite"
             rows="3"
             style="resize: none; overflow-y: auto;"
             [(ngModel)]="descripcionProducto"
             (input)="removeErrorMessage('descripcionProducto')"
           ></textarea>
-          <div *ngIf="errorMessages.descripcionProducto" class="error-message">Por favor ingrese la descripción del producto</div>
+          <div *ngIf="errorMessages.descripcionProducto" class="error-message">Por favor ingrese la descripción del trámite</div>
         </div>
 
         <!-- Campo de País -->

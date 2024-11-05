@@ -80,7 +80,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="descripcionTramite" [(ngModel)]="tramite.descripcionTramite">
+                <input type="text" class="input-text" name="descripcionTramite"  disabled [value]="tramite.descripcionProducto">
             </div>
         </div>
         <div class="form-row">
@@ -90,7 +90,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="claseTramite" [(ngModel)]="tramite.claseTramite">
+                <input type="text" class="input-text" name="claseTramite" disabled [value]="tramite.tipoProducto">
             </div>
         </div>
         <button style="width: 25%; margin: auto;">Siguiente</button>

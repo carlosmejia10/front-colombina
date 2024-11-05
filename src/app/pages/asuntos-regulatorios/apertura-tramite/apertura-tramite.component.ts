@@ -1,3 +1,4 @@
+import { InfoAperturaTramite } from '@/app/modelos/info-apertura-tramite.dto';
 import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
@@ -30,19 +31,28 @@ export class AperturaTramiteComponent {
   }
 
   submit() {
-    console.log(this.tramite)
     if (
       !this.tramite.pt ||
       !this.tramite.unidadNegocio ||
       !this.tramite.numProyectoSap ||
       !this.tramite.proyecto ||
-      !this.tramite.tipoModificacion ||
-      !this.tramite.descripcionTramite ||
-      !this.tramite.claseTramite
+      !this.tramite.tipoModificacion
     ) {
       alert('Todos los campos son obligatorios');
       return;
     }
-    this.router.navigate(['/documentos', this.numeroRadicado]);
+
+    this.tramiteService
+      .addInfoAperturaTramite(
+        parseInt(this.numeroRadicado),
+        new InfoAperturaTramite(
+          this.tramite.pt,
+          this.tramite.unidadNegocio,
+          this.tramite.numProyectoSap,
+          this.tramite.proyecto,
+          this.tramite.tipoModificacion
+        )
+      );
+      this.router.navigate(['/documentos', this.numeroRadicado]);
   }
 }
