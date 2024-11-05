@@ -195,8 +195,10 @@ const routes: Routes = [
   },
 
   {
-    path: `apertura-tramite`,
+    path: `apertura-tramite/:numeroRadicado`,
     component: AperturaTramiteComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios] },
   },
 
   {

@@ -2,7 +2,6 @@ import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-apertura-tramite',
@@ -31,6 +30,7 @@ export class AperturaTramiteComponent {
   }
 
   submit() {
+    console.log(this.tramite)
     if (
       !this.tramite.pt ||
       !this.tramite.unidadNegocio ||

@@ -72,25 +72,30 @@ export class InfoSolicitudComponent {
     this.mostrarBoton = false;
   }
 
-  handleEtapa() {
-    if (
-      this.tramite.etapa.endsWith('1') ||
-      this.tramite.etapa.endsWith('2') ||
-      this.tramite.etapa.endsWith('3')
-    ) {
-      this.router.navigate(['/apertura-tramite', this.tramite.id]);
-    } else if (this.tramite.etapa.endsWith('4')) {
-      this.router.navigate(['/documentos', this.tramite.id]);
-    } else if (this.tramite.etapa.endsWith('5')) {
-      // TODO
-    } else if (this.tramite.etapa.endsWith('6')) {
-      this.router.navigate(['/aprobacion-invima', this.tramite.id]);
-    } else if (this.tramite.etapa.endsWith('7')) {
-      // TODO
-    } else if (this.tramite.etapa.endsWith('8')) {
-      // TODO
-    } else if (this.tramite.etapa.endsWith('9')) {
-      // TODO
+  continuar() {
+    switch (this.tramite.etapa) {
+      case 'A2':
+      case 'B2':
+      case 'A3':
+      case 'B3':
+        this.router.navigate(['/apertura-tramite', this.tramite.id]);
+        break;
+      case 'A4':
+      case 'B4':
+        this.router.navigate(['/documentos', this.tramite.id]);
+        break;
+      case 'A5':
+        this.router.navigate(['/info-control', this.tramite.id]);
+        break;
+      case 'B5':
+        break;
+      case 'A7':
+      case 'B7':
+        this.router.navigate(['/finalizacion', this.tramite.id]);
+        break;
+      case 'A9':
+        this.router.navigate(['/concepto-satisfactorio', this.tramite.id]);
+        break;
     }
   }
 }

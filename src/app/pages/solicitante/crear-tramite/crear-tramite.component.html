@@ -56,9 +56,9 @@
 
         <!-- Campo de Tipo de Producto -->
         <div class="form-group">
-          <label for="tipoProducto">Tipo de producto</label>
+          <label for="tipoProducto">Tipo de trámite</label>
           <select id="tipoProducto" [(ngModel)]="tipoProductoSeleccionado" (change)="removeErrorMessage('tipoProducto')">
-            <option value="">Seleccionar el tipo de producto</option>
+            <option value="">Seleccionar el tipo de trámite</option>
             <option *ngFor="let tipo of tiposProducto" [value]="tipo">{{ tipo }}</option>
           </select>
           <div *ngIf="errorMessages.tipoProducto" class="error-message">Por favor seleccione el tipo de producto</div>
