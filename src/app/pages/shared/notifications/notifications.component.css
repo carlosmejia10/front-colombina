@@ -1,3 +1,11 @@
+.notification-center-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 /* Barra de navegación superior */
 header {
   display: flex;
@@ -6,7 +14,26 @@ header {
   padding: 1rem 2rem;
   background-color: #03045E;
   color: #fff;
+  margin: 0;  /* Elimina cualquier margen */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  position: relative; /* Ayuda a mantener el header en su lugar */
+  margin-top: -250px
 }
+
+#notificationChart {
+  width: 300px; /* Ajusta el ancho según sea necesario */
+  height: 300px; /* Ajusta la altura según sea necesario */
+  margin: auto; /* Centra el gráfico en el contenedor */
+  display: block;
+}
+
+.chart-container {
+  width: 300px; /* Ajusta este tamaño a lo necesario */
+  height: 300px;
+  margin: auto; /* Esto mantiene el contenedor centrado */
+  overflow: hidden; /* Evita que el contenido se salga si excede el tamaño */
+}
+
 
 header h1 {
   font-size: 1.5rem;
@@ -26,35 +53,10 @@ header nav a:hover {
 
 /* Contenedor principal */
 .main-container {
+  margin-top: 1rem;
   display: flex;
+  gap: 2rem;
   margin: 2rem;
-}
-
-/* Menú lateral */
-aside {
-  width: 200px;
-  padding: 1rem;
-  background-color: #e9ecef;
-  border-radius: 8px;
-}
-
-aside ul {
-  list-style-type: none;
-}
-
-aside ul li a {
-  display: block;
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
-  color: #03045E;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-
-aside ul li a:hover {
-  background-color: #d1e7ff;
-  color: #0056b3;
 }
 
 /* Panel de notificaciones */
@@ -68,6 +70,7 @@ aside ul li a:hover {
 
 /* Tarjeta de notificación */
 .notification-card {
+  transition: transform 0.2s;
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 8px;
@@ -117,12 +120,16 @@ aside ul li a:hover {
   cursor: pointer;
   transition: background 0.3s;
   font-weight: bold;
-  
 }
 
 .notification-card .details-button:hover,
 .notification-card .send-button:hover {
   background-color: #0056b3;
+}
+
+.notification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .notification-card textarea {
@@ -133,4 +140,19 @@ aside ul li a:hover {
   border-radius: 5px;
   resize: vertical;
   font-size: 0.9rem;
+}
+
+/* Barra de progreso */
+.progress-bar {
+  width: 80%;
+  margin: 1rem auto;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 16px;
+  background-color: #03045E;
+  transition: width 0.3s;
 }

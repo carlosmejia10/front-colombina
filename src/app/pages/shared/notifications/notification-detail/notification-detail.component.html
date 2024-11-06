@@ -1,0 +1,8 @@
+<div *ngIf="notificacion" class="notification-card">
+    <h2 class="notification-title">{{ notificacion.asunto }}</h2>
+    <p class="notification-message">{{ notificacion.mensaje }}</p>
+    <div class="notification-details">
+        <p><strong>Fecha:</strong> {{ notificacion.fecha | date: 'short' }}</p>
+        <p><strong>Leída:</strong> {{ notificacion.leida ? 'Sí' : 'No' }}</p>
+    </div>
+</div>

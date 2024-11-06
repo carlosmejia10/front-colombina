@@ -1,45 +1,31 @@
 <app-admin-layout>
-  <!-- Barra de navegación superior -->
-  <header>
+  <div class="notification-center-container">
+    <!-- Gráfico de notificaciones -->
+    <div class="chart-container">
+      <canvas id="notificationChart"></canvas>
+    </div>
+
+    <!-- Título de Centro de Notificaciones -->
+    <header>
       <h1>Centro de Notificaciones</h1>
-  </header>
+    </header>
 
-  <!-- Contenedor principal -->
-  <div class="main-container">
+    <!-- Barra de progreso -->
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="calcularProgreso()"></div>
+    </div>
 
-    <!-- Menú lateral -->
-    <aside>
-        <ul>
-            <li><a href="#">Pendientes</a></li>
-            <li><a href="#">En Proceso</a></li>
-            <li><a href="#">Cumplidos</a></li>
-            <li><a href="#">Requerimientos</a></li>
-        </ul>
-    </aside>
+    <!-- Panel de notificaciones -->
+    <div class="main-container">
+      <section class="notification-panel">
+        <div *ngFor="let notificacion of notificaciones" class="notification-card">
+          <h2>{{ notificacion.asunto }}</h2>
+          <p class="date">{{ notificacion.fecha | date: 'yyyy-MM-dd' }}</p>
 
-    <!-- Panel principal de notificaciones -->
-    <section class="notification-panel">
-        <div class="notification-card">
-            <h2>Solicitud de Registro</h2>
-            <p class="date">2024-10-28</p>
-            <p class="status in-progress">Estado: En Progreso</p>
-            <button class="details-button">Ver Detalles</button>
+          <button [id]="'btn-detalles-'+notificacion.id" class="details-button" (click)="mostrarDetalles(notificacion)">Ver Detalles</button>
+          <!-- <button *ngIf="!notificacion.leida" class="send-button" (click)="marcarComoLeida(notificacion.id)">Marcar como Leída</button> -->
         </div>
-
-        <div class="notification-card">
-            <h2>Revisión de Documentos</h2>
-            <p class="date">2024-10-27</p>
-            <p class="status completed">Estado: Cumple Requisitos</p>
-            <button class="details-button">Ver Detalles</button>
-        </div>
-        
-        <div class="notification-card">
-            <h2>Actualización Requerida</h2>
-            <p class="date">2024-10-26</p>
-            <p class="status not-met">Estado: No Cumple Requisitos</p>
-            <textarea placeholder="Razón del incumplimiento..."></textarea>
-            <button class="send-button">Notificar Solicitante</button>
-        </div>
-    </section>
-</div>
+      </section>
+    </div>
+  </div>
 </app-admin-layout>

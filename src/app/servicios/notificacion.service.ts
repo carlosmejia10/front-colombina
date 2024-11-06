@@ -6,9 +6,9 @@ import { BASE_URL } from '../config/environment/urls';
 
 interface Notificacion {
   id: number;
-  asunto: string;
   mensaje: string;
   fecha: string;
+  asunto: string;
   leida: boolean;
 }
 
@@ -26,6 +26,13 @@ export class NotificacionService {
       Authorization: `Bearer ${token}`,
     });
   }
+
+    //obtener notificacion por ID
+    obtenerNotificacionPorId(id: number): Observable<Notificacion> {
+      return this.http.get<Notificacion>(`${this.apiUrl}/${id}`, {
+        headers: this.getHeaders(),
+      });
+    }
 
   // Obtener todas las notificaciones de un usuario
   obtenerNotificacionesPorUsuario(usuarioId: number): Observable<Notificacion[]> {

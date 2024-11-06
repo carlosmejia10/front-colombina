@@ -48,6 +48,7 @@ import {
 import {
   RevisionPreliminarComponent
 } from "@/app/pages/asuntos-regulatorios/revision-preliminar/revision-preliminar.component";
+import { NotificationDetailComponent } from './pages/shared/notifications/notification-detail/notification-detail.component';
 
 
 const routes: Routes = [
@@ -60,6 +61,7 @@ const routes: Routes = [
     data: { roles: [Role.Solitante] },
   },
   {path: 'notificaciones', component: NotificationsComponent},
+  {path: 'notificacion/detail/:id', component: NotificationDetailComponent},
   {
     path: 'tabla-tramite',
     component: TablaTramiteComponent,
