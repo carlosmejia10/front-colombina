@@ -52,7 +52,8 @@ export class AperturaTramiteComponent {
           this.tramite.proyecto,
           this.tramite.tipoModificacion
         )
-      );
-      this.router.navigate(['/documentos', this.numeroRadicado]);
+      ).subscribe(() => {
+        this.router.navigate(['/documentos', this.numeroRadicado]);
+      })
   }
 }
