@@ -166,7 +166,7 @@ const routes: Routes = [
   },
 
   {
-    path: `info-control`,
+    path: `info-control/:numeroRadicado`,
     component: InfoControlComponent,
   },
   {

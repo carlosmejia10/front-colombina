@@ -17,13 +17,14 @@ import { Observable } from 'rxjs';
 export class RevisionDocumentacionComponent implements OnInit {
   // Implementa OnInit
   documentos: DocumentoDTO[] = []; // Inicializa como un array vacío
+  id: number = 0;
 
   constructor(private router:Router, private route: ActivatedRoute,private documentoService:DocumentoService){}
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
   
-    if (id) {
-      this.getDocumentos(id).subscribe(
+    if (this.id) {
+      this.getDocumentos(this.id).subscribe(
         (data) => {
           this.documentos = data;
           console.log('Documentos cargados:', this.documentos);
@@ -63,7 +64,7 @@ export class RevisionDocumentacionComponent implements OnInit {
   continuar() {
     // Lógica que tengas adicional antes de redirigir (si aplica)
     console.log('Redirigiendo a Info Control...');
-    this.router.navigate(['/info-control']);
+    this.router.navigate([`/info-control/${this.id}`]);
   }
 
   regresar() {
