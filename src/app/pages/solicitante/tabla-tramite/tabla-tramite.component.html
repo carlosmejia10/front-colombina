@@ -19,7 +19,7 @@
           <!-- Contenedor de filtros -->
           <div class="filter-container">
             <div class="filter">
-              <label for="filterTipoProducto">Tipo Producto:</label>
+              <label for="filterTipoProducto">Tipo Trámite:</label>
               <select id="filterTipoProducto" [(ngModel)]="selectedTipoProducto" (change)="filterTramites()">
                 <option value="">Todos</option>
                 <option *ngFor="let option of tipoProductoOptions" [value]="option">{{ option }}</option>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="filter">
-              <label for="filterTipoTramite">Tipo Trámite:</label>
+              <label for="filterTipoTramite">Nacionalidad:</label>
               <select id="filterTipoTramite" [(ngModel)]="selectedTipoTramite" (change)="filterTramites()">
                 <option value="">Todos</option>
                 <option *ngFor="let option of tipoTramiteOptions" [value]="option">{{ option }}</option>
@@ -78,8 +78,8 @@
                   <div class="registro">
                     <span>{{ solicitud.tramite.numeroRadicado }}</span>
                     <span>Nombre producto: {{ solicitud.tramite.nombreProducto }}</span>
-                    <span>Tipo producto: {{ solicitud.tramite.tipoProducto }}</span>
-                    <span>Tipo trámite: {{ solicitud.tramite.tipoTramite }}</span>
+                    <span>Tipo trámite: {{ solicitud.tramite.tipoProducto }}</span>
+                    <span>Nacionalidad: {{ solicitud.tramite.tipoTramite }}</span>
                     <span>Estado trámite: {{ solicitud.tramite.estado }}</span>
                   </div>
                   <div class="detalle">
