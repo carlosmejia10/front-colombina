@@ -14,7 +14,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
   styleUrls: ['./documento-escogido.component.css'] // Corrige aquí a styleUrls
 })
 export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
-
+  tramiteId: number;
+  documentId: string;
   documento!: DocumentoDTO;
   fileUrl!: SafeUrl;
 
@@ -26,11 +27,9 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   ) {}
 
   ngOnInit(): void {
-    const documentoId = this.route.snapshot.paramMap.get('id');
-    const tramiteId = Number(this.route.snapshot.paramMap.get('numeroRadicado'));
-    console.log('ID del documento:', documentoId);
-    console.log('ID del trámite:', tramiteId);
-    this.documentoService.descargarArchivo(documentoId, tramiteId as number).subscribe((file) => {
+    this.documentId = this.route.snapshot.paramMap.get('id');
+    this.tramiteId = Number(this.route.snapshot.paramMap.get('numeroRadicado'));
+    this.documentoService.descargarArchivo(this.documentId, this.tramiteId as number).subscribe((file) => {
       this.createFileUrl(file);
     })
   }
@@ -46,5 +45,9 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
     alert(`El documento "${this.documento.name}" ha sido ${estado}.`);
   
     //this.router.navigate(['/documentos']);
+  }
+
+  regresar() {
+    this.router.navigate(['/documentos', this.tramiteId]);
   }
 }
