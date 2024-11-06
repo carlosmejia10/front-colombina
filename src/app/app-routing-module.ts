@@ -49,6 +49,7 @@ import {
   RevisionPreliminarComponent
 } from "@/app/pages/asuntos-regulatorios/revision-preliminar/revision-preliminar.component";
 import { NotificationDetailComponent } from './pages/shared/notifications/notification-detail/notification-detail.component';
+import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-control.component";
 
 
 const routes: Routes = [
@@ -67,6 +68,12 @@ const routes: Routes = [
     component: TablaTramiteComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Solitante] },
+  },
+  {
+    path: 'cuadro-control',
+    component: CuadroControlComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.Admin] },
   },
   {
     path: 'info-tramite/:id',
