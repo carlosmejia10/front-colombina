@@ -369,3 +369,60 @@ input#search-bar{
   border-radius: 5px;
   color: white;
 }
+
+
+/* Barra de búsqueda */
+.search-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: min-content;
+  position: relative;
+}
+
+input#search-bar {
+  margin: 0 18vw;
+  width: 720px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #d0cfce;
+  border-radius: 20px;
+  outline: none;
+}
+
+input#search-bar:focus {
+  border: 1px solid #008abf;
+  transition: 0.35s ease;
+  color: #008abf;
+}
+
+input#search-bar::placeholder {
+  color: #b0b0b0;
+  transition: opacity 0.45s ease;
+}
+
+.search-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  float: right;
+}
+
+/* Contenedor de iconos (en caso de que tengas otros iconos en la barra de búsqueda) */
+.icons {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.icono {
+  width: 40px;
+}
+
+
+
