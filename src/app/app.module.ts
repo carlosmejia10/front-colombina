@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Asegúrate de importar HttpClientModule
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { AppRoutingModule } from './app-routing-module';
 import { CommonModule } from '@angular/common';
@@ -109,6 +110,7 @@ import {InfoControlComponent} from "@/app/pages/asuntos-regulatorios/info-contro
     FormsModule,
     CommonModule,
     ChartModule,
+    FullCalendarModule,
   ],
   providers: [
     provideClientHydration(),

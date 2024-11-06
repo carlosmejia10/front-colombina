@@ -116,3 +116,77 @@ h2 {
 :host ::ng-deep .p-datepicker table {
   margin: 0 auto;
 }
+
+/* Estilo general del calendario */
+.full-calendar {
+  font-family: 'Roboto', sans-serif;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* Encabezado del calendario (mes, semana, etc.) */
+.fc-toolbar {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  padding: 8px 15px;
+}
+
+/* Botones de navegación */
+.fc-button {
+  color: #007bff;
+  border-color: #007bff;
+  background-color: white;
+}
+
+.fc-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Días del calendario */
+.fc-daygrid-day {
+  padding: 8px;
+}
+
+.fc-daygrid-day-number {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.fc-daygrid-event {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 3px 5px;
+  border-radius: 4px;
+}
+
+.fc-day-today {
+  background-color: #f8f9fa !important;
+  border: 1px solid #007bff;
+}
+
+.fc-toolbar-title {
+  text-transform: capitalize; /* Convierte solo la primera letra a mayúscula */
+}
+
+.fc-toolbar-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.fc-button-group .fc-button {
+  border-radius: 5px;
+  margin: 0 2px;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.75em;
+  margin: 0px;
+  text-transform: capitalize;
+}
+
