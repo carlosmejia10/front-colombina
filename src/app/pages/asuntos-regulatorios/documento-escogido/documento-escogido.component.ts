@@ -16,8 +16,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   tramiteId: number;
   documentId: string;
-  documento!: DocumentoDTO;
   fileUrl!: SafeUrl;
+  infoDoc: any;
 
   constructor(
     private documentoService: DocumentoService,
@@ -32,6 +32,10 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
     this.documentoService.descargarArchivo(this.documentId, this.tramiteId as number).subscribe((file) => {
       this.createFileUrl(file);
     })
+    this.documentoService.findById(this.tramiteId, this.documentId).subscribe((data) => {
+      console.log('Documento encontrado:', data);
+      this.infoDoc = data;
+    })
   }
 
   createFileUrl(file: File) {
@@ -39,11 +43,15 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   }
 
   aprobarORechazar(aprobado: boolean) {
-    this.documento.aprobado = aprobado;
-  
     const estado = aprobado ? 'aprobado' : 'rechazado';
-    alert(`El documento "${this.documento.name}" ha sido ${estado}.`);
-  
+
+    if (aprobado) {
+      this.documentoService.aprobar(this.tramiteId, this.documentId).subscribe(() => {
+        alert(`El documento "${this.documentId}" ha sido ${estado}.`);
+      });
+    } else {
+      alert(`El documento "${this.documentId}" ha sido ${estado}.`);
+    }
     //this.router.navigate(['/documentos']);
   }
 

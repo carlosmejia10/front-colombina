@@ -9,7 +9,14 @@ import { BASE_URL } from '../config/environment/urls';
   providedIn: 'root',
 })
 export class DocumentoService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  private headers: HttpHeaders;
+
+  constructor(private http: HttpClient, private authService: AuthService) {
+    const token = this.authService.getToken();
+    this.headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  }
 
   findAll(id: number): Observable<DocumentoDTO[]> {
     const token = this.authService.getToken();
@@ -22,12 +29,33 @@ export class DocumentoService {
     );
   }
 
-  findById(id: number): Observable<DocumentoDTO> {
+  findById(id: number, nombre: string): Observable<any> {
     const token = this.authService.getToken();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return this.http.get<DocumentoDTO>(`${BASE_URL}/files/${id}`, { headers });
+    return this.http.get<any>(`${BASE_URL}/files/${id}/${nombre}`, { headers });
+  }
+
+  aprobar(id: number, nombre: string): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    console.log('Aprobando documento:', id, nombre);
+    console.log('token:', token);
+    return this.http.post<any>(
+      `${BASE_URL}/files/aprobar-documento/${id}/${nombre}`,
+      { headers }
+    );
+  }
+
+  aprobados(id: number): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<any>(`${BASE_URL}/files/${id}/aprobados`, { headers });
   }
 
   descargarArchivo(nombre: string, id: number): Observable<any> {

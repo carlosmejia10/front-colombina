@@ -106,3 +106,13 @@ h2 {
   background-color: #8fa7e3;
 }
 
+.btn-continuar:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
+.btn-revisar:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
