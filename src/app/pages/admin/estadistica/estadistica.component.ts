@@ -121,6 +121,21 @@ export class EstadisticaComponent {
     }
   }
 
+  setTipo(tipo: string) {
+    switch (tipo) {
+      case 'Nuevo registro sanitario nacional':
+        return 'Nuevo nacional';
+      case 'Nuevo registro sanitario internacional':
+        return 'Nuevo internacional';
+      case 'Modificación registro sanitario nacional':
+        return 'Modificación nacional';
+      case 'Modificación registro sanitario internacional':
+        return 'Modificación internacional';
+      case 'Renovación de registro sanitario':
+        return 'Renovación';
+    }
+  }
+
   removeCuadro(index: number) {
     this.cuadros.splice(index, 1); // Elimina el cuadro
     this.selectedOption1.splice(index, 1); // Elimina la selección correspondiente
@@ -184,6 +199,7 @@ export class EstadisticaComponent {
   cargarDatosGraficas(): void {
     //***************************************************************************** OK*/
     this.estadisticasService.getChartData('Trámites Activos', 'Productos').subscribe(data => {
+      data.labels = data.labels.map(this.setTipo)
       console.log('Datos recibidos:', data); // Verifica el contenido de los datos
       if (data.labels.length > 1 && data.values.length > 1) { // Verifica que haya más de un dato
         this.tramitesActivosData = {
@@ -202,6 +218,7 @@ export class EstadisticaComponent {
     //***************************************************************************** OK*/
     this.estadisticasService.getTramitesNacionalesActivosYCerradosPorProducto().subscribe(
       data => {
+        data.labels = data.labels.map(this.setTipo)
         this.tramitesNacionalesData = {
           labels: data.labels,
           datasets: [
@@ -225,6 +242,7 @@ export class EstadisticaComponent {
     //************************************************************************************ OK */
     this.estadisticasService.getTramitesInternacionalesActivosYCerradosPorProducto().subscribe(
       data => {
+        data.labels = data.labels.map(this.setTipo)
         this.tramitesInterNacionalesDataBarras = {
           labels: data.labels,
           datasets: [
@@ -251,6 +269,7 @@ export class EstadisticaComponent {
     
 
     this.estadisticasService.getChartData('Trámites Internacionales', 'pais').subscribe(data => {
+      data.labels = data.labels.map(this.setTipo)
       this.tramitesInternacionalesData = {
         labels: data.labels,
         datasets: [{
@@ -263,6 +282,7 @@ export class EstadisticaComponent {
 
      //************************************************************************************ OK*/
     this.estadisticasService.getChartData('Trámites Activos', 'Usuario').subscribe(data => {
+      data.labels = data.labels.map(this.setTipo)
       this.tramitesPorUsuarioData = {
         labels: data.labels,
         datasets: [{
@@ -275,6 +295,7 @@ export class EstadisticaComponent {
 
      //************************************************************************************ OK*/
      this.estadisticasService.getTramitesTotalesDelAnoActual().subscribe(data => {
+      data.labels = data.labels.map(this.setTipo)
       this.tramitesTotalesData = {
         labels: data.labels, // Los nombres de los meses
         datasets: [{
@@ -291,6 +312,7 @@ export class EstadisticaComponent {
    
      this.estadisticasService.getRegistrosPorVencer().subscribe(
       data => {
+        data.labels = data.labels.map(this.setTipo)
         this.registrosPorVencerData = {
           labels: data.labels,
           datasets: [
@@ -312,6 +334,7 @@ export class EstadisticaComponent {
     //************************************************************************************ OK*/
 
     this.estadisticasService.getChartData('Tasa de rechazos', 'Productos').subscribe(data => {
+      data.labels = data.labels.map(this.setTipo)
       console.log('Datos recibidos:', data); // Verifica el contenido de los datos
       if (data.labels.length > 1 && data.values.length > 1) { // Verifica que haya más de un dato
         this.tasaRechazosData = {
@@ -329,6 +352,7 @@ export class EstadisticaComponent {
 
      //************************************************************************************ OK*/
     this.estadisticasService.getChartData('Tasa de requerimientos', 'Productos').subscribe(data => {
+      data.labels = data.labels.map(this.setTipo)
       this.tasaRequerimientosData = {
         labels: data.labels,
         datasets: [{
