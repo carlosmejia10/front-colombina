@@ -369,3 +369,36 @@ input#search-bar{
   border-radius: 5px;
   color: white;
 }
+
+/* Filtros */
+.filter-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4e5a7d;
+}
+
+.filter label {
+  margin-right: 5px;
+}
+
+.no-results {
+  text-align: center;
+  color: #a3a3a3;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.exportar {
+  margin-left: 5px;
+  background-color: #8f9fc8;
+  border-radius: 5px;
+  color: white;
+}

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 import { SolicitudDEIService } from '@/app/servicios/solicitud-dei.service';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
 
 @Component({
   selector: 'app-tabla-tramite',
@@ -14,6 +13,7 @@ export class TablaTramiteComponent implements OnInit {
   solicitudes: SolicitudDTO[] = [];
   filteredSolicitudes: SolicitudDTO[] = [];
   nombreSolicitante!: string;
+  searchTerm: string = ''; // Término de búsqueda
 
   // Opciones y valores seleccionados para los filtros
   tipoProductoOptions: string[] = [];
@@ -23,7 +23,7 @@ export class TablaTramiteComponent implements OnInit {
   selectedTipoTramite: string = '';
   selectedEstadoTramite: string = '';
 
-  mostrarTabla1: boolean = true; // Controla la visibilidad de la tabla
+  mostrarTabla1: boolean = true;
 
   constructor(private solicitudService: SolicitudDEIService, private router: Router) {}
 
@@ -34,9 +34,8 @@ export class TablaTramiteComponent implements OnInit {
 
   // Navegar a la página de detalles del trámite
   goToTramiteInfo(tramiteId: number): void {
-    this.router.navigate(['/info-tramite', tramiteId]); // asegúrate de usar 'info-tramite' aquí
+    this.router.navigate(['/info-tramite', tramiteId]);
   }
-
 
   // Obtener la lista de trámites
   getTramites(): void {
@@ -58,13 +57,23 @@ export class TablaTramiteComponent implements OnInit {
     this.tipoTramiteOptions = [...new Set(this.solicitudes.map(s => s.tramite.tipoTramite))];
   }
 
-  // Método para filtrar la lista de trámites en función de los filtros seleccionados
+  // Filtrar la lista de trámites según filtros y término de búsqueda
   filterTramites(): void {
+    const term = this.searchTerm.toLowerCase();
+
     this.filteredSolicitudes = this.solicitudes.filter(solicitud => {
-      const matchTipoProducto = this.selectedTipoProducto ? solicitud.tramite.tipoProducto === this.selectedTipoProducto : true;
-      const matchTipoTramite = this.selectedTipoTramite ? solicitud.tramite.tipoTramite === this.selectedTipoTramite : true;
-      const matchEstadoTramite = this.selectedEstadoTramite ? solicitud.tramite.estado === this.selectedEstadoTramite : true;
-      return matchTipoProducto && matchTipoTramite && matchEstadoTramite;
+      const tramite = solicitud.tramite;
+      const matchSearchTerm = tramite
+        ? tramite.nombreProducto.toLowerCase().includes(term) ||
+        tramite.tipoProducto.toLowerCase().includes(term) ||
+        tramite.numeroRadicado?.toLowerCase().includes(term)
+        : false;
+
+      const matchTipoProducto = this.selectedTipoProducto ? tramite?.tipoProducto === this.selectedTipoProducto : true;
+      const matchTipoTramite = this.selectedTipoTramite ? tramite?.tipoTramite === this.selectedTipoTramite : true;
+      const matchEstadoTramite = this.selectedEstadoTramite ? tramite?.estado === this.selectedEstadoTramite : true;
+
+      return matchSearchTerm && matchTipoProducto && matchTipoTramite && matchEstadoTramite;
     });
   }
 
@@ -81,13 +90,9 @@ export class TablaTramiteComponent implements OnInit {
   }
 
   getProgressClass(progreso: number): string {
-    if (progreso >= 75) {
-      return 'progress-success';
-    } else if (progreso >= 50) {
-      return 'progress-warning';
-    } else {
-      return 'progress-danger';
-    }
+    if (progreso >= 75) return 'progress-success';
+    else if (progreso >= 50) return 'progress-warning';
+    else return 'progress-danger';
   }
 
   getFechaAproxFin(fechaInicio: Date): Date {
@@ -97,68 +102,38 @@ export class TablaTramiteComponent implements OnInit {
   }
 
   isOnlyEstadoActive(): boolean {
-    return (
-      this.selectedEstadoTramite && // El estado está seleccionado
-      !this.selectedTipoProducto && // No hay tipo de producto seleccionado
-      !this.selectedTipoTramite // No hay tipo de trámite seleccionado
-    );
+    return this.selectedEstadoTramite && !this.selectedTipoProducto && !this.selectedTipoTramite;
   }
-  exportarAExcel(): void {
 
+  exportarAExcel(): void {
     const datosExcel = this.filteredSolicitudes.map(s => ({
-      Fecha : s.fechaSolicitud,
+      Fecha: s.fechaSolicitud,
       Solicitante: s.solicitante.nombre,
-      'Tipo de Producto' : s.tramite.tipoProducto,
-      'Tipo de Trámite' : s.tramite.tipoTramite,
+      'Tipo de Producto': s.tramite.tipoProducto,
+      'Tipo de Trámite': s.tramite.tipoTramite,
       Estado: s.tramite.estado,
     }));
 
-
-    // Convertir la lista de drogas a una hoja de trabajo
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
 
-// Estilo para el encabezado
-const headerStyle = {
-  font: {
-      bold: true,
-      color: { rgb: 'FFFFFF' }, // Texto blanco
-      sz: 14, // Tamaño de fuente
-  },
-  fill: {
-      fgColor: { rgb: '0070C0' }, // Color de fondo azul
-  },
-  alignment: {
-      horizontal: 'center',
-  }
-};
+    const headerStyle = {
+      font: { bold: true, color: { rgb: 'FFFFFF' }, sz: 14 },
+      fill: { fgColor: { rgb: '0070C0' } },
+      alignment: { horizontal: 'center' }
+    };
 
-// Aplicar estilo al encabezado
-const headerCells = ['A1', 'B1', 'C1', 'D1', 'E1']; // Celdas del encabezado
-headerCells.forEach(cell => {
-  if (!ws[cell]) {
-      ws[cell] = {};
-  }
-  ws[cell].s = headerStyle; // Aplicar el estilo
-});
+    const headerCells = ['A1', 'B1', 'C1', 'D1', 'E1'];
+    headerCells.forEach(cell => {
+      if (!ws[cell]) ws[cell] = {};
+      ws[cell].s = headerStyle;
+    });
 
-// Ajustar el ancho de las columnas
-ws['!cols'] = [
-  { wch: 20 }, // Ancho para 'Fecha'
-  { wch: 30 }, // Ancho para 'Solicitante'
-  { wch: 25 }, // Ancho para 'Tipo de Producto'
-  { wch: 25 }, // Ancho para 'Tipo de Trámite'
-  { wch: 20 }, // Ancho para 'Estado'
-];
-    
-    // Crear un libro de trabajo
+    ws['!cols'] = [
+      { wch: 20 }, { wch: 30 }, { wch: 25 }, { wch: 25 }, { wch: 20 }
+    ];
+
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    
-    // Añadir la hoja de trabajo al libro
     XLSX.utils.book_append_sheet(wb, ws, 'Tramites');
-    
-    // Generar el archivo Excel
-    const excelFileName = 'lista_de_solicitudes.xlsx';
-    XLSX.writeFile(wb, excelFileName);
+    XLSX.writeFile(wb, 'lista_de_solicitudes.xlsx');
   }
-
 }

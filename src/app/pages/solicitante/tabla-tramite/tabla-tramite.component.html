@@ -1,4 +1,15 @@
 <app-solicitante-layout>
+  <div class="search-container">
+    <input
+      type="text"
+      id="search-bar"
+      [(ngModel)]="searchTerm"
+      (keyup.enter)="filterTramites()"
+      placeholder="Buscar trámites"
+    />
+    <button class="search-icon" (click)="filterTramites()">🔍</button>
+  </div>
+
   <div class="main-content">
     <div class="tablas">
       <div class="ContenedorPendientes">
@@ -33,7 +44,7 @@
           </div>
 
           <button class="exportar" (click)="exportarAExcel()">Exportar a Excel</button>
-          
+
           <button href="#" (click)="toggleTabla(); $event.preventDefault()" class="Desplegar">
             <img src="images/Desplegar.png" alt="Desplegar" class="Desplegable" />
           </button>
