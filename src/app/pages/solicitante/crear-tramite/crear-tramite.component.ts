@@ -116,10 +116,12 @@ export class CrearTramiteComponent implements OnInit {
 
   onTipoTramiteChange(tipoTramite: string) {
     if (tipoTramite === 'NACIONAL') {
+      this.setEntidad('Colombia');
       this.pais = 'Colombia';
       this.listaPaises = [];
       this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes("internacional"));
     } else if (tipoTramite === 'INTERNACIONAL') {
+      this.setEntidad('');
       this.pais = '';
       this.cargarEntidadesSanitarias();
       this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes(" nacional"));
