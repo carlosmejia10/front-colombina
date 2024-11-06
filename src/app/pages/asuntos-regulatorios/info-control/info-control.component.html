@@ -10,11 +10,11 @@
     <div class="form-row">
       <div class="form-group">
         <p class="label">Fecha Solicitud</p>
-        <input type="date" class="input-text" [value]="tramite.fechaSolicitud" disabled />
+        <input type="date" class="input-text" [value]="tramite?.fechaSolicitud | date: 'yyyy-MM-dd'" disabled />
       </div>
       <div class="form-group">
-        <p class="label">Fecha Envío Documentos</p>
-        <input type="date" class="input-text" />
+        <p class="label">País</p>
+        <input type="text" class="input-text" [value]="entidadSanitaria?.pais" disabled />
       </div>
     </div>
 

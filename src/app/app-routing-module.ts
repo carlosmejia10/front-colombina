@@ -175,9 +175,12 @@ const routes: Routes = [
   },
 
   {
-    path: `info-control/:numeroRadicado`,
+    path: `info-control/:id`,
     component: InfoControlComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios, Role.Admin] }
   },
+
   {
     path: `aprobacion-invima/:numeroRadicado`,
     component: AprobacionInvimaComponent,
