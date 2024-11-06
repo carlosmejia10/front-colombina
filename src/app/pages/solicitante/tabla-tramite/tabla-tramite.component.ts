@@ -105,6 +105,11 @@ export class TablaTramiteComponent implements OnInit {
   }
   exportarAExcel(): void {
 
+    if (this.filteredSolicitudes.length === 0) {
+      alert('No hay tramites para exportar.');
+      return; // Salir del método si no hay solicitudes
+  }
+
     const datosExcel = this.filteredSolicitudes.map(s => ({
       Fecha : s.fechaSolicitud,
       Solicitante: s.solicitante.nombre,

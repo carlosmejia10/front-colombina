@@ -111,6 +111,11 @@ export class SolicitudesComponent {
 
   exportarAExcel(): void {
 
+    if (this.filteredSolicitudes.length === 0) {
+      alert('No hay tramites para exportar.');
+      return; // Salir del método si no hay solicitudes
+  }
+
     const datosExcel = this.filteredSolicitudes.map(s => ({
       Fecha : s.fechaSolicitud,
       Solicitante: s.solicitante.nombre,
@@ -123,20 +128,8 @@ export class SolicitudesComponent {
     // Convertir la lista de drogas a una hoja de trabajo
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
 
-// Estilo para el encabezado
-const headerStyle = {
-  font: {
-      bold: true,
-      color: { rgb: 'FFFFFF' }, // Texto blanco
-      sz: 14, // Tamaño de fuente
-  },
-  fill: {
-      fgColor: { rgb: '0070C0' }, // Color de fondo azul
-  },
-  alignment: {
-      horizontal: 'center',
-  }
-};
+  // Estilo para el encabezado
+  
 
 // Aplicar estilo al encabezado
 const headerCells = ['A1', 'B1', 'C1', 'D1', 'E1']; // Celdas del encabezado
@@ -144,8 +137,9 @@ headerCells.forEach(cell => {
   if (!ws[cell]) {
       ws[cell] = {};
   }
-  ws[cell].s = headerStyle; // Aplicar el estilo
 });
+
+ws['A1'].s 
 
 // Ajustar el ancho de las columnas
 ws['!cols'] = [
