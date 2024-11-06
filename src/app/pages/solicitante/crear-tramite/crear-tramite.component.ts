@@ -33,6 +33,7 @@ export class CrearTramiteComponent implements OnInit {
 
   // Lista de entidades sanitarias y países
   listaPaises: string[] = [];
+  listaEntidadesSanitarias: EntidadSanitaria[] = [];
   entidadSanitariaId?: number;
 
   // Archivos y nombres seleccionados
@@ -87,6 +88,8 @@ export class CrearTramiteComponent implements OnInit {
     this.entidadSanitariaService
       .findAll()
       .subscribe((entidades: EntidadSanitaria[]) => {
+        this.listaEntidadesSanitarias = entidades;
+        this.setEntidad('Colombia');
         this.listaPaises = entidades
           .map((entidad) => entidad.pais)
           .filter((pais) => pais !== 'Colombia')
@@ -100,6 +103,15 @@ export class CrearTramiteComponent implements OnInit {
           this.entidadSanitariaId = entidadSeleccionada.id;
         }
       });
+  }
+
+  setEntidad(pais: string) {
+    console.log(this.listaEntidadesSanitarias)
+    const entidad = this.listaEntidadesSanitarias.find((entidad) => entidad.pais === pais);
+    console.log('Entidad seleccionada:', entidad);
+    if (entidad) {
+      this.entidadSanitariaId = entidad.id;
+    }
   }
 
   onTipoTramiteChange(tipoTramite: string) {
@@ -143,6 +155,8 @@ export class CrearTramiteComponent implements OnInit {
       this.entidadSanitariaId,
       [] // historial de cambios vacío inicialmente
     );
+
+    console.log(this.entidadSanitariaId);
 
     // Crear SolicitudDTO
     const solicitud = new SolicitudDTO(

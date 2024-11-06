@@ -22,6 +22,7 @@ export class TramiteDTO {
     tipoModificacion?: string;
     descripcionTramite?: string;
     claseTramite?: string;
+    fechaSolicitud?: Date;
 
     constructor(
         nombreProducto: string,

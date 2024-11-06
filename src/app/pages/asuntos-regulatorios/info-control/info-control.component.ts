@@ -2,6 +2,8 @@ import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EntidadSanitaria } from '../../../modelos/entidad-sanitaria';
+import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
 
 @Component({
   selector: 'app-info-control',
@@ -10,13 +12,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class InfoControlComponent {
   tramite: TramiteDTO;
+  entidadSanitaria: EntidadSanitaria;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private tramiteService: TramiteService
+    private tramiteService: TramiteService,
+    private entidadSanitariaService: EntidadSanitariaService
   ) {}
-
 
   ngOnInit(): void {
     const tramiteId = this.route.snapshot.paramMap.get('numeroRadicado');
@@ -27,9 +30,12 @@ export class InfoControlComponent {
 
   getTramiteDetails(id: number): void {
     this.tramiteService.findById(id).subscribe((data: TramiteDTO) => {
-      console.log('Tramite:', data);
       this.tramite = data;
-      console.log(data);
+      this.entidadSanitariaService
+        .findById(this.tramite.entidadSanitariaId)
+        .subscribe((data: EntidadSanitaria) => {
+          this.entidadSanitaria = data;
+        });
     });
   }
 

@@ -46,7 +46,7 @@
         <!-- Campo de País -->
         <div class="form-group">
           <label for="pais">País</label>
-          <select id="pais" [(ngModel)]="pais" [disabled]="tipoTramiteSeleccionado === 'NACIONAL'" (change)="removeErrorMessage('pais')">
+          <select id="pais" [(ngModel)]="pais" [disabled]="tipoTramiteSeleccionado === 'NACIONAL'" (change)="removeErrorMessage('pais'); setEntidad(pais)">
             <option *ngIf="tipoTramiteSeleccionado === 'NACIONAL'" value="Colombia">Colombia</option>
             <option *ngIf="tipoTramiteSeleccionado === 'INTERNACIONAL'" value="">Seleccionar país</option>
             <option *ngFor="let pais of listaPaises" [value]="pais">{{ pais }}</option>
