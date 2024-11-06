@@ -1,6 +1,6 @@
 <app-ar-layout>
   <head>
-    <link rel="stylesheet" href="./info-control.component.css">
+    <link rel="stylesheet" href="./info-control.component.css" />
   </head>
   <form class="form-tramite">
     <div class="header">
@@ -10,7 +10,7 @@
     <div class="form-row">
       <div class="form-group">
         <p class="label">Fecha Solicitud</p>
-        <input type="date" class="input-text" />
+        <input type="date" class="input-text" [value]="tramite.fechaSolicitud" disabled />
       </div>
       <div class="form-group">
         <p class="label">Fecha Envío Documentos</p>
@@ -32,10 +32,10 @@
     <div class="form-row">
       <div class="form-group">
         <p class="label">País</p>
-        <input type="text" class="input-text" />
+        <input type="text" class="input-text" [value]="entidadSanitaria.pais" disabled />
       </div>
       <div class="form-group">
-        <p class="label">Registro Sanitario (RSA) de Colombia</p>
+        <p class="label">Registro Sanitario (RSA)</p>
         <input type="text" class="input-text" />
       </div>
     </div>
@@ -57,14 +57,19 @@
         <input type="text" class="input-text" />
       </div>
       <div class="form-group">
-        <p class="label">Llave RSA Colombia</p>
+        <p class="label">Llave RSA</p>
         <input type="text" class="input-text" />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <p class="label">Fecha Radicado INVIMA</p>
+        <p class="label">
+          Fecha Radicado
+          {{
+            tramite.tipoTramite === "NACIONAL" ? "INVIMA" : "Entidad Sanitaria"
+          }}
+        </p>
         <input type="date" class="input-text" />
       </div>
       <div class="form-group">
@@ -78,10 +83,6 @@
     </div>
 
     <div class="form-row">
-      <div class="form-group requerimiento">
-        <p class="label">¿Urgente?</p>
-        <input type="checkbox" />
-      </div>
       <div class="form-group">
         <p class="label">Fecha de llegada resol</p>
         <input type="date" class="input-text" />
@@ -90,7 +91,12 @@
 
     <div class="form-row">
       <div class="form-group requerimiento">
-        <p class="label">¿OK satisfactorio INVIMA?</p>
+        <p class="label">
+          ¿OK satisfactorio
+          {{
+            tramite.tipoTramite === "NACIONAL" ? "INVIMA" : "Entidad Sanitaria"
+          }}?
+        </p>
         <input type="checkbox" />
       </div>
       <div class="form-group">
@@ -128,6 +134,8 @@
       </div>
     </div>
 
-    <button style="width: 25%; margin: auto;" (click)="submit()">Siguiente</button>
+    <button style="width: 25%; margin: auto" (click)="submit()">
+      Siguiente
+    </button>
   </form>
 </app-ar-layout>

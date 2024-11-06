@@ -1,0 +1,31 @@
+.container {
+    padding: 16px;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .custom-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .custom-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .custom-table tbody tr:hover {
+    background-color: #e2e2e2;
+  }
+  

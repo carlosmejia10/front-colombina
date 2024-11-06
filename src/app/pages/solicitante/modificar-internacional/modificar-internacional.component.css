@@ -2,29 +2,28 @@
   display: flex;
   background-color: #E7EBF5;
 }
-.contenedor{
+.contenedor {
   width: 100%;
 }
 .container {
-    width: 80%;
-    margin:  50px;
-    height: 500px;
-    padding: 0;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
+  width: 80%;
+  margin: 50px auto;
+  padding: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
 }
-a{
-  text-decoration: none;
+
+.RegNotPer {
+  margin-top: 20px;
 }
+
 .form-group {
   margin-bottom: 15px;
 }
-
 label {
   display: block;
   margin-bottom: 5px;
 }
-
 input[type="text"], select {
   width: 100%;
   height: 40px;
@@ -32,62 +31,69 @@ input[type="text"], select {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 button {
   padding: 10px 20px;
-  border: solir 1px black;
+  border: solid 1px black;
   border-radius: 4px;
   cursor: pointer;
 }
-.titulo{
-    padding: 10px;
+.titulo {
+  padding: 10px;
   background-color: #A3B6E6;
   height: 40px;
 }
-.flex{
-    display: flex;
-    height: 200px;
+.titulo h2 {
+  color: white;
 }
-.left{
-    width: 50%;
-    padding: 40px;
 
-}
-.right{
-    padding: 40px;
-    width: 50%;
-    height: 400px;
-    border-left: solid 2px #ccc;
-}
-.titulo h2{
-    color: white;
-}
-.cuadro{
-    padding: 7px;
-    display: flex;
-    margin: 15px;
-    border:solid 1px #ccc;
-    border-radius: 8px;
-}
-.fin{
-    margin-top: 210px;
-    margin-left: 47%;
-}
-#datosSol{
-    margin-top: 70px;
-    margin-left: 25%;
-    width: 60%;
-}
-.fl{
+.flex {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 15px;
 }
-p{
-  font-size: 15px;
-  margin-left: 5px;
+.left {
+  width: 35%;
+  padding: 40px;
 }
-#pais{
-  margin-bottom: 5%;
+.right {
+  width: 65%;
+  padding: 40px;
+  border-left: solid 2px #ccc;
+}
+
+.modification-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.modification-table th,
+.modification-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.modification-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+}
+.modification-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.modification-table tbody tr:nth-child(odd) {
+  background-color: #e7ebf5;
+}
+.modification-table tbody tr:hover {
+  background-color: #cbd4e8;
+}
+
+.fin {
+  text-align: center;
+  margin-top: 20px;
+}
+#datosSol {
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  background-color: #e2e2e2;
+  border: 1px solid #ccc;
+  color: #333;
+  cursor: pointer;
 }

@@ -164,7 +164,7 @@ const routes: Routes = [
     component: RevisionDocumentacionComponent,
   },
   {
-    path: `revision/:id`,
+    path: `revision/:numeroRadicado/:id`,
     component: DocumentoEscogidoComponent,
   },
   {
@@ -175,7 +175,7 @@ const routes: Routes = [
   },
 
   {
-    path: `info-control`,
+    path: `info-control/:numeroRadicado`,
     component: InfoControlComponent,
   },
   {
@@ -204,8 +204,10 @@ const routes: Routes = [
   },
 
   {
-    path: `apertura-tramite`,
+    path: `apertura-tramite/:numeroRadicado`,
     component: AperturaTramiteComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios] },
   },
 
   {

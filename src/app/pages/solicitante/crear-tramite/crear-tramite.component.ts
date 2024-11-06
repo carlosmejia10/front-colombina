@@ -10,7 +10,6 @@ import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitu
 import { Observable } from 'rxjs';
 import { FileSizeComponent } from '../file-size/file-size.component';
 
-
 @Component({
   selector: 'app-crear-tramite',
   templateUrl: './crear-tramite.component.html',
@@ -18,8 +17,10 @@ import { FileSizeComponent } from '../file-size/file-size.component';
 })
 export class CrearTramiteComponent implements OnInit {
   @ViewChild(FileSizeComponent, { static: false }) fileSizeComponent!: FileSizeComponent;
+
   // Opciones para los selectores
-  tiposProducto: string[] = ['Tipo 1', 'Tipo 2', 'Tipo 3', 'Tipo 4', 'Tipo 5'];
+  tiposProducto: string[] = ['Nuevo Registro Sanitarios Nacional', 'Nuevo Registro Sanitario Internacional', 'Modificación Registro Sanitario Nacional', 'Modificación Registro Sanitario Internacional', 'Renovación de Registro Sanitario'];
+  tiposTramiteColombina: string[] = ['Nuevo Registro Sanitarios Nacional', 'Nuevo Registro Sanitario Internacional', 'Modificación Registro Sanitario Nacional', 'Modificación Registro Sanitario Internacional', 'Renovación de Registro Sanitario'];
   tiposTramite: string[] = ['NACIONAL', 'INTERNACIONAL'];
 
   // Variables del formulario
@@ -32,6 +33,7 @@ export class CrearTramiteComponent implements OnInit {
 
   // Lista de entidades sanitarias y países
   listaPaises: string[] = [];
+  listaEntidadesSanitarias: EntidadSanitaria[] = [];
   entidadSanitariaId?: number;
 
   // Archivos y nombres seleccionados
@@ -41,6 +43,9 @@ export class CrearTramiteComponent implements OnInit {
     certificadoAnalisis: null,
     certificadoAditivos: null,
     archivosAdicionales: [],
+    muestrasEnvaseFisico: null,       // Nueva propiedad
+    artesBocetosEnvase: null,         // Nueva propiedad
+    muestrasProducto: null            // Nueva propiedad
   };
   selectedFiles: { [key: string]: File | File[] | null } = {
     fichaTecnica: null,
@@ -48,6 +53,9 @@ export class CrearTramiteComponent implements OnInit {
     certificadoAnalisis: null,
     certificadoAditivos: null,
     archivosAdicionales: [],
+    muestrasEnvaseFisico: null,       // Nueva propiedad
+    artesBocetosEnvase: null,         // Nueva propiedad
+    muestrasProducto: null            // Nueva propiedad
   };
 
   // Mapa para manejar mensajes de error
@@ -61,6 +69,9 @@ export class CrearTramiteComponent implements OnInit {
     formatoInterno: null,
     certificadoAnalisis: null,
     certificadoAditivos: null,
+    muestrasEnvaseFisico: null,       // Nueva propiedad
+    artesBocetosEnvase: null,         // Nueva propiedad
+    muestrasProducto: null            // Nueva propiedad
   };
 
   constructor(
@@ -77,6 +88,8 @@ export class CrearTramiteComponent implements OnInit {
     this.entidadSanitariaService
       .findAll()
       .subscribe((entidades: EntidadSanitaria[]) => {
+        this.listaEntidadesSanitarias = entidades;
+        this.setEntidad('Colombia');
         this.listaPaises = entidades
           .map((entidad) => entidad.pais)
           .filter((pais) => pais !== 'Colombia')
@@ -92,19 +105,34 @@ export class CrearTramiteComponent implements OnInit {
       });
   }
 
+  setEntidad(pais: string) {
+    console.log(this.listaEntidadesSanitarias)
+    const entidad = this.listaEntidadesSanitarias.find((entidad) => entidad.pais === pais);
+    console.log('Entidad seleccionada:', entidad);
+    if (entidad) {
+      this.entidadSanitariaId = entidad.id;
+    }
+  }
+
   onTipoTramiteChange(tipoTramite: string) {
     if (tipoTramite === 'NACIONAL') {
+      this.setEntidad('Colombia');
       this.pais = 'Colombia';
       this.listaPaises = [];
+      this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes("internacional"));
     } else if (tipoTramite === 'INTERNACIONAL') {
+      this.setEntidad('');
       this.pais = '';
       this.cargarEntidadesSanitarias();
+      this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes(" nacional"));
+    } else {
+      this.tiposTramiteColombina = this.tiposProducto;
     }
   }
 
   // Método para crear la solicitud y el trámite
   crearSolicitudYTramite(): Observable<SolicitudDTO> {
-    console.log('Creando solicitud y trámite...ts');
+    console.log('Creando solicitud y trámite...');
     // Validamos los campos requeridos
     if (
       !this.nombreProducto ||
@@ -124,11 +152,13 @@ export class CrearTramiteComponent implements OnInit {
       this.tipoTramiteSeleccionado,
       'PENDIENTE', // estado inicial
       new Date(), // fecha de radicación
-      2, // progreso inicial
+      0, // progreso inicial
       0, // llave (sin valor inicial, el backend debería generarlo)
       this.entidadSanitariaId,
       [] // historial de cambios vacío inicialmente
     );
+
+    console.log(this.entidadSanitariaId);
 
     // Crear SolicitudDTO
     const solicitud = new SolicitudDTO(
@@ -141,7 +171,7 @@ export class CrearTramiteComponent implements OnInit {
 
     // Llamar al servicio para crear la solicitud con trámite
     console.log('Antes de mandar a servicio:', request);
-    return this.solicitudDEIService.crearSolicitudConTramite(request)
+    return this.solicitudDEIService.crearSolicitudConTramite(request);
   }
 
   onSubmit(): void {
@@ -172,11 +202,18 @@ export class CrearTramiteComponent implements OnInit {
     if (!this.fileNames.certificadoAditivos)
       this.errorMessages.certificadoAditivos =
         'Por favor adjunte el certificado de aditivos';
+    
+    // Validación para los nuevos archivos específicos de trámites INTERNACIONALES
+    if (this.tipoTramiteSeleccionado === 'INTERNACIONAL') {
+      if (!this.fileNames.muestrasEnvaseFisico)
+        this.errorMessages.muestrasEnvaseFisico = 'Por favor adjunte las muestras de envase físico';
+      if (!this.fileNames.artesBocetosEnvase)
+        this.errorMessages.artesBocetosEnvase = 'Por favor adjunte los artes/bocetos de los envases';
+      if (!this.fileNames.muestrasProducto)
+        this.errorMessages.muestrasProducto = 'Por favor adjunte las muestras de producto';
+    }
 
-    const formIsValid = Object.values(this.errorMessages).every((error) => {
-      console.log('Error:', error);
-      return !error;
-    });
+    const formIsValid = Object.values(this.errorMessages).every((error) => !error);
     if (!formIsValid) {
       alert('Por favor complete todos los campos obligatorios.');
       return;
@@ -190,7 +227,6 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   enviarArchivos(): void {
-    // Código existente para subir archivos si el formulario es válido
     Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
       if (tipoArchivo !== 'archivosAdicionales') {
         const selectedFile = this.selectedFiles[tipoArchivo] as File;
@@ -200,22 +236,18 @@ export class CrearTramiteComponent implements OnInit {
       }
     });
 
-    const archivosAdicionales = this.selectedFiles[
-      'archivosAdicionales'
-    ] as File[];
+    const archivosAdicionales = this.selectedFiles['archivosAdicionales'] as File[];
     archivosAdicionales.forEach((file, index) => {
       this.subirArchivoIndividual(file, `archivosAdicionales-${index + 1}`);
     });
   }
 
-  // Método para restablecer mensajes de error
   private resetErrorMessages(): void {
     Object.keys(this.errorMessages).forEach((key) => {
       this.errorMessages[key] = null;
     });
   }
 
-  // Método para eliminar el mensaje de error al ingresar datos en un campo
   removeErrorMessage(field: string): void {
     this.errorMessages[field] = null;
   }
@@ -246,8 +278,6 @@ export class CrearTramiteComponent implements OnInit {
     }
   }
 
-
-  // Método para manejar la selección de archivos en campos individuales
   onFileSelected(event: Event, tipoArchivo: string): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -256,33 +286,24 @@ export class CrearTramiteComponent implements OnInit {
       const allowedExtensions = ['pdf', 'docx', 'xlsx'];
       const fileExtension = file.name.split('.').pop()?.toLowerCase();
 
-      // Validación de extensión de archivo
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
         console.log('Formato de archivo no permitido');
         this.fileSizeComponent.openError('Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.');
         return;
       }
 
-      console.log(`Tamaño del archivo seleccionado: ${fileSizeMB} MB`);
-
-      // Mostrar el pop-up si el archivo excede el tamaño permitido
       if (fileSizeMB > 2048) {
         console.log('El archivo excede el límite de 2GB, mostrando pop-up');
-        this.fileSizeComponent.open(fileSizeMB); // Abre el pop-up
-        return; // No almacena el archivo si excede el límite
+        this.fileSizeComponent.open(fileSizeMB);
+        return;
       }
 
-      // Si el tamaño y el formato son válidos, asigna el archivo y procede
       this.selectedFiles[tipoArchivo] = file;
       this.fileNames[tipoArchivo] = file.name;
       this.removeErrorMessage(tipoArchivo);
     }
   }
 
-  
-  
-
-  // Método para manejar la selección de múltiples archivos en "Archivos Adicionales"
   onFilesSelected(event: Event, tipoArchivo: string): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -293,7 +314,6 @@ export class CrearTramiteComponent implements OnInit {
     }
   }
 
-  // Método de drag-and-drop para manejar múltiples archivos en "Archivos Adicionales"
   onDropMultiple(event: DragEvent, tipoArchivo: string): void {
     event.preventDefault();
     const uploadArea = event.target as HTMLElement;
@@ -307,27 +327,20 @@ export class CrearTramiteComponent implements OnInit {
     }
   }
 
-  // Método para eliminar un archivo individual seleccionado
   removeFile(tipoArchivo: string): void {
     this.selectedFiles[tipoArchivo] = null;
     this.fileNames[tipoArchivo] = null;
   }
 
-  // Método para eliminar un archivo específico de "Archivos Adicionales"
   removeAdditionalFile(index: number): void {
-    const archivosAdicionales = this.selectedFiles[
-      'archivosAdicionales'
-    ] as File[];
-    const nombresAdicionales = this.fileNames[
-      'archivosAdicionales'
-    ] as string[];
+    const archivosAdicionales = this.selectedFiles['archivosAdicionales'] as File[];
+    const nombresAdicionales = this.fileNames['archivosAdicionales'] as string[];
     if (archivosAdicionales && nombresAdicionales) {
       archivosAdicionales.splice(index, 1);
       nombresAdicionales.splice(index, 1);
     }
   }
 
-  // Método para abrir el diálogo de selección de archivo
   openFileInput(inputId: string): void {
     const fileInput = document.getElementById(inputId) as HTMLInputElement;
     fileInput.click();
@@ -347,8 +360,4 @@ export class CrearTramiteComponent implements OnInit {
       }
     );
   }
-  
-  
-
-  
 }
