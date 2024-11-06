@@ -6,35 +6,38 @@ import { AuthService } from './auth.service';
 import { BASE_URL } from '../config/environment/urls';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DocumentoService {
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService) { }
-
-    findAll(id:number):Observable<DocumentoDTO[]>{
-      const token = this.authService.getToken(); 
-      const headers = new HttpHeaders({
+  findAll(id: number): Observable<DocumentoDTO[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-      return this.http.get<DocumentoDTO[]>(`${BASE_URL}/files/listar-archivos/${id}`,{headers});
-    }
+    return this.http.get<DocumentoDTO[]>(
+      `${BASE_URL}/files/listar-archivos/${id}`,
+      { headers }
+    );
+  }
 
-    findById(id:number):Observable<DocumentoDTO>{
-      const token = this.authService.getToken(); 
-      const headers = new HttpHeaders({
+  findById(id: number): Observable<DocumentoDTO> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-      return this.http.get<DocumentoDTO>(`${BASE_URL}/files/${id}`,{headers});
-    }
+    return this.http.get<DocumentoDTO>(`${BASE_URL}/files/${id}`, { headers });
+  }
 
-    descargarArchivo(nombre:string, id:number):any{
-      const token = this.authService.getToken(); 
-      const headers = new HttpHeaders({
+  descargarArchivo(nombre: string, id: number): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-      return this.http.get<any>(`${BASE_URL}/descargar-archivo/${id}/${nombre}"`)
-    }
+    return this.http.get<any>(
+      `${BASE_URL}/files/descargar-archivo/${id}/${nombre}`,
+      { headers, responseType: 'blob' as 'json' }
+    );
+  }
 }

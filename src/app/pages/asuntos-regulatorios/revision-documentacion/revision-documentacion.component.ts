@@ -55,7 +55,7 @@ export class RevisionDocumentacionComponent implements OnInit {
   revisarDocumento(documentoname: string): void {
     console.log('ID del documento a revisar:', documentoname);
     if (documentoname) {
-      this.router.navigate(['/revision', documentoname]);
+      this.router.navigate(['/revision', this.id, documentoname]);
     } else {
       console.error('documento no es válido:', documentoname);
     }

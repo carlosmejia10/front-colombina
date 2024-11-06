@@ -30,6 +30,7 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { LateralComponent } from './components/lateral/lateral.component';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { IgxDropDownModule } from 'igniteui-angular';
@@ -109,6 +110,7 @@ import {InfoControlComponent} from "@/app/pages/asuntos-regulatorios/info-contro
     FormsModule,
     CommonModule,
     ChartModule,
+    PdfViewerModule,
   ],
   providers: [
     provideClientHydration(),

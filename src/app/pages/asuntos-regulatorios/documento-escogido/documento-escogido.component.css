@@ -35,7 +35,7 @@ h2 {
     border-radius: 8px; /* Bordes redondeados */
     background-color: #ffffff; /* Fondo blanco para el cuadro */
     width: 100%; /* Ancho completo */
-    max-width: 500px; /* Ancho máximo del cuadro */
+    max-width: 75vw; /* Ancho máximo del cuadro */
 }
 
 /* Botones de decisión */

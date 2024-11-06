@@ -155,7 +155,7 @@ const routes: Routes = [
     component: RevisionDocumentacionComponent,
   },
   {
-    path: `revision/:id`,
+    path: `revision/:numeroRadicado/:id`,
     component: DocumentoEscogidoComponent,
   },
   {
