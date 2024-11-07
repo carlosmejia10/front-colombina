@@ -18,6 +18,7 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   documentId: string;
   fileUrl!: SafeUrl;
   infoDoc: any;
+  fileBlob!: Blob; // Archivo en Blob para poder descargarlo
 
   constructor(
     private documentoService: DocumentoService,
@@ -30,6 +31,7 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
     this.documentId = this.route.snapshot.paramMap.get('id');
     this.tramiteId = Number(this.route.snapshot.paramMap.get('numeroRadicado'));
     this.documentoService.descargarArchivo(this.documentId, this.tramiteId as number).subscribe((file) => {
+      this.fileBlob = file; // Guarda el archivo en Blob para poder descargarlo
       this.createFileUrl(file);
     })
     this.documentoService.findById(this.tramiteId, this.documentId).subscribe((data) => {
@@ -39,7 +41,16 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   }
 
   createFileUrl(file: File) {
-    this.fileUrl = URL.createObjectURL(file);    
+    this.fileUrl = URL.createObjectURL(file);
+  }
+
+  // Método para descargar el archivo
+  descargarDocumento() {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(this.fileBlob);
+    downloadLink.download = `${this.documentId}.pdf`; // Define el nombre del archivo descargado
+    downloadLink.click();
+    URL.revokeObjectURL(downloadLink.href); // Libera la memoria de la URL creada
   }
 
   aprobarORechazar(aprobado: boolean) {
