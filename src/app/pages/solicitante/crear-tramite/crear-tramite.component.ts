@@ -16,11 +16,18 @@ import { FileSizeComponent } from '../file-size/file-size.component';
   styleUrls: ['./crear-tramite.component.css'],
 })
 export class CrearTramiteComponent implements OnInit {
-  @ViewChild(FileSizeComponent, { static: false }) fileSizeComponent!: FileSizeComponent;
+  @ViewChild(FileSizeComponent, { static: false })
+  fileSizeComponent!: FileSizeComponent;
 
   // Opciones para los selectores
-  tiposProducto: string[] = ['Nuevo Registro Sanitarios Nacional', 'Nuevo Registro Sanitario Internacional', 'Modificación Registro Sanitario Nacional', 'Modificación Registro Sanitario Internacional', 'Renovación de Registro Sanitario'];
-  tiposTramiteColombina: string[] = ['Nuevo Registro Sanitarios Nacional', 'Nuevo Registro Sanitario Internacional', 'Modificación Registro Sanitario Nacional', 'Modificación Registro Sanitario Internacional', 'Renovación de Registro Sanitario'];
+  tiposProducto: string[] = [
+    'Nuevo Registro Sanitarios Nacional',
+    'Nuevo Registro Sanitario Internacional',
+    'Modificación Registro Sanitario Nacional',
+    'Modificación Registro Sanitario Internacional',
+    'Renovación de Registro Sanitario',
+  ];
+  tiposTramiteColombina: string[] = this.tiposProducto;
   tiposTramite: string[] = ['NACIONAL', 'INTERNACIONAL'];
 
   // Variables del formulario
@@ -43,9 +50,9 @@ export class CrearTramiteComponent implements OnInit {
     certificadoAnalisis: null,
     certificadoAditivos: null,
     archivosAdicionales: [],
-    muestrasEnvaseFisico: null,       // Nueva propiedad
-    artesBocetosEnvase: null,         // Nueva propiedad
-    muestrasProducto: null            // Nueva propiedad
+    muestrasEnvaseFisico: null, // Nueva propiedad
+    artesBocetosEnvase: null, // Nueva propiedad
+    muestrasProducto: null, // Nueva propiedad
   };
   selectedFiles: { [key: string]: File | File[] | null } = {
     fichaTecnica: null,
@@ -53,9 +60,9 @@ export class CrearTramiteComponent implements OnInit {
     certificadoAnalisis: null,
     certificadoAditivos: null,
     archivosAdicionales: [],
-    muestrasEnvaseFisico: null,       // Nueva propiedad
-    artesBocetosEnvase: null,         // Nueva propiedad
-    muestrasProducto: null            // Nueva propiedad
+    muestrasEnvaseFisico: null, // Nueva propiedad
+    artesBocetosEnvase: null, // Nueva propiedad
+    muestrasProducto: null, // Nueva propiedad
   };
 
   // Mapa para manejar mensajes de error
@@ -69,9 +76,9 @@ export class CrearTramiteComponent implements OnInit {
     formatoInterno: null,
     certificadoAnalisis: null,
     certificadoAditivos: null,
-    muestrasEnvaseFisico: null,       // Nueva propiedad
-    artesBocetosEnvase: null,         // Nueva propiedad
-    muestrasProducto: null            // Nueva propiedad
+    muestrasEnvaseFisico: null, // Nueva propiedad
+    artesBocetosEnvase: null, // Nueva propiedad
+    muestrasProducto: null, // Nueva propiedad
   };
 
   constructor(
@@ -106,8 +113,10 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   setEntidad(pais: string) {
-    console.log(this.listaEntidadesSanitarias)
-    const entidad = this.listaEntidadesSanitarias.find((entidad) => entidad.pais === pais);
+    console.log(this.listaEntidadesSanitarias);
+    const entidad = this.listaEntidadesSanitarias.find(
+      (entidad) => entidad.pais === pais
+    );
     console.log('Entidad seleccionada:', entidad);
     if (entidad) {
       this.entidadSanitariaId = entidad.id;
@@ -119,12 +128,16 @@ export class CrearTramiteComponent implements OnInit {
       this.setEntidad('Colombia');
       this.pais = 'Colombia';
       this.listaPaises = [];
-      this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes("internacional"));
+      this.tiposTramiteColombina = this.tiposProducto.filter(
+        (tipo) => !tipo.toLowerCase().includes('internacional')
+      );
     } else if (tipoTramite === 'INTERNACIONAL') {
       this.setEntidad('');
       this.pais = '';
       this.cargarEntidadesSanitarias();
-      this.tiposTramiteColombina = this.tiposProducto.filter(tipo => !tipo.toLowerCase().includes(" nacional"));
+      this.tiposTramiteColombina = this.tiposProducto.filter(
+        (tipo) => !tipo.toLowerCase().includes(' nacional')
+      );
     } else {
       this.tiposTramiteColombina = this.tiposProducto;
     }
@@ -202,18 +215,23 @@ export class CrearTramiteComponent implements OnInit {
     if (!this.fileNames.certificadoAditivos)
       this.errorMessages.certificadoAditivos =
         'Por favor adjunte el certificado de aditivos';
-    
+
     // Validación para los nuevos archivos específicos de trámites INTERNACIONALES
     if (this.tipoTramiteSeleccionado === 'INTERNACIONAL') {
       if (!this.fileNames.muestrasEnvaseFisico)
-        this.errorMessages.muestrasEnvaseFisico = 'Por favor adjunte las muestras de envase físico';
+        this.errorMessages.muestrasEnvaseFisico =
+          'Por favor adjunte las muestras de envase físico';
       if (!this.fileNames.artesBocetosEnvase)
-        this.errorMessages.artesBocetosEnvase = 'Por favor adjunte los artes/bocetos de los envases';
+        this.errorMessages.artesBocetosEnvase =
+          'Por favor adjunte los artes/bocetos de los envases';
       if (!this.fileNames.muestrasProducto)
-        this.errorMessages.muestrasProducto = 'Por favor adjunte las muestras de producto';
+        this.errorMessages.muestrasProducto =
+          'Por favor adjunte las muestras de producto';
     }
 
-    const formIsValid = Object.values(this.errorMessages).every((error) => !error);
+    const formIsValid = Object.values(this.errorMessages).every(
+      (error) => !error
+    );
     if (!formIsValid) {
       alert('Por favor complete todos los campos obligatorios.');
       return;
@@ -236,7 +254,9 @@ export class CrearTramiteComponent implements OnInit {
       }
     });
 
-    const archivosAdicionales = this.selectedFiles['archivosAdicionales'] as File[];
+    const archivosAdicionales = this.selectedFiles[
+      'archivosAdicionales'
+    ] as File[];
     archivosAdicionales.forEach((file, index) => {
       this.subirArchivoIndividual(file, `archivosAdicionales-${index + 1}`);
     });
@@ -288,7 +308,9 @@ export class CrearTramiteComponent implements OnInit {
 
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
         console.log('Formato de archivo no permitido');
-        this.fileSizeComponent.openError('Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.');
+        this.fileSizeComponent.openError(
+          'Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.'
+        );
         return;
       }
 
@@ -333,8 +355,12 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   removeAdditionalFile(index: number): void {
-    const archivosAdicionales = this.selectedFiles['archivosAdicionales'] as File[];
-    const nombresAdicionales = this.fileNames['archivosAdicionales'] as string[];
+    const archivosAdicionales = this.selectedFiles[
+      'archivosAdicionales'
+    ] as File[];
+    const nombresAdicionales = this.fileNames[
+      'archivosAdicionales'
+    ] as string[];
     if (archivosAdicionales && nombresAdicionales) {
       archivosAdicionales.splice(index, 1);
       nombresAdicionales.splice(index, 1);
@@ -348,15 +374,19 @@ export class CrearTramiteComponent implements OnInit {
 
   private subirArchivoIndividual(file: File, tipoArchivo: string): void {
     const documentoDTO = new DocumentoDTO(false, false, file.name, file);
-  
+
     this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
       (response) => {
         console.log(`Archivo ${tipoArchivo} subido con éxito`, response);
-        this.fileSizeComponent.openSuccess(`Archivo ${tipoArchivo} subido con éxito`);
+        this.fileSizeComponent.openSuccess(
+          `Archivo ${tipoArchivo} subido con éxito`
+        );
       },
       (error) => {
         console.error(`Error al subir el archivo ${tipoArchivo}`, error);
-        this.fileSizeComponent.openError(`Error al subir el archivo ${tipoArchivo}`);
+        this.fileSizeComponent.openError(
+          `Error al subir el archivo ${tipoArchivo}`
+        );
       }
     );
   }

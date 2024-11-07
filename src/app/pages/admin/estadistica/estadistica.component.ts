@@ -122,17 +122,19 @@ export class EstadisticaComponent {
   }
 
   setTipo(tipo: string) {
-    switch (tipo) {
-      case 'Nuevo registro sanitario nacional':
-        return 'Nuevo nacional';
-      case 'Nuevo registro sanitario internacional':
-        return 'Nuevo internacional';
-      case 'Modificación registro sanitario nacional':
-        return 'Modificación nacional';
-      case 'Modificación registro sanitario internacional':
-        return 'Modificación internacional';
-      case 'Renovación de registro sanitario':
-        return 'Renovación';
+    switch (tipo.toLowerCase()) {
+      case 'nuevo registro sanitario nacional':
+        return 'N.N.';
+      case 'nuevo registro sanitario internacional':
+        return 'N.I.';
+      case 'modificación registro sanitario nacional':
+        return 'M.N.';
+      case 'modificación registro sanitario internacional':
+        return 'M.I.';
+      case 'renovación de registro sanitario':
+        return 'R.';
+      default:
+        return tipo;
     }
   }
 
