@@ -9,7 +9,7 @@
 /* Contenedor principal */
 .ContenedorPendientes {
   width: 77vw;
-  margin: 2vw 8vw;
+  margin: 0 8vw;
   background-color: #e7ebf5;
   border-radius: 10px;
 }
@@ -24,12 +24,12 @@
   padding: 10px 20px; /* Añade espacio lateral para alinearlo con la tabla */
 }
 
-.tablas{
+.tablas {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
-.TituloTabla h2{
+.TituloTabla h2 {
   color: white;
 }
 .ContenedorPendientes h2 {
@@ -69,21 +69,21 @@ table td {
   background-color: rgb(26, 187, 26);
   margin-left: 6px;
 }
-.EstadoText{
+.EstadoText {
   padding-left: 600px;
 }
-.EstadoText h2{
-  color: #4E5A7D;
+.EstadoText h2 {
+  color: #4e5a7d;
   font-weight: bold;
   font-size: 12px;
 }
-.rechazado{
+.rechazado {
   background-color: red;
   margin-left: 6px;
 }
 
 .fecha {
-  color: #4E5A7D;
+  color: #4e5a7d;
   font-weight: bold;
   font-size: 12px;
 }
@@ -93,11 +93,11 @@ table td {
   font-weight: bold;
   font-size: 12px;
 }
-.Desplegar{
-  position:absolute ;
+.Desplegar {
+  position: absolute;
   right: 8px;
 }
-.Desplegable{
+.Desplegable {
   width: 25px;
 }
 /* Registro (primer nivel de información) */
@@ -134,21 +134,20 @@ table td {
   font-size: 12px;
   color: #4e5a7d;
 }
-td p{
-  color: #D0CFCE;
+td p {
+  color: #d0cfce;
   margin-left: 10px;
   margin-bottom: 5px;
 }
 
 /*****/
 
-
 /*ESTADO DEL REGISTRO*/
 .InfoContenedor {
-  right:0;
+  right: 0;
   height: 100vw;
   width: 25%;
-  background-color: #BCC9E5;
+  background-color: #bcc9e5;
   padding: 20px;
 }
 
@@ -156,11 +155,11 @@ td p{
   font-size: 17px;
   color: #000000;
 }
-.InfoContenedor p{
+.InfoContenedor p {
   font-size: 14px;
   color: #857c7c;
 }
-.InfoContenedor a{
+.InfoContenedor a {
   font-size: 16px;
 }
 .progreso-contenedor {
@@ -205,32 +204,28 @@ td p{
   color: #d0cfce;
 }
 
-.nav-item p{
+.nav-item p {
   font-size: 13px;
   text-align: center;
 }
-button{
+button {
   background-color: transparent;
   border: none;
 }
-
-
 
 .dropbtn {
   margin: 8px;
   height: 40px;
   width: 40px;
-  padding: 0  ;
+  padding: 0;
 }
-img{
+img {
   width: 25px;
-
 }
 
-.title{
+.title {
   width: 100%;
 }
-
 
 /* Contenedor del menú desplegable */
 .dropdown {
@@ -242,12 +237,12 @@ img{
 .dropdown-content {
   display: none; /* Oculta el contenido por defecto */
   position: absolute; /* Posiciona el contenido de forma absoluta */
-  background-color: #D7D7D7; /* Color de fondo del menú */
+  background-color: #d7d7d7; /* Color de fondo del menú */
   min-width: 160px; /* Ancho mínimo del menú */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Sombra del menú */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Sombra del menú */
   z-index: 1; /* Asegura que el menú se muestre sobre otros elementos */
 }
-.Cajaa{
+.Cajaa {
   background-color: white;
   margin: 5px;
   border-radius: 4px;
@@ -271,11 +266,10 @@ img{
   display: block; /* Muestra el contenido */
 }
 
-
 /**/
 
 .title {
-  background-color: #A3B6E6;
+  background-color: #a3b6e6;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -287,31 +281,24 @@ img{
   color: #ffffff;
 }
 
-
-
 /*****/
 
-.search-container{
+.search-container {
+  position: relative;
   height: 60px;
   display: flex;
   align-items: center;
   padding-top: 15px;
-}
-
-input#search-bar{
   margin: 0 auto;
-  width: 800px;
   height: 40px;
-  padding: 0 20px;
   font-size: 1rem;
-  border: 1px solid #D0CFCE;
   border-radius: 20px;
   outline: none;
-  &:focus{
-    border: 1px solid #008ABF;
+  &:focus {
+    border: 1px solid #008abf;
     transition: 0.35s ease;
-    color: #008ABF;
-    &::-webkit-input-placeholder{
+    color: #008abf;
+    &::-webkit-input-placeholder {
       transition: opacity 0.45s ease;
       opacity: 0;
     }
@@ -324,15 +311,14 @@ input#search-bar{
 .icons img {
   margin-right: 20px;
 }
-.search-icon{
-  position: relative;
-  float: right;
+.search-icon {
+  position: absolute;
   width: 75px;
   height: 75px;
-  right: 60px;
+  right: 1rem;
 }
 
-.icono{
+.icono {
   width: 40px;
 }
 
@@ -360,4 +346,64 @@ input#search-bar{
   font-size: 16px;
   font-weight: bold;
   margin: 20px 0;
+}
+
+/* Exportar a excel */
+.exportar {
+  margin-left: 5px;
+  background-color: #8f9fc8;
+  border-radius: 5px;
+  color: white;
+}
+
+/* Barra de búsqueda */
+.search-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: min-content;
+  position: relative;
+}
+
+input#search-bar {
+  width: 720px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #d0cfce;
+  border-radius: 20px;
+  outline: none;
+}
+
+input#search-bar:focus {
+  border: 1px solid #008abf;
+  transition: 0.35s ease;
+  color: #008abf;
+}
+
+input#search-bar::placeholder {
+  color: #b0b0b0;
+  transition: opacity 0.45s ease;
+}
+
+.search-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  float: right;
+}
+
+/* Contenedor de iconos (en caso de que tengas otros iconos en la barra de búsqueda) */
+.icons {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.icono {
+  width: 40px;
 }

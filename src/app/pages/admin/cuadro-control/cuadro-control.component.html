@@ -1,4 +1,4 @@
-<app-solicitante-layout>
+<app-admin-layout>
   <div class="ContenedorTablaExcel">
     <div class="TituloTablaExcel">
       <h2>Información De Control</h2>
@@ -8,147 +8,46 @@
       <tr>
         <th>Fecha Solicitud</th>
         <th>Fecha Envío Documentos</th>
-        <th>Fecha Terminación Tramite</th>
+        <th>Fecha Terminación Trámite</th>
         <th>Fecha de Notificación</th>
         <th>País</th>
-        <th>Registro sanitario (RSA) de Colombia</th>
+        <th>Registro Sanitario (RSA) de Colombia</th>
         <th>Expediente RSA</th>
-        <th>#intencion (ID seguimiento)</th>
-        <th>Radicado o Exp</th>
+        <th>#Intención (ID Seguimiento)</th>
+        <th>Radicado o Expediente</th>
         <th>Llave RSA Colombia</th>
-        <th>Fecha de Radicado invima</th>
-        <th>Estado del trámite</th>
+        <th>Fecha de Radicado Invima</th>
+        <th>Estado del Trámite</th>
         <th>Urgente?</th>
-        <th>Fecha de llegada resol</th>
+        <th>Fecha de Llegada Resolución</th>
         <th>Ok Satisfactorio Invima</th>
-        <th>#RSA/NSA PAÍS</th>
+        <th>#RSA/NSA País</th>
         <th>Se Requiere</th>
         <th>Origen</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>23/10/2022</td>
-        <td>21/11/2022</td>
-        <td>1/01/2023</td>
-        <td>12/01/23</td>
-        <td>MEXICO</td>
-        <td>RSA-0023312</td>
-        <td> </td>
-        <td>EG4-ASM-BNJP</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>EN_REVISION</td>
-        <td>Si</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>si</td>
-        <td>Correo-e Solicitud</td>
-      </tr>
-      <tr>
-        <td>25/11/2022</td>
-        <td>29/11/2023</td>
-        <td>12/01/2024</td>
-        <td>14/01/23</td>
-        <td>ARGENTINA</td>
-        <td>RSA-0023112</td>
-        <td> </td>
-        <td>FR4-IUM-BPVP</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>APROBADO</td>
-        <td>Si</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>si</td>
-        <td>Correo-e Solicitud</td>
-      </tr>
-      <tr>
-        <td>25/11/2022</td>
-        <td>29/11/2022</td>
-        <td>12/01/2023</td>
-        <td>14/01/23</td>
-        <td>BRASIL</td>
-        <td>RIA-0023112</td>
-        <td> </td>
-        <td>RY4-RUM-BPVP</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>RECHAZADO</td>
-        <td>Si</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>si</td>
-        <td>Correo-e Solicitud</td>
-      </tr>
-      <tr>
-        <td>25/11/2022</td>
-        <td>29/11/2022</td>
-        <td>12/01/2023</td>
-        <td>14/01/23</td>
-        <td>COLOMBIA</td>
-        <td>RSA-0023112</td>
-        <td> </td>
-        <td>RY4-RUM-BPVP</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>APROBADO</td>
-        <td>Si</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>si</td>
-        <td>Correo-e Solicitud</td>
-      </tr>
-      <tr>
-        <td>25/11/2022</td>
-        <td>29/11/2022</td>
-        <td>12/01/2023</td>
-        <td>14/01/23</td>
-        <td>CHILE</td>
-        <td>RSA-0023112</td>
-        <td> </td>
-        <td>OK4-RUM-BPVP</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>EN_REVISION</td>
-        <td>Si</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>si</td>
-        <td>Correo-e Solicitud</td>
-      </tr>
-      <tr>
-        <td>25/11/2022</td>
-        <td>29/11/2022</td>
-        <td>12/01/2023</td>
-        <td>14/01/23</td>
-        <td>PERU</td>
-        <td>PKA-0023112</td>
-        <td> </td>
-        <td>RY4-RUM-BPVP</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>PENDIENTE</td>
-        <td>Si</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>si</td>
-        <td>Correo-e Solicitud</td>
+      <tr *ngFor="let solicitud of solicitudes">
+        <td>{{ solicitud.fechaSolicitud | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ solicitud.tramite?.fechaRadicacion | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ solicitud.tramite?.etapa }}</td> <!-- Campo de ejemplo -->
+        <td></td> <!-- Campo sin datos en TramiteDTO -->
+        <td>{{ solicitud.tramite?.entidadSanitariaId }}</td>
+        <td>{{ solicitud.tramite?.numeroRadicado }}</td>
+        <td></td> <!-- Campo sin datos en TramiteDTO -->
+        <td>{{ solicitud.tramite?.tipoModificacion }}</td>
+        <td>{{ solicitud.tramite?.numeroRadicado }}</td>
+        <td>{{ solicitud.tramite?.llave }}</td>
+        <td>{{ solicitud.tramite?.fechaRadicacion | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ solicitud.tramite?.estado }}</td>
+        <td>{{ solicitud.tramite?.tipoTramite === 'URGENTE' ? 'Sí' : 'No' }}</td>
+        <td></td> <!-- Campo sin datos en TramiteDTO -->
+        <td></td> <!-- Campo sin datos en TramiteDTO -->
+        <td>{{ solicitud.tramite?.proyecto }}</td>
+        <td>{{ solicitud.tramite?.pt ? 'Sí' : 'No' }}</td>
+        <td>{{ solicitud.tramite?.unidadNegocio }}</td>
       </tr>
       </tbody>
     </table>
   </div>
-</app-solicitante-layout>
-
+</app-admin-layout>

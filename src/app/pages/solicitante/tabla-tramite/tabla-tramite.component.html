@@ -1,4 +1,15 @@
 <app-solicitante-layout>
+  <div class="search-container">
+    <input
+      type="text"
+      id="search-bar"
+      [(ngModel)]="searchTerm"
+      (keyup.enter)="filterTramites()"
+      placeholder="Buscar trámites"
+    />
+    <button class="search-icon" (click)="filterTramites()">🔍</button>
+  </div>
+
   <div class="main-content">
     <div class="tablas">
       <div class="ContenedorPendientes">
@@ -8,7 +19,7 @@
           <!-- Contenedor de filtros -->
           <div class="filter-container">
             <div class="filter">
-              <label for="filterTipoProducto">Tipo Producto:</label>
+              <label for="filterTipoProducto">Tipo Trámite:</label>
               <select id="filterTipoProducto" [(ngModel)]="selectedTipoProducto" (change)="filterTramites()">
                 <option value="">Todos</option>
                 <option *ngFor="let option of tipoProductoOptions" [value]="option">{{ option }}</option>
@@ -16,7 +27,7 @@
             </div>
 
             <div class="filter">
-              <label for="filterTipoTramite">Tipo Trámite:</label>
+              <label for="filterTipoTramite">Nacionalidad:</label>
               <select id="filterTipoTramite" [(ngModel)]="selectedTipoTramite" (change)="filterTramites()">
                 <option value="">Todos</option>
                 <option *ngFor="let option of tipoTramiteOptions" [value]="option">{{ option }}</option>
@@ -32,8 +43,10 @@
             </div>
           </div>
 
+          <button class="exportar" (click)="exportarAExcel()">Exportar a Excel</button>
+
           <button href="#" (click)="toggleTabla(); $event.preventDefault()" class="Desplegar">
-            <img src="images/Desplegar.png" class="Desplegable" />
+            <img src="images/Desplegar.png" alt="Desplegar" class="Desplegable" />
           </button>
         </div>
 
@@ -64,10 +77,10 @@
                 <td>
                   <div class="registro">
                     <span>{{ solicitud.tramite.numeroRadicado }}</span>
-                    <span>Nombre producto: {{ solicitud.tramite.nombreProducto }}</span>
-                    <span>Tipo producto: {{ solicitud.tramite.tipoProducto }}</span>
-                    <span>Tipo trámite: {{ solicitud.tramite.tipoTramite }}</span>
-                    <span>Estado trámite: {{ solicitud.tramite.estado }}</span>
+                    <span>{{ solicitud.tramite.nombreProducto }}</span>
+                    <span>{{ solicitud.tramite.tipoProducto }}</span>
+                    <span>{{ solicitud.tramite.tipoTramite }}</span>
+                    <span>{{ solicitud.tramite.estado }}</span>
                   </div>
                   <div class="detalle">
                     <div class="detalle-fechas">
