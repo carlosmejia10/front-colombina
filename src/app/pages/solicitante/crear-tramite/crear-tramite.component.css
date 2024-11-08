@@ -27,8 +27,9 @@ a {
   margin-bottom: 15px;
 }
 
-label {
+li>label {
   display: block;
+  margin-top: 1rem;
   margin-bottom: 5px;
 }
 
@@ -61,14 +62,32 @@ button {
 .left {
   width: 50%;
   padding: 40px;
+  padding-bottom: 1rem;
+  border-right: solid 2px #ccc;
+}
+.left2 {
+  width: 50%;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-right: solid 2px #ccc;
+  border-bottom: solid 2px #ccc;
+  min-height: 12rem;
 }
 
 .right {
   padding: 40px;
+  padding-bottom: 1rem;
   width: 50%;
-  border-left: solid 2px #ccc;
   display: flex;
   flex-direction: column;
+}
+.right2 {
+  padding-left: 40px;
+  padding-right: 40px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid 2px #ccc;
 }
 
 .titulo h2 {
@@ -79,16 +98,14 @@ button {
   padding: 7px;
   display: flex;
   flex-direction: column;
-  margin: 15px;
   border: solid 1px #ccc;
   border-radius: 8px;
   width: 33vw;
 }
 
 .fin {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  width: min-content;
+  margin: 1rem auto;
 }
 
 #datosSol {
