@@ -111,7 +111,6 @@ export class CrearTramiteComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarEntidadesSanitarias();
-    console.log(this.tipoModificacionSeleccionado);
   }
 
   cargarEntidadesSanitarias() {
@@ -136,11 +135,9 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   setEntidad(pais: string) {
-    console.log(this.listaEntidadesSanitarias);
     const entidad = this.listaEntidadesSanitarias.find(
       (entidad) => entidad.pais === pais
     );
-    console.log('Entidad seleccionada:', entidad);
     if (entidad) {
       this.entidadSanitariaId = entidad.id;
     }
@@ -167,7 +164,6 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   crearSolicitudYTramite(): Observable<SolicitudDTO> {
-    console.log('Creando solicitud y trámite...');
     // Validamos los campos requeridos
     let camposFaltantes = [];
 
@@ -206,8 +202,6 @@ export class CrearTramiteComponent implements OnInit {
       [] // historial de cambios vacío inicialmente
     );
 
-    console.log(this.entidadSanitariaId);
-
     // Crear SolicitudDTO
     const solicitud = new SolicitudDTO(
       0, // El backend generará el ID de solicitud
@@ -239,12 +233,7 @@ export class CrearTramiteComponent implements OnInit {
     if (!this.fileNames.fichaTecnica)
       this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
     if (!this.tipoModificacionSeleccionado) this.errorMessages.tipoModificacion = 'Por favor seleccione el tipo de modificación';
-    /*if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
-    if (!this.nombreProducto) this.errorMessages.nombreProducto = 'Por favor ingrese el nombre del producto';
-    if (!this.descripcionTramite) this.errorMessages.descripcionTramite = 'Por favor ingrese la descripción del trámite';
-    if(!this.SubCategoria) this.errorMessages.SubCategoria = 'Por favor seleccione la subcategoria';
-    if(!this.Riesgo) this.errorMessages.Riesgo = 'Por favor seleccione el riesgo';
-    if(!this.RegNotPer) this.errorMessages.RegNotPer = 'Por favor seleccione el registro, notificación o permiso';*/
+
     const formIsValid = Object.values(this.errorMessages).every(
       (error) => !error
     );
@@ -257,20 +246,18 @@ export class CrearTramiteComponent implements OnInit {
       console.log('Solicitud creada:', solicitud);
       this.idTramite = solicitud.tramite.id;
       this.enviarArchivos();
+      //this.router.navigate(['/tabla-tramite']);
     });
 
-    this.router.navigate(['/tabla-tramite']);
   }
 
   enviarArchivos(): void {
+    console.log('Enviando archivos:', this.selectedFiles);
     Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
       if (tipoArchivo !== 'archivosAdicionales') {
-        const selectedFiles = this.selectedFiles[tipoArchivo];
-        if (selectedFiles && Array.isArray(selectedFiles)) {
-          // Check if it's an array
-          selectedFiles.forEach((file) => {
-            this.subirArchivoIndividual(file, tipoArchivo);
-          });
+        if (this.selectedFiles[tipoArchivo]) {
+          const file = this.selectedFiles[tipoArchivo] as File;
+          this.subirArchivoIndividual(file, tipoArchivo);
         }
       }
     });
@@ -372,6 +359,7 @@ export class CrearTramiteComponent implements OnInit {
   }
 
   private subirArchivoIndividual(file: File, tipoArchivo: string): void {
+    console.log(`Subiendo archivo ${tipoArchivo}:`, file);
     const documentoDTO = new DocumentoDTO(false, false, file.name, file);
 
     this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
