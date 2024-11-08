@@ -6,21 +6,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f3f6fb; /* Fondo suave para todo el contenedor */
+  background-color: #f3f6fb;
   padding: 20px;
 }
 
 /* Título principal */
 h2 {
-  background-color: #A3B6E6;
+  background-color: #a3b6e6;
   padding: 20px;
   color: black;
   text-align: center;
   margin: 0;
   width: 100%;
-  font-size: 28px; /* Tamaño de fuente del título */
+  font-size: 28px;
   font-weight: bold;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el título */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Contenedor de documentos */
@@ -30,7 +30,7 @@ h2 {
   align-items: center;
   gap: 15px;
   width: 100%;
-  max-width: 700px; /* Ajusta el ancho máximo */
+  max-width: 700px;
   margin-top: 20px;
 }
 
@@ -46,13 +46,26 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
-.documento:hover {
-  transform: translateY(-2px);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+/* Estados de los documentos */
+.estado-aprobado {
+  background-color: #d4edda; /* Verde claro para aprobado */
+  color: #155724;
 }
+
+.estado-no-aprobado {
+  background-color: #f8d7da; /* Rojo claro para no aprobado */
+  color: #721c24;
+}
+
+.estado-no-revisado {
+  background-color: #f3f6fb; /* Gris claro para sin revisión */
+  color: #6c757d;
+}
+
+
 
 /* Botón Revisar */
 .btn-revisar {
@@ -70,49 +83,39 @@ h2 {
   background-color: #0056b3;
 }
 
-.btn-regresar {
+.btn-regresar,
+.btn-continuar {
   position: absolute;
-  bottom: 70px; /* Posiciona a 20px de la parte inferior del contenedor */
-  left: 100px; /* Posiciona a 20px del lado izquierdo */
-  padding: 8px 12px; /* Espaciado interno */
-  background-color: #A3B6E6; /* Color de fondo */
-  color: #ffffff; /* Color del texto */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  font-size: 0.9em; /* Tamaño de texto */
+  bottom: 70px;
+  padding: 8px 12px;
+  background-color: #a3b6e6;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
   transition: background-color 0.3s;
+}
+
+.btn-regresar {
+  left: 100px;
 }
 
 .btn-continuar {
-  position: absolute;
-  bottom: 70px; /* Posiciona a 20px de la parte inferior del contenedor */
-  right: 100px; /* Posiciona a 20px del lado izquierdo */
-  padding: 8px 12px; /* Espaciado interno */
-  background-color: #A3B6E6; /* Color de fondo */
-  color: #ffffff; /* Color del texto */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  font-size: 0.9em; /* Tamaño de texto */
-  transition: background-color 0.3s;
+  right: 100px;
 }
 
-.btn-regresar:hover {
-  background-color: #8fa7e3;
-}
-
+.btn-regresar:hover,
 .btn-continuar:hover {
   background-color: #8fa7e3;
 }
 
-.btn-continuar:disabled {
-  background-color: #d3d3d3;
-  cursor: not-allowed;
-}
-
+.btn-continuar:disabled,
 .btn-revisar:disabled {
   background-color: #d3d3d3;
   cursor: not-allowed;
 }
-
+.btn-continuar:disabled {
+  background-color: #d3d3d3; /* Color de fondo gris para indicar que está deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor para mostrar que no es clicable */
+}
