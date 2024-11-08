@@ -277,8 +277,10 @@ export class CrearTramiteComponent implements OnInit {
             return this.subirArchivoIndividual(file, tipoArchivo);
           }
         }
+        return null;
       }
-    );
+    ).filter((observables) => observables !== null);
+
     const archivosAdicionales = this.selectedFiles[
       'archivosAdicionales'
     ] as File[];
@@ -432,7 +434,7 @@ export class CrearTramiteComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       const fileSizeMB = file.size / (1024 * 1024);
-      const allowedExtensions = ['pdf', 'docx', 'xlsx', 'png', 'jpg', 'jpeg'];
+      const allowedExtensions = ['pdf', 'docx', 'doc', 'xlsx', 'xls', 'png', 'jpg', 'jpeg'];
       const fileExtension = file.name.split('.').pop()?.toLowerCase();
 
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
