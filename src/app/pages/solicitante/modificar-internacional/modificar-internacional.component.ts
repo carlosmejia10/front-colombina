@@ -3,6 +3,7 @@ import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.servi
 import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
 import { FileSizeComponent } from '../file-size/file-size.component';
 import { FileService } from '@/app/servicios/file.service';
+import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 
 @Component({
   selector: 'app-modificar-internacional',
@@ -13,6 +14,7 @@ export class ModificarInternacionalComponent implements OnInit {
   @ViewChild(FileSizeComponent, { static: false }) fileSizeComponent!: FileSizeComponent;
 
   tiposTramite: string[] = ['MODIFICAR', 'NUEVO REGISTRO', 'RENOVACION'];
+  
   tipoModificacionSeleccionado: string = '';
   pais: string = '';
   nombreProducto: string = '';
@@ -182,4 +184,6 @@ export class ModificarInternacionalComponent implements OnInit {
     this.selectedFiles[tipoArchivo] = null;
     this.fileNames[tipoArchivo] = null;
   }
+
+  
 }

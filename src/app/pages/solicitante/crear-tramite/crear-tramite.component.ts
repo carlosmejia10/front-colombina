@@ -10,7 +10,6 @@ import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitu
 import { Observable } from 'rxjs';
 import { FileSizeComponent } from '../file-size/file-size.component';
 
-
 @Component({
   selector: 'app-crear-tramite',
   templateUrl: './crear-tramite.component.html',
@@ -19,6 +18,68 @@ import { FileSizeComponent } from '../file-size/file-size.component';
 export class CrearTramiteComponent implements OnInit {
   @ViewChild(FileSizeComponent, { static: false })
   fileSizeComponent!: FileSizeComponent;
+  tiposTramite: string[] = ['MODIFICAR', 'NUEVO REGISTRO', 'RENOVACION'];
+  tiposTramiteNacionalidad: string[] = ['NACIONAL', 'INTERNACIONAL'];
+  tipoModificacionSeleccionado: string = '';
+  pais: string = '';
+  nombreProducto: string = '';
+  descripcionTramite: string = '';
+  SubCategoria: string = '';
+  Riesgo: string = '';
+  RegNotPer: string = '';
+  listaPaises: string[] = [];
+
+  listaModificaciones = [
+    { nombre: 'DE RAZON SOCIAL', cambio: false, adicion: false },
+    { nombre: 'DE FABRICANTE', cambio: false, adicion: false },
+    { nombre: 'DE EMPACADOR', cambio: false, adicion: false },
+    { nombre: 'DE UBICACION', cambio: false, adicion: false },
+    { nombre: 'DE IMPORTADOR', cambio: false, adicion: false },
+    { nombre: 'DE MARCA COMERCIAL', cambio: false, adicion: false },
+    { nombre: 'DE NOMBRE DEL PRODUCTO', cambio: false, adicion: false },
+    { nombre: 'DE COMPOSICION DEL PRODUCTO', cambio: false, adicion: false },
+    { nombre: 'DE PRESENTACION COMERCIAL', cambio: false, adicion: false },
+    {
+      nombre: 'MODIFICACION DE MODALIDAD DE RSAP/RSNSA',
+      cambio: false,
+      adicion: false,
+    },
+    { nombre: 'OTROS', cambio: false, adicion: false },
+    { nombre: 'EMPAQUE', cambio: false, adicion: false },
+    { nombre: 'VIDA UTIL', cambio: false, adicion: false },
+  ];
+
+  fileNames: { [key: string]: string | string[] | null } = {
+    fichaTecnica: null,
+    certificadoAnalisis: null,
+    certificadoAditivos: null,
+    muestrasEnvaseFisico: null,
+    artesBocetosEnvase: null,
+    muestrasProducto: null,
+    archivosAdicionales: [],
+  };
+
+  selectedFiles: { [key: string]: File | File[] | null } = {
+    fichaTecnica: null,
+    certificadoAnalisis: null,
+    certificadoAditivos: null,
+    muestrasEnvaseFisico: null,
+    artesBocetosEnvase: null,
+    muestrasProducto: null,
+    archivosAdicionales: [],
+  };
+
+  errorMessages: { [key: string]: string | null } = {
+    tipoModificacion: null,
+    pais: null,
+    nombreProducto: null,
+    descripcionTramite: null,
+    SubCategoria: null,
+    Riesgo: null,
+    RegNotPer: null,
+    fichaTecnica: null,
+    certificadoAditivos: null,
+  };
 
   // Opciones para los selectores
   tiposProducto: string[] = [
@@ -29,58 +90,16 @@ export class CrearTramiteComponent implements OnInit {
     'Renovación de Registro Sanitario',
   ];
   tiposTramiteColombina: string[] = this.tiposProducto;
-  tiposTramite: string[] = ['NACIONAL', 'INTERNACIONAL'];
 
   // Variables del formulario
   tipoTramiteSeleccionado: string = '';
   tipoProductoSeleccionado: string = '';
-  nombreProducto: string = '';
   descripcionProducto: string = '';
-  pais: string = '';
   idTramite: number = 1;
 
   // Lista de entidades sanitarias y países
-  listaPaises: string[] = [];
   listaEntidadesSanitarias: EntidadSanitaria[] = [];
   entidadSanitariaId?: number;
-
-  // Archivos y nombres seleccionados
-  fileNames: { [key: string]: string[] | string | null } = {
-    fichaTecnica: null,
-    formatoInterno: null,
-    certificadoAnalisis: null,
-    certificadoAditivos: null,
-    archivosAdicionales: [],
-    muestrasEnvaseFisico: null, // Nueva propiedad
-    artesBocetosEnvase: null, // Nueva propiedad
-    muestrasProducto: null, // Nueva propiedad
-  };
-  selectedFiles: { [key: string]: File | File[] | null } = {
-    fichaTecnica: null,
-    formatoInterno: null,
-    certificadoAnalisis: null,
-    certificadoAditivos: null,
-    archivosAdicionales: [],
-    muestrasEnvaseFisico: null, // Nueva propiedad
-    artesBocetosEnvase: null, // Nueva propiedad
-    muestrasProducto: null, // Nueva propiedad
-  };
-
-  // Mapa para manejar mensajes de error
-  errorMessages: { [key: string]: string | null } = {
-    tipoTramite: null,
-    nombreProducto: null,
-    descripcionProducto: null,
-    pais: null,
-    tipoProducto: null,
-    fichaTecnica: null,
-    formatoInterno: null,
-    certificadoAnalisis: null,
-    certificadoAditivos: null,
-    muestrasEnvaseFisico: null, // Nueva propiedad
-    artesBocetosEnvase: null, // Nueva propiedad
-    muestrasProducto: null, // Nueva propiedad
-  };
 
   constructor(
     private fileService: FileService,
@@ -90,6 +109,7 @@ export class CrearTramiteComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarEntidadesSanitarias();
+    console.log(this.tipoModificacionSeleccionado);
   }
 
   cargarEntidadesSanitarias() {
@@ -154,6 +174,12 @@ export class CrearTramiteComponent implements OnInit {
       !this.tipoProductoSeleccionado ||
       !this.tipoTramiteSeleccionado
     ) {
+      console.log(
+        this.nombreProducto,
+        this.descripcionProducto,
+        this.tipoProductoSeleccionado,
+        this.tipoTramiteSeleccionado
+      );
       alert('Por favor complete todos los campos obligatorios.');
       return new Observable();
     }
@@ -180,7 +206,7 @@ export class CrearTramiteComponent implements OnInit {
       new Date() // fecha actual como fecha de solicitud
     );
 
-    // Crear el RequestTramiteSolicitudDTO
+    // Crear el RequestTramiteSolicitudDTO``
     const request = new RequestTramiteSolicitudDTO(solicitud, tramite);
 
     // Llamar al servicio para crear la solicitud con trámite
@@ -202,11 +228,12 @@ export class CrearTramiteComponent implements OnInit {
       this.errorMessages.descripcionProducto =
         'Por favor ingrese la descripción del producto';
     if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
-    if (!this.tipoProductoSeleccionado)
-      this.errorMessages.tipoProducto =
-        'Por favor seleccione el tipo de producto';
     if (!this.fileNames.fichaTecnica)
       this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
+    if (!this.tipoModificacionSeleccionado)
+      this.errorMessages.tipoModificacion =
+        'Por favor seleccione el tipo de modificación';
+
     const formIsValid = Object.values(this.errorMessages).every(
       (error) => !error
     );
@@ -215,25 +242,24 @@ export class CrearTramiteComponent implements OnInit {
       return;
     }
 
-    /*this.crearSolicitudYTramite().subscribe((solicitud) => {
+    this.crearSolicitudYTramite().subscribe((solicitud) => {
       console.log('Solicitud creada:', solicitud);
       this.idTramite = solicitud.tramite.id;
       this.enviarArchivos();
-    });*/
-
-
+    });
   }
-
   enviarArchivos(): void {
     Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
       if (tipoArchivo !== 'archivosAdicionales') {
-        const selectedFile = this.selectedFiles[tipoArchivo] as File;
-        if (selectedFile) {
-          this.subirArchivoIndividual(selectedFile, tipoArchivo);
+        const selectedFiles = this.selectedFiles[tipoArchivo];
+        if (selectedFiles && Array.isArray(selectedFiles)) {
+          // Check if it's an array
+          selectedFiles.forEach((file) => {
+            this.subirArchivoIndividual(file, tipoArchivo);
+          });
         }
       }
     });
-
     const archivosAdicionales = this.selectedFiles[
       'archivosAdicionales'
     ] as File[];
@@ -250,6 +276,11 @@ export class CrearTramiteComponent implements OnInit {
 
   removeErrorMessage(field: string): void {
     this.errorMessages[field] = null;
+  }
+
+  removeFile(tipoArchivo: string): void {
+    this.selectedFiles[tipoArchivo] = null;
+    this.fileNames[tipoArchivo] = null;
   }
 
   onDragOver(event: DragEvent): void {
@@ -271,67 +302,41 @@ export class CrearTramiteComponent implements OnInit {
 
     if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
       const file = event.dataTransfer.files[0];
+
+      if (!this.selectedFiles[tipoArchivo]) {
+        this.selectedFiles[tipoArchivo] = [];
+      }
+
       this.selectedFiles[tipoArchivo] = file;
+
+      // Update fileNames with the name of the last added file
       this.fileNames[tipoArchivo] = file.name;
+
       event.dataTransfer.clearData();
       this.removeErrorMessage(tipoArchivo);
     }
   }
 
-  onFileSelected(event: Event, tipoArchivo: string): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      const fileSizeMB = file.size / (1024 * 1024);
-      const allowedExtensions = ['pdf', 'docx', 'xlsx'];
-      const fileExtension = file.name.split('.').pop()?.toLowerCase();
-
-      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
-        console.log('Formato de archivo no permitido');
-        this.fileSizeComponent.openError(
-          'Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.'
-        );
-        return;
-      }
-
-      if (fileSizeMB > 2048) {
-        console.log('El archivo excede el límite de 2GB, mostrando pop-up');
-        this.fileSizeComponent.open(fileSizeMB);
-        return;
-      }
-
-      this.selectedFiles[tipoArchivo] = file;
-      this.fileNames[tipoArchivo] = file.name;
-      this.removeErrorMessage(tipoArchivo);
-    }
-  }
-
-  onFilesSelected(event: Event, tipoArchivo: string): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFiles[tipoArchivo] = Array.from(input.files);
-      this.fileNames[tipoArchivo] = Array.from(input.files).map(
-        (file) => file.name
-      );
-    }
-  }
-
-  onDropMultiple(event: DragEvent, tipoArchivo: string): void {
+  onDropMultiple(event: DragEvent): void {
     event.preventDefault();
     const uploadArea = event.target as HTMLElement;
     uploadArea.classList.remove('drag-over');
 
     if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
       const files = Array.from(event.dataTransfer.files);
-      this.selectedFiles[tipoArchivo] = files;
-      this.fileNames[tipoArchivo] = files.map((file) => file.name);
+
+      // Update selectedFiles to hold the list of dropped files
+      this.selectedFiles.archivosAdicionales = (
+        this.selectedFiles.archivosAdicionales as File[]
+      ).concat(files);
+
+      // Update fileNames to hold an array of file names
+      this.fileNames.archivosAdicionales = (
+        this.fileNames.archivosAdicionales as string[]
+      ).concat(files.map((file) => file.name));
+
       event.dataTransfer.clearData();
     }
-  }
-
-  removeFile(tipoArchivo: string): void {
-    this.selectedFiles[tipoArchivo] = null;
-    this.fileNames[tipoArchivo] = null;
   }
 
   removeAdditionalFile(index: number): void {
@@ -369,5 +374,61 @@ export class CrearTramiteComponent implements OnInit {
         );
       }
     );
+  }
+
+  onTipoModificacionChange(tipoTramite: string): void {
+    this.tipoModificacionSeleccionado = tipoTramite;
+    if (tipoTramite === 'MODIFICAR') {
+      this.listaModificaciones.forEach((mod) => {
+        mod.cambio = false;
+        mod.adicion = false;
+      });
+    }
+  }
+
+  verDatosSolicitante(): void {
+    alert('Mostrando datos del solicitante.');
+  }
+
+  onFileSelected(event: Event, tipoArchivo: string): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const fileSizeMB = file.size / (1024 * 1024);
+      const allowedExtensions = ['pdf', 'docx', 'xlsx', 'png', 'jpg', 'jpeg'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+        console.log('Formato de archivo no permitido');
+        this.fileSizeComponent.openError(
+          'Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.'
+        );
+        return;
+      }
+
+      if (fileSizeMB > 2048) {
+        console.log('El archivo excede el límite de 2GB, mostrando pop-up');
+        this.fileSizeComponent.open(fileSizeMB);
+        return;
+      }
+
+      this.selectedFiles[tipoArchivo] = file;
+      this.fileNames[tipoArchivo] = file.name;
+      this.removeErrorMessage(tipoArchivo);
+    }
+  }
+
+  onFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFiles.archivosAdicionales = (
+        this.selectedFiles.archivosAdicionales as File[]
+      ).concat(Array.from(input.files));
+
+      this.fileNames.archivosAdicionales = (
+        this.fileNames.archivosAdicionales as string[]
+      ).concat(Array.from(input.files).map((file) => file.name));
+    }
   }
 }
