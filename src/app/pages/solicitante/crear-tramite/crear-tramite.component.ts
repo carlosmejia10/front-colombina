@@ -9,6 +9,7 @@ import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitudDTO';
 import { Observable } from 'rxjs';
 import { FileSizeComponent } from '../file-size/file-size.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-tramite',
@@ -104,7 +105,8 @@ export class CrearTramiteComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private entidadSanitariaService: EntidadSanitariaService,
-    private solicitudDEIService: SolicitudDEIService
+    private solicitudDEIService: SolicitudDEIService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -256,8 +258,10 @@ export class CrearTramiteComponent implements OnInit {
       this.idTramite = solicitud.tramite.id;
       this.enviarArchivos();
     });
+
+    this.router.navigate(['/tabla-tramite']);
   }
-  
+
   enviarArchivos(): void {
     Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
       if (tipoArchivo !== 'archivosAdicionales') {
