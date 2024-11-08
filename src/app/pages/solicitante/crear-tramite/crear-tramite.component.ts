@@ -9,8 +9,6 @@ import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitudDTO';
 import { Observable } from 'rxjs';
 import { FileSizeComponent } from '../file-size/file-size.component';
- 
-
 
 @Component({
   selector: 'app-crear-tramite',
@@ -18,19 +16,20 @@ import { FileSizeComponent } from '../file-size/file-size.component';
   styleUrls: ['./crear-tramite.component.css'],
 })
 export class CrearTramiteComponent implements OnInit {
-  @ViewChild(FileSizeComponent, { static: false }) fileSizeComponent!: FileSizeComponent;
+  @ViewChild(FileSizeComponent, { static: false })
+  fileSizeComponent!: FileSizeComponent;
   tiposTramite: string[] = ['MODIFICAR', 'NUEVO REGISTRO', 'RENOVACION'];
-  tiposTramiteNacionalidad: string[] = ['NACIONAL', 'INTERNACIONAL'];;
+  tiposTramiteNacionalidad: string[] = ['NACIONAL', 'INTERNACIONAL'];
   tipoModificacionSeleccionado: string = '';
   pais: string = '';
   nombreProducto: string = '';
-  descripcionTramite: string = '';                                                                    
+  descripcionTramite: string = '';
   SubCategoria: string = '';
   Riesgo: string = '';
   RegNotPer: string = '';
   listaPaises: string[] = [];
 
-  listaModificaciones = [                     
+  listaModificaciones = [
     { nombre: 'DE RAZON SOCIAL', cambio: false, adicion: false },
     { nombre: 'DE FABRICANTE', cambio: false, adicion: false },
     { nombre: 'DE EMPACADOR', cambio: false, adicion: false },
@@ -40,34 +39,47 @@ export class CrearTramiteComponent implements OnInit {
     { nombre: 'DE NOMBRE DEL PRODUCTO', cambio: false, adicion: false },
     { nombre: 'DE COMPOSICION DEL PRODUCTO', cambio: false, adicion: false },
     { nombre: 'DE PRESENTACION COMERCIAL', cambio: false, adicion: false },
-    { nombre: 'MODIFICACION DE MODALIDAD DE RSAP/RSNSA', cambio: false, adicion: false },
+    {
+      nombre: 'MODIFICACION DE MODALIDAD DE RSAP/RSNSA',
+      cambio: false,
+      adicion: false,
+    },
     { nombre: 'OTROS', cambio: false, adicion: false },
     { nombre: 'EMPAQUE', cambio: false, adicion: false },
-    { nombre: 'VIDA UTIL', cambio: false, adicion: false }
+    { nombre: 'VIDA UTIL', cambio: false, adicion: false },
   ];
 
-  fileNames: { [key: string]: string [] | null } = {
+  fileNames: { [key: string]: string | string[] | null } = {
     fichaTecnica: null,
+    certificadoAnalisis: null,
     certificadoAditivos: null,
-    archivosAdicionales: []
+    muestrasEnvaseFisico: null,
+    artesBocetosEnvase: null,
+    muestrasProducto: null,
+    archivosAdicionales: [],
   };
+
   selectedFiles: { [key: string]: File | File[] | null } = {
     fichaTecnica: null,
+    certificadoAnalisis: null,
     certificadoAditivos: null,
+    muestrasEnvaseFisico: null,
+    artesBocetosEnvase: null,
+    muestrasProducto: null,
+    archivosAdicionales: [],
   };
 
   errorMessages: { [key: string]: string | null } = {
     tipoModificacion: null,
     pais: null,
     nombreProducto: null,
-    descripcionTramite: null,  // Nueva propiedad para manejo de errores
-    SubCategoria : null,
+    descripcionTramite: null,
+    SubCategoria: null,
     Riesgo: null,
     RegNotPer: null,
     fichaTecnica: null,
     certificadoAditivos: null,
   };
-
 
   // Opciones para los selectores
   tiposProducto: string[] = [
@@ -77,8 +89,8 @@ export class CrearTramiteComponent implements OnInit {
     'Modificación Registro Sanitario Internacional',
     'Renovación de Registro Sanitario',
   ];
-  tiposTramiteColombina: string[] = this.tiposTramiteNacionalidad;
- 
+  tiposTramiteColombina: string[] = this.tiposProducto;
+
   // Variables del formulario
   tipoTramiteSeleccionado: string = '';
   tipoProductoSeleccionado: string = '';
@@ -88,7 +100,6 @@ export class CrearTramiteComponent implements OnInit {
   // Lista de entidades sanitarias y países
   listaEntidadesSanitarias: EntidadSanitaria[] = [];
   entidadSanitariaId?: number;
-
 
   constructor(
     private fileService: FileService,
@@ -157,28 +168,21 @@ export class CrearTramiteComponent implements OnInit {
   crearSolicitudYTramite(): Observable<SolicitudDTO> {
     console.log('Creando solicitud y trámite...');
     // Validamos los campos requeridos
-    let camposFaltantes = [];
-
-  if (!this.nombreProducto) {
-    camposFaltantes.push('Nombre del producto');
-  }
-
-  if (!this.descripcionProducto) {
-    camposFaltantes.push('Descripción del producto');
-  }
-
-  if (!this.tipoTramiteSeleccionado) {
-    camposFaltantes.push('Tipo de producto');
-  }
-
-  if (!this.tipoModificacionSeleccionado) {
-    camposFaltantes.push('Tipo de modificación');
-  }
-
-  if (camposFaltantes.length > 0) {
-    alert('Por favor complete los siguientes campos obligatorios: ' + camposFaltantes.join(', '));
-    return new Observable();
-  }
+    if (
+      !this.nombreProducto ||
+      !this.descripcionProducto ||
+      !this.tipoProductoSeleccionado ||
+      !this.tipoTramiteSeleccionado
+    ) {
+      console.log(
+        this.nombreProducto,
+        this.descripcionProducto,
+        this.tipoProductoSeleccionado,
+        this.tipoTramiteSeleccionado
+      );
+      alert('Por favor complete todos los campos obligatorios.');
+      return new Observable();
+    }
 
     // Crear TramiteDTO
     const tramite = new TramiteDTO(
@@ -226,13 +230,10 @@ export class CrearTramiteComponent implements OnInit {
     if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
     if (!this.fileNames.fichaTecnica)
       this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
-    if (!this.tipoModificacionSeleccionado) this.errorMessages.tipoModificacion = 'Por favor seleccione el tipo de modificación';
-    /*if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
-    if (!this.nombreProducto) this.errorMessages.nombreProducto = 'Por favor ingrese el nombre del producto';
-    if (!this.descripcionTramite) this.errorMessages.descripcionTramite = 'Por favor ingrese la descripción del trámite';
-    if(!this.SubCategoria) this.errorMessages.SubCategoria = 'Por favor seleccione la subcategoria';
-    if(!this.Riesgo) this.errorMessages.Riesgo = 'Por favor seleccione el riesgo';
-    if(!this.RegNotPer) this.errorMessages.RegNotPer = 'Por favor seleccione el registro, notificación o permiso';*/
+    if (!this.tipoModificacionSeleccionado)
+      this.errorMessages.tipoModificacion =
+        'Por favor seleccione el tipo de modificación';
+
     const formIsValid = Object.values(this.errorMessages).every(
       (error) => !error
     );
@@ -246,20 +247,19 @@ export class CrearTramiteComponent implements OnInit {
       this.idTramite = solicitud.tramite.id;
       this.enviarArchivos();
     });
-
-
   }
   enviarArchivos(): void {
     Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
       if (tipoArchivo !== 'archivosAdicionales') {
-          const selectedFiles = this.selectedFiles[tipoArchivo];
-          if (selectedFiles && Array.isArray(selectedFiles)) {  // Check if it's an array
-              selectedFiles.forEach((file) => {
-                  this.subirArchivoIndividual(file, tipoArchivo);
-              });
-          }
+        const selectedFiles = this.selectedFiles[tipoArchivo];
+        if (selectedFiles && Array.isArray(selectedFiles)) {
+          // Check if it's an array
+          selectedFiles.forEach((file) => {
+            this.subirArchivoIndividual(file, tipoArchivo);
+          });
+        }
       }
-  });
+    });
     const archivosAdicionales = this.selectedFiles[
       'archivosAdicionales'
     ] as File[];
@@ -301,39 +301,43 @@ export class CrearTramiteComponent implements OnInit {
     uploadArea.classList.remove('drag-over');
 
     if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
-        const file = event.dataTransfer.files[0];
+      const file = event.dataTransfer.files[0];
 
-        if (!this.selectedFiles[tipoArchivo]) {
-            this.selectedFiles[tipoArchivo] = [];
-        }
+      if (!this.selectedFiles[tipoArchivo]) {
+        this.selectedFiles[tipoArchivo] = [];
+      }
 
-        this.selectedFiles[tipoArchivo] = file;
-        
-        // Update fileNames with the name of the last added file
-        this.fileNames[tipoArchivo] = this.selectedFiles[tipoArchivo]?.map(f => f.name) || [];
-        
-        event.dataTransfer.clearData();
-        this.removeErrorMessage(tipoArchivo);
+      this.selectedFiles[tipoArchivo] = file;
+
+      // Update fileNames with the name of the last added file
+      this.fileNames[tipoArchivo] = file.name;
+
+      event.dataTransfer.clearData();
+      this.removeErrorMessage(tipoArchivo);
     }
-}
+  }
 
-onDropMultiple(event: DragEvent, tipoArchivo: string): void {
-  event.preventDefault();
-  const uploadArea = event.target as HTMLElement;
-  uploadArea.classList.remove('drag-over');
+  onDropMultiple(event: DragEvent): void {
+    event.preventDefault();
+    const uploadArea = event.target as HTMLElement;
+    uploadArea.classList.remove('drag-over');
 
-  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
       const files = Array.from(event.dataTransfer.files);
 
       // Update selectedFiles to hold the list of dropped files
-      this.selectedFiles[tipoArchivo] = files;
-      
+      this.selectedFiles.archivosAdicionales = (
+        this.selectedFiles.archivosAdicionales as File[]
+      ).concat(files);
+
       // Update fileNames to hold an array of file names
-      this.fileNames[tipoArchivo] = files.map((file) => file.name);
-      
+      this.fileNames.archivosAdicionales = (
+        this.fileNames.archivosAdicionales as string[]
+      ).concat(files.map((file) => file.name));
+
       event.dataTransfer.clearData();
+    }
   }
-}
 
   removeAdditionalFile(index: number): void {
     const archivosAdicionales = this.selectedFiles[
@@ -375,7 +379,7 @@ onDropMultiple(event: DragEvent, tipoArchivo: string): void {
   onTipoModificacionChange(tipoTramite: string): void {
     this.tipoModificacionSeleccionado = tipoTramite;
     if (tipoTramite === 'MODIFICAR') {
-      this.listaModificaciones.forEach(mod => {
+      this.listaModificaciones.forEach((mod) => {
         mod.cambio = false;
         mod.adicion = false;
       });
@@ -388,15 +392,18 @@ onDropMultiple(event: DragEvent, tipoArchivo: string): void {
 
   onFileSelected(event: Event, tipoArchivo: string): void {
     const input = event.target as HTMLInputElement;
+
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       const fileSizeMB = file.size / (1024 * 1024);
-      const allowedExtensions = ['pdf', 'docx', 'xlsx'];
+      const allowedExtensions = ['pdf', 'docx', 'xlsx', 'png', 'jpg', 'jpeg'];
       const fileExtension = file.name.split('.').pop()?.toLowerCase();
 
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
         console.log('Formato de archivo no permitido');
-        this.fileSizeComponent.openError('Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.');
+        this.fileSizeComponent.openError(
+          'Formato de archivo no permitido. Solo se permiten archivos PDF, DOCX o XLSX.'
+        );
         return;
       }
 
@@ -406,20 +413,22 @@ onDropMultiple(event: DragEvent, tipoArchivo: string): void {
         return;
       }
 
-      this.selectedFiles[tipoArchivo]?.push(file);
-      this.fileNames[tipoArchivo] = this.selectedFiles[tipoArchivo]?.map(f => f.name) || [];
+      this.selectedFiles[tipoArchivo] = file;
+      this.fileNames[tipoArchivo] = file.name;
       this.removeErrorMessage(tipoArchivo);
     }
   }
 
-  onFilesSelected(event: Event, tipoArchivo: string): void {
+  onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFiles[tipoArchivo] = Array.from(input.files);
-      this.fileNames[tipoArchivo] = Array.from(input.files).map(
-        (file) => file.name
-      );
+      this.selectedFiles.archivosAdicionales = (
+        this.selectedFiles.archivosAdicionales as File[]
+      ).concat(Array.from(input.files));
+
+      this.fileNames.archivosAdicionales = (
+        this.fileNames.archivosAdicionales as string[]
+      ).concat(Array.from(input.files).map((file) => file.name));
     }
   }
-  
 }
