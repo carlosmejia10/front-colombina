@@ -22,6 +22,10 @@ export class InfoSolicitudComponent {
   solicitante!: UsuarioDTO;
   documentos!: DocumentoDTO[];
 
+  cambiarEtapa(etapa: string): string {
+    return nombreCortoFlujo(etapa);
+  }
+
   constructor(
     private route: ActivatedRoute,
     private tramiteService: TramiteService,
@@ -40,7 +44,6 @@ export class InfoSolicitudComponent {
   getTramiteDetails(id: number): void {
     this.tramiteService.findById(id).subscribe((data: TramiteDTO) => {
       this.tramite = data;
-      this.tramite.etapa = nombreCortoFlujo(data.etapa); // Cambia el nombre de la etapa
       this.getEntidadSanitariaDetails(data.entidadSanitariaId); // Llama a la función para cargar la entidad
       console.log(data);
     });

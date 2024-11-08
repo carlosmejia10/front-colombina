@@ -47,7 +47,7 @@
           style="margin-top: 1rem"
           (click)="continuar()"
         >
-          {{ tramite.etapa }}
+          {{ cambiarEtapa(tramite.etapa) }}
         </button>
       } @else {
         <h2>En espera de resolución etapa {{ tramite.etapa }}</h2>
