@@ -5,15 +5,16 @@ import { EstadoTramite, Tramite } from '@/app/modelos/tramite';
 import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
-import { SolicitudDTO } from "@/app/modelos/solicitud.dto";
-import { SolicitudDEIService } from "@/app/servicios/solicitud-dei.service";
-import { Router } from "@angular/router";
+import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
+import { SolicitudDEIService } from '@/app/servicios/solicitud-dei.service';
+import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
+import { nombreFlujo } from '@/app/utils/nombres-flujo';
 
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.component.html',
-  styleUrls: ['./solicitudes.component.css']
+  styleUrls: ['./solicitudes.component.css'],
 })
 export class SolicitudesComponent {
   solicitudes: SolicitudDTO[] = [];
@@ -24,14 +25,22 @@ export class SolicitudesComponent {
   // Opciones y valores seleccionados para los filtros
   tipoProductoOptions: string[] = [];
   tipoTramiteOptions: string[] = [];
-  estadoTramiteOptions: string[] = ['EN_REVISION', 'APROBADO', 'RECHAZADO', 'PENDIENTE'];
+  estadoTramiteOptions: string[] = [
+    'EN_REVISION',
+    'APROBADO',
+    'RECHAZADO',
+    'PENDIENTE',
+  ];
   selectedTipoProducto: string = '';
   selectedTipoTramite: string = '';
   selectedEstadoTramite: string = '';
 
   mostrarTabla1: boolean = true;
 
-  constructor(private solicitudService: SolicitudDEIService, private router: Router) {}
+  constructor(
+    private solicitudService: SolicitudDEIService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getTramites();
@@ -47,8 +56,11 @@ export class SolicitudesComponent {
   getTramites(): void {
     this.solicitudService.findAll().subscribe(
       (data: SolicitudDTO[]) => {
-        this.solicitudes = data;
-        this.filteredSolicitudes = data;
+        this.solicitudes = data.map((s) => {
+          s.tramite.etapa = nombreFlujo(s.tramite.etapa);
+          return s;
+        });
+        this.filteredSolicitudes = this.solicitudes;
         this.setFilterOptions();
       },
       (error) => {
@@ -59,29 +71,45 @@ export class SolicitudesComponent {
 
   // Establece las opciones únicas para los filtros de tipo producto y tipo trámite
   setFilterOptions(): void {
-    this.tipoProductoOptions = [...new Set(this.solicitudes.map(s => s.tramite.tipoProducto))];
-    this.tipoTramiteOptions = [...new Set(this.solicitudes.map(s => s.tramite.tipoTramite))];
+    this.tipoProductoOptions = [
+      ...new Set(this.solicitudes.map((s) => s.tramite.tipoProducto)),
+    ];
+    this.tipoTramiteOptions = [
+      ...new Set(this.solicitudes.map((s) => s.tramite.tipoTramite)),
+    ];
   }
 
   // Filtrar la lista de trámites según filtros y término de búsqueda
   filterTramites(): void {
     const term = this.searchTerm.toLowerCase(); // Convertir a minúsculas
 
-    this.filteredSolicitudes = this.solicitudes.filter(solicitud => {
+    this.filteredSolicitudes = this.solicitudes.filter((solicitud) => {
       const tramite = solicitud.tramite;
 
       // Prioridad de coincidencias
       const matchSearchTerm = tramite
-        ? tramite.nombreProducto.toLowerCase().includes(term) ||  // nombreProducto
-        tramite.tipoProducto.toLowerCase().includes(term) ||    // tipoProducto
-        tramite.numeroRadicado?.toLowerCase().includes(term)    // numeroRadicado si existe
+        ? tramite.nombreProducto.toLowerCase().includes(term) || // nombreProducto
+          tramite.tipoProducto.toLowerCase().includes(term) || // tipoProducto
+          tramite.numeroRadicado?.toLowerCase().includes(term) || // numeroRadicado si existe
+          tramite.etapa.toLowerCase().includes(term) // etapa
         : false;
 
-      const matchTipoProducto = this.selectedTipoProducto ? tramite?.tipoProducto === this.selectedTipoProducto : true;
-      const matchTipoTramite = this.selectedTipoTramite ? tramite?.tipoTramite === this.selectedTipoTramite : true;
-      const matchEstadoTramite = this.selectedEstadoTramite ? tramite?.estado === this.selectedEstadoTramite : true;
+      const matchTipoProducto = this.selectedTipoProducto
+        ? tramite?.tipoProducto === this.selectedTipoProducto
+        : true;
+      const matchTipoTramite = this.selectedTipoTramite
+        ? tramite?.tipoTramite === this.selectedTipoTramite
+        : true;
+      const matchEstadoTramite = this.selectedEstadoTramite
+        ? tramite?.estado === this.selectedEstadoTramite
+        : true;
 
-      return matchSearchTerm && matchTipoProducto && matchTipoTramite && matchEstadoTramite;
+      return (
+        matchSearchTerm &&
+        matchTipoProducto &&
+        matchTipoTramite &&
+        matchEstadoTramite
+      );
     });
   }
 
@@ -122,7 +150,7 @@ export class SolicitudesComponent {
   }
 
   exportarAExcel(): void {
-    const datosExcel = this.filteredSolicitudes.map(s => ({
+    const datosExcel = this.filteredSolicitudes.map((s) => ({
       Fecha: s.fechaSolicitud,
       Solicitante: s.solicitante.nombre,
       'Tipo de Producto': s.tramite.tipoProducto,
@@ -144,12 +172,12 @@ export class SolicitudesComponent {
       },
       alignment: {
         horizontal: 'center',
-      }
+      },
     };
 
     // Aplicar estilo al encabezado
     const headerCells = ['A1', 'B1', 'C1', 'D1', 'E1'];
-    headerCells.forEach(cell => {
+    headerCells.forEach((cell) => {
       if (!ws[cell]) {
         ws[cell] = {};
       }
