@@ -5,6 +5,7 @@ import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { UsuarioDTO } from '@/app/modelos/usuarioDTO';
 import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.service';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
+import { nombreCortoFlujo } from '@/app/utils/nombres-flujo';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -39,6 +40,7 @@ export class InfoSolicitudComponent {
   getTramiteDetails(id: number): void {
     this.tramiteService.findById(id).subscribe((data: TramiteDTO) => {
       this.tramite = data;
+      this.tramite.etapa = nombreCortoFlujo(data.etapa); // Cambia el nombre de la etapa
       this.getEntidadSanitariaDetails(data.entidadSanitariaId); // Llama a la función para cargar la entidad
       console.log(data);
     });
