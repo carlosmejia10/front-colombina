@@ -59,9 +59,11 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
     if (aprobado) {
       this.documentoService.aprobar(this.tramiteId, this.documentId).subscribe(() => {
         alert(`El documento "${this.documentId}" ha sido ${estado}.`);
+        this.router.navigate(['/documentos', this.tramiteId]);
       });
     } else {
       alert(`El documento "${this.documentId}" ha sido ${estado}.`);
+      this.router.navigate(['/documentos', this.tramiteId]);
     }
     //this.router.navigate(['/documentos']);
   }
