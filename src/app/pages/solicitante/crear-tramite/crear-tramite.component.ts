@@ -51,7 +51,7 @@ export class CrearTramiteComponent implements OnInit {
     certificadoAditivos: null,
     archivosAdicionales: []
   };
-  selectedFiles: { [key: string]: File[] | null } = {
+  selectedFiles: { [key: string]: File | File[] | null } = {
     fichaTecnica: null,
     certificadoAditivos: null,
   };
@@ -77,7 +77,7 @@ export class CrearTramiteComponent implements OnInit {
     'Modificación Registro Sanitario Internacional',
     'Renovación de Registro Sanitario',
   ];
-  tiposTramiteColombina: string[] = this.tiposProducto;
+  tiposTramiteColombina: string[] = this.tiposTramiteNacionalidad;
  
   // Variables del formulario
   tipoTramiteSeleccionado: string = '';
@@ -157,21 +157,34 @@ export class CrearTramiteComponent implements OnInit {
   crearSolicitudYTramite(): Observable<SolicitudDTO> {
     console.log('Creando solicitud y trámite...');
     // Validamos los campos requeridos
-    if (
-      !this.nombreProducto ||
-      !this.descripcionProducto ||
-      !this.tipoProductoSeleccionado ||
-      !this.tipoTramiteSeleccionado
-    ) {
-      alert('Por favor complete todos los campos obligatorios.');
-      return new Observable();
-    }
+    let camposFaltantes = [];
+
+  if (!this.nombreProducto) {
+    camposFaltantes.push('Nombre del producto');
+  }
+
+  if (!this.descripcionProducto) {
+    camposFaltantes.push('Descripción del producto');
+  }
+
+  if (!this.tipoTramiteSeleccionado) {
+    camposFaltantes.push('Tipo de producto');
+  }
+
+  if (!this.tipoModificacionSeleccionado) {
+    camposFaltantes.push('Tipo de modificación');
+  }
+
+  if (camposFaltantes.length > 0) {
+    alert('Por favor complete los siguientes campos obligatorios: ' + camposFaltantes.join(', '));
+    return new Observable();
+  }
 
     // Crear TramiteDTO
     const tramite = new TramiteDTO(
       this.nombreProducto,
       this.descripcionProducto,
-      this.tipoProductoSeleccionado,
+      this.tipoModificacionSeleccionado,
       this.tipoTramiteSeleccionado,
       'PENDIENTE', // estado inicial
       new Date(), // fecha de radicación
@@ -294,7 +307,7 @@ export class CrearTramiteComponent implements OnInit {
             this.selectedFiles[tipoArchivo] = [];
         }
 
-        this.selectedFiles[tipoArchivo]?.push(file);
+        this.selectedFiles[tipoArchivo] = file;
         
         // Update fileNames with the name of the last added file
         this.fileNames[tipoArchivo] = this.selectedFiles[tipoArchivo]?.map(f => f.name) || [];
