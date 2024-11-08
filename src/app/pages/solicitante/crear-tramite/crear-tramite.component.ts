@@ -10,6 +10,7 @@ import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitu
 import { Observable } from 'rxjs';
 import { FileSizeComponent } from '../file-size/file-size.component';
 
+
 @Component({
   selector: 'app-crear-tramite',
   templateUrl: './crear-tramite.component.html',
@@ -206,29 +207,6 @@ export class CrearTramiteComponent implements OnInit {
         'Por favor seleccione el tipo de producto';
     if (!this.fileNames.fichaTecnica)
       this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
-    if (!this.fileNames.formatoInterno)
-      this.errorMessages.formatoInterno =
-        'Por favor adjunte el formato interno';
-    if (!this.fileNames.certificadoAnalisis)
-      this.errorMessages.certificadoAnalisis =
-        'Por favor adjunte el certificado de análisis';
-    if (!this.fileNames.certificadoAditivos)
-      this.errorMessages.certificadoAditivos =
-        'Por favor adjunte el certificado de aditivos';
-
-    // Validación para los nuevos archivos específicos de trámites INTERNACIONALES
-    if (this.tipoTramiteSeleccionado === 'INTERNACIONAL') {
-      if (!this.fileNames.muestrasEnvaseFisico)
-        this.errorMessages.muestrasEnvaseFisico =
-          'Por favor adjunte las muestras de envase físico';
-      if (!this.fileNames.artesBocetosEnvase)
-        this.errorMessages.artesBocetosEnvase =
-          'Por favor adjunte los artes/bocetos de los envases';
-      if (!this.fileNames.muestrasProducto)
-        this.errorMessages.muestrasProducto =
-          'Por favor adjunte las muestras de producto';
-    }
-
     const formIsValid = Object.values(this.errorMessages).every(
       (error) => !error
     );
@@ -237,11 +215,13 @@ export class CrearTramiteComponent implements OnInit {
       return;
     }
 
-    this.crearSolicitudYTramite().subscribe((solicitud) => {
+    /*this.crearSolicitudYTramite().subscribe((solicitud) => {
       console.log('Solicitud creada:', solicitud);
       this.idTramite = solicitud.tramite.id;
       this.enviarArchivos();
-    });
+    });*/
+
+
   }
 
   enviarArchivos(): void {
