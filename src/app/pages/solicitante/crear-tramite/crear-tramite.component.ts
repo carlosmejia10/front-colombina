@@ -164,25 +164,31 @@ export class CrearTramiteComponent implements OnInit {
     }
   }
 
-  // Método para crear la solicitud y el trámite
   crearSolicitudYTramite(): Observable<SolicitudDTO> {
     console.log('Creando solicitud y trámite...');
     // Validamos los campos requeridos
-    if (
-      !this.nombreProducto ||
-      !this.descripcionProducto ||
-      !this.tipoProductoSeleccionado ||
-      !this.tipoTramiteSeleccionado
-    ) {
-      console.log(
-        this.nombreProducto,
-        this.descripcionProducto,
-        this.tipoProductoSeleccionado,
-        this.tipoTramiteSeleccionado
-      );
-      alert('Por favor complete todos los campos obligatorios.');
-      return new Observable();
-    }
+    let camposFaltantes = [];
+
+  if (!this.nombreProducto) {
+    camposFaltantes.push('Nombre del producto');
+  }
+
+  if (!this.descripcionProducto) {
+    camposFaltantes.push('Descripción del producto');
+  }
+
+  if (!this.tipoTramiteSeleccionado) {
+    camposFaltantes.push('Tipo de producto');
+  }
+
+  if (!this.tipoModificacionSeleccionado) {
+    camposFaltantes.push('Tipo de modificación');
+  }
+
+  if (camposFaltantes.length > 0) {
+    alert('Por favor complete los siguientes campos obligatorios: ' + camposFaltantes.join(', '));
+    return new Observable();
+  }
 
     // Crear TramiteDTO
     const tramite = new TramiteDTO(
@@ -230,10 +236,13 @@ export class CrearTramiteComponent implements OnInit {
     if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
     if (!this.fileNames.fichaTecnica)
       this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
-    if (!this.tipoModificacionSeleccionado)
-      this.errorMessages.tipoModificacion =
-        'Por favor seleccione el tipo de modificación';
-
+    if (!this.tipoModificacionSeleccionado) this.errorMessages.tipoModificacion = 'Por favor seleccione el tipo de modificación';
+    /*if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
+    if (!this.nombreProducto) this.errorMessages.nombreProducto = 'Por favor ingrese el nombre del producto';
+    if (!this.descripcionTramite) this.errorMessages.descripcionTramite = 'Por favor ingrese la descripción del trámite';
+    if(!this.SubCategoria) this.errorMessages.SubCategoria = 'Por favor seleccione la subcategoria';
+    if(!this.Riesgo) this.errorMessages.Riesgo = 'Por favor seleccione el riesgo';
+    if(!this.RegNotPer) this.errorMessages.RegNotPer = 'Por favor seleccione el registro, notificación o permiso';*/
     const formIsValid = Object.values(this.errorMessages).every(
       (error) => !error
     );
@@ -248,6 +257,7 @@ export class CrearTramiteComponent implements OnInit {
       this.enviarArchivos();
     });
   }
+  
   enviarArchivos(): void {
     Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
       if (tipoArchivo !== 'archivosAdicionales') {
