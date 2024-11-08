@@ -11,16 +11,29 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
+  loading = false;
+
   constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit() {
-    this.authService.login(this.username, this.password).subscribe((data) => {
-      if (data === 'SOLICITANTE')
-        return this.router.navigate(['/tabla-tramite']);
-      if (data === 'ADMIN')
-        return this.router.navigate(['/estadisticas']);
-      if (data === 'ASUNTOSREG')
-        return this.router.navigate(['/solicitudes']);
-    })
+    if (!this.username || !this.password) {
+      alert('Por favor, ingrese su usuario y contraseña');
+      return;
+    }
+    this.loading = true;
+    this.authService.login(this.username, this.password).subscribe(
+      (data) => {
+        this.loading = false;
+        if (data === 'SOLICITANTE')
+          return this.router.navigate(['/tabla-tramite']);
+        if (data === 'ADMIN') return this.router.navigate(['/estadisticas']);
+        if (data === 'ASUNTOSREG')
+          return this.router.navigate(['/solicitudes']);
+      },
+      (error) => {
+        this.loading = false;
+        alert('Usuario o contraseña incorrectos');
+      }
+    );
   }
 }

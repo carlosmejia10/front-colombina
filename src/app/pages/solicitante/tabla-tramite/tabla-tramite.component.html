@@ -51,7 +51,7 @@
         </div>
 
         <!-- Mostrar mensaje si no hay coincidencias -->
-        <ng-container *ngIf="filteredSolicitudes.length === 0">
+        <ng-container *ngIf="filteredSolicitudes.length === 0 && !loading">
           <p class="no-results" *ngIf="isOnlyEstadoActive(); else noResultsOtherFilters">
             No hay trámites con estado "{{ selectedEstadoTramite }}".
           </p>
@@ -59,6 +59,8 @@
             <p class="no-results">No hay trámites que coincidan con esos filtros de búsqueda.</p>
           </ng-template>
         </ng-container>
+
+        <app-loader *ngIf="loading" [height]="60" [width]="60"></app-loader>
 
 
 

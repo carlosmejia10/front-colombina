@@ -29,6 +29,7 @@ export class CrearTramiteComponent implements OnInit {
   Riesgo: string = '';
   RegNotPer: string = '';
   listaPaises: string[] = [];
+  loading: boolean = false;
 
   listaModificaciones = [
     { nombre: 'DE RAZON SOCIAL', cambio: false, adicion: false },
@@ -167,26 +168,29 @@ export class CrearTramiteComponent implements OnInit {
     // Validamos los campos requeridos
     let camposFaltantes = [];
 
-  if (!this.nombreProducto) {
-    camposFaltantes.push('Nombre del producto');
-  }
+    if (!this.nombreProducto) {
+      camposFaltantes.push('Nombre del producto');
+    }
 
-  if (!this.descripcionProducto) {
-    camposFaltantes.push('Descripción del producto');
-  }
+    if (!this.descripcionProducto) {
+      camposFaltantes.push('Descripción del producto');
+    }
 
-  if (!this.tipoTramiteSeleccionado) {
-    camposFaltantes.push('Tipo de producto');
-  }
+    if (!this.tipoTramiteSeleccionado) {
+      camposFaltantes.push('Tipo de producto');
+    }
 
-  if (!this.tipoModificacionSeleccionado) {
-    camposFaltantes.push('Tipo de modificación');
-  }
+    if (!this.tipoModificacionSeleccionado) {
+      camposFaltantes.push('Tipo de modificación');
+    }
 
-  if (camposFaltantes.length > 0) {
-    alert('Por favor complete los siguientes campos obligatorios: ' + camposFaltantes.join(', '));
-    return new Observable();
-  }
+    if (camposFaltantes.length > 0) {
+      alert(
+        'Por favor complete los siguientes campos obligatorios: ' +
+          camposFaltantes.join(', ')
+      );
+      return new Observable();
+    }
 
     // Crear TramiteDTO
     const tramite = new TramiteDTO(
@@ -232,7 +236,9 @@ export class CrearTramiteComponent implements OnInit {
     if (!this.pais) this.errorMessages.pais = 'Por favor seleccione el país';
     if (!this.fileNames.fichaTecnica)
       this.errorMessages.fichaTecnica = 'Por favor adjunte la ficha técnica';
-    if (!this.tipoModificacionSeleccionado) this.errorMessages.tipoModificacion = 'Por favor seleccione el tipo de modificación';
+    if (!this.tipoModificacionSeleccionado)
+      this.errorMessages.tipoModificacion =
+        'Por favor seleccione el tipo de modificación';
 
     const formIsValid = Object.values(this.errorMessages).every(
       (error) => !error
@@ -242,30 +248,68 @@ export class CrearTramiteComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     this.crearSolicitudYTramite().subscribe((solicitud) => {
       console.log('Solicitud creada:', solicitud);
       this.idTramite = solicitud.tramite.id;
-      this.enviarArchivos();
-      //this.router.navigate(['/tabla-tramite']);
+      this.enviarArchivos().subscribe(
+        (response) => {
+          console.log('Archivos subidos:', response);
+          alert('Trámite creado correctamente');
+          this.loading = false;
+          this.router.navigate(['/tabla-tramite']);
+        },
+        (error) => {
+          console.error('Error al subir archivos:', error);
+          alert('Error al subir archivos');
+        }
+      )
     });
-
   }
 
-  enviarArchivos(): void {
+  enviarArchivos(): Observable<any> {
     console.log('Enviando archivos:', this.selectedFiles);
-    Object.keys(this.selectedFiles).forEach((tipoArchivo) => {
-      if (tipoArchivo !== 'archivosAdicionales') {
-        if (this.selectedFiles[tipoArchivo]) {
-          const file = this.selectedFiles[tipoArchivo] as File;
-          this.subirArchivoIndividual(file, tipoArchivo);
+    const observablesFiles = Object.keys(this.selectedFiles).map(
+      (tipoArchivo) => {
+        if (tipoArchivo !== 'archivosAdicionales') {
+          if (this.selectedFiles[tipoArchivo]) {
+            const file = this.selectedFiles[tipoArchivo] as File;
+            return this.subirArchivoIndividual(file, tipoArchivo);
+          }
         }
       }
-    });
+    );
     const archivosAdicionales = this.selectedFiles[
       'archivosAdicionales'
     ] as File[];
-    archivosAdicionales.forEach((file, index) => {
-      this.subirArchivoIndividual(file, `archivosAdicionales-${index + 1}`);
+    const observablesAditionalFiles = archivosAdicionales.map((file, index) => {
+      return this.subirArchivoIndividual(
+        file,
+        `archivosAdicionales-${index + 1}`
+      );
+    });
+    const observables = observablesFiles.concat(observablesAditionalFiles);
+
+    return new Observable((observer) => {
+      let count = 0;
+      observables.forEach((observable) => {
+        if (observable) {
+          observable.subscribe(
+            (response) => {
+              console.log('Archivo subido:', response);
+              count++;
+              if (count === observables.length) {
+                observer.next('Archivos subidos correctamente');
+                observer.complete();
+              }
+            },
+            (error) => {
+              console.error('Error al subir archivo:', error);
+              observer.error('Error al subir archivo');
+            }
+          );
+        }
+      });
     });
   }
 
@@ -358,24 +402,14 @@ export class CrearTramiteComponent implements OnInit {
     fileInput.click();
   }
 
-  private subirArchivoIndividual(file: File, tipoArchivo: string): void {
+  private subirArchivoIndividual(
+    file: File,
+    tipoArchivo: string
+  ): Observable<any> {
     console.log(`Subiendo archivo ${tipoArchivo}:`, file);
     const documentoDTO = new DocumentoDTO(false, false, file.name, file);
 
-    this.fileService.subirArchivo(documentoDTO, this.idTramite).subscribe(
-      (response) => {
-        console.log(`Archivo ${tipoArchivo} subido con éxito`, response);
-        this.fileSizeComponent.openSuccess(
-          `Archivo ${tipoArchivo} subido con éxito`
-        );
-      },
-      (error) => {
-        console.error(`Error al subir el archivo ${tipoArchivo}`, error);
-        this.fileSizeComponent.openError(
-          `Error al subir el archivo ${tipoArchivo}`
-        );
-      }
-    );
+    return this.fileService.subirArchivo(documentoDTO, this.idTramite);
   }
 
   onTipoModificacionChange(tipoTramite: string): void {

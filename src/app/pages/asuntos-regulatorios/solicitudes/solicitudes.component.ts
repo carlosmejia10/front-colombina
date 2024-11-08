@@ -21,6 +21,7 @@ export class SolicitudesComponent {
   filteredSolicitudes: SolicitudDTO[] = [];
   nombreSolicitante!: string;
   searchTerm: string = ''; // Término de búsqueda
+  loading: boolean = true;
 
   // Opciones y valores seleccionados para los filtros
   tipoProductoOptions: string[] = [];
@@ -56,6 +57,7 @@ export class SolicitudesComponent {
   getTramites(): void {
     this.solicitudService.findAll().subscribe(
       (data: SolicitudDTO[]) => {
+        this.loading = false;
         this.solicitudes = data.map((s) => {
           s.tramite.etapa = nombreFlujo(s.tramite.etapa);
           return s;
@@ -64,6 +66,7 @@ export class SolicitudesComponent {
         this.setFilterOptions();
       },
       (error) => {
+        this.loading = false;
         console.error('Error al obtener los trámites:', error);
       }
     );

@@ -436,7 +436,10 @@
 
     <!-- Botón de Enviar -->
     <div class="fin">
-      <button type="button" (click)="onSubmit()">Enviar</button>
+      <button type="button" (click)="onSubmit()" style="display: flex; align-items: center;" [disabled]="loading">
+        Enviar
+        <app-loader [height]="40" [width]="40" *ngIf="loading"></app-loader>
+      </button>
     </div>
   </div>
   <app-file-size></app-file-size>

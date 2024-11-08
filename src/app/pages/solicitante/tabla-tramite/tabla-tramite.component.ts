@@ -14,6 +14,7 @@ export class TablaTramiteComponent implements OnInit {
   filteredSolicitudes: SolicitudDTO[] = [];
   nombreSolicitante!: string;
   searchTerm: string = ''; // Término de búsqueda
+  loading: boolean = true;
 
   // Opciones y valores seleccionados para los filtros
   tipoProductoOptions: string[] = [];
@@ -52,6 +53,7 @@ export class TablaTramiteComponent implements OnInit {
         this.solicitudes = data;
         this.filteredSolicitudes = data;
         this.setFilterOptions();
+        this.loading = false;
       },
       (error) => {
         console.error('Error al obtener los trámites:', error);

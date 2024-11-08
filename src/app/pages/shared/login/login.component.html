@@ -1,14 +1,36 @@
 <div class="fondo">
   <div class="login-container">
     <div class="login-box">
-      <img src="images/logo.png" alt="Logo" class="logo">
+      <img src="images/logo.png" alt="Logo" class="logo" />
       <form (ngSubmit)="onSubmit()">
         <label for="username">Usuario:</label>
-        <input type="text" id="username" placeholder="Usuario" [(ngModel)]="username" name="username" required>
+        <input
+          type="text"
+          id="username"
+          placeholder="Usuario"
+          [(ngModel)]="username"
+          name="username"
+          required
+        />
         <label for="password">Contraseña:</label>
-        <input type="password" id="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required>
-        <button type="submit" class="fl">Ingresar</button>
-        <div class="toggle-options">
+        <input
+          type="password"
+          id="password"
+          placeholder="Contraseña"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+        <button
+          type="submit"
+          class="fl"
+          style="display: flex; justify-content: center; align-items: center"
+          [disabled]="loading"
+        >
+          Ingresar
+          <app-loader *ngIf="loading" color="white"></app-loader>
+        </button>
+        <!-- <div class="toggle-options">
           <div class="switch">
             <div class="activar">
               <input type="radio" name="gooey-switch" id="gooey-switch-1" />
@@ -30,7 +52,7 @@
             </div>
             <h2>Siempre preguntar por Usuario y contraseña</h2>
           </div>
-        </div>
+        </div> -->
       </form>
     </div>
   </div>

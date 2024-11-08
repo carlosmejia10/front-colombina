@@ -52,13 +52,13 @@ import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notifica
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 import { FileSizeComponent } from './pages/solicitante/file-size/file-size.component';
 
-
 //PARA PRUEBAS DE ESTADISTICA
 import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
-import {InfoControlComponent} from "@/app/pages/asuntos-regulatorios/info-control/info-control.component";
-import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-control.component";
+import { InfoControlComponent } from '@/app/pages/asuntos-regulatorios/info-control/info-control.component';
+import { CuadroControlComponent } from '@/app/pages/admin/cuadro-control/cuadro-control.component';
+import { LoaderComponent } from './components/shared/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +84,7 @@ import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-co
     SolicitudesComponent,
     LateralArComponent,
     PerfilComponent,
-    EstadisticaComponent,  //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
+    EstadisticaComponent, //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
     LayoutComponent,
     SolicitanteLayoutComponent,
     SolicitanteSidebarComponent,
@@ -100,7 +100,8 @@ import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-co
     FileSizeComponent,
     InfoSolicitudComponent,
     InfoControlComponent,
-    CuadroControlComponent
+    CuadroControlComponent,
+    LoaderComponent,
   ],
   imports: [
     RouterModule,
@@ -121,8 +122,6 @@ import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-co
     EstadisticasService,
   ],
   bootstrap: [AppComponent],
-  exports: [
-    ArLayoutComponent
-  ]
+  exports: [ArLayoutComponent],
 })
 export class AppModule {}
