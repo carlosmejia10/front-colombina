@@ -48,7 +48,7 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   descargarDocumento() {
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(this.fileBlob);
-    downloadLink.download = `${this.documentId}.pdf`; // Define el nombre del archivo descargado
+    downloadLink.download = `${this.documentId}`; // Define el nombre del archivo descargado
     downloadLink.click();
     URL.revokeObjectURL(downloadLink.href); // Libera la memoria de la URL creada
   }
