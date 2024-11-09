@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { EstadisticasService } from '@/app/servicios/estadisticas.service';
 
 @Component({
-  selector: 'app-estadistica',
-  templateUrl: './estadistica.component.html',
-  styleUrls: ['./estadistica.component.css']
+  selector: 'app-estadisticas',
+  templateUrl: './estadisticas.component.html',
+  styleUrls: ['./estadisticas.component.css']
 })
 export class EstadisticaComponent {
   // Datos para gráficos estáticos

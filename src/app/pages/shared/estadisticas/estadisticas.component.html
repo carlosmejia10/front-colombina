@@ -1,0 +1,137 @@
+<div class="toggle-container" [class.active]="!isEstatico" (click)="toggle()">
+  <div class="toggle-option" [class.focused]="isEstatico">Estático</div>
+  <div class="toggle-option" [class.focused]="!isEstatico">Dinámico</div>
+</div>
+
+<div class="estadisticas">
+  <div class="Datos">
+    <h1>Resumen</h1>
+
+    <!-- Sección de Total de Trámites -->
+    <div class="total-section">
+      <p>Total Trámites</p>
+      <p class="large-number">{{ totales?.totalTramites }}</p>
+    </div>
+
+    <!-- Sección de Nacionales e Internacionales -->
+    <div class="nacionales-internacionales">
+      <div class="nacional">
+        <p>Nacionales</p>
+        <p class="small-number">{{ totales?.totalTramitesNacionales }}</p>
+      </div>
+      <div class="internacional">
+        <p>Internacionales</p>
+        <p class="small-number">{{ totales?.totalTramitesInternacionales }}</p>
+      </div>
+    </div>
+
+    <!-- Sección del resto de la información -->
+    <div class="extra-info">
+      <div>
+        <p>Trámites en Revisión</p>
+        <p>{{ totales?.totalTramitesEnRevision }}</p>
+      </div>
+      <div>
+        <p>Trámites Aprobados</p>
+        <p>{{ totales?.totalTramitesAprobado }}</p>
+      </div>
+      <div>
+        <p>Trámites Rechazados</p>
+        <p>{{ totales?.totalTramitesRechazado }}</p>
+      </div>
+      <div>
+        <p>Trámites Pendientes</p>
+        <p>{{ totales?.totalTramitesPendiente }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="containerEst">
+    <div id="cuadro-container" *ngIf="!isEstatico">
+      <div *ngFor="let cuadro of cuadros; let i = index" class="cuadro">
+        <!-- Comboboxes y botón dentro de cada cuadro -->
+        <div class="comboboxes">
+          <select [(ngModel)]="selectedOption1[i]">
+            <option *ngFor="let option of graphOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+
+          <select [(ngModel)]="selectedOption2[i]">
+            <option *ngFor="let option of chartDataOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+
+          <select [(ngModel)]="selectedOption3[i]">
+            <option *ngFor="let option of chartBasisOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+
+          <button (click)="generarGrafico(i)">Mostrar gráfico</button>
+        </div>
+        <div *ngIf="graficos[i]" class="grafico-container">
+          <p-chart [type]="selectedOption1[i]" [data]="graficoData[i]" [options]="chartOptions"></p-chart>
+        </div>
+        <button class="remove-btn" (click)="removeCuadro(i)">-</button>
+      </div>
+      <button *ngIf="mostrarBoton" id="add-btn" [ngStyle]="getButtonStyles()" (click)="addCuadro()">+</button>
+    </div>
+
+    <!-- Gráficos estáticos en una cuadrícula de 3 columnas -->
+    <div *ngIf="isEstatico" class="static-grid">
+      <!-- Gráfico de Trámites Totales Activos (Doughnut) -->
+      <div class="static-chart">
+        <h2>Trámites Totales Activos</h2>
+        <p-chart type="pie" [data]="tramitesActivosData" [options]="chartOptions"></p-chart>
+      </div>
+
+      <!-- Gráfico de Trámites Nacionales (Barra) -->
+      <div class="static-chart">
+        <h2>Trámites Nacionales</h2>
+        <p-chart type="bar" [data]="tramitesNacionalesData" [options]="chartOptionsStacked"></p-chart>
+      </div>
+
+      <!-- Gráfico de Trámites Internacionales (Barra) -->
+      <div class="static-chart">
+        <h2>Trámites Internacionales</h2>
+        <p-chart type="bar" [data]="tramitesInterNacionalesDataBarras" [options]="chartOptionsStacked"></p-chart>
+      </div>
+
+      <!-- Gráfico de Trámites Activos por Usuario (Barra Horizontal) -->
+      <div class="static-chart">
+        <h2>Trámites Activos por Usuario</h2>
+        <p-chart type="bar" [data]="tramitesPorUsuarioData" [options]="chartOptionsHorizontal"></p-chart>
+      </div>
+
+      <!-- Gráfico de Trámites Totales (Barra) ocupando dos espacios -->
+      <div class="static-chart double-width">
+        <h2>Trámites Totales {{ currentYear }}</h2>
+        <p-chart type="bar" [data]="tramitesTotalesData" [options]="chartOptionsDefault"></p-chart>
+      </div>
+
+      <!-- Gráfico de Registros por Vencer (Barra) -->
+      <div class="static-chart ">
+        <h2>Registros por Vencer</h2>
+        <p-chart type="bar" [data]="registrosPorVencerData" [options]="chartOptionsDefault"></p-chart>
+      </div>
+      
+
+      <!-- Gráfico de Tasa de Requerimientos (Doughnut) -->
+      <div class="static-chart">
+        <h2>Tasa de Requerimientos</h2>
+        <p-chart type="pie" [data]="tasaRequerimientosData" [options]="chartOptions"></p-chart>
+      </div>
+
+      <!-- Gráfico de Tasa de Rechazos (Doughnut) -->
+      <div class="static-chart">
+        <h2>Tasa de Rechazos</h2>
+        <p-chart type="pie" [data]="tasaRechazosData" [options]="chartOptions"></p-chart>
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
