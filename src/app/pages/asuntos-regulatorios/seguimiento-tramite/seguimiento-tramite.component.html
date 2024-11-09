@@ -31,8 +31,8 @@
 
       <!-- Botones visibles al rechazar el trámite -->
       <div *ngIf="rechazadoSeleccionado" class="rechazado-opciones">
-        <button class="btn-pedir-documento" (click)="pedirNuevoDocumento()">Pedir Nuevo Documento</button>
-        <button class="btn-corregir-formulario" (click)="corregirFormulario()">Corregir Formulario</button>
+        <button class="btn-pedir-documento" (click)="navigatePedirNuevoDocumento()">Pedir Nuevo Documento</button>
+        <button class="btn-corregir-formulario" (click)="navigateCorregirFormulario()">Corregir Formulario</button>
       </div>
     </div>
   </div>
