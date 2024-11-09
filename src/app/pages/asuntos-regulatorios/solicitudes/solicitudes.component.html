@@ -53,7 +53,7 @@
         </div>
 
         <!-- Mostrar mensaje si no hay coincidencias -->
-        <ng-container *ngIf="filteredSolicitudes.length === 0">
+        <ng-container *ngIf="filteredSolicitudes.length === 0 && !loading">
           <p class="no-results" *ngIf="isOnlyEstadoActive(); else noResultsOtherFilters">
             No hay trámites con estado "{{ selectedEstadoTramite }}".
           </p>
@@ -62,7 +62,7 @@
           </ng-template>
         </ng-container>
 
-
+        <app-loader [height]="60" [width]="60" *ngIf="loading"></app-loader>
 
         <!-- Tabla de resultados si hay coincidencias -->
         <!-- tabla-tramite.component.html -->
