@@ -84,37 +84,27 @@ export class SolicitudesComponent {
 
   // Filtrar la lista de trámites según filtros y término de búsqueda
   filterTramites(): void {
-    const term = this.searchTerm.toLowerCase(); // Convertir a minúsculas
+    const term = this.searchTerm.toLowerCase();
+
+    // Crear una expresión regular para buscar coincidencias en cualquier parte del texto
+    const termRegex = new RegExp(term, 'i');
 
     this.filteredSolicitudes = this.solicitudes.filter((solicitud) => {
       const tramite = solicitud.tramite;
+      if (!tramite) return false;
 
-      // Prioridad de coincidencias
-      const matchSearchTerm = tramite
-        ? tramite.nombreProducto.toLowerCase().includes(term) || // nombreProducto
-          tramite.tipoProducto.toLowerCase().includes(term) || // tipoProducto
-          tramite.numeroRadicado?.toLowerCase().includes(term) || // numeroRadicado si existe
-          tramite.etapa.toLowerCase().includes(term) // etapa
+      const matchNumeroRadicado = tramite.numeroRadicado
+        ? termRegex.test(tramite.numeroRadicado.toLowerCase())
         : false;
 
-      const matchTipoProducto = this.selectedTipoProducto
-        ? tramite?.tipoProducto === this.selectedTipoProducto
-        : true;
-      const matchTipoTramite = this.selectedTipoTramite
-        ? tramite?.tipoTramite === this.selectedTipoTramite
-        : true;
-      const matchEstadoTramite = this.selectedEstadoTramite
-        ? tramite?.estado === this.selectedEstadoTramite
-        : true;
+      const matchNombreProducto = tramite.nombreProducto
+        ? termRegex.test(tramite.nombreProducto.toLowerCase())
+        : false;
 
-      return (
-        matchSearchTerm &&
-        matchTipoProducto &&
-        matchTipoTramite &&
-        matchEstadoTramite
-      );
+      return matchNumeroRadicado || matchNombreProducto;
     });
   }
+
 
   getNombreSolicitante(): void {
     this.nombreSolicitante = 'Nombre del solicitante quemado';
