@@ -60,7 +60,7 @@
           </ng-template>
         </ng-container>
 
-        <app-loader *ngIf="loading" [height]="60" [width]="60"></app-loader>
+        <app-loader *ngIf="loading" [height]="60" [width]="60" style="position: absolute; left: 50%; transform: translateX(-50%);"></app-loader>
 
 
 
@@ -108,5 +108,24 @@
 
       </div>
     </div>
+    <footer>
+      <div class="pagination">
+        <button class="page-button" (click)="previousPage()"><</button>
+        <p class="page-button">{{ page }}</p>
+        <button class="page-button" (click)="nextPage()">></button>
+      </div>
+      <div class="info-page">
+        <div>
+          Mostrando
+          <select id="limit" (change)="limitChange($event)">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+          resultados
+        </div>
+      </div>
+    </footer>
   </div>
 </app-solicitante-layout>

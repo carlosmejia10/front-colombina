@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { BASE_URL } from '../config/environment/urls';
 import { SolicitudDTO } from '../modelos/solicitud.dto';
 import { AuthService } from './auth.service';
-import {RequestTramiteSolicitudDTO} from "@/app/modelos/RequestTramiteSolicitudDTO";
+import { RequestTramiteSolicitudDTO } from '@/app/modelos/RequestTramiteSolicitudDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -20,28 +20,48 @@ export class SolicitudDEIService {
     });
   }
 
-  crearSolicitudConTramite(request: RequestTramiteSolicitudDTO): Observable<SolicitudDTO> {
-    console.log('Dentro de servicio' ,request);
-    return this.http.post<SolicitudDTO>(`${this.apiUrl}/crear-solicitud`, request, { headers: this.headers });
+  crearSolicitudConTramite(
+    request: RequestTramiteSolicitudDTO
+  ): Observable<SolicitudDTO> {
+    console.log('Dentro de servicio', request);
+    return this.http.post<SolicitudDTO>(
+      `${this.apiUrl}/crear-solicitud`,
+      request,
+      { headers: this.headers }
+    );
   }
 
-  findBySolicitante(): Observable<SolicitudDTO[]> {
-    return this.http.get<SolicitudDTO[]>(this.apiUrl, { headers: this.headers });
+  findBySolicitante(page?: number, limit?: number): Observable<SolicitudDTO[]> {
+    return this.http.get<SolicitudDTO[]>(this.apiUrl, {
+      headers: this.headers,
+      params: { page: page?.toString(), limit: limit?.toString() },
+    });
   }
 
-  findAll(): Observable<SolicitudDTO[]> {
-    return this.http.get<SolicitudDTO[]>(this.apiUrl+"/todos", { headers: this.headers });
+  findAll(page?: number, limit?: number): Observable<SolicitudDTO[]> {
+    return this.http.get<SolicitudDTO[]>(this.apiUrl + '/todos', {
+      headers: this.headers,
+      params: { page: page?.toString(), limit: limit?.toString() },
+    });
   }
 
   findById(id: number): Observable<SolicitudDTO> {
-    return this.http.get<SolicitudDTO>(`${this.apiUrl}/${id}`, { headers: this.headers });
+    return this.http.get<SolicitudDTO>(`${this.apiUrl}/${id}`, {
+      headers: this.headers,
+    });
   }
 
   addSolicitudDEI(solicitudDEI: SolicitudDTO): Observable<SolicitudDTO> {
-    return this.http.post<SolicitudDTO>(`${this.apiUrl}/add`, solicitudDEI, { headers: this.headers });
+    return this.http.post<SolicitudDTO>(`${this.apiUrl}/add`, solicitudDEI, {
+      headers: this.headers,
+    });
   }
 
   updateSolicitudDEI(solicitudDEI: SolicitudDTO): Observable<SolicitudDTO> {
-    return this.http.put<SolicitudDTO>(`${this.apiUrl}/${solicitudDEI.id}`, solicitudDEI, { headers: this.headers });
+    return this.http.put<SolicitudDTO>(
+      `${this.apiUrl}/${solicitudDEI.id}`,
+      solicitudDEI,
+      { headers: this.headers }
+    );
   }
 }

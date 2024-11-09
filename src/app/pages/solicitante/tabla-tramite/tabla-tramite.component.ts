@@ -15,6 +15,8 @@ export class TablaTramiteComponent implements OnInit {
   nombreSolicitante!: string;
   searchTerm: string = ''; // Término de búsqueda
   loading: boolean = true;
+  page: number = 1;
+  limit: number = 5;
 
   // Opciones y valores seleccionados para los filtros
   tipoProductoOptions: string[] = [];
@@ -37,8 +39,8 @@ export class TablaTramiteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTramites();
     this.getNombreSolicitante();
+    this.getTramites();
   }
 
   // Navegar a la página de detalles del trámite
@@ -48,7 +50,7 @@ export class TablaTramiteComponent implements OnInit {
 
   // Obtener la lista de trámites
   getTramites(): void {
-    this.solicitudService.findBySolicitante().subscribe(
+    this.solicitudService.findBySolicitante(this.page, this.limit).subscribe(
       (data: SolicitudDTO[]) => {
         this.solicitudes = data;
         this.filteredSolicitudes = data;
@@ -162,5 +164,31 @@ export class TablaTramiteComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Tramites');
     XLSX.writeFile(wb, 'lista_de_solicitudes.xlsx');
+  }
+
+  previousPage(): void {
+    if (this.page <= 1) return;
+    this.page--;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
+  }
+
+  nextPage(): void {
+    this.page++;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
+  }
+
+  limitChange(event: Event): void {
+    this.limit = event.target ? +(event.target as HTMLSelectElement).value : 5;
+    this.page = 1;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
   }
 }

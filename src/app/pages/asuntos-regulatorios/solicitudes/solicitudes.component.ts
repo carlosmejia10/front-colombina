@@ -1,9 +1,3 @@
-import { Documento } from '@/app/modelos/documento';
-import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
-import { Solicitud } from '@/app/modelos/solicitud';
-import { EstadoTramite, Tramite } from '@/app/modelos/tramite';
-import { TramiteDTO } from '@/app/modelos/tramite.dto';
-import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 import { SolicitudDEIService } from '@/app/servicios/solicitud-dei.service';
@@ -22,6 +16,8 @@ export class SolicitudesComponent {
   nombreSolicitante!: string;
   searchTerm: string = ''; // Término de búsqueda
   loading: boolean = true;
+  page: number = 1;
+  limit: number = 5;
 
   // Opciones y valores seleccionados para los filtros
   tipoProductoOptions: string[] = [];
@@ -55,7 +51,7 @@ export class SolicitudesComponent {
 
   // Obtener la lista de trámites
   getTramites(): void {
-    this.solicitudService.findAll().subscribe(
+    this.solicitudService.findAll(this.page, this.limit).subscribe(
       (data: SolicitudDTO[]) => {
         this.loading = false;
         this.solicitudes = data.map((s) => {
@@ -104,7 +100,6 @@ export class SolicitudesComponent {
       return matchNumeroRadicado || matchNombreProducto;
     });
   }
-
 
   getNombreSolicitante(): void {
     this.nombreSolicitante = 'Nombre del solicitante quemado';
@@ -190,5 +185,31 @@ export class SolicitudesComponent {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Tramites');
     XLSX.writeFile(wb, 'lista_de_solicitudes.xlsx');
+  }
+
+  previousPage(): void {
+    if (this.page <= 1) return;
+    this.page--;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
+  }
+
+  nextPage(): void {
+    this.page++;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
+  }
+
+  limitChange(event: Event): void {
+    this.limit = event.target ? +(event.target as HTMLSelectElement).value : 5;
+    this.page = 1;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
   }
 }

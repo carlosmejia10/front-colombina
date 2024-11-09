@@ -10,9 +10,7 @@
     <button class="search-icon" (click)="filterTramites()">🔍</button>
   </div>
 
-
   <div class="main-content">
-
     <div class="tablas">
       <div class="ContenedorPendientes">
         <div class="TituloTabla">
@@ -22,59 +20,125 @@
           <div class="filter-container">
             <div class="filter">
               <label for="filterTipoProducto">Tipo trámite:</label>
-              <select id="filterTipoProducto" [(ngModel)]="selectedTipoProducto" (change)="filterTramites()">
+              <select
+                id="filterTipoProducto"
+                [(ngModel)]="selectedTipoProducto"
+                (change)="filterTramites()"
+              >
                 <option value="">Todos</option>
-                <option *ngFor="let option of tipoProductoOptions" [value]="option">{{ option }}</option>
+                <option
+                  *ngFor="let option of tipoProductoOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </option>
               </select>
             </div>
 
             <div class="filter">
               <label for="filterTipoTramite">Nacionalidad:</label>
-              <select id="filterTipoTramite" [(ngModel)]="selectedTipoTramite" (change)="filterTramites()">
+              <select
+                id="filterTipoTramite"
+                [(ngModel)]="selectedTipoTramite"
+                (change)="filterTramites()"
+              >
                 <option value="">Todos</option>
-                <option *ngFor="let option of tipoTramiteOptions" [value]="option">{{ option }}</option>
+                <option
+                  *ngFor="let option of tipoTramiteOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </option>
               </select>
             </div>
 
             <div class="filter">
               <label for="filterEstadoTramite">Estado Trámite:</label>
-              <select id="filterEstadoTramite" [(ngModel)]="selectedEstadoTramite" (change)="filterTramites()">
+              <select
+                id="filterEstadoTramite"
+                [(ngModel)]="selectedEstadoTramite"
+                (change)="filterTramites()"
+              >
                 <option value="">Todos</option>
-                <option *ngFor="let option of estadoTramiteOptions" [value]="option">{{ option }}</option>
+                <option
+                  *ngFor="let option of estadoTramiteOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
 
-          <button class="exportar" (click)="exportarAExcel()">Exportar a Excel</button>
+          <button class="exportar" (click)="exportarAExcel()">
+            Exportar a Excel
+          </button>
 
-          <button href="#" (click)="toggleTabla(); $event.preventDefault()" class="Desplegar">
-            <img src="images/Desplegar.png" alt="Desplegar" class="Desplegable" />
+          <button
+            href="#"
+            (click)="toggleTabla(); $event.preventDefault()"
+            class="Desplegar"
+          >
+            <img
+              src="images/Desplegar.png"
+              alt="Desplegar"
+              class="Desplegable"
+            />
           </button>
         </div>
 
         <!-- Mostrar mensaje si no hay coincidencias -->
         <ng-container *ngIf="filteredSolicitudes.length === 0 && !loading">
-          <p class="no-results" *ngIf="isOnlyEstadoActive(); else noResultsOtherFilters">
+          <p
+            class="no-results"
+            *ngIf="isOnlyEstadoActive(); else noResultsOtherFilters"
+          >
             No hay trámites con estado "{{ selectedEstadoTramite }}".
           </p>
           <ng-template #noResultsOtherFilters>
-            <p class="no-results">No hay trámites que coincidan con esos filtros de búsqueda.</p>
+            <p class="no-results">
+              No hay trámites que coincidan con esos filtros de búsqueda.
+            </p>
           </ng-template>
         </ng-container>
 
-        <app-loader [height]="60" [width]="60" *ngIf="loading"></app-loader>
+        <app-loader
+          [height]="60"
+          [width]="60"
+          *ngIf="loading"
+          style="position: absolute; left: 50%; transform: translateX(-25%)"
+        ></app-loader>
 
         <!-- Tabla de resultados si hay coincidencias -->
         <!-- tabla-tramite.component.html -->
-        <ng-container class="pendientes" *ngIf="filteredSolicitudes.length > 0 && mostrarTabla1">
+        <ng-container
+          class="pendientes"
+          *ngIf="filteredSolicitudes.length > 0 && mostrarTabla1"
+        >
           <table>
-            <tr *ngFor="let solicitud of filteredSolicitudes" (click)="goToTramiteInfo(solicitud.tramite.id)" style="cursor: pointer;">
+            <tr
+              *ngFor="let solicitud of filteredSolicitudes"
+              (click)="goToTramiteInfo(solicitud.tramite.id)"
+              style="cursor: pointer"
+            >
               <ng-container *ngIf="solicitud.tramite?.tipoTramite">
                 <td>
-                  <i *ngIf="solicitud.tramite.estado === 'APROBADO'" class="estatus hecho"></i>
-                  <i *ngIf="solicitud.tramite.estado === 'RECHAZADO'" class="estatus rechazado"></i>
-                  <i *ngIf="solicitud.tramite.estado === 'PENDIENTE'" class="estatus pendiente"></i>
-                  <i *ngIf="solicitud.tramite.estado === 'EN_REVISION'" class="estatus pendiente"></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'APROBADO'"
+                    class="estatus hecho"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'RECHAZADO'"
+                    class="estatus rechazado"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'PENDIENTE'"
+                    class="estatus pendiente"
+                  ></i>
+                  <i
+                    *ngIf="solicitud.tramite.estado === 'EN_REVISION'"
+                    class="estatus pendiente"
+                  ></i>
                 </td>
                 <td>
                   <div class="registro">
@@ -85,22 +149,46 @@
                     <span>{{ solicitud.tramite.estado }}</span>
                   </div>
                   <div class="detalle">
-                    <div class="detalle-nombre" style="display: flex; gap: 1rem;">
-                      <span class="nombre">Solicitante: {{ solicitud.solicitante.nombre }}</span>
+                    <div
+                      class="detalle-nombre"
+                      style="display: flex; gap: 1rem"
+                    >
+                      <span class="nombre"
+                        >Solicitante: {{ solicitud.solicitante.nombre }}</span
+                      >
                       <p class="nombre">{{ solicitud.tramite.etapa }}</p>
                     </div>
                     <div class="detalle-fechas">
-                      <span class="fecha">Fecha inicio: {{ solicitud.fechaSolicitud | date: 'dd/MM/yyyy' }}</span>
-                      <span class="fecha">Fecha fin: {{ getFechaAproxFin(solicitud.fechaSolicitud) | date: 'dd/MM/yyyy' }}</span>
+                      <span class="fecha"
+                        >Fecha inicio:
+                        {{
+                          solicitud.fechaSolicitud | date : "dd/MM/yyyy"
+                        }}</span
+                      >
+                      <span class="fecha"
+                        >Fecha fin:
+                        {{
+                          getFechaAproxFin(solicitud.fechaSolicitud)
+                            | date : "dd/MM/yyyy"
+                        }}</span
+                      >
                     </div>
                   </div>
                   <div class="progreso-contenedor">
-                    <p class="progress-percent">{{ getProgresoEntero(solicitud.tramite.progreso) }}%</p>
+                    <p class="progress-percent">
+                      {{ getProgresoEntero(solicitud.tramite.progreso) }}%
+                    </p>
                     <div class="progress-bar">
                       <div
                         class="progress"
-                        [style.width.%]="getProgresoEntero(solicitud.tramite.progreso)"
-                        [ngClass]="getProgressClass(getProgresoEntero(solicitud.tramite.progreso))"
+                        [style.width.%]="
+                          getProgresoEntero(solicitud.tramite.progreso)
+                        "
+                        [ngClass]="
+                          getProgressClass(
+                            getProgresoEntero(solicitud.tramite.progreso)
+                          )
+                        "
                       ></div>
                     </div>
                   </div>
@@ -109,8 +197,27 @@
             </tr>
           </table>
         </ng-container>
-
       </div>
     </div>
+
+    <footer>
+      <div class="pagination">
+        <button class="page-button" (click)="previousPage()"><</button>
+        <p class="page-button">{{ page }}</p>
+        <button class="page-button" (click)="nextPage()">></button>
+      </div>
+      <div class="info-page">
+        <div>
+          Mostrando
+          <select id="limit" (change)="limitChange($event)">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+          resultados
+        </div>
+      </div>
+    </footer>
   </div>
 </app-ar-layout>

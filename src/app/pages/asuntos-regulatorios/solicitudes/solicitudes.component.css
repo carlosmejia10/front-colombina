@@ -4,6 +4,35 @@
 
 .main-content {
   display: flex;
+  flex-direction: column;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.page-button {
+  background-color: #a3b6e6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.info-page {
+  margin: auto 0;
+}
+
+footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
 
 /* Contenedor principal */
@@ -12,6 +41,7 @@
   margin: 0 8vw;
   background-color: #e7ebf5;
   border-radius: 10px;
+  position: relative;
 }
 
 /* Alineación de la cabecera y tabla */
@@ -26,8 +56,8 @@
 
 .tablas {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  min-height: 80vh;
 }
 .TituloTabla h2 {
   color: white;
