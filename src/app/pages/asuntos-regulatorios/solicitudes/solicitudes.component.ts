@@ -34,6 +34,10 @@ export class SolicitudesComponent {
 
   mostrarTabla1: boolean = true;
 
+  // Filtros de fechas
+  selectedFechaInicio: string | null = null; // Almacena la fecha seleccionada como string (YYYY-MM-DD)
+  selectedFechaFin: string | null = null;
+
   constructor(
     private solicitudService: SolicitudDEIService,
     private router: Router
@@ -82,22 +86,44 @@ export class SolicitudesComponent {
   filterTramites(): void {
     const term = this.searchTerm.toLowerCase();
 
-    // Crear una expresión regular para buscar coincidencias en cualquier parte del texto
-    const termRegex = new RegExp(term, 'i');
-
     this.filteredSolicitudes = this.solicitudes.filter((solicitud) => {
       const tramite = solicitud.tramite;
       if (!tramite) return false;
 
-      const matchNumeroRadicado = tramite.numeroRadicado
-        ? termRegex.test(tramite.numeroRadicado.toLowerCase())
-        : false;
+      // Filtrar por término de búsqueda
+      const matchSearchTerm = tramite.numeroRadicado?.toLowerCase().includes(term) ||
+        tramite.nombreProducto?.toLowerCase().includes(term);
 
-      const matchNombreProducto = tramite.nombreProducto
-        ? termRegex.test(tramite.nombreProducto.toLowerCase())
-        : false;
+      // Filtrar por tipo de producto
+      const matchTipoProducto = this.selectedTipoProducto
+        ? tramite.tipoProducto === this.selectedTipoProducto
+        : true;
 
-      return matchNumeroRadicado || matchNombreProducto;
+      // Filtrar por tipo de trámite
+      const matchTipoTramite = this.selectedTipoTramite
+        ? tramite.tipoTramite === this.selectedTipoTramite
+        : true;
+
+      // Filtrar por estado del trámite
+      const matchEstadoTramite = this.selectedEstadoTramite
+        ? tramite.estado === this.selectedEstadoTramite
+        : true;
+
+      // Filtrar por rango de fechas
+      const fechaInicio = this.selectedFechaInicio ? new Date(this.selectedFechaInicio) : null;
+      const fechaFin = this.selectedFechaFin ? new Date(this.selectedFechaFin) : null;
+
+      const fechaSolicitud = tramite.fechaSolicitud ? new Date(tramite.fechaSolicitud) : null;
+      const fechaAproxFin = fechaSolicitud ? this.getFechaAproxFin(fechaSolicitud) : null;
+
+      // Ajustar lógica para comparar las fechas
+      const matchFechaInicio = !fechaInicio || (fechaSolicitud && fechaSolicitud >= fechaInicio);
+      const matchFechaFin = !fechaFin || (fechaAproxFin && fechaAproxFin <= fechaFin);
+
+      const matchFecha = matchFechaInicio && matchFechaFin;
+
+      // Combinar todos los filtros
+      return matchSearchTerm && matchTipoProducto && matchTipoTramite && matchEstadoTramite && matchFecha;
     });
   }
 
