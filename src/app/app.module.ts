@@ -60,6 +60,7 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
 import { EstadisticaComponent } from './pages/shared/estadisticas/estadisticas.component';
 import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
+import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadistic
     CuadroControlComponent,
     LoaderComponent,
     EstadisticaComponent,
+    SeguimientoTramiteComponent,
     EstadisticasAdminComponent,
     EstadisticasArComponent,
   ],
