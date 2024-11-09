@@ -26,7 +26,7 @@ export class LoginComponent {
         this.loading = false;
         if (data === 'SOLICITANTE')
           return this.router.navigate(['/tabla-tramite']);
-        if (data === 'ADMIN') return this.router.navigate(['/estadisticas']);
+        if (data === 'ADMIN') return this.router.navigate(['/admin/estadisticas']);
         if (data === 'ASUNTOSREG')
           return this.router.navigate(['/solicitudes']);
       },

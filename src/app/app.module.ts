@@ -16,7 +16,6 @@ import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.comp
 import { CalendarioComponent } from './pages/asuntos-regulatorios/calendario/calendario.component';
 import { ConfirmacionComponent } from './pages/solicitante/confirmacion/confirmacion.component';
 import { CrearTramiteComponent } from './pages/solicitante/crear-tramite/crear-tramite.component';
-import { EstadisticasComponent } from './pages/admin/estadisticas/estadisticas.component';
 import { HistorialComponent } from './pages/solicitante/historial/historial.component';
 import { InfoTramiteComponent } from './pages/solicitante/info-tramite/info-tramite.component';
 import { LoginComponent } from './pages/shared/login/login.component';
@@ -53,13 +52,14 @@ import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 import { FileSizeComponent } from './pages/solicitante/file-size/file-size.component';
 
 //PARA PRUEBAS DE ESTADISTICA
-import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
 import { InfoControlComponent } from '@/app/pages/asuntos-regulatorios/info-control/info-control.component';
 import { CuadroControlComponent } from '@/app/pages/admin/cuadro-control/cuadro-control.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
-import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
+import { EstadisticaComponent } from './pages/shared/estadisticas/estadisticas.component';
+import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
+import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,6 @@ import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguim
     CalendarioComponent,
     ConfirmacionComponent,
     CrearTramiteComponent,
-    EstadisticasComponent,
     HistorialComponent,
     InfoTramiteComponent,
     LoginComponent,
@@ -85,7 +84,6 @@ import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguim
     SolicitudesComponent,
     LateralArComponent,
     PerfilComponent,
-    EstadisticaComponent, //ELIMINAR AL TERMINAR PRUEBAS ESTADISTICA
     LayoutComponent,
     SolicitanteLayoutComponent,
     SolicitanteSidebarComponent,
@@ -103,7 +101,9 @@ import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguim
     InfoControlComponent,
     CuadroControlComponent,
     LoaderComponent,
-    SeguimientoTramiteComponent
+    EstadisticaComponent,
+    EstadisticasAdminComponent,
+    EstadisticasArComponent,
   ],
   imports: [
     RouterModule,

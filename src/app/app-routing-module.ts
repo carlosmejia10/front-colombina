@@ -19,7 +19,6 @@ import { roleGuard } from './guards/role.guard';
 import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
 import { Role } from './modelos/role';
 import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
-import { EstadisticaComponent } from './pages/admin/estadistica/estadistica.component';
 import { RevisionDocumentacionComponent } from './pages/asuntos-regulatorios/revision-documentacion/revision-documentacion.component';
 import { DocumentoEscogidoComponent } from './pages/asuntos-regulatorios/documento-escogido/documento-escogido.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
@@ -50,6 +49,8 @@ import {
 } from "@/app/pages/asuntos-regulatorios/revision-preliminar/revision-preliminar.component";
 import { NotificationDetailComponent } from './pages/shared/notifications/notification-detail/notification-detail.component';
 import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-control.component";
+import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
+import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 
 
 const routes: Routes = [
@@ -154,10 +155,16 @@ const routes: Routes = [
     data: { roles: [Role.AsuntosRegulatorios] },
   },
   {
-    path: 'estadisticas',
-    component: EstadisticaComponent,
+    path: 'admin/estadisticas',
+    component: EstadisticasAdminComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: [Role.Admin] },
+  },
+  {
+    path: 'ar/estadisticas',
+    component: EstadisticasArComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios] },
   },
   {
     path: 'documentos/:id',

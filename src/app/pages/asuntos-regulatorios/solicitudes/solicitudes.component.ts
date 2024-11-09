@@ -1,9 +1,3 @@
-import { Documento } from '@/app/modelos/documento';
-import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
-import { Solicitud } from '@/app/modelos/solicitud';
-import { EstadoTramite, Tramite } from '@/app/modelos/tramite';
-import { TramiteDTO } from '@/app/modelos/tramite.dto';
-import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 import { SolicitudDEIService } from '@/app/servicios/solicitud-dei.service';
@@ -22,6 +16,8 @@ export class SolicitudesComponent {
   nombreSolicitante!: string;
   searchTerm: string = ''; // Término de búsqueda
   loading: boolean = true;
+  page: number = 1;
+  limit: number = 5;
 
   // Opciones y valores seleccionados para los filtros
   tipoProductoOptions: string[] = [];
@@ -37,6 +33,10 @@ export class SolicitudesComponent {
   selectedEstadoTramite: string = '';
 
   mostrarTabla1: boolean = true;
+
+  // Filtros de fechas
+  selectedFechaInicio: string | null = null; // Almacena la fecha seleccionada como string (YYYY-MM-DD)
+  selectedFechaFin: string | null = null;
 
   constructor(
     private solicitudService: SolicitudDEIService,
@@ -55,7 +55,7 @@ export class SolicitudesComponent {
 
   // Obtener la lista de trámites
   getTramites(): void {
-    this.solicitudService.findAll().subscribe(
+    this.solicitudService.findAll(this.page, this.limit).subscribe(
       (data: SolicitudDTO[]) => {
         this.loading = false;
         this.solicitudes = data.map((s) => {
@@ -84,35 +84,46 @@ export class SolicitudesComponent {
 
   // Filtrar la lista de trámites según filtros y término de búsqueda
   filterTramites(): void {
-    const term = this.searchTerm.toLowerCase(); // Convertir a minúsculas
+    const term = this.searchTerm.toLowerCase();
 
     this.filteredSolicitudes = this.solicitudes.filter((solicitud) => {
       const tramite = solicitud.tramite;
+      if (!tramite) return false;
 
-      // Prioridad de coincidencias
-      const matchSearchTerm = tramite
-        ? tramite.nombreProducto.toLowerCase().includes(term) || // nombreProducto
-          tramite.tipoProducto.toLowerCase().includes(term) || // tipoProducto
-          tramite.numeroRadicado?.toLowerCase().includes(term) || // numeroRadicado si existe
-          tramite.etapa.toLowerCase().includes(term) // etapa
-        : false;
+      // Filtrar por término de búsqueda
+      const matchSearchTerm = tramite.numeroRadicado?.toLowerCase().includes(term) ||
+        tramite.nombreProducto?.toLowerCase().includes(term);
 
+      // Filtrar por tipo de producto
       const matchTipoProducto = this.selectedTipoProducto
-        ? tramite?.tipoProducto === this.selectedTipoProducto
-        : true;
-      const matchTipoTramite = this.selectedTipoTramite
-        ? tramite?.tipoTramite === this.selectedTipoTramite
-        : true;
-      const matchEstadoTramite = this.selectedEstadoTramite
-        ? tramite?.estado === this.selectedEstadoTramite
+        ? tramite.tipoProducto === this.selectedTipoProducto
         : true;
 
-      return (
-        matchSearchTerm &&
-        matchTipoProducto &&
-        matchTipoTramite &&
-        matchEstadoTramite
-      );
+      // Filtrar por tipo de trámite
+      const matchTipoTramite = this.selectedTipoTramite
+        ? tramite.tipoTramite === this.selectedTipoTramite
+        : true;
+
+      // Filtrar por estado del trámite
+      const matchEstadoTramite = this.selectedEstadoTramite
+        ? tramite.estado === this.selectedEstadoTramite
+        : true;
+
+      // Filtrar por rango de fechas
+      const fechaInicio = this.selectedFechaInicio ? new Date(this.selectedFechaInicio) : null;
+      const fechaFin = this.selectedFechaFin ? new Date(this.selectedFechaFin) : null;
+
+      const fechaSolicitud = tramite.fechaSolicitud ? new Date(tramite.fechaSolicitud) : null;
+      const fechaAproxFin = fechaSolicitud ? this.getFechaAproxFin(fechaSolicitud) : null;
+
+      // Ajustar lógica para comparar las fechas
+      const matchFechaInicio = !fechaInicio || (fechaSolicitud && fechaSolicitud >= fechaInicio);
+      const matchFechaFin = !fechaFin || (fechaAproxFin && fechaAproxFin <= fechaFin);
+
+      const matchFecha = matchFechaInicio && matchFechaFin;
+
+      // Combinar todos los filtros
+      return matchSearchTerm && matchTipoProducto && matchTipoTramite && matchEstadoTramite && matchFecha;
     });
   }
 
@@ -200,5 +211,31 @@ export class SolicitudesComponent {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Tramites');
     XLSX.writeFile(wb, 'lista_de_solicitudes.xlsx');
+  }
+
+  previousPage(): void {
+    if (this.page <= 1) return;
+    this.page--;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
+  }
+
+  nextPage(): void {
+    this.page++;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
+  }
+
+  limitChange(event: Event): void {
+    this.limit = event.target ? +(event.target as HTMLSelectElement).value : 5;
+    this.page = 1;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
   }
 }
