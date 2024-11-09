@@ -59,6 +59,7 @@ import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solici
 import { InfoControlComponent } from '@/app/pages/asuntos-regulatorios/info-control/info-control.component';
 import { CuadroControlComponent } from '@/app/pages/admin/cuadro-control/cuadro-control.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
+import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
     InfoControlComponent,
     CuadroControlComponent,
     LoaderComponent,
+    SeguimientoTramiteComponent
   ],
   imports: [
     RouterModule,
