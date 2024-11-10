@@ -15,7 +15,6 @@ export class ArHeaderComponent {
   ){}
 
   logout() {
-    console.log('Logout');
     this.authService.logout();
     this.router.navigate(['/login']);
   }

@@ -43,7 +43,6 @@ export class AprobacionResolucionSolicitanteComponent {
     this.notificacion.mensaje = `Rechazada la observación del trámite: ${this.tramite.numeroRadicado}`;
     this.notificacion.fecha = new Date();
     alert(this.notificacion.mensaje);
-    console.log(this.notificacion.mensaje);
     this.router.navigate(['/aprobacion-resolucion-rechazada', this.tramite.numeroRadicado]);
 
   }

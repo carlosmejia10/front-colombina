@@ -32,16 +32,12 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
     this.nombreDocumento = this.route.snapshot.paramMap.get('id');
     this.documentId = Number(this.route.snapshot.paramMap.get('idDocumento'));
     this.tramiteId = Number(this.route.snapshot.paramMap.get('numeroRadicado'));
-    console.log('ID del documento:', this.documentId);
-    console.log('Nombre del documento:', this.nombreDocumento);
     this.documentoService.descargarArchivo(this.nombreDocumento, this.tramiteId as number).subscribe((file) => {
       this.fileBlob = file; // Guarda el archivo en Blob para poder descargarlo
       this.createFileUrl(file);
     })
     this.documentoService.findById(this.tramiteId, this.nombreDocumento).subscribe((data) => {
-      console.log('Documento encontrado:', data);
       this.infoDoc = data;
-      console.log('Informacion del documento:', this.infoDoc);
     })
   }
 
@@ -59,7 +55,6 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   }
 
   aprobarORechazar(aprobado: boolean) {
-    console.log('Entra:');
     const estado = aprobado ? 'aprobado' : 'rechazado';
 
     if (aprobado) {

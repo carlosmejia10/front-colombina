@@ -28,8 +28,6 @@ export class ArSidebarComponent {
 
   getDatos(): void {
     this.nomUsuario = localStorage.getItem('username');
-    console.log(this.nomUsuario);
-    console.log("ENTRA A GETDATA");
     this.usuarioService.findByUsername(this.nomUsuario).subscribe(
       (data: Usuario) => {
         this.usuarioDTO = data;

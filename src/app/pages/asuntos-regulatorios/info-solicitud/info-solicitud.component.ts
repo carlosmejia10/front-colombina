@@ -45,7 +45,6 @@ export class InfoSolicitudComponent {
     this.tramiteService.findById(id).subscribe((data: TramiteDTO) => {
       this.tramite = data;
       this.getEntidadSanitariaDetails(data.entidadSanitariaId); // Llama a la función para cargar la entidad
-      console.log(data);
     });
   }
 
@@ -90,9 +89,8 @@ export class InfoSolicitudComponent {
         this.router.navigate(['/documentos', this.tramite.id]);
         break;
       case 'A5':
-        this.router.navigate(['/info-control', this.tramite.id]);
-        break;
       case 'B5':
+        this.router.navigate(['/info-control', this.tramite.id]);
         break;
       case 'A7':
       case 'B7':

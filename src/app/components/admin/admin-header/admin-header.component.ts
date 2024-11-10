@@ -14,7 +14,6 @@ export class AdminHeaderComponent {
   ){}
 
   logout() {
-    console.log('Logout');
     this.authService.logout();
     this.router.navigate(['/login']);
   }

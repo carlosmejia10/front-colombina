@@ -97,7 +97,6 @@ export class EstadisticaComponent {
   obtenerTotales() {
     this.estadisticasService.getTotales().subscribe(
       (data) => {
-        console.log('Totales recibidos:', data); // Verifica los datos recibidos
         this.totales = data;
       },
       (error) => {
@@ -202,7 +201,6 @@ export class EstadisticaComponent {
     //***************************************************************************** OK*/
     this.estadisticasService.getChartData('Trámites Activos', 'Productos').subscribe(data => {
       data.labels = data.labels.map(this.setTipo)
-      console.log('Datos recibidos:', data); // Verifica el contenido de los datos
       if (data.labels.length > 1 && data.values.length > 1) { // Verifica que haya más de un dato
         this.tramitesActivosData = {
           labels: data.labels,
@@ -337,7 +335,6 @@ export class EstadisticaComponent {
 
     this.estadisticasService.getChartData('Tasa de rechazos', 'Productos').subscribe(data => {
       data.labels = data.labels.map(this.setTipo)
-      console.log('Datos recibidos:', data); // Verifica el contenido de los datos
       if (data.labels.length > 1 && data.values.length > 1) { // Verifica que haya más de un dato
         this.tasaRechazosData = {
           labels: data.labels,

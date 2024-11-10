@@ -31,7 +31,6 @@ export class RevisionDocumentacionComponent implements OnInit {
       this.getDocumentos(this.idTramite).subscribe(
         (data) => {
           this.documentos = data;
-          console.log('Documentos cargados:', this.documentos);
           this.documentoService.inicializarEstados(this.documentos);
           this.documentos.forEach((doc) => {
             this.estadosDocumentos[doc.id] = this.documentoService.obtenerEstadoRevision(doc.id);
