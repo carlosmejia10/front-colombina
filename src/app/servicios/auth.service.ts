@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { BASE_URL } from '@/app/config/environment/urls';
@@ -13,7 +13,7 @@ export class AuthService {
   role: Role | null = null;
   username: string | null = null;
 
-  private baseUrl = `${BASE_URL}/autenticacion`
+  private baseUrl = `${BASE_URL}/autenticacion`;
 
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('auth_token');
@@ -21,8 +21,13 @@ export class AuthService {
     this.username = localStorage.getItem('username');
   }
 
-  public isAuthenticated(): boolean {
-    return this.token !== null;
+  public async isAuthenticated(): Promise<boolean> {
+    try {
+      await this.refresh().toPromise();
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   public login(username: string, password: string): Observable<string> {
@@ -40,7 +45,7 @@ export class AuthService {
           localStorage.setItem('username', username);
         }),
         map((data) => {
-          return data.role
+          return data.role;
         })
       );
   }
@@ -54,5 +59,24 @@ export class AuthService {
 
   public getToken(): string {
     return this.token!;
+  }
+
+  public refresh(): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http
+      .post<Auth>(`${this.baseUrl}/refresh`, {}, {
+        headers,
+      })
+      .pipe(
+        tap((data) => {
+          this.token = data.accessToken;
+          localStorage.setItem('auth_token', this.token);
+        }),
+        map((data) => {
+          return data.accessToken;
+        })
+      );
   }
 }
