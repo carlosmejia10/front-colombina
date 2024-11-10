@@ -13,6 +13,7 @@ import { EntidadSanitariaService } from '@/app/servicios/entidad-sanitaria.servi
 export class InfoControlComponent implements OnInit {
   tramite!: TramiteDTO; // Trámite seleccionado
   entidadSanitaria?: EntidadSanitaria; // Información de la entidad sanitaria
+  fechaTerminacion!: string; // Nueva variable para la fecha de terminación calculada
 
   constructor(
     private router: Router,
@@ -33,6 +34,14 @@ export class InfoControlComponent implements OnInit {
     this.tramiteService.findById(id).subscribe(
       (data: TramiteDTO) => {
         this.tramite = data;
+
+        // Calcular la fecha de terminación sumando un mes a la fecha de solicitud
+        if (this.tramite.fechaSolicitud) {
+          const fechaSolicitud = new Date(this.tramite.fechaSolicitud);
+          fechaSolicitud.setMonth(fechaSolicitud.getMonth() + 1);
+          this.fechaTerminacion = fechaSolicitud.toISOString().split('T')[0]; // Formato 'yyyy-MM-dd'
+        }
+
         // Llamar a la función para cargar entidad sanitaria por ID
         if (this.tramite.entidadSanitariaId) {
           this.loadEntidadSanitaria(this.tramite.entidadSanitariaId);
