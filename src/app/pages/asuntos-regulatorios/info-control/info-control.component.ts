@@ -98,7 +98,7 @@ export class InfoControlComponent implements OnInit {
       )
       .subscribe(() => {
         alert('Formulario enviado correctamente.');
-        this.router.navigate(['/documentos']);
+        this.router.navigate(['/seguimiento-tramite', +this.route.snapshot.paramMap.get('id')]);
       });
   }
 }

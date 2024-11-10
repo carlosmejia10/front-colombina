@@ -76,6 +76,10 @@ export class InfoSolicitudComponent {
       case 'B5':
         this.router.navigate(['/info-control', this.solicitud.tramite.id]);
         break;
+      case 'A6':
+      case 'B6':
+        this.router.navigate(['/seguimiento-tramite', this.solicitud.tramite.id]);
+        break;
       case 'A7':
       case 'B7':
         this.router.navigate(['/finalizacion', this.solicitud.tramite.id]);
