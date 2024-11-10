@@ -4,7 +4,7 @@
     </head>
     <form class="form-tramite" (submit)="submit()">
         <div class="header">
-            <p>Formulario apertura de tramite</p>
+            <p>Formulario apwertura de tramite</p>
         </div>
         <div class="form-row">
             <div class="form-group">
@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" disabled [value]="tramite.numeroRadicado">
+                <input type="text" class="input-text" disabled [value]="solicitud.tramite.numeroRadicado">
             </div>  
         </div>
         <div class="form-row">
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" disabled [value]="tramite.nombreProducto">
+                <input type="text" class="input-text" disabled [value]="solicitud.tramite.nombreProducto">
             </div>  
         </div>
         <div class="form-row">
@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="pt" [(ngModel)]="tramite.pt">
+                <input type="text" class="input-text" name="pt" [(ngModel)]="solicitud.tramite.pt">
             </div>
         </div>
         <div class="form-row">
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="unidadNegocio" [(ngModel)]="tramite.unidadNegocio">
+                <input type="text" class="input-text" name="unidadNegocio" [(ngModel)]="solicitud.tramite.unidadNegocio">
             </div>
         </div>
         <div class="form-row">
@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="numProyectoSap" [(ngModel)]="tramite.numProyectoSap">
+                <input type="text" class="input-text" name="numProyectoSap" [(ngModel)]="solicitud.tramite.numProyectoSap">
             </div>
         </div>
         <div class="form-row">
@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="proyecto" [(ngModel)]="tramite.proyecto">
+                <input type="text" class="input-text" name="proyecto" [(ngModel)]="solicitud.tramite.proyecto">
             </div>
         </div>
         <div class="form-row">
@@ -70,7 +70,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="tipoModificacion" [(ngModel)]="tramite.tipoModificacion">
+                <input type="text" class="input-text" name="tipoModificacion" [(ngModel)]="solicitud.tramite.tipoModificacion">
             </div>
         </div>        
         <div class="form-row">
@@ -80,7 +80,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="descripcionTramite"  disabled [value]="tramite.descripcionProducto">
+                <input type="text" class="input-text" name="descripcionTramite"  disabled [value]="solicitud.tramite.descripcionProducto">
             </div>
         </div>
         <div class="form-row">
@@ -90,7 +90,7 @@
             </div>
             <div class="form-group">
                 <p class="label">Datos:</p>
-                <input type="text" class="input-text" name="claseTramite" disabled [value]="tramite.tipoProducto">
+                <input type="text" class="input-text" name="claseTramite" disabled [value]="solicitud.tramite.tipoProducto">
             </div>
         </div>
         <button style="width: 25%; margin: auto;">Siguiente</button>

@@ -7,53 +7,53 @@
         <div class="info-box">
           <!-- Información del Trámite -->
           <strong>ID Trámite:</strong>
-          <p>{{ tramite.id }}</p>
+          <p>{{ solicitud.tramite.id }}</p>
           <strong>Numero Radicado:</strong>
-          <p>{{ tramite.numeroRadicado }}</p>
+          <p>{{ solicitud.tramite.numeroRadicado }}</p>
           <strong>Estado:</strong>
-          <p>{{ tramite.estado }}</p>
+          <p>{{ solicitud.tramite.estado }}</p>
           <strong>Fecha Radicación:</strong>
-          <p>{{ tramite.fechaRadicacion | date }}</p>
+          <p>{{ solicitud.tramite.fechaRadicacion | date }}</p>
           <strong>Tipo de Trámite:</strong>
-          <p>{{ tramite.tipoTramite }}</p>
+          <p>{{ solicitud.tramite.tipoTramite }}</p>
         </div>
 
         <div class="info-box">
           <!-- Información de la Entidad Sanitaria -->
           <strong>ID Entidad Sanitaria:</strong>
-          <p>{{ entidadSanitaria?.id }}</p>
+          <p>{{ solicitud.tramite.entidadSanitaria?.id }}</p>
           <strong>Nombre de Entidad Sanitaria:</strong>
-          <p>{{ entidadSanitaria?.nombre }}</p>
+          <p>{{ solicitud.tramite.entidadSanitaria?.nombre }}</p>
           <strong>País:</strong>
-          <p>{{ entidadSanitaria?.pais }}</p>
+          <p>{{ solicitud.tramite.entidadSanitaria?.pais }}</p>
         </div>
 
         <div class="info-box">
           <!-- Información de la Solicitud -->
           <strong>Descripción del Producto:</strong>
-          <p>{{ tramite.descripcionProducto }}</p>
+          <p>{{ solicitud.tramite.descripcionProducto }}</p>
           <strong>Tipo de Producto:</strong>
-          <p>{{ tramite.tipoProducto }}</p>
+          <p>{{ solicitud.tramite.tipoProducto }}</p>
           <strong>Fecha de Solicitud:</strong>
-          <p>{{ tramite.fechaRadicacion | date }}</p>
+          <p>{{ solicitud.tramite.fechaRadicacion | date }}</p>
         </div>
       </div>
 
-      @if (tramite.etapa[1] !== "1" && tramite.etapa[1] !== "6" &&
-      tramite.etapa[1] !== "8") {
+      @if (solicitud.tramite.etapa[1] !== "1" && solicitud.tramite.etapa[1] !== "6" &&
+      solicitud.tramite.etapa[1] !== "8") {
         <h2>Continuar diligenciado trámite</h2>
         <button
           class="btn-primary"
           style="margin-top: 1rem"
           (click)="continuar()"
         >
-          {{ cambiarEtapa(tramite.etapa) }}
+          {{ cambiarEtapa(solicitud.tramite.etapa) }}
         </button>
       } @else {
-        <h2>En espera de resolución etapa {{ tramite.etapa }}</h2>
+        <h2>En espera de resolución etapa {{ solicitud.tramite.etapa }}</h2>
       }
 
-      <ng-container *ngIf="tramite.estado === 'RECHAZADO' && mostrarBoton">
+      <ng-container *ngIf="solicitud.tramite.estado === 'RECHAZADO' && mostrarBoton">
         <button (click)="escalarTramite()" class="btn-primary">Escalar</button>
       </ng-container>
     </div>

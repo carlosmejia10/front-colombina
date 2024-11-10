@@ -10,11 +10,11 @@
     <div class="form-row">
       <div class="form-group">
         <p class="label">Fecha Solicitud</p>
-        <input type="date" class="input-text" [value]="tramite?.fechaSolicitud | date: 'yyyy-MM-dd'" disabled />
+        <input type="date" class="input-text" [value]="solicitud.fechaSolicitud | date: 'yyyy-MM-dd'" disabled />
       </div>
       <div class="form-group">
         <p class="label">País</p>
-        <input type="text" class="input-text" [value]="entidadSanitaria?.pais" disabled />
+        <input type="text" class="input-text" [value]="solicitud.tramite.entidadSanitaria?.pais" disabled />
       </div>
     </div>
 
@@ -32,7 +32,7 @@
     <div class="form-row">
       <div class="form-group">
         <p class="label">País</p>
-        <input type="text" class="input-text" [value]="entidadSanitaria?.pais" disabled />
+        <input type="text" class="input-text" [value]="solicitud.tramite.entidadSanitaria?.pais" disabled />
       </div>
       <div class="form-group">
         <p class="label">Registro Sanitario (RSA)</p>
@@ -67,7 +67,7 @@
         <p class="label">
           Fecha Radicado
           {{
-          tramite.tipoTramite === "NACIONAL" ? "INVIMA" : "Entidad Sanitaria"
+            solicitud.tramite.tipoTramite === "NACIONAL" ? "INVIMA" : "Entidad Sanitaria"
           }}
         </p>
         <input type="date" class="input-text" />
@@ -94,7 +94,7 @@
         <p class="label">
           ¿OK satisfactorio
           {{
-          tramite.tipoTramite === "NACIONAL" ? "INVIMA" : "Entidad Sanitaria"
+            solicitud.tramite.tipoTramite === "NACIONAL" ? "INVIMA" : "Entidad Sanitaria"
           }}?
         </p>
         <input type="checkbox" />
@@ -112,7 +112,7 @@
       </div>
       <div class="form-group">
         <p class="label">Solicitado por</p>
-        <input type="text" class="input-text" />
+        <input type="text" class="input-text" [value]="solicitud.solicitante.nombre" disabled />
       </div>
     </div>
 

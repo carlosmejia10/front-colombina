@@ -1,4 +1,5 @@
 import { InfoAperturaTramite } from '@/app/modelos/info-apertura-tramite.dto';
+import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 import { TramiteDTO } from '@/app/modelos/tramite.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component } from '@angular/core';
@@ -17,26 +18,26 @@ export class AperturaTramiteComponent {
   ) {}
 
   private numeroRadicado: string;
-  tramite: TramiteDTO;
+  solicitud: SolicitudDTO;
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.numeroRadicado = params['numeroRadicado'];
       this.tramiteService
         .findById(parseInt(this.numeroRadicado))
-        .subscribe((tramite) => {
-          this.tramite = tramite;
+        .subscribe((solicitud) => {
+          this.solicitud = solicitud;
         });
     });
   }
 
   submit() {
     if (
-      !this.tramite.pt ||
-      !this.tramite.unidadNegocio ||
-      !this.tramite.numProyectoSap ||
-      !this.tramite.proyecto ||
-      !this.tramite.tipoModificacion
+      !this.solicitud.tramite.pt ||
+      !this.solicitud.tramite.unidadNegocio ||
+      !this.solicitud.tramite.numProyectoSap ||
+      !this.solicitud.tramite.proyecto ||
+      !this.solicitud.tramite.tipoModificacion
     ) {
       alert('Todos los campos son obligatorios');
       return;
@@ -46,11 +47,11 @@ export class AperturaTramiteComponent {
       .addInfoAperturaTramite(
         parseInt(this.numeroRadicado),
         new InfoAperturaTramite(
-          this.tramite.pt,
-          this.tramite.unidadNegocio,
-          this.tramite.numProyectoSap,
-          this.tramite.proyecto,
-          this.tramite.tipoModificacion
+          this.solicitud.tramite.pt,
+          this.solicitud.tramite.unidadNegocio,
+          this.solicitud.tramite.numProyectoSap,
+          this.solicitud.tramite.proyecto,
+          this.solicitud.tramite.tipoModificacion
         )
       ).subscribe(() => {
         this.router.navigate(['/documentos', this.numeroRadicado]);

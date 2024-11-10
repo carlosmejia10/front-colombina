@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { BASE_URL } from '../config/environment/urls';
 import { InfoAperturaTramite } from '../modelos/info-apertura-tramite.dto';
+import { SolicitudDTO } from '../modelos/solicitud.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +27,8 @@ export class TramiteService {
     });
   }
 
-  findById(id: number): Observable<TramiteDTO> {
-    return this.http.get<TramiteDTO>(`${BASE_URL}/tramites/${id}`, {
+  findById(id: number): Observable<SolicitudDTO> {
+    return this.http.get<SolicitudDTO>(`${BASE_URL}/solicitudes/tramite/${id}`, {
       headers: this.getHeaders(),
     });
   }
