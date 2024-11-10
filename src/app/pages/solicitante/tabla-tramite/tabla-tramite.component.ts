@@ -19,8 +19,15 @@ export class TablaTramiteComponent implements OnInit {
   limit: number = 5;
 
   // Opciones y valores seleccionados para los filtros
-  tipoProductoOptions: string[] = [];
-  tipoTramiteOptions: string[] = [];
+  tipoProductoOptions: string[] = [
+    'NUEVO REGISTRO',
+    'MODIFICACION',
+    'RENOVACION',
+  ];
+  tipoTramiteOptions: string[] = [
+    'NACIONAL',
+    'INTERNACIONAL',
+  ];
   estadoTramiteOptions: string[] = ['EN_REVISION', 'APROBADO', 'RECHAZADO', 'PENDIENTE'];
   selectedTipoProducto: string = '';
   selectedTipoTramite: string = '';
@@ -49,11 +56,26 @@ export class TablaTramiteComponent implements OnInit {
 
   // Obtener la lista de trámites
   getTramites(): void {
-    this.solicitudService.findBySolicitante(this.page, this.limit).subscribe(
+    const filters = {
+      filtro: this.searchTerm,
+      tipo: this.selectedTipoProducto,
+      nacionalidad: this.selectedTipoTramite,
+      estado: this.selectedEstadoTramite,
+      fechaInicio: this.selectedFechaInicio,
+      fechaFin: this.selectedFechaFin,
+    }
+
+    if (!this.searchTerm) delete filters.filtro;
+    if (!this.selectedTipoProducto) delete filters.tipo;
+    if (!this.selectedTipoTramite) delete filters.nacionalidad;
+    if (!this.selectedEstadoTramite) delete filters.estado;
+    if (!this.selectedFechaInicio) delete filters.fechaInicio;
+    if (!this.selectedFechaFin) delete filters.fechaFin;
+
+    this.solicitudService.findBySolicitanteAndFilters(filters, this.page, this.limit).subscribe(
       (data: SolicitudDTO[]) => {
         this.solicitudes = data;
         this.filteredSolicitudes = data;
-        this.setFilterOptions();
         this.loading = false;
       },
       (error) => {
@@ -62,55 +84,13 @@ export class TablaTramiteComponent implements OnInit {
     );
   }
 
-  // Establece las opciones únicas para los filtros de tipo producto y tipo trámite
-  setFilterOptions(): void {
-    this.tipoProductoOptions = [...new Set(this.solicitudes.map((s) => s.tramite.tipoProducto))];
-    this.tipoTramiteOptions = [...new Set(this.solicitudes.map((s) => s.tramite.tipoTramite))];
-  }
-
   // Filtrar la lista de trámites según filtros y término de búsqueda
   filterTramites(): void {
-    const term = this.searchTerm.toLowerCase();
-
-    this.filteredSolicitudes = this.solicitudes.filter((solicitud) => {
-      const tramite = solicitud.tramite;
-      if (!tramite) return false;
-
-      // Filtrar por término de búsqueda
-      const matchSearchTerm = tramite.numeroRadicado?.toLowerCase().includes(term) ||
-        tramite.nombreProducto?.toLowerCase().includes(term);
-
-      // Filtrar por tipo de producto
-      const matchTipoProducto = this.selectedTipoProducto
-        ? tramite.tipoProducto === this.selectedTipoProducto
-        : true;
-
-      // Filtrar por tipo de trámite
-      const matchTipoTramite = this.selectedTipoTramite
-        ? tramite.tipoTramite === this.selectedTipoTramite
-        : true;
-
-      // Filtrar por estado del trámite
-      const matchEstadoTramite = this.selectedEstadoTramite
-        ? tramite.estado === this.selectedEstadoTramite
-        : true;
-
-      // Filtrar por rango de fechas
-      const fechaInicio = this.selectedFechaInicio ? new Date(this.selectedFechaInicio) : null;
-      const fechaFin = this.selectedFechaFin ? new Date(this.selectedFechaFin) : null;
-
-      const fechaSolicitud = tramite.fechaSolicitud ? new Date(tramite.fechaSolicitud) : null;
-      const fechaAproxFin = fechaSolicitud ? this.getFechaAproxFin(fechaSolicitud) : null;
-
-      // Ajustar lógica para comparar las fechas
-      const matchFechaInicio = !fechaInicio || (fechaSolicitud && fechaSolicitud >= fechaInicio);
-      const matchFechaFin = !fechaFin || (fechaAproxFin && fechaAproxFin <= fechaFin);
-
-      const matchFecha = matchFechaInicio && matchFechaFin;
-
-      // Combinar todos los filtros
-      return matchSearchTerm && matchTipoProducto && matchTipoTramite && matchEstadoTramite && matchFecha;
-    });
+    this.page = 1;
+    this.solicitudes = [];
+    this.filteredSolicitudes = [];
+    this.loading = true;
+    this.getTramites();
   }
 
   // Obtener el nombre del solicitante
