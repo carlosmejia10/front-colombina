@@ -14,33 +14,29 @@
     <div class="tablas">
       <div class="ContenedorPendientes">
         <div class="TituloTabla">
-          <h2>Trámites</h2>
-
           <!-- Contenedor de filtros -->
-          <!-- Filtro de Fecha Inicio -->
-          <div class="filter">
-            <label for="filterFechaInicio">Fecha Inicio:</label>
-            <input
-              type="date"
-              id="filterFechaInicio"
-              [(ngModel)]="selectedFechaInicio"
-              (change)="filterTramites()"
-            />
-          </div>
-
-          <!-- Filtro de Fecha Fin -->
-          <div class="filter">
-            <label for="filterFechaFin">Fecha Fin:</label>
-            <input
-              type="date"
-              id="filterFechaFin"
-              [(ngModel)]="selectedFechaFin"
-              (change)="filterTramites()"
-            />
-          </div>
-
-
           <div class="filter-container">
+            <!-- Filtro de Fecha Inicio -->
+            <div class="filter">
+              <label for="filterFechaInicio">Fecha Inicio:</label>
+              <input
+                type="date"
+                id="filterFechaInicio"
+                [(ngModel)]="selectedFechaInicio"
+                (change)="filterTramites()"
+              />
+            </div>
+  
+            <!-- Filtro de Fecha Fin -->
+            <div class="filter">
+              <label for="filterFechaFin">Fecha Fin:</label>
+              <input
+                type="date"
+                id="filterFechaFin"
+                [(ngModel)]="selectedFechaFin"
+                (change)="filterTramites()"
+              />
+            </div>
             <div class="filter">
               <label for="filterTipoProducto">Tipo trámite:</label>
               <select

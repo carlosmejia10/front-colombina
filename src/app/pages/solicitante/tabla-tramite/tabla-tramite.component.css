@@ -124,8 +124,8 @@ table td {
   font-size: 12px;
 }
 .Desplegar {
-  position: absolute;
-  right: 8px;
+  display: flex;
+  align-items: center;
 }
 .Desplegable {
   width: 25px;
@@ -356,7 +356,6 @@ img {
 .filter-container {
   display: flex;
   gap: 1rem;
-  margin-left: auto;
 }
 
 .filter {
