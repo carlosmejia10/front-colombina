@@ -27,14 +27,20 @@ export class DocumentoService {
     return this.estadoRevisiones$.asObservable();
   }
 
-  // Método para inicializar los estados solo si no han sido asignados
+  // Método para inicializar los estados basado en el valor de `aprobado` del backend
   inicializarEstados(documentos: DocumentoDTO[]): void {
     const currentEstados = this.estadoRevisiones$.value;
 
     documentos.forEach((doc) => {
       // Solo inicializa el estado si no ha sido configurado previamente
       if (currentEstados[doc.id] === undefined) {
-        currentEstados[doc.id] = doc.aprobado ? 'aprobado' : 'noRevisado';
+        if (doc.aprobado === true) {
+          currentEstados[doc.id] = 'aprobado';
+        } else if (doc.aprobado === false) {
+          currentEstados[doc.id] = 'noAprobado';
+        } else {
+          currentEstados[doc.id] = 'noRevisado';
+        }
       }
     });
 
