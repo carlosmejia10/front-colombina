@@ -4,6 +4,7 @@ import { DocumentoDTO } from '@/app/modelos/DocumentoDTO';
 import { DocumentoService } from '@/app/servicios/documento.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, throwError, Observable } from 'rxjs';
+import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 
 @Component({
   selector: 'app-revision-documentacion',
@@ -21,7 +22,8 @@ export class RevisionDocumentacionComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private documentoService: DocumentoService
+    private documentoService: DocumentoService,
+    private tramiteService: TramiteService
   ) {}
 
   ngOnInit() {
@@ -79,7 +81,9 @@ export class RevisionDocumentacionComponent implements OnInit {
 
   continuar() {
     if (this.documentosAprobados) {
-      this.router.navigate([`/info-control/${this.idTramite}`]);
+      this.tramiteService.setDocumentacionRevisada(this.idTramite).subscribe(() => {
+        this.router.navigate([`/info-control/${this.idTramite}`]);
+      });
     } else {
       alert('Debes aprobar todos los documentos para continuar.');
     }

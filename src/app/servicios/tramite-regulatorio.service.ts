@@ -49,9 +49,17 @@ export class TramiteService {
     id: number,
     info: InfoAperturaTramite
   ): Observable<any> {
-    return this.http.post(`${BASE_URL}/tramites/${id}/apertura`, info as object, {
+    return this.http.post(`${BASE_URL}/tramites/${id}/apertura`, info, {
       headers: this.getHeaders(),
     });
+  }
+
+  setDocumentacionRevisada(idTramite: number): Observable<any> {
+    return this.http.post(
+      `${BASE_URL}/tramites/${idTramite}/documentacion-revisada`,
+      {},
+      { headers: this.getHeaders() }
+    );
   }
 
   escalarTramite(idTramite: number): Observable<any> {
