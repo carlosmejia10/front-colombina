@@ -65,7 +65,7 @@ export class ArrastrarComponent {
         // Crear el DTO con los datos requeridos
         const documentoDTO: DocumentoDTO = {
             id: undefined,                // O el valor que corresponda
-            name: this.selectedFile.name,
+            nombre: this.selectedFile.name,
             tipo: 'pdf',                 // Ajusta según el tipo de archivo real
             aprobado: false,
             cumpleNormativas: false,     // O el valor que corresponda
