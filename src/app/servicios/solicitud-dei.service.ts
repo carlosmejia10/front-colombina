@@ -38,10 +38,23 @@ export class SolicitudDEIService {
     });
   }
 
+  findBySolicitanteAndFilters(filters: any, page?: number, limit?: number): Observable<SolicitudDTO[]> {
+    return this.http.get<SolicitudDTO[]>(this.apiUrl, {
+      headers: this.headers,
+      params: { page: page?.toString(), limit: limit?.toString(), ...filters },
+    });
+  }
+
   findAll(page?: number, limit?: number): Observable<SolicitudDTO[]> {
     return this.http.get<SolicitudDTO[]>(this.apiUrl + '/todos', {
       headers: this.headers,
       params: { page: page?.toString(), limit: limit?.toString() },
+    });
+  }
+  findAllByFilters(filters: any, page?: number, limit?: number): Observable<SolicitudDTO[]> {
+    return this.http.get<SolicitudDTO[]>(this.apiUrl + '/todos/filtros', {
+      headers: this.headers,
+      params: { page: page?.toString(), limit: limit?.toString(), ...filters },
     });
   }
 
