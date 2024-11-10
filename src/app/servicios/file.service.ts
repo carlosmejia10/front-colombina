@@ -17,7 +17,7 @@ export class FileService {
     const formData: FormData = new FormData();
 
     // Agregar el archivo y los demás datos a FormData
-    formData.append('name', documentoDTO.name);
+    formData.append('name', documentoDTO.nombre);
     formData.append('tipo', documentoDTO.tipo);
     formData.append('aprobado', String(documentoDTO.aprobado));  // Convertimos boolean a string
     formData.append('file', documentoDTO.file);

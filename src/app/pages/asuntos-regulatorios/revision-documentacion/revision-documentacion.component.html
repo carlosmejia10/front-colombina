@@ -2,12 +2,12 @@
   <h2 class="titulo">Lista de Documentos</h2>
   <div class="documentos">
     <div *ngFor="let documento of documentos" class="documento" [ngClass]="getEstadoClase(documento.id)">
-      <strong>{{ documento.name }}:</strong>
-      <div *ngIf="estadosDocumentos[documento.id] === 'aprobado'">Aprobado</div>
-      <div *ngIf="estadosDocumentos[documento.id] === 'noAprobado'">No aprobado</div>
-      <div *ngIf="estadosDocumentos[documento.id] === 'noRevisado'">Sin revisión</div>
+      <strong>{{ documento.nombre }}:</strong>
+      <div *ngIf="estadosDocumentos[documento.id] === 'aprobado'"></div>
+      <div *ngIf="estadosDocumentos[documento.id] === 'noAprobado'"></div>
+      <div *ngIf="estadosDocumentos[documento.id] === 'noRevisado'"></div>
 
-      <button class="btn-revisar" (click)="revisarDocumento(documento.name)">Revisar</button>
+      <button class="btn-revisar" (click)="revisarDocumento(documento.nombre, documento.id)">Revisar</button>
     </div>
   </div>
   

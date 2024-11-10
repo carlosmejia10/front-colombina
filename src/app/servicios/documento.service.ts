@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class DocumentoService {
   private headers: HttpHeaders;
-  
+
   // Estructura para almacenar el estado de revisión de los documentos
   private estadoRevisiones$ = new BehaviorSubject<{ [id: number]: 'aprobado' | 'noAprobado' | 'noRevisado' }>({});
 
@@ -27,14 +27,23 @@ export class DocumentoService {
     return this.estadoRevisiones$.asObservable();
   }
 
-  // Método para inicializar los estados en función de los documentos cargados
+  // Método para inicializar los estados basado en el valor de `aprobado` del backend
   inicializarEstados(documentos: DocumentoDTO[]): void {
     const currentEstados = this.estadoRevisiones$.value;
+
     documentos.forEach((doc) => {
-      if (!(doc.id in currentEstados)) {
-        currentEstados[doc.id] = 'noRevisado';
+      // Solo inicializa el estado si no ha sido configurado previamente
+      if (currentEstados[doc.id] === undefined) {
+        if (doc.aprobado === true) {
+          currentEstados[doc.id] = 'aprobado';
+        } else if (doc.aprobado === false) {
+          currentEstados[doc.id] = 'noAprobado';
+        } else {
+          currentEstados[doc.id] = 'noRevisado';
+        }
       }
     });
+
     this.estadoRevisiones$.next(currentEstados);
   }
 
@@ -54,7 +63,12 @@ export class DocumentoService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
-    return this.http.get<DocumentoDTO[]>(`${BASE_URL}/files/listar-archivos/${id}`, { headers });
+    return this.http.get<DocumentoDTO[]>(`${BASE_URL}/files/listar-archivos/${id}`, { headers })
+      .pipe(
+        tap((documentos) => {
+          this.inicializarEstados(documentos); // Inicializa solo si es necesario
+        })
+      );
   }
 
   findById(id: number, nombre: string): Observable<any> {
@@ -64,29 +78,23 @@ export class DocumentoService {
     return this.http.get<any>(`${BASE_URL}/files/${id}/${nombre}`, { headers });
   }
 
-  // Método para aprobar un documento
-  aprobar(id: number, nombre: string): Observable<any> {
+  aprobar(idTramite: number, nombre: string, idDocumento: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
-    console.log('Aprobando documento:', id, nombre);
-
-    return this.http.post<any>(`${BASE_URL}/files/aprobar-documento/${id}/${nombre}`, {}, { headers })
+    return this.http.post<any>(`${BASE_URL}/files/aprobar-documento/${idTramite}/${nombre}`, {}, { headers })
       .pipe(
-        tap(() => this.actualizarEstadoRevision(id, 'aprobado'))
+        tap(() => this.actualizarEstadoRevision(idDocumento, 'aprobado'))
       );
   }
 
-  // Método para rechazar un documento
-  rechazar(id: number, nombre: string): Observable<any> {
+  rechazar(idTramite: number, nombre: string, idDocumento: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
-    console.log('Rechazando documento:', id, nombre);
-
-    return this.http.post<any>(`${BASE_URL}/files/rechazar-documento/${id}/${nombre}`, {}, { headers })
+    return this.http.post<any>(`${BASE_URL}/files/negar-documento/${idTramite}/${nombre}`, {}, { headers })
       .pipe(
-        tap(() => this.actualizarEstadoRevision(id, 'noAprobado'))
+        tap(() => this.actualizarEstadoRevision(idDocumento, 'noAprobado'))
       );
   }
 

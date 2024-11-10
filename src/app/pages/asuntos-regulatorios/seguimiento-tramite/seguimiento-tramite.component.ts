@@ -58,8 +58,8 @@ export class SeguimientoTramiteComponent {
       this.tramite.estado="RECHAZADO";
       alert(`El trámite ${this.tramite.id} ha sido rechazado.`)
       this.aprobadoSeleccionado = false;
-    this.rechazadoSeleccionado = true;
-    this.tramite.estado = "RECHAZADO";
+      this.rechazadoSeleccionado = true;
+      this.tramite.estado = "RECHAZADO";
     //this.router.navigate(['/revision-preliminar', this.tramite.numeroRadicado]);
     } 
     else{
@@ -90,13 +90,14 @@ export class SeguimientoTramiteComponent {
         alert('Error al actualizar el trámite. Por favor, inténtalo de nuevo.');
       }
     );
+    this.router.navigate(['/aprobacion-tramite',this.tramite.id]);
   }
 
-  pedirNuevoDocumento() {
-    // Lógica para pedir un nuevo documento
+  navigatePedirNuevoDocumento() {
+    this.router.navigate(['/documentos',this.tramite.id]);
   }
 
-  corregirFormulario() {
-    // Lógica para corregir el formulario
+  navigateCorregirFormulario() {
+    this.router.navigate(['/info-control',this.tramite.id]);
   }
 }

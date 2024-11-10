@@ -15,7 +15,7 @@ import { catchError, throwError, Observable } from 'rxjs';
 export class RevisionDocumentacionComponent implements OnInit {
   documentos: DocumentoDTO[] = [];
   estadosDocumentos: { [id: number]: 'aprobado' | 'noAprobado' | 'noRevisado' } = {};
-  id: number = 0;
+  idTramite: number = 0;
   documentosAprobados: boolean = false;
 
   constructor(
@@ -25,12 +25,13 @@ export class RevisionDocumentacionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.idTramite = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (this.id) {
-      this.getDocumentos(this.id).subscribe(
+    if (this.idTramite) {
+      this.getDocumentos(this.idTramite).subscribe(
         (data) => {
           this.documentos = data;
+          console.log('Documentos cargados:', this.documentos);
           this.documentoService.inicializarEstados(this.documentos);
           this.documentos.forEach((doc) => {
             this.estadosDocumentos[doc.id] = this.documentoService.obtenerEstadoRevision(doc.id);
@@ -45,13 +46,13 @@ export class RevisionDocumentacionComponent implements OnInit {
       console.error('ID no encontrado en la ruta');
     }
 
-    this.documentoService.aprobados(this.id).subscribe((data) => {
+    this.documentoService.aprobados(this.idTramite).subscribe((data) => {
       this.documentosAprobados = data.aprobados === data.total;
     });
   }
 
-  getDocumentos(id: number): Observable<DocumentoDTO[]> {
-    return this.documentoService.findAll(id).pipe(
+  getDocumentos(idTramite: number): Observable<DocumentoDTO[]> {
+    return this.documentoService.findAll(idTramite).pipe(
       catchError((error: any) => {
         return throwError(() => new Error('Error al obtener documentos'));
       })
@@ -69,9 +70,9 @@ export class RevisionDocumentacionComponent implements OnInit {
     }
   }
 
-  revisarDocumento(documentoname: string): void {
+  revisarDocumento(documentoname: string, documentoId: number): void {
     if (documentoname) {
-      this.router.navigate(['/revision', this.id, documentoname]);
+      this.router.navigate(['/revision', this.idTramite, documentoname, documentoId]);
     } else {
       console.error('documento no es válido:', documentoname);
     }
@@ -79,7 +80,7 @@ export class RevisionDocumentacionComponent implements OnInit {
 
   continuar() {
     if (this.documentosAprobados) {
-      this.router.navigate([`/info-control/${this.id}`]);
+      this.router.navigate([`/info-control/${this.idTramite}`]);
     } else {
       alert('Debes aprobar todos los documentos para continuar.');
     }

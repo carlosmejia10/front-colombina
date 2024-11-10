@@ -15,7 +15,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 })
 export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   tramiteId: number;
-  documentId: string;
+  nombreDocumento: string;
+  documentId: number;
   fileUrl!: SafeUrl;
   infoDoc: any;
   fileBlob!: Blob; // Archivo en Blob para poder descargarlo
@@ -28,15 +29,19 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   ) {}
 
   ngOnInit(): void {
-    this.documentId = this.route.snapshot.paramMap.get('id');
+    this.nombreDocumento = this.route.snapshot.paramMap.get('id');
+    this.documentId = Number(this.route.snapshot.paramMap.get('idDocumento'));
     this.tramiteId = Number(this.route.snapshot.paramMap.get('numeroRadicado'));
-    this.documentoService.descargarArchivo(this.documentId, this.tramiteId as number).subscribe((file) => {
+    console.log('ID del documento:', this.documentId);
+    console.log('Nombre del documento:', this.nombreDocumento);
+    this.documentoService.descargarArchivo(this.nombreDocumento, this.tramiteId as number).subscribe((file) => {
       this.fileBlob = file; // Guarda el archivo en Blob para poder descargarlo
       this.createFileUrl(file);
     })
-    this.documentoService.findById(this.tramiteId, this.documentId).subscribe((data) => {
+    this.documentoService.findById(this.tramiteId, this.nombreDocumento).subscribe((data) => {
       console.log('Documento encontrado:', data);
       this.infoDoc = data;
+      console.log('Informacion del documento:', this.infoDoc);
     })
   }
 
@@ -54,18 +59,20 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   }
 
   aprobarORechazar(aprobado: boolean) {
+    console.log('Entra:');
     const estado = aprobado ? 'aprobado' : 'rechazado';
 
     if (aprobado) {
-      this.documentoService.aprobar(this.tramiteId, this.documentId).subscribe(() => {
+      this.documentoService.aprobar(this.tramiteId, this.nombreDocumento,this.documentId).subscribe(() => {
         alert(`El documento "${this.documentId}" ha sido ${estado}.`);
         this.router.navigate(['/documentos', this.tramiteId]);
       });
     } else {
-      alert(`El documento "${this.documentId}" ha sido ${estado}.`);
-      this.router.navigate(['/documentos', this.tramiteId]);
+      this.documentoService.rechazar(this.tramiteId, this.nombreDocumento, this.documentId).subscribe(() => {
+        alert(`El documento "${this.documentId}" ha sido ${estado}.`);
+        this.router.navigate(['/documentos', this.tramiteId]);
+      })  
     }
-    //this.router.navigate(['/documentos']);
   }
 
   regresar() {
