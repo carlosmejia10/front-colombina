@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { BASE_URL } from '../config/environment/urls';
 import { InfoAperturaTramite } from '../modelos/info-apertura-tramite.dto';
 import { SolicitudDTO } from '../modelos/solicitud.dto';
+import { InfoControlDTO } from '../modelos/info-control.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +45,6 @@ export class TramiteService {
       headers: this.getHeaders(),
     });
   }
-  
 
   addInfoAperturaTramite(
     id: number,
@@ -59,6 +59,14 @@ export class TramiteService {
     return this.http.post(
       `${BASE_URL}/tramites/${idTramite}/documentacion-revisada`,
       {},
+      { headers: this.getHeaders() }
+    );
+  }
+
+  addInfoControlTramite(idTramite: number, info: InfoControlDTO): Observable<any> {
+    return this.http.post(
+      `${BASE_URL}/tramites/${idTramite}/info-control`,
+      info,
       { headers: this.getHeaders() }
     );
   }

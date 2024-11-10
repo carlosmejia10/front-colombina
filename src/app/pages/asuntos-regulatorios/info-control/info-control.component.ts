@@ -2,6 +2,8 @@ import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
+import { InfoControlDTO } from '@/app/modelos/info-control.dto';
+import { EntidadSanitaria } from '@/app/modelos/entidad-sanitaria';
 
 @Component({
   selector: 'app-info-control',
@@ -9,13 +11,26 @@ import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
   styleUrls: ['./info-control.component.css'],
 })
 export class InfoControlComponent implements OnInit {
-  solicitud!: SolicitudDTO; // Trámite seleccionado
+  solicitud: SolicitudDTO; // Trámite seleccionado
+  entidadSanitaria: EntidadSanitaria;
   fechaTerminacion!: string; // Nueva variable para la fecha de terminación calculada
+  infoControl: any = {
+    fechaTerminacion: '',
+    fechaNotificacion: '',
+    idSeguimiento: '',
+    registroSanitario: '',
+    expedienteRSA: '',
+    numeroRSA: '',
+    fechaVencimientoRSA: '',
+    planta: '',
+    numeroFactura: '',
+    observaciones: '',
+  }; // Nuevo objeto para el formulario de información de control
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private tramiteService: TramiteService,
+    private tramiteService: TramiteService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +45,7 @@ export class InfoControlComponent implements OnInit {
     this.tramiteService.findById(id).subscribe(
       (data: SolicitudDTO) => {
         this.solicitud = data;
-        console.log('Trámite:', this.solicitud);
+        this.entidadSanitaria = this.solicitud.tramite.entidadSanitaria;
 
         // Calcular la fecha de terminación sumando un mes a la fecha de solicitud
         if (this.solicitud.fechaSolicitud) {
@@ -46,7 +61,44 @@ export class InfoControlComponent implements OnInit {
   }
 
   submit(): void {
-    alert('Formulario enviado correctamente.');
-    this.router.navigate(['/documentos']);
+    if (
+      !this.fechaTerminacion ||
+      !this.infoControl.fechaNotificacion ||
+      !this.infoControl.expedienteRSA ||
+      !this.infoControl.fechaVencimientoRSA ||
+      !this.infoControl.idSeguimiento ||
+      !this.infoControl.numeroFactura ||
+      !this.infoControl.numeroRSA ||
+      !this.infoControl.observaciones ||
+      !this.infoControl.planta ||
+      !this.infoControl.registroSanitario
+    ) {
+      alert('Todos los campos son obligatorios');
+      console.log(this.infoControl);
+      return;
+    }
+    this.infoControl.fechaTerminación = new Date(this.fechaTerminacion);
+
+    this.infoControl = new InfoControlDTO(
+      this.infoControl.fechaTerminacion,
+      this.infoControl.fechaNotificacion,
+      this.infoControl.idSeguimiento,
+      this.infoControl.registroSanitario,
+      this.infoControl.expedienteRSA,
+      this.infoControl.numeroRSA,
+      this.infoControl.fechaVencimientoRSA,
+      this.infoControl.planta,
+      this.infoControl.numeroFactura,
+      this.infoControl.observaciones
+    );
+    this.tramiteService
+      .addInfoControlTramite(
+        +this.route.snapshot.paramMap.get('id'),
+        this.infoControl
+      )
+      .subscribe(() => {
+        alert('Formulario enviado correctamente.');
+        this.router.navigate(['/documentos']);
+      });
   }
 }
