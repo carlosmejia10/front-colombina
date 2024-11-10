@@ -38,11 +38,12 @@ export class TramiteService {
     });
   }
 
-  updateTramite(tramite: TramiteDTO): Observable<any> {
-    return this.http.put(`${BASE_URL}/tramites/update`, tramite, {
+  updateTramite(id: number, numeroRadicado: string, llave: number): Observable<any> {
+    return this.http.post(`${BASE_URL}/tramites/${id}/aceptar?numeroRadicado=${numeroRadicado}&llave=${llave}`, null, {
       headers: this.getHeaders(),
     });
   }
+  
 
   addInfoAperturaTramite(
     id: number,

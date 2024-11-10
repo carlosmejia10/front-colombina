@@ -231,7 +231,7 @@ const routes: Routes = [
   },
 
   {
-    path: `seguimiento-tramite`,
+    path: `seguimiento-tramite/:id`,
     component: SeguimientoTramiteComponent,
   },
 

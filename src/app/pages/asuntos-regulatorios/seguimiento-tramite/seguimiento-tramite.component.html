@@ -1,25 +1,39 @@
 <app-ar-layout>
   <div class="container">
     <div class="tramite-info">
-      <h3>Información del Trámite</h3>
+      <h2>Información del Trámite</h2>
       <p><strong>ID:</strong> {{ tramite.id }}</p>
       <p><strong>Número Radicado:</strong> {{ tramite.numeroRadicado }}</p>
       <p><strong>Nombre del Producto:</strong> {{ tramite.nombreProducto }}</p>
       <p><strong>Descripción del Producto:</strong> {{ tramite.descripcionProducto }}</p>
       <p><strong>Tipo de Producto:</strong> {{ tramite.tipoProducto }}</p>
       <p><strong>Tipo de Trámite:</strong> {{ tramite.tipoTramite }}</p>
-      <p><strong>Solicitante ID:</strong></p>
-
 
       <p>Seleccione una opción acorde a la respuesta del Invima</p>
 
-      <div class="action-buttons">
-        <button (click)="tramiteAprobado()">Aceptado</button>
-        <button (click)="tramiteRechazado()">Rechazado</button>
+      <div class="button-group">
+        <button class="btn-aprobar" (click)="tramiteAprobado()">Aceptado</button>
+        <button class="btn-rechazar" (click)="tramiteRechazado()">Rechazado</button>
       </div>
 
+      <!-- Campos de texto visibles al aprobar el trámite -->
+      <div *ngIf="aprobadoSeleccionado" class="aceptado-campos">
+        <label for="numeroRadicado">Número de Radicado:</label>
+        <input type="text" id="numeroRadicado" [(ngModel)]="numeroRadicado" />
+      
+        <label for="llave">Llave:</label>
+        <input type="number" id="llave" [(ngModel)]="llave" />
+      
+        <!-- El botón solo aparece si ambos campos están llenos -->
+        <button *ngIf="numeroRadicado && llave" (click)="guardarInfo()">Siguiente</button>
+      </div>
+      
 
+      <!-- Botones visibles al rechazar el trámite -->
+      <div *ngIf="rechazadoSeleccionado" class="rechazado-opciones">
+        <button class="btn-pedir-documento" (click)="navigatePedirNuevoDocumento()">Pedir Nuevo Documento</button>
+        <button class="btn-corregir-formulario" (click)="navigateCorregirFormulario()">Corregir Formulario</button>
+      </div>
     </div>
-
   </div>
 </app-ar-layout>
