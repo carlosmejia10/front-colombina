@@ -51,6 +51,7 @@ import { NotificationDetailComponent } from './pages/shared/notifications/notifi
 import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-control.component";
 import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
+import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 
 
 const routes: Routes = [
@@ -240,6 +241,19 @@ const routes: Routes = [
     component: RevisionPreliminarComponent,
   },
 
+  {
+    path: `notificaciones-admin`,	
+    component: NotificacionesAdminComponent,
+  },
+  {
+    path: `notificaciones-ar`,
+    component: NotificacionesArComponent,
+  },
+
+  {
+    path: `notificaciones-solicitante`,
+    component: NotificacionesSolicitanteComponent,
+  },
 
 ];
 
