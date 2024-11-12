@@ -4,3 +4,9 @@ section {
   background-color: #e7ebf5;
   min-height: 100vh;
 }
+
+div.content {
+  overflow: scroll;
+  height: 100%;
+  min-height: 100vh;
+}

@@ -1,52 +1,68 @@
-<app-admin-layout>
+<app-admin-layout style="overflow: scroll">
   <div class="ContenedorTablaExcel">
     <div class="TituloTablaExcel">
       <h2>Información De Control</h2>
     </div>
     <table class="ExcelTable">
       <thead>
-      <tr>
-        <th>Fecha Solicitud</th>
-        <th>Fecha Envío Documentos</th>
-        <th>Fecha Terminación Trámite</th>
-        <th>Fecha de Notificación</th>
-        <th>País</th>
-        <th>Registro Sanitario (RSA) de Colombia</th>
-        <th>Expediente RSA</th>
-        <th>#Intención (ID Seguimiento)</th>
-        <th>Radicado o Expediente</th>
-        <th>Llave RSA Colombia</th>
-        <th>Fecha de Radicado Invima</th>
-        <th>Estado del Trámite</th>
-        <th>Urgente?</th>
-        <th>Fecha de Llegada Resolución</th>
-        <th>Ok Satisfactorio Invima</th>
-        <th>#RSA/NSA País</th>
-        <th>Se Requiere</th>
-        <th>Origen</th>
-      </tr>
+        <tr>
+          <th>AR</th>
+          <th>Nombre producto</th>
+          <th>PT</th>
+          <th>Planta</th>
+          <th>Nombre Proyecto</th>
+          <th>Tipo trámite</th>
+          <th>Descripción trámite</th>
+          <th>Fecha Solicitud</th>
+          <th>Fecha Envío Dctos</th>
+          <th>Fecha Terminación Trámite</th>
+          <th>Fecha de notificación</th>
+          <th>País</th>
+          <th>Registro Sanitario (RSA) de Colombia</th>
+          <th>Expediente RSA</th>
+          <th>#Intención (ID Seguimiento)</th>
+          <th>Radicado o Expediente</th>
+          <th>Llave RSA Colombia</th>
+          <th>Fecha de Radicado Invima</th>
+          <th>Estado del Trámite</th>
+          <th>Fecha de Llegada Resolución</th>
+          <th>Ok Satisfactorio Invima</th>
+          <th>#RSA/NSA País</th>
+          <th>Vencimiento RSA</th>
+          <th>Solicitante</th>
+          <th>Observaciones</th>
+          <th>Pagado/Factura No.</th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let solicitud of solicitudes">
-        <td>{{ solicitud.fechaSolicitud | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ solicitud.tramite?.fechaRadicacion | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ solicitud.tramite?.etapa }}</td> <!-- Campo de ejemplo -->
-        <td></td> <!-- Campo sin datos en TramiteDTO -->
-        <td>{{ solicitud.tramite?.entidadSanitariaId }}</td>
-        <td>{{ solicitud.tramite?.numeroRadicado }}</td>
-        <td></td> <!-- Campo sin datos en TramiteDTO -->
-        <td>{{ solicitud.tramite?.tipoModificacion }}</td>
-        <td>{{ solicitud.tramite?.numeroRadicado }}</td>
-        <td>{{ solicitud.tramite?.llave }}</td>
-        <td>{{ solicitud.tramite?.fechaRadicacion | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ solicitud.tramite?.estado }}</td>
-        <td>{{ solicitud.tramite?.tipoTramite === 'URGENTE' ? 'Sí' : 'No' }}</td>
-        <td></td> <!-- Campo sin datos en TramiteDTO -->
-        <td></td> <!-- Campo sin datos en TramiteDTO -->
-        <td>{{ solicitud.tramite?.proyecto }}</td>
-        <td>{{ solicitud.tramite?.pt ? 'Sí' : 'No' }}</td>
-        <td>{{ solicitud.tramite?.unidadNegocio }}</td>
-      </tr>
+        <tr *ngFor="let solicitud of solicitudes">
+          <td>{{ solicitud.tramite.numeroRadicado }}</td>
+          <td>Nombre producto</td>
+          <td>PT</td>
+          <td>Planta</td>
+          <td>Nombre Proyecto</td>
+          <td>Tipo trámite</td>
+          <td>Descripción trámite</td>
+          <td>Fecha Solicitud</td>
+          <td>Fecha Envío Dctos</td>
+          <td>Fecha Terminación Trámite</td>
+          <td>Fecha de notificación</td>
+          <td>País</td>
+          <td>Registro Sanitario (RSA) de Colombia</td>
+          <td>Expediente RSA</td>
+          <td>#Intención (ID Seguimiento)</td>
+          <td>Radicado o Expediente</td>
+          <td>Llave RSA Colombia</td>
+          <td>Fecha de Radicado Invima</td>
+          <td>Estado del Trámite</td>
+          <td>Fecha de Llegada Resolución</td>
+          <td>Ok Satisfactorio Invima</td>
+          <td>#RSA/NSA País</td>
+          <td>Vencimiento RSA</td>
+          <td>Solicitante</td>
+          <td>Observaciones</td>
+          <td>Pagado/Factura No.</td>
+        </tr>
       </tbody>
     </table>
   </div>
