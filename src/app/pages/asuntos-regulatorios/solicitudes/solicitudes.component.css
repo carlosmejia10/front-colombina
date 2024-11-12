@@ -343,8 +343,6 @@ img {
 }
 .search-icon {
   position: absolute;
-  width: 75px;
-  height: 75px;
   right: 1rem;
 }
 
@@ -421,8 +419,6 @@ input#search-bar::placeholder {
   position: absolute;
   right: 0;
   top: 0;
-  width: 60px;
-  height: 60px;
   float: right;
 }
 
