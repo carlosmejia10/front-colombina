@@ -1,15 +1,16 @@
 .ContenedorTablaExcel {
   display: flex;
   flex-direction: column;
-  width: 100%;
   margin: 2vw;
   background-color: #e7ebf5;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: max-content;
 }
 
 .TituloTablaExcel {
+  position: relative;
   background-color: #a3b6e6;
   border-radius: 10px 10px 0 0;
   padding: 10px;
@@ -17,6 +18,14 @@
   font-weight: bold;
   text-align: center;
   font-size: 18px;
+  height: 3rem;
+}
+
+.TituloTablaExcel h2 {
+  position: fixed;
+  left: 50%;
+  margin-top: 2px;
+  transform: translateX(-50%);
 }
 
 .table-container {
@@ -24,8 +33,6 @@
 }
 
 .ExcelTable {
-  min-width: 1200px; /* Asegura un ancho mínimo para la tabla */
-  width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
 }
