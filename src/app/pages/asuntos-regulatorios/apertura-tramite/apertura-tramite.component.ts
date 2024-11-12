@@ -36,8 +36,7 @@ export class AperturaTramiteComponent {
       !this.solicitud.tramite.pt ||
       !this.solicitud.tramite.unidadNegocio ||
       !this.solicitud.tramite.numProyectoSap ||
-      !this.solicitud.tramite.proyecto ||
-      !this.solicitud.tramite.tipoModificacion
+      !this.solicitud.tramite.proyecto
     ) {
       alert('Todos los campos son obligatorios');
       return;
@@ -50,8 +49,7 @@ export class AperturaTramiteComponent {
           this.solicitud.tramite.pt,
           this.solicitud.tramite.unidadNegocio,
           this.solicitud.tramite.numProyectoSap,
-          this.solicitud.tramite.proyecto,
-          this.solicitud.tramite.tipoModificacion
+          this.solicitud.tramite.proyecto
         )
       ).subscribe(() => {
         this.router.navigate(['/documentos', this.numeroRadicado]);

@@ -61,7 +61,7 @@ export class PerfilComponent {
     } else if (this.authService.role === 'ASUNTOSREG') {
       this.router.navigate(['/solicitudes']);
     } else if (this.authService.role === 'ADMIN') {
-      this.router.navigate(['/estadisticas']);
+      this.router.navigate(['/admin/estadisticas']);
     }
   }
 }
