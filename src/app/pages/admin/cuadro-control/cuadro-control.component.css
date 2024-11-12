@@ -10,22 +10,19 @@
 }
 
 .TituloTablaExcel {
-  position: relative;
   background-color: #a3b6e6;
   border-radius: 10px 10px 0 0;
   padding: 10px;
   color: #ffffff;
   font-weight: bold;
-  text-align: center;
   font-size: 18px;
   height: 3rem;
 }
 
 .TituloTablaExcel h2 {
-  position: fixed;
-  left: 50%;
-  margin-top: 2px;
-  transform: translateX(-50%);
+  position: sticky;
+  left: 0;
+  margin-top: 3px;
 }
 
 .table-container {
@@ -65,4 +62,84 @@
 
 .ExcelTable tr:hover {
   background-color: #e0e7f1;
+}
+
+footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+}
+
+.page-button {
+  background-color: #a3b6e6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.info-page {
+  margin: auto 0;
+}
+
+.search-container {
+  position: relative;
+  height: 60px;
+  display: flex;
+  height: 40px;
+  font-size: 1rem;
+  border-radius: 20px;
+  outline: none;
+  width: min-content;
+  margin-bottom: 1rem;
+  &:focus {
+    border: 1px solid #008abf;
+    transition: 0.35s ease;
+    color: #008abf;
+    &::-webkit-input-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+  }
+}
+.icons img {
+  margin-right: 20px;
+}
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+input#search-bar {
+  width: 720px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #d0cfce;
+  border-radius: 20px;
+  outline: none;
+}
+
+input#search-bar:focus {
+  border: 1px solid #008abf;
+  transition: 0.35s ease;
+  color: #008abf;
+}
+
+input#search-bar::placeholder {
+  color: #b0b0b0;
+  transition: opacity 0.45s ease;
 }
