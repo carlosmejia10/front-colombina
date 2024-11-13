@@ -76,7 +76,7 @@ export class InfoSolicitudComponent {
           break;
         case 'A5':
         case 'B5':
-          this.router.navigate(['/info-control', idTramite]);
+          this.router.navigate(['/formulario-general', idTramite, etapa]);
           break;
         case 'A6':
         case 'B6':

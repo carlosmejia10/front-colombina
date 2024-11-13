@@ -53,6 +53,10 @@ import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/est
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/formulario-general.component";
+import {
+  DocumentosDevueltosComponent
+} from "@/app/pages/solicitante/documentos-devueltos/documentos-devueltos.component";
+
 import { TramiteFinalizadoComponent } from './pages/asuntos-regulatorios/tramite-finalizado/tramite-finalizado.component';
 
 const routes: Routes = [
@@ -171,6 +175,10 @@ const routes: Routes = [
   {
     path: 'documentos/:id',
     component: RevisionDocumentacionComponent,
+  },
+  {
+    path: 'corregir-documentos/:id',
+    component: DocumentosDevueltosComponent,
   },
   {
     path: `revision/:numeroRadicado/:id/:idDocumento`,
