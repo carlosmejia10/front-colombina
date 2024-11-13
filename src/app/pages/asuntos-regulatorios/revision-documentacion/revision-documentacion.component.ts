@@ -107,7 +107,7 @@ export class RevisionDocumentacionComponent implements OnInit {
   continuar() {
     if (this.documentosAprobados) {
       this.tramiteService.setDocumentacionRevisada(this.idTramite).subscribe(() => {
-        this.router.navigate([`/formulario-general/${this.idTramite}/${this.solicitud.tramite.etapa}`]);
+        this.router.navigate([`/formulario-general/${this.idTramite}/A5`]);
       });
     } else {
       alert('Debes aprobar todos los documentos para continuar.');
