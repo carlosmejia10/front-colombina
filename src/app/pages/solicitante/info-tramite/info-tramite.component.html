@@ -1,4 +1,4 @@
-<app-solicitante-layout>
+<app-solicitante-layout *ngIf="solicitud">
   <div id="page">
     <div class="containerint">
       <h1>Información del Trámite</h1>
@@ -7,40 +7,45 @@
         <div class="info-box">
           <!-- Información del Trámite -->
           <strong>ID Trámite:</strong>
-          <p>{{ solicitud.tramite.id }}</p>
+          <p>{{ solicitud?.tramite?.id }}</p>
           <strong>Numero Radicado:</strong>
-          <p>{{ solicitud.tramite.numeroRadicado }}</p>
+          <p>{{ solicitud?.tramite?.numeroRadicado }}</p>
           <strong>Estado:</strong>
-          <p>{{ solicitud.tramite.estado }}</p>
+          <p>{{ solicitud?.tramite?.estado }}</p>
           <strong>Fecha Radicación:</strong>
-          <p>{{ solicitud.tramite.fechaRadicacion | date }}</p>
+          <p>{{ solicitud?.tramite?.fechaRadicacion | date }}</p>
           <strong>Tipo de Trámite:</strong>
-          <p>{{ solicitud.tramite.tipoTramite }}</p>
+          <p>{{ solicitud?.tramite?.tipoTramite }}</p>
         </div>
 
         <div class="info-box">
           <!-- Información de la Entidad Sanitaria -->
           <strong>ID Entidad Sanitaria:</strong>
-          <p>{{ solicitud.tramite.entidadSanitaria?.id }}</p>
+          <p>{{ solicitud?.tramite?.entidadSanitaria?.id }}</p>
           <strong>Nombre de Entidad Sanitaria:</strong>
-          <p>{{ solicitud.tramite.entidadSanitaria?.nombre }}</p>
+          <p>{{ solicitud?.tramite?.entidadSanitaria?.nombre }}</p>
           <strong>País:</strong>
-          <p>{{ solicitud.tramite.entidadSanitaria?.pais }}</p>
+          <p>{{ solicitud?.tramite?.entidadSanitaria?.pais }}</p>
         </div>
 
         <div class="info-box">
           <!-- Información de la Solicitud -->
           <strong>Descripción del Producto:</strong>
-          <p>{{ solicitud.tramite.descripcionProducto }}</p>
+          <p>{{ solicitud?.tramite?.descripcionProducto }}</p>
           <strong>Tipo de Producto:</strong>
-          <p>{{ solicitud.tramite.tipoProducto }}</p>
+          <p>{{ solicitud?.tramite?.tipoProducto }}</p>
           <strong>Fecha de Solicitud:</strong>
-          <p>{{ solicitud.tramite.fechaRadicacion | date }}</p>
+          <p>{{ solicitud?.tramite?.fechaRadicacion | date }}</p>
         </div>
       </div>
-      <ng-container *ngIf="solicitud.tramite.estado === 'RECHAZADO' && mostrarBoton">
+
+      <ng-container *ngIf="solicitud?.tramite?.estado === 'RECHAZADO' && mostrarBoton">
         <button (click)="escalarTramite()" class="btn-primary">Escalar</button>
       </ng-container>
     </div>
   </div>
 </app-solicitante-layout>
+
+<ng-container *ngIf="!solicitud">
+  <p>Cargando datos del trámite...</p>
+</ng-container>

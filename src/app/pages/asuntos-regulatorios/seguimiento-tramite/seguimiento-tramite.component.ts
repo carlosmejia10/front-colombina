@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { TramiteDTO } from "@/app/modelos/tramite.dto";
-import { NotificacionDto } from "@/app/modelos/notificacion-dto";
-import { Router, ActivatedRoute } from "@angular/router";
+import { TramiteDTO } from '@/app/modelos/tramite.dto';
+import { NotificacionDto } from '@/app/modelos/notificacion-dto';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 
 @Component({
   selector: 'app-seguimiento-tramite',
   templateUrl: './seguimiento-tramite.component.html',
-  styleUrls: ['./seguimiento-tramite.component.css'] 
+  styleUrls: ['./seguimiento-tramite.component.css'],
 })
 export class SeguimientoTramiteComponent {
   @Input() solicitud!: SolicitudDTO;
@@ -38,34 +38,33 @@ export class SeguimientoTramiteComponent {
   }
 
   tramiteAprobado() {
-    const confirmation = window.confirm(`¿Seguro quiere continuar con la aprobación del trámite: ${this.solicitud.tramite.id}?`);
-  if (confirmation) {
-    // El usuario ha presionado "Aceptar"
-    this.solicitud.tramite.estado = "APROBADO";
-    alert(`El trámite ${this.solicitud.tramite.id} ha sido aprobado.`);
-    this.aprobadoSeleccionado = true;
-    this.rechazadoSeleccionado = false;
-    this.solicitud.tramite.estado = "APROBADO";
-    //this.router.navigate(['/asignacion-radicado-llave', this.tramite.numeroRadicado]);
-  } else {
-    // El usuario ha presionado "Cancelar"
-    alert('Aprobación del trámite cancelada.');
-  }
+    const confirmation = window.confirm(
+      `¿Seguro quiere continuar con la aprobación de la documentación del trámite: ${this.solicitud.tramite.numeroRadicado}?`
+    );
+    if (confirmation) {
+      // El usuario ha presionado "Aceptar"
+      alert(`La documentación del trámite ${this.solicitud.tramite.numeroRadicado} ha sido aprobada.`);
+      this.aprobadoSeleccionado = true;
+      this.rechazadoSeleccionado = false;
+      //this.router.navigate(['/asignacion-radicado-llave', this.tramite.numeroRadicado]);
+    } else {
+      // El usuario ha presionado "Cancelar"
+      alert('Aprobación del trámite cancelada.');
+    }
   }
 
   tramiteRechazado() {
-    const confirmation = window.confirm(`¿Seguro quiere continuar con el rechazo del trámite: ${this.solicitud.tramite.id}?`);
-    if(confirmation){
-      this.solicitud.tramite.estado="RECHAZADO";
-      alert(`El trámite ${this.solicitud.tramite.id} ha sido rechazado.`)
+    const confirmation = window.confirm(
+      `¿Seguro quiere continuar con el rechazo de la documentación del trámite: ${this.solicitud.tramite.numeroRadicado}?`
+    );
+    if (confirmation) {
+      alert(`La documentación del trámite ${this.solicitud.tramite.numeroRadicado} ha sido rechazada.`);
       this.aprobadoSeleccionado = false;
       this.rechazadoSeleccionado = true;
-      this.solicitud.tramite.estado = "RECHAZADO";
-    //this.router.navigate(['/revision-preliminar', this.tramite.numeroRadicado]);
-    } 
-    else{
+      //this.router.navigate(['/revision-preliminar', this.tramite.numeroRadicado]);
+    } else {
       alert('Rechazo del trámite cancelada.');
-    }    
+    }
   }
 
   guardarInfo() {
@@ -74,31 +73,40 @@ export class SeguimientoTramiteComponent {
       alert('Por favor, complete todos los campos antes de enviar.');
       return;
     }
-  
+
     // Actualizar los atributos numeroRadicado y llave del tramite cargado
     this.solicitud.tramite.numeroRadicado = this.numeroRadicado;
     this.solicitud.tramite.llave = this.llave;
-  
+
     // Llamada al servicio para actualizar el tramite
-    this.tramiteService.updateTramite(this.solicitud.tramite.id, this.numeroRadicado,this.llave).subscribe(
-      (response) => {
-        // Aquí puedes manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
-        alert(`Información actualizada: Número Radicado - ${this.numeroRadicado}, Llave - ${this.llave}`);
-      },
-      (error) => {
-        // Manejo de errores en caso de que la actualización falle
-        console.error('Error al actualizar el trámite', error);
-        alert('Error al actualizar el trámite. Por favor, inténtalo de nuevo.');
-      }
-    );
-    this.router.navigate(['/aprobacion-tramite',this.solicitud.tramite.id]);
+    this.tramiteService
+      .updateTramite(this.solicitud.tramite.id, this.numeroRadicado, this.llave)
+      .subscribe(
+        (response) => {
+          // Aquí puedes manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
+          alert(
+            `Información actualizada: Número Radicado - ${this.numeroRadicado}, Llave - ${this.llave}`
+          );
+        },
+        (error) => {
+          // Manejo de errores en caso de que la actualización falle
+          console.error('Error al actualizar el trámite', error);
+          alert(
+            'Error al actualizar el trámite. Por favor, inténtalo de nuevo.'
+          );
+        }
+      );
+    this.router.navigate([
+      '/aprobacion-entidad-sanitaria',
+      this.solicitud.tramite.id,
+    ]);
   }
 
   navigatePedirNuevoDocumento() {
-    this.router.navigate(['/documentos',this.solicitud.tramite.id]);
+    this.router.navigate(['/documentos', this.solicitud.tramite.id]);
   }
 
   navigateCorregirFormulario() {
-    this.router.navigate(['/info-control',this.solicitud.tramite.id]);
+    this.router.navigate(['/info-control', this.solicitud.tramite.id]);
   }
 }

@@ -77,28 +77,5 @@ export class InfoControlComponent implements OnInit {
       console.log(this.infoControl);
       return;
     }
-    this.infoControl.fechaTerminación = new Date(this.fechaTerminacion);
-
-    this.infoControl = new InfoControlDTO(
-      this.infoControl.fechaTerminacion,
-      this.infoControl.fechaNotificacion,
-      this.infoControl.idSeguimiento,
-      this.infoControl.registroSanitario,
-      this.infoControl.expedienteRSA,
-      this.infoControl.numeroRSA,
-      this.infoControl.fechaVencimientoRSA,
-      this.infoControl.planta,
-      this.infoControl.numeroFactura,
-      this.infoControl.observaciones
-    );
-    this.tramiteService
-      .addInfoControlTramite(
-        +this.route.snapshot.paramMap.get('id'),
-        this.infoControl
-      )
-      .subscribe(() => {
-        alert('Formulario enviado correctamente.');
-        this.router.navigate(['/seguimiento-tramite', +this.route.snapshot.paramMap.get('id')]);
-      });
   }
 }

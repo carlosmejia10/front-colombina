@@ -5,6 +5,7 @@ import { DocumentoService } from '@/app/servicios/documento.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, throwError, Observable } from 'rxjs';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
+import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 
 @Component({
   selector: 'app-revision-documentacion',
@@ -14,10 +15,12 @@ import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
   styleUrls: ['./revision-documentacion.component.css'],
 })
 export class RevisionDocumentacionComponent implements OnInit {
+  solicitud: SolicitudDTO;
   documentos: DocumentoDTO[] = [];
   estadosDocumentos: { [id: number]: 'aprobado' | 'noAprobado' | 'noRevisado' } = {};
   idTramite: number = 0;
   documentosAprobados: boolean = false;
+  estadoTramite: string = ''; // Nuevo: estado del trámite actual
 
   constructor(
     private router: Router,
@@ -30,6 +33,10 @@ export class RevisionDocumentacionComponent implements OnInit {
     this.idTramite = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.idTramite) {
+      this.tramiteService.findById(this.idTramite).subscribe((data: SolicitudDTO) => {
+        this.solicitud = data;
+        this.estadoTramite = this.solicitud.tramite.estado; // Almacena el estado del trámite
+      });
       this.getDocumentos(this.idTramite).subscribe(
         (data) => {
           this.documentos = data;
@@ -60,12 +67,30 @@ export class RevisionDocumentacionComponent implements OnInit {
     );
   }
 
+  eliminarDocumento(documentoId: number, fileName: string): void {
+    this.documentoService.eliminarDocumento(this.idTramite, fileName, documentoId).subscribe(
+      () => {
+        // Elimina el documento de la lista local
+        this.documentos = this.documentos.filter(doc => doc.id !== documentoId);
+        delete this.estadosDocumentos[documentoId];  // Actualiza el estado
+        this.checkDocumentosAprobados();  // Revisa si todos los documentos están aprobados
+        console.log(`Documento "${fileName}" eliminado.`);
+      },
+      (error) => {
+        console.error(`Error al eliminar el documento "${fileName}":`, error);
+      }
+    );
+  }
+
+
+  // Actualiza el método `getEstadoClase` para aplicar los colores según el estado del trámite y la aprobación del documento
   getEstadoClase(documentoId: number): string {
-    const estado = this.estadosDocumentos[documentoId];
-    if (estado === 'aprobado') {
-      return 'estado-aprobado';
-    } else if (estado === 'noAprobado') {
-      return 'estado-no-aprobado';
+    const estadoDocumento = this.estadosDocumentos[documentoId] === 'aprobado';
+
+    if (this.estadoTramite === 'EN_REVISION') {
+      return estadoDocumento ? 'estado-aprobado' : 'estado-en-revision';
+    } else if (this.estadoTramite === 'PENDIENTE') {
+      return estadoDocumento ? 'estado-pendiente' : 'estado-no-aprobado';
     } else {
       return 'estado-no-revisado';
     }
@@ -82,7 +107,7 @@ export class RevisionDocumentacionComponent implements OnInit {
   continuar() {
     if (this.documentosAprobados) {
       this.tramiteService.setDocumentacionRevisada(this.idTramite).subscribe(() => {
-        this.router.navigate([`/info-control/${this.idTramite}`]);
+        this.router.navigate([`/formulario-general/${this.idTramite}/${this.solicitud.tramite.etapa}`]);
       });
     } else {
       alert('Debes aprobar todos los documentos para continuar.');
@@ -93,7 +118,7 @@ export class RevisionDocumentacionComponent implements OnInit {
     this.router.navigate(['/solicitudes']);
   }
 
-  // Método para verificar si todos los documentos están aprobados
+  // Verifica si todos los documentos están aprobados (en estado "verde")
   checkDocumentosAprobados() {
     this.documentosAprobados = this.documentos.every(
       (doc) => this.estadosDocumentos[doc.id] === 'aprobado'

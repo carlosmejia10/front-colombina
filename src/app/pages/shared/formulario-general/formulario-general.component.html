@@ -1,0 +1,373 @@
+<app-ar-layout>
+  <div class="form-tramite">
+    <div class="header">
+      <p>Formulario Consolidado</p>
+    </div>
+  
+    <!-- Información del trámite -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Número Radicado (#AR)</p>
+        <input
+          type="text"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.numeroRadicado"
+          name="numeroRadicado"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <p class="label">Nombre Producto</p>
+        <input
+          type="text"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.nombreProducto"
+          name="nombreProducto"
+          disabled
+        />
+      </div>
+    </div>
+  
+    <!-- Datos adicionales -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">PT</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('pt')}"
+          [(ngModel)]="solicitud.tramite.pt"
+          name="pt"
+          [disabled]="!esCampoHabilitado('pt')"
+        />
+        <p *ngIf="!esCampoHabilitado('pt')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Unidad de Negocio</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('unidadNegocio')}"
+          [(ngModel)]="solicitud.tramite.unidadNegocio"
+          name="unidadNegocio"
+          [disabled]="!esCampoHabilitado('unidadNegocio')"
+        />
+        <p *ngIf="!esCampoHabilitado('unidadNegocio')" class="note">No se requiere en esta etapa</p>
+      </div>
+    </div>
+  
+    <!-- Más datos del proyecto -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Número de Proyecto SAP</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('numProyectoSap')}"
+          [(ngModel)]="solicitud.tramite.numProyectoSap"
+          name="numProyectoSap"
+          [disabled]="!esCampoHabilitado('numProyectoSap')"
+        />
+        <p *ngIf="!esCampoHabilitado('numProyectoSap')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Nombre Proyecto</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('proyecto')}"
+          [(ngModel)]="solicitud.tramite.proyecto"
+          name="proyecto"
+          [disabled]="!esCampoHabilitado('proyecto')"
+        />
+        <p *ngIf="!esCampoHabilitado('proyecto')" class="note">No se requiere en esta etapa</p>
+      </div>
+    </div>
+  
+    <!-- Tipo de trámite y descripción -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Tipo de Trámite</p>
+        <input
+          type="text"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.tipoProducto"
+          name="tipoProducto"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <p class="label">Tipo de Modificación</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('tipoModificacion')}"
+          [(ngModel)]="solicitud.tramite.tipoModificacion"
+          name="tipoModificacion"
+          [disabled]="!esCampoHabilitado('tipoModificacion')"
+        />
+        <p *ngIf="!esCampoHabilitado('tipoModificacion')" class="note">No se requiere en esta etapa</p>
+      </div>
+    </div>
+  
+    <!-- Descripción del trámite -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Descripción del Trámite</p>
+        <input
+          type="text"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.descripcionProducto"
+          name="descripcionProducto"
+          disabled
+        />
+      </div>
+    </div>
+  
+    <!-- Fechas relevantes -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Fecha Solicitud</p>
+        <input
+          type="date"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('fechaSolicitud')}"
+          [(ngModel)]="solicitud.fechaSolicitud"
+          name="fechaSolicitud"
+          [disabled]="!esCampoHabilitado('fechaSolicitud')"
+        />
+        <p *ngIf="!esCampoHabilitado('fechaSolicitud')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha Envío Documentos</p>
+        <input
+          type="date"
+          class="input-text"
+          [(ngModel)]="solicitud.tramite.fechaEnvioDocumentos"
+          name="fechaEnvioDocumentos"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('fechaEnvioDocumentos')}"
+          [disabled]="!esCampoHabilitado('fechaEnvioDocumentos')"
+        />
+        <p *ngIf="!esCampoHabilitado('fechaEnvioDocumentos')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha Terminación Trámite</p>
+        <input
+          type="date"
+          class="input-text disabled-field"
+          [(ngModel)]="fechaTerminacion"
+          name="fechaTerminacion"
+          disabled
+        />
+        <p class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha de Notificación</p>
+        <input
+          type="date"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.fechaNotificacion"
+          name="fechaNotificacion"
+          disabled
+        />
+        <p class="note">No se requiere en esta etapa</p>
+      </div>
+    </div>
+  
+    <!-- Otros datos relevantes -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">País</p>
+        <input
+          type="text"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.entidadSanitaria.pais"
+          name="pais"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <p class="label">Registro Sanitario (RSA)</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('registroSanitario')}"
+          [(ngModel)]="solicitud.tramite.registroSanitario"
+          name="registroSanitario"
+          [disabled]="!esCampoHabilitado('registroSanitario')"
+        />
+        <p *ngIf="!esCampoHabilitado('registroSanitario')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Expediente RSA</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('expedienteRSA')}"
+          [(ngModel)]="solicitud.tramite.expedienteRSA"
+          name="expedienteRSA"
+          [disabled]="!esCampoHabilitado('expedienteRSA')"
+        />
+        <p *ngIf="!esCampoHabilitado('expedienteRSA')" class="note">No se requiere en esta etapa</p>
+      </div>
+    </div>
+  
+    <!-- Otros detalles habilitados -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label">Urgente?</p>
+        <input
+          type="checkbox"
+          [(ngModel)]="solicitud.tramite.urgente"
+          name="urgente"
+          [disabled]="!esCampoHabilitado('urgente')"
+        />
+        <p *ngIf="!esCampoHabilitado('urgente')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label"># RSA/NSA País</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('rsaNsaPais')}"
+          [(ngModel)]="solicitud.tramite.numeroRSA"
+          name="rsaNsaPais"
+          [disabled]="!esCampoHabilitado('rsaNsaPais')"
+        />
+        <p *ngIf="!esCampoHabilitado('rsaNsaPais')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Vencimiento RSA</p>
+        <input
+          type="date"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('vencimientoRSA')}"
+          [(ngModel)]="solicitud.tramite.fechaVencimientoRSA"
+          name="vencimientoRSA"
+          [disabled]="!esCampoHabilitado('vencimientoRSA')"
+        />
+        <p *ngIf="!esCampoHabilitado('vencimientoRSA')" class="note">No se requiere en esta etapa</p>
+      </div>
+    </div>
+  
+    <!-- Información de control y observaciones -->
+    <div class="form-row">
+      <div class="form-group">
+        <p class="label"># Intención (ID de seguimiento)</p>
+        <input
+          type="text"
+          class="input-text"
+          [(ngModel)]="solicitud.tramite.idSeguimiento"
+          name="idSeguimiento"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('idSeguimiento')}"
+          [disabled]="!esCampoHabilitado('idSeguimiento')"
+        />
+        <p *ngIf="!esCampoHabilitado('idSeguimiento')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label"># Exp</p>
+        <input
+          type="text"
+          class="input-text"
+          [(ngModel)]="solicitud.tramite.expNum"
+          name="expNum"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('expNum')}"
+          [disabled]="!esCampoHabilitado('expNum')"
+        />
+        <p *ngIf="!esCampoHabilitado('expNum')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Llave RSA Colombia</p>
+        <input
+          type="text"
+          class="input-text"
+          [(ngModel)]="solicitud.tramite.llaveRSAColombia"
+          name="llaveRSAColombia"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('llaveRSAColombia')}"
+          [disabled]="!esCampoHabilitado('llaveRSAColombia')"
+        />
+        <p *ngIf="!esCampoHabilitado('llaveRSAColombia')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha radicado Invima</p>
+        <input
+          type="date"
+          class="input-text"
+          [(ngModel)]="solicitud.tramite.fechaRadicacion"
+          name="fechaRadicadoInvima"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('fechaRadicadoInvima')}"
+          [disabled]="!esCampoHabilitado('fechaRadicadoInvima')"
+        />
+        <p *ngIf="!esCampoHabilitado('fechaRadicadoInvima')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Estado trámite</p>
+        <input
+          type="text"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.estado"
+          name="estado"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <p class="label">Fecha de llegada Resolución</p>
+        <input
+          type="date"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.tramite.fechaLlegadaResol"
+          name="fechaLlegadaResol"
+          disabled
+        />
+        <p class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">OK satisfactorio Invima</p>
+        <input
+          type="checkbox"
+          [(ngModel)]="solicitud.tramite.okSatisfactorioInvima"
+          name="okSatisfactorioInvima"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('okSatisfactorioInvima')}"
+          [disabled]="!esCampoHabilitado('okSatisfactorioInvima')"
+        />
+        <p *ngIf="!esCampoHabilitado('okSatisfactorioInvima')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Solicitado por</p>
+        <input
+          type="text"
+          class="input-text disabled-field"
+          [(ngModel)]="solicitud.solicitante.nombre"
+          name="solicitante"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <p class="label">Planta</p>
+        <input
+          type="text"
+          class="input-text"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('planta')}"
+          [(ngModel)]="solicitud.tramite.planta"
+          name="planta"
+          [disabled]="!esCampoHabilitado('planta')"
+        />
+        <p *ngIf="!esCampoHabilitado('planta')" class="note">No se requiere en esta etapa</p>
+      </div>
+      <div class="form-group">
+        <p class="label">Observaciones</p>
+        <textarea
+          class="input-text"
+          rows="4"
+          [ngClass]="{'disabled-field': !esCampoHabilitado('observaciones')}"
+          [(ngModel)]="solicitud.tramite.observaciones"
+          name="observaciones"
+          [disabled]="!esCampoHabilitado('observaciones')"
+        ></textarea>
+        <p *ngIf="!esCampoHabilitado('observaciones')" class="note">No se requiere en esta etapa</p>
+      </div>
+    </div>
+  
+    <button style="width: 25%; margin: auto" (click)="siguiente()">Siguiente</button>
+  </div>
+</app-ar-layout>

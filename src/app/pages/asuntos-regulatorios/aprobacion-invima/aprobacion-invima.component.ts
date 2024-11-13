@@ -1,43 +1,57 @@
-import { Component, Input } from '@angular/core';
-import { TramiteDTO } from "@/app/modelos/tramite.dto";
-import { NotificacionDto } from "@/app/modelos/notificacion-dto";
-import { Router } from '@angular/router';
-import {AppModule} from "@/app/app.module";
+import { Component } from '@angular/core';
+import { NotificacionDto } from '@/app/modelos/notificacion-dto';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
+import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 
 @Component({
   selector: 'app-aprobacion-invima',
   templateUrl: './aprobacion-invima.component.html',
   styleUrls: ['./aprobacion-invima.component.css'],
-  imports: [AppModule],
-  standalone: true
 })
 export class AprobacionInvimaComponent {
-  @Input() tramite!: TramiteDTO;
+  solicitud: SolicitudDTO;
   notificacion: NotificacionDto = new NotificacionDto();
 
-  constructor(private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private tramiteService: TramiteService
+  ) {}
+
+  ngOnInit(): void {
+    const tramiteId = this.route.snapshot.paramMap.get('id');
+    if (tramiteId) {
+      this.getTramiteDetails(+tramiteId);
+    }
+  }
+
+  getTramiteDetails(id: number): void {
+    this.tramiteService.findById(id).subscribe((data: SolicitudDTO) => {
+      this.solicitud = data;
+    });
+  }
 
   aprobarTramite() {
-    this.tramite.estado = "APROBADO";
-    alert(`El trámite "${this.tramite.numeroRadicado}" ha sido aprobado.`);
-    this.router.navigate(['/aprobacion-resolucion-solicitante', this.tramite.numeroRadicado]);
+    this.router.navigate(['/formulario-general', this.solicitud.tramite.id, this.solicitud.tramite.etapa]);
   }
 
   autoRequerimiento() {
-    this.tramite.estado = "EN_REVISION";
-    this.notificacion.mensaje = `Autorequerimiento en el trámite número: ${this.tramite.id}`;
-    this.notificacion.fecha = new Date();
-    alert(this.notificacion.mensaje);
   }
 
   rechazarTramite() {
-    this.tramite.estado = "RECHAZADO";
-    this.notificacion.mensaje = `Rechazado por el INVIMA el trámite número: ${this.tramite.id}`;
-    this.notificacion.fecha = new Date();
-    alert(this.notificacion.mensaje);
-    this.router.navigate(['/aprobacion-resolucion-solicitante', this.tramite.numeroRadicado]);
-
+    const confirmation = window.confirm(
+      `¿Seguro quiere continuar con el rechazo del trámite: ${this.solicitud.tramite.numeroRadicado}?`
+    );
+    if (confirmation) {
+      this.tramiteService.rechazarTramite(this.solicitud.tramite.id).subscribe(() => {
+        alert(`El trámite ${this.solicitud.tramite.numeroRadicado} ha sido rechazado.`);
+        this.router.navigate(['/solicitudes']);
+      }, () => {
+        alert('Error al rechazar el trámite.');
+      });
+    } else {
+      alert('Rechazo del trámite cancelado.');
+    }
   }
-
-
 }

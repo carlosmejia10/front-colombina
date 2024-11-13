@@ -1,0 +1,27 @@
+<app-ar-layout>
+    <div class="content-wrapper">
+      <div class="form-tramite">
+        <div class="header">
+          <p>Revisión de Rechazo del Trámite</p>
+        </div>
+  
+        <div class="form-row">
+          <div class="form-group">
+            <p class="label">ID Trámite</p>
+            <input type="text" class="input-text" [value]="tramiteId" disabled />
+          </div>
+          <div class="form-group">
+            <p class="label">Razón del Rechazo</p>
+            <!-- Asegurarse de mostrar rejectionReason en el textarea -->
+            <textarea class="input-text" rows="4" [(ngModel)]="rejectionReason" disabled></textarea>    
+          </div>
+        </div>
+  
+        <div class="button-container">
+            <button class="btn-primary" (click)="acceptTramite()">Aceptar</button>
+          <button class="btn-danger" (click)="rejectTramite()">Rechazar</button>
+        </div>
+      </div>
+    </div>
+  </app-ar-layout>
+  

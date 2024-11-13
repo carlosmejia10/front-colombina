@@ -1,0 +1,45 @@
+<div class="decision-container">
+  <h2 class="titulo">Corregir Documento</h2>
+
+  <div class="documento-info">
+    <pdf-viewer [src]="fileUrl" style="width: 100%; height: 100%;"></pdf-viewer>
+  </div>
+
+  <!-- Mostrar el comentario en una caja solo de visualización -->
+  <div class="comentarios">
+    <label>Comentarios:</label>
+    <div class="comentario-caja">{{ comentario }}</div>
+  </div>
+
+  <!-- Botón para descargar el documento -->
+  <div class="button-group">
+    <button class="btn-descargar" (click)="descargarDocumento()">Descargar</button>
+  </div>
+
+  <!-- Sección para subir archivo -->
+  <div class="form-group">
+    <label for="archivo">Subir nuevo documento:</label>
+    <div class="upload-area cuadro"
+         (dragover)="onDragOver($event)"
+         (drop)="onDrop($event)"
+         (dragleave)="onDragLeave($event)">
+      <button type="button" class="fl">
+        <input type="file" id="file-input" (change)="onFileSelected($event)" hidden />
+        <label for="file-input" class="file-label">Seleccionar archivo</label>
+      </button>
+      <div *ngIf="fileName" class="file-entry">
+        <span>{{ fileName }}</span>
+        <span class="remove-icon" (click)="removeFile()">❌</span>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
+
+  <!-- Botón para enviar el archivo -->
+  <div class="button-group">
+    <button class="btn-enviar" (click)="enviarArchivo()" [disabled]="!selectedFile">Enviar</button>
+  </div>
+
+  <!-- Botón para regresar -->
+  <button class="btn-regresar" (click)="regresar()">Regresar</button>
+</div>

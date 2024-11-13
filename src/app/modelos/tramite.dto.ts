@@ -26,7 +26,24 @@ export class TramiteDTO {
   claseTramite?: string;
   fechaSolicitud?: Date;
   solicitud?: Solicitud;
+  rejectionReason?: string;  // Agregar `rejectionReason` como propiedad opcional
   entidadSanitaria?: EntidadSanitaria;
+  fechaTerminacion?: Date; // Nuevo campo
+  fechaNotificacion?: Date; // Nuevo campo
+  registroSanitario?: string; // Nuevo campo
+  expedienteRSA?: string; // Nuevo campo
+  numeroRSA?: number; // Nuevo campo
+  expNum?: number; // Nuevo campo
+  fechaVencimientoRSA?: Date; // Nuevo campo
+  planta?: string; // Nuevo campo
+  numeroFactura?: string; // Nuevo campo
+  observaciones?: string; // Nuevo campo
+  llaveRSAColombia?: string; // Nuevo campo
+  urgente?: boolean; // Nuevo campo
+  fechaLlegadaResol?: Date; // Nuevo campo
+  okSatisfactorioInvima?: boolean; // Nuevo campo
+  fechaEnvioDocumentos?: Date; // Nuevo campo
+  idSeguimiento?: string; // Nuevo campo
 
   constructor(
     nombreProducto: string,
@@ -38,7 +55,8 @@ export class TramiteDTO {
     progreso: number,
     llave: number,
     entidadSanitariaId: number,
-    historialCambioDTOList: HistorialCambioDTO[]
+    historialCambioDTOList: HistorialCambioDTO[],
+    rejectionReason?: string  // Asegurar que el constructor pueda aceptar `rejectionReason`
   ) {
     this.nombreProducto = nombreProducto;
     this.descripcionProducto = descripcionProducto;
@@ -50,5 +68,6 @@ export class TramiteDTO {
     this.llave = llave;
     this.entidadSanitariaId = entidadSanitariaId;
     this.historialCambioDTOList = historialCambioDTOList;
+    this.rejectionReason = rejectionReason;  // Asignar `rejectionReason` si está presente
   }
 }

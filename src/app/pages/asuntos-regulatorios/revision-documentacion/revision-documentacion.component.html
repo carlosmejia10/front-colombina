@@ -2,22 +2,27 @@
   <h2 class="titulo">Lista de Documentos</h2>
   <div class="documentos">
     <div *ngFor="let documento of documentos" class="documento" [ngClass]="getEstadoClase(documento.id)">
-      <strong>{{ documento.nombre }}:</strong>
-      <div *ngIf="estadosDocumentos[documento.id] === 'aprobado'"></div>
-      <div *ngIf="estadosDocumentos[documento.id] === 'noAprobado'"></div>
-      <div *ngIf="estadosDocumentos[documento.id] === 'noRevisado'"></div>
+      <div class="documento-header">
+        <!-- Nombre del documento -->
+        <strong>{{ documento.nombre }}:</strong>
 
+        <!-- Icono de papelera para eliminar -->
+        <span class="icono-basura" (click)="eliminarDocumento(documento.id, documento.nombre)">❌</span>
+      </div>
+
+      <!-- Indicadores de estado del documento -->
+      <div *ngIf="estadosDocumentos[documento.id] === 'aprobado'" class="estado-aprobado">Aprobado</div>
+      <div *ngIf="estadosDocumentos[documento.id] === 'noAprobado'" class="estado-no-aprobado">No aprobado</div>
+      <div *ngIf="estadosDocumentos[documento.id] === 'noRevisado'" class="estado-no-revisado">No revisado</div>
+
+      <!-- Botón para revisar el documento -->
       <button class="btn-revisar" (click)="revisarDocumento(documento.nombre, documento.id)">Revisar</button>
     </div>
   </div>
-  
+
+  <!-- Botón para regresar -->
   <button class="btn-regresar" (click)="regresar()">Regresar</button>
-  
-  <button
-    class="btn-continuar"
-    [disabled]="!documentosAprobados" 
-    (click)="continuar()"
-  >
-    Continuar
-  </button>
+
+  <!-- Botón para continuar, habilitado solo si todos los documentos están aprobados -->
+  <button class="btn-continuar" [disabled]="!documentosAprobados" (click)="continuar()">Continuar</button>
 </div>

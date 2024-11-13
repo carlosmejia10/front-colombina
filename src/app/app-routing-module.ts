@@ -26,6 +26,8 @@ import { ConceptoSatisfactorioComponent } from '@/app/pages/asuntos-regulatorios
 import { NotificationsComponent } from '@/app/pages/shared/notifications/notifications.component';
 import { AprobacionInvimaComponent } from '@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
+
+
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
 import {
   AprobacionResolucionSolicitanteComponent
@@ -52,6 +54,12 @@ import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-co
 import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
+import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-rechazo/revisar-rechazo.component';
+import { FormularioGeneralComponent } from './pages/shared/formulario-general/formulario-general.component';
+import {CorregirDocumentoComponent} from "@/app/pages/solicitante/corregir-documento/corregir-documento.component";
+import {
+  DocumentosDevueltosComponent
+} from "@/app/pages/solicitante/documentos-devueltos/documentos-devueltos.component";
 
 
 const routes: Routes = [
@@ -172,8 +180,16 @@ const routes: Routes = [
     component: RevisionDocumentacionComponent,
   },
   {
+    path: 'corregir-documentos/:id',
+    component: DocumentosDevueltosComponent,
+  },
+  {
     path: `revision/:numeroRadicado/:id/:idDocumento`,
     component: DocumentoEscogidoComponent,
+  },
+  {
+    path: `devolver/:numeroRadicado/:id/:idDocumento`,
+    component: CorregirDocumentoComponent,
   },
   {
     path:`perfil`,
@@ -190,7 +206,14 @@ const routes: Routes = [
   },
 
   {
-    path: `aprobacion-invima/:numeroRadicado`,
+    path: 'formulario-general/:idTramite/:etapa',
+    component: FormularioGeneralComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios, Role.Admin, Role.Solitante] }
+  },
+
+  {
+    path: `aprobacion-entidad-sanitaria/:id`,
     component: AprobacionInvimaComponent,
   },
 
@@ -209,10 +232,8 @@ const routes: Routes = [
     component: ConceptoSatisfactorioComponent,
   },
 
-  {
-    path: `aprobacion-solicitante`,
-    component: AprobacionSolicitanteComponent,
-  },
+  { path: 'aprobacion-solicitante/:id',
+    component: AprobacionSolicitanteComponent },
 
   {
     path: `apertura-tramite/:numeroRadicado`,
@@ -240,11 +261,18 @@ const routes: Routes = [
     path: `revision-preliminar`,
     component: RevisionPreliminarComponent,
   },
+  { path: 'revisar-rechazo/:id',
+    component: RevisarRechazoComponent },
+
+  { path: 'tabla-tramite',
+    component: TablaTramiteComponent },
 
   {
-    path: `notificaciones-admin`,	
+    path: `notificaciones-admin`,
     component: NotificacionesAdminComponent,
   },
+
+
   {
     path: `notificaciones-ar`,
     component: NotificacionesArComponent,
