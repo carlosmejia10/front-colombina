@@ -33,6 +33,7 @@ export class AprobacionInvimaComponent {
   }
 
   aprobarTramite() {
+    this.router.navigate(['/formulario-general', this.solicitud.tramite.id, this.solicitud.tramite.etapa]);
   }
 
   autoRequerimiento() {

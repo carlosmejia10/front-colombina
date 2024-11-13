@@ -103,7 +103,6 @@ export class SeguimientoTramiteComponent {
   }
 
   navigatePedirNuevoDocumento() {
-    this.tramiteService
     this.router.navigate(['/documentos', this.solicitud.tramite.id]);
   }
 
