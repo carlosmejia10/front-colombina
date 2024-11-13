@@ -34,6 +34,7 @@ export class TramiteService {
     });
   }
 
+
   addTramite(tramite: TramiteDTO): Observable<any> {
     return this.http.post(`${BASE_URL}/tramites`, tramite, {
       headers: this.getHeaders(),

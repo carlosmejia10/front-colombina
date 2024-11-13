@@ -13,8 +13,8 @@ export class TramiteDTO {
   fechaRadicacion: Date;
   progreso: number;
   llave: number;
-  solicitanteId: number;
-  entidadSanitariaId: number;
+  solicitanteId?: number;
+  entidadSanitariaId?: number;
   etapa: string;
   historialCambioDTOList: HistorialCambioDTO[];
   pt?: string;
@@ -27,6 +27,15 @@ export class TramiteDTO {
   fechaSolicitud?: Date;
   solicitud?: Solicitud;
   entidadSanitaria?: EntidadSanitaria;
+  fechaTerminacion?: Date; // Nuevo campo
+  fechaNotificacion?: Date; // Nuevo campo
+  registroSanitario?: string; // Nuevo campo
+  expedienteRSA?: string; // Nuevo campo
+  numeroRSA?: number; // Nuevo campo
+  fechaVencimientoRSA?: Date; // Nuevo campo
+  planta?: string; // Nuevo campo
+  numeroFactura?: string; // Nuevo campo
+  observaciones?: string; // Nuevo campo
 
   constructor(
     nombreProducto: string,

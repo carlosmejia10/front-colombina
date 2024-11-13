@@ -52,6 +52,7 @@ import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-co
 import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
+import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/formulario-general.component";
 
 
 const routes: Routes = [
@@ -190,6 +191,13 @@ const routes: Routes = [
   },
 
   {
+    path: 'formulario-general/:idTramite/:etapa',
+    component: FormularioGeneralComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [Role.AsuntosRegulatorios, Role.Admin, Role.Solitante] }
+  },
+
+  {
     path: `aprobacion-invima/:numeroRadicado`,
     component: AprobacionInvimaComponent,
   },
@@ -242,7 +250,7 @@ const routes: Routes = [
   },
 
   {
-    path: `notificaciones-admin`,	
+    path: `notificaciones-admin`,
     component: NotificacionesAdminComponent,
   },
   {

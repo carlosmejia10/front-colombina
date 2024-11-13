@@ -27,9 +27,11 @@ export class RevisionDocumentacionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Obtener el ID del trámite de la ruta
     this.idTramite = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.idTramite) {
+      // Cargar los documentos relacionados con el trámite
       this.getDocumentos(this.idTramite).subscribe(
         (data) => {
           this.documentos = data;
@@ -43,15 +45,17 @@ export class RevisionDocumentacionComponent implements OnInit {
           console.error('Error al cargar documentos:', error);
         }
       );
+
+      // Verificar si los documentos están aprobados
+      this.documentoService.aprobados(this.idTramite).subscribe((data) => {
+        this.documentosAprobados = data.aprobados === data.total;
+      });
     } else {
       console.error('ID no encontrado en la ruta');
     }
-
-    this.documentoService.aprobados(this.idTramite).subscribe((data) => {
-      this.documentosAprobados = data.aprobados === data.total;
-    });
   }
 
+  // Método para obtener documentos
   getDocumentos(idTramite: number): Observable<DocumentoDTO[]> {
     return this.documentoService.findAll(idTramite).pipe(
       catchError((error: any) => {
@@ -60,6 +64,7 @@ export class RevisionDocumentacionComponent implements OnInit {
     );
   }
 
+  // Obtener la clase de estado para los documentos
   getEstadoClase(documentoId: number): string {
     const estado = this.estadosDocumentos[documentoId];
     if (estado === 'aprobado') {
@@ -71,24 +76,37 @@ export class RevisionDocumentacionComponent implements OnInit {
     }
   }
 
+  // Navegar para revisar un documento
   revisarDocumento(documentoname: string, documentoId: number): void {
     if (documentoname) {
       this.router.navigate(['/revision', this.idTramite, documentoname, documentoId]);
     } else {
-      console.error('documento no es válido:', documentoname);
+      console.error('Documento no es válido:', documentoname);
     }
   }
 
+  // Continuar al siguiente componente
   continuar() {
     if (this.documentosAprobados) {
-      this.tramiteService.setDocumentacionRevisada(this.idTramite).subscribe(() => {
-        this.router.navigate([`/info-control/${this.idTramite}`]);
-      });
+      this.tramiteService.findById(this.idTramite).subscribe(
+        (data) => {
+          const etapa = data.tramite.etapa; // Obtener la etapa del trámite
+          console.log('Etapa obtenida:', etapa);
+
+          // Navegar al FormularioGeneralComponent con el ID y la etapa
+          this.router.navigate([`/formulario-general/${this.idTramite}/${etapa}`]);
+        },
+        (error) => {
+          console.error('Error al obtener la etapa del trámite:', error);
+          alert('Error al obtener la etapa del trámite. Inténtelo de nuevo.');
+        }
+      );
     } else {
       alert('Debes aprobar todos los documentos para continuar.');
     }
   }
 
+  // Regresar al listado de solicitudes
   regresar() {
     this.router.navigate(['/solicitudes']);
   }

@@ -3,7 +3,7 @@ import { UsuarioDTO } from "./usuarioDTO";
 
 export class SolicitudDTO {
   id: number;
-  fechaSolicitud: Date; // Cambiar 'fecha' a 'fechaSolicitud' para que coincida con el backend
+  fechaSolicitud: Date;  // Cambiar 'fecha' a 'fechaSolicitud' para que coincida con el backend
   tramite?: TramiteDTO;
   solicitante?: UsuarioDTO;
 

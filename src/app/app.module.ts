@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Asegúrate de importar HttpClientModule
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
 import { CommonModule } from '@angular/common';
 
@@ -62,6 +62,7 @@ import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/est
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
+import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/formulario-general.component";
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin
     SeguimientoTramiteComponent,
     EstadisticasAdminComponent,
     EstadisticasArComponent,
-    NotificacionesAdminComponent
+    NotificacionesAdminComponent,
+    FormularioGeneralComponent
   ],
   imports: [
     RouterModule,
@@ -120,6 +122,7 @@ import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin
     CommonModule,
     ChartModule,
     PdfViewerModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration(),
