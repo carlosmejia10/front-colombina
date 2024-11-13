@@ -30,9 +30,7 @@
 }
 
 .btn-aprobar,
-.btn-rechazar,
-.btn-pedir-documento,
-.btn-corregir-formulario {
+.btn-rechazar {
     padding: 10px 15px; /* Espaciado interno */
     background-color: #007bff; /* Color de fondo */
     color: #ffffff; /* Color del texto */
@@ -44,17 +42,13 @@
 }
 
 .btn-aprobar:hover,
-.btn-rechazar:hover,
-.btn-pedir-documento:hover,
-.btn-corregir-formulario:hover{
+.btn-rechazar:hover {
     background-color: #0056b3; /* Color al pasar el mouse */
 }
 
 /* Ajuste del contenedor de botones para que no ocupen todo el ancho */
 .btn-aprobar,
-.btn-rechazar,
-.btn-pedir-documento,
-.btn-corregir-formulario {
+.btn-rechazar {
     flex: none; /* No permitir que crezcan */
     width: auto; /* Ancho automático */
     margin: 0; /* Sin márgenes */
