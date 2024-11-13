@@ -29,37 +29,6 @@
     margin-top: 20px; /* Margen superior de los botones */
 }
 
-.btn-aprobar,
-.btn-rechazar,
-.btn-pedir-documento,
-.btn-corregir-formulario {
-    padding: 10px 15px; /* Espaciado interno */
-    background-color: #007bff; /* Color de fondo */
-    color: #ffffff; /* Color del texto */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    font-size: 0.9em; /* Tamaño de texto */
-    transition: background-color 0.3s; /* Transición suave para el hover */
-}
-
-.btn-aprobar:hover,
-.btn-rechazar:hover,
-.btn-pedir-documento:hover,
-.btn-corregir-formulario:hover{
-    background-color: #0056b3; /* Color al pasar el mouse */
-}
-
-/* Ajuste del contenedor de botones para que no ocupen todo el ancho */
-.btn-aprobar,
-.btn-rechazar,
-.btn-pedir-documento,
-.btn-corregir-formulario {
-    flex: none; /* No permitir que crezcan */
-    width: auto; /* Ancho automático */
-    margin: 0; /* Sin márgenes */
-}
-
 h2 {
     text-align: center;
     font-size: 2em; /* Tamaño del texto */
@@ -67,4 +36,3 @@ h2 {
     color: #333; /* Color del texto */
     margin: 20px 0; /* Espaciado superior e inferior */
   }
-  

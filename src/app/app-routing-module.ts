@@ -53,7 +53,7 @@ import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/est
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/formulario-general.component";
-
+import { TramiteFinalizadoComponent } from './pages/asuntos-regulatorios/tramite-finalizado/tramite-finalizado.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -213,7 +213,7 @@ const routes: Routes = [
   },
 
   {
-    path: `concepto-satisfactorio`,
+    path: `concepto-satisfactorio/:id`,
     component: ConceptoSatisfactorioComponent,
   },
 
@@ -262,6 +262,10 @@ const routes: Routes = [
     path: `notificaciones-solicitante`,
     component: NotificacionesSolicitanteComponent,
   },
+  {
+    path: `tramite-finalizado/:id`,
+    component: TramiteFinalizadoComponent,
+  }
 
 ];
 

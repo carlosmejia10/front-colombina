@@ -50,7 +50,7 @@ import { NotificationsComponent } from './pages/shared/notifications/notificatio
 import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 import { FileSizeComponent } from './pages/solicitante/file-size/file-size.component';
-
+import { TramiteFinalizadoComponent } from './pages/asuntos-regulatorios/tramite-finalizado/tramite-finalizado.component';
 //PARA PRUEBAS DE ESTADISTICA
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
@@ -63,7 +63,7 @@ import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadistic
 import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/formulario-general.component";
-
+import { ConceptoSatisfactorioComponent } from './pages/asuntos-regulatorios/concepto-satisfactorio/concepto-satisfactorio.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,7 +109,9 @@ import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/
     EstadisticasAdminComponent,
     EstadisticasArComponent,
     NotificacionesAdminComponent,
-    FormularioGeneralComponent
+    FormularioGeneralComponent,
+    ConceptoSatisfactorioComponent,
+    TramiteFinalizadoComponent
   ],
   imports: [
     RouterModule,

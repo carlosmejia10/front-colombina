@@ -1,0 +1,61 @@
+.container {
+    width: 100%;
+    height: calc(100vh - 60px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f6fb;
+    padding: 20px;
+  }
+
+  .tramite-info {
+    flex-grow: 1; /* Permitir que este div ocupe el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre elementos */
+    padding: 15px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde alrededor del cuadro */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #ffffff; /* Fondo blanco para el cuadro */
+    width: 100%; /* Ancho completo */
+    max-width: 75vw; /* Ancho máximo del cuadro */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center; /* Centrar botones */
+    gap: 10px; /* Espacio entre botones */
+    margin-top: 20px; /* Margen superior de los botones */
+}
+
+.btn-group{
+    padding: 10px 15px; /* Espaciado interno */
+    background-color: #007bff; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 0.9em; /* Tamaño de texto */
+    transition: background-color 0.3s; /* Transición suave para el hover */
+}
+
+.btn-group:hover{
+    background-color: #0056b3; /* Color al pasar el mouse */
+}
+
+/* Ajuste del contenedor de botones para que no ocupen todo el ancho */
+.btn-group{
+    flex: none; /* No permitir que crezcan */
+    width: auto; /* Ancho automático */
+    margin: 0; /* Sin márgenes */
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em; /* Tamaño del texto */
+    font-weight: bold; /* Estilo de negrita */
+    color: #333; /* Color del texto */
+    margin: 20px 0; /* Espaciado superior e inferior */
+  }
+  
