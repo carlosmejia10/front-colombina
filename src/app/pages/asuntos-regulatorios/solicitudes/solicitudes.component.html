@@ -136,10 +136,11 @@
         >
           <table>
             <tr
-              *ngFor="let solicitud of filteredSolicitudes"
-              (click)="goToTramiteInfo(solicitud.tramite.id)"
-              style="cursor: pointer"
-            >
+            *ngFor="let solicitud of filteredSolicitudes"
+            (click)="goToTramiteInfo(solicitud.tramite.id, solicitud.tramite.estado)"
+            style="cursor: pointer"
+          >
+          
               <ng-container *ngIf="solicitud.tramite?.tipoTramite">
                 <td>
                   <i

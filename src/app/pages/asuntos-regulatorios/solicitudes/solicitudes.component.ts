@@ -56,9 +56,14 @@ export class SolicitudesComponent {
   }
 
   // Navegar a la página de detalles del trámite
-  goToTramiteInfo(tramiteId: number): void {
-    this.router.navigate(['/info-solicitud', tramiteId]);
+  goToTramiteInfo(tramiteId: number, estado: string): void {
+    if (estado === 'RECHAZADO') {
+      this.router.navigate(['/revisar-rechazo', tramiteId]);
+    } else {
+      this.router.navigate(['/info-solicitud', tramiteId]);
+    }
   }
+  
 
   // Obtener la lista de trámites
   getTramites(): void {

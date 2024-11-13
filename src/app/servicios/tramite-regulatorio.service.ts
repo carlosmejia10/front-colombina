@@ -14,6 +14,14 @@ import { InfoControlDTO } from '../modelos/info-control.dto';
 export class TramiteService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  // Método para actualizar el estado del trámite
+  updateTramiteStatus(idTramite: number, status: string, rejectionReason?: string): Observable<any> {
+    const body = { status, rejectionReason }; // Cuerpo de la solicitud
+    return this.http.put(`${BASE_URL}/tramites/${idTramite}/update-status`, body, {
+      headers: this.getHeaders(),
+    });
+  }
+
   // Método para generar encabezados con el token dinámicamente
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
@@ -21,6 +29,7 @@ export class TramiteService {
       Authorization: `Bearer ${token}`,
     });
   }
+
 
   findAll(): Observable<TramiteDTO[]> {
     return this.http.get<TramiteDTO[]>(`${BASE_URL}/tramites/todos`, {
@@ -32,7 +41,9 @@ export class TramiteService {
     return this.http.get<SolicitudDTO>(`${BASE_URL}/solicitudes/tramite/${id}`, {
       headers: this.getHeaders(),
     });
-  }
+}
+
+  
 
   addTramite(tramite: TramiteDTO): Observable<any> {
     return this.http.post(`${BASE_URL}/tramites`, tramite, {

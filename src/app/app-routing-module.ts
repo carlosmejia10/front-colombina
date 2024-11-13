@@ -26,6 +26,9 @@ import { ConceptoSatisfactorioComponent } from '@/app/pages/asuntos-regulatorios
 import { NotificationsComponent } from '@/app/pages/shared/notifications/notifications.component';
 import { AprobacionInvimaComponent } from '@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
+import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.component';
+
+
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
 import {
   AprobacionResolucionSolicitanteComponent
@@ -52,6 +55,7 @@ import {CuadroControlComponent} from "@/app/pages/admin/cuadro-control/cuadro-co
 import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
+import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-rechazo/revisar-rechazo.component';
 
 
 const routes: Routes = [
@@ -198,6 +202,8 @@ const routes: Routes = [
     path:`aprobacion-resolucion-solicitante`,
     component: AprobacionResolucionSolicitanteComponent,
   },
+  { path: 'tramite-a8/:id', 
+    component: TramiteA8Component },
 
   {
     path: `autorequerimiento`,
@@ -209,10 +215,8 @@ const routes: Routes = [
     component: ConceptoSatisfactorioComponent,
   },
 
-  {
-    path: `aprobacion-solicitante`,
-    component: AprobacionSolicitanteComponent,
-  },
+  { path: 'aprobacion-solicitante/:id', 
+    component: AprobacionSolicitanteComponent },
 
   {
     path: `apertura-tramite/:numeroRadicado`,
@@ -240,11 +244,18 @@ const routes: Routes = [
     path: `revision-preliminar`,
     component: RevisionPreliminarComponent,
   },
+  { path: 'revisar-rechazo/:id', 
+    component: RevisarRechazoComponent },
+
+  { path: 'tabla-tramite', 
+    component: TablaTramiteComponent },
 
   {
     path: `notificaciones-admin`,	
     component: NotificacionesAdminComponent,
   },
+
+
   {
     path: `notificaciones-ar`,
     component: NotificacionesArComponent,

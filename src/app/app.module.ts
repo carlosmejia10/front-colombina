@@ -2,14 +2,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; // Asegúrate de importar HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing-module';
 import { CommonModule } from '@angular/common';
 
 import { ChartModule } from 'primeng/chart';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms'; // Import FormsModule para habilitar ngModel
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { IgxDropDownModule } from 'igniteui-angular';
+import { EstadisticasService } from './servicios/estadisticas.service';
 
-//componentes de la aplicación
+// Componentes de la aplicación
 import { AppComponent } from './app.component';
 import { ArrastrarComponent } from './pages/solicitante/arrastrar/arrastrar.component';
 import { AuditoriaComponent } from './pages/solicitante/auditoria/auditoria.component';
@@ -27,13 +34,6 @@ import { TablaTramiteComponent } from './pages/solicitante/tabla-tramite/tabla-t
 import { BarraOpcComponent } from './components/barra-opc/barra-opc.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { LateralComponent } from './components/lateral/lateral.component';
-import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { IgxDropDownModule } from 'igniteui-angular';
-import { EstadisticasService } from './servicios/estadisticas.service';
 import { SolicitudesComponent } from './pages/asuntos-regulatorios/solicitudes/solicitudes.component';
 import { LateralArComponent } from './components/lateral-ar/lateral-ar.component';
 import { LayoutComponent } from './components/shared/layout/layout.component';
@@ -51,11 +51,10 @@ import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notifica
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 import { FileSizeComponent } from './pages/solicitante/file-size/file-size.component';
 
-//PARA PRUEBAS DE ESTADISTICA
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
-import { InfoControlComponent } from '@/app/pages/asuntos-regulatorios/info-control/info-control.component';
-import { CuadroControlComponent } from '@/app/pages/admin/cuadro-control/cuadro-control.component';
+import { InfoControlComponent } from './pages/asuntos-regulatorios/info-control/info-control.component';
+import { CuadroControlComponent } from './pages/admin/cuadro-control/cuadro-control.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { EstadisticaComponent } from './pages/shared/estadisticas/estadisticas.component';
 import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
@@ -63,15 +62,22 @@ import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadistic
 import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 
+// Agregar TramiteA8Component
+import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.component';
+import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-rechazo/revisar-rechazo.component';
+
 @NgModule({
   declarations: [
+    
     AppComponent,
     ArrastrarComponent,
     AuditoriaComponent,
+    RevisarRechazoComponent,
     CalendarioComponent,
     ConfirmacionComponent,
     CrearTramiteComponent,
     HistorialComponent,
+    ArLayoutComponent,
     InfoTramiteComponent,
     LoginComponent,
     ModificarInternacionalComponent,
@@ -107,16 +113,17 @@ import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin
     SeguimientoTramiteComponent,
     EstadisticasAdminComponent,
     EstadisticasArComponent,
-    NotificacionesAdminComponent
+    NotificacionesAdminComponent,
+    TramiteA8Component // Agregado aquí
   ],
   imports: [
     RouterModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule, // Agrega HttpClientModule a la lista de imports
+    HttpClientModule,
     CalendarModule,
-    FormsModule,
+    FormsModule, // FormsModule agregado para habilitar ngModel
     CommonModule,
     ChartModule,
     PdfViewerModule,
