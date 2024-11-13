@@ -97,4 +97,12 @@ export class TramiteService {
       { headers: this.getHeaders() }
     );
   }
+
+  cambiarEtapaTramite(idTramite: number, etapa: number): Observable<any> {
+    return this.http.post(
+      `${BASE_URL}/tramites/${idTramite}/cambiar-etapa/${etapa}`,
+      {},
+      { headers: this.getHeaders() }
+    );
+  }
 }

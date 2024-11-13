@@ -83,10 +83,15 @@ export class SeguimientoTramiteComponent {
       .updateTramite(this.solicitud.tramite.id, this.numeroRadicado, this.llave)
       .subscribe(
         (response) => {
-          // Aquí puedes manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
-          alert(
-            `Información actualizada: Número Radicado - ${this.numeroRadicado}, Llave - ${this.llave}`
-          );
+          this.tramiteService.cambiarEtapaTramite(this.solicitud.tramite.id, 7).subscribe(() => {
+            alert(
+              `Información actualizada: Número Radicado - ${this.numeroRadicado}, Llave - ${this.llave}`
+            );
+            this.router.navigate([
+              '/aprobacion-entidad-sanitaria',
+              this.solicitud.tramite.id,
+            ]);
+          })
         },
         (error) => {
           // Manejo de errores en caso de que la actualización falle
@@ -96,17 +101,23 @@ export class SeguimientoTramiteComponent {
           );
         }
       );
-    this.router.navigate([
-      '/aprobacion-entidad-sanitaria',
-      this.solicitud.tramite.id,
-    ]);
   }
 
   navigatePedirNuevoDocumento() {
-    this.router.navigate(['/documentos', this.solicitud.tramite.id]);
+    this.tramiteService.cambiarEtapaTramite(this.solicitud.tramite.id, 4).subscribe(() => {
+      alert(
+        `Etapa del trámite cambiada a "Revisión de Documentación".`
+      );
+      this.router.navigate(['/documentos', this.solicitud.tramite.id]);
+    })
   }
 
   navigateCorregirFormulario() {
-    this.router.navigate(['/info-control', this.solicitud.tramite.id]);
+    this.tramiteService.cambiarEtapaTramite(this.solicitud.tramite.id, 5).subscribe(() => {
+      alert(
+        `Etapa del trámite cambiada a "Consolidación/Radicación trámite".`
+      );
+      this.router.navigate(['/formulario-genetal', this.solicitud.tramite.id, 'A5']);
+    })
   }
 }
