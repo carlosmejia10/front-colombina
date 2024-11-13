@@ -84,7 +84,7 @@ export class InfoSolicitudComponent {
           break;
         case 'A7':
         case 'B7':
-          this.router.navigate(['/finalizacion', idTramite]);
+          this.router.navigate(['/aprobacion-entidad-sanitaria', idTramite]);
           break;
         case 'A9':
           this.router.navigate(['/concepto-satisfactorio', idTramite]);
