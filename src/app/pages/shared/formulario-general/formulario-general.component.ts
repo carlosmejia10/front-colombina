@@ -163,13 +163,11 @@ export class FormularioGeneralComponent implements OnInit {
         !this.solicitud.tramite.tipoModificacion ||
         !this.infoControl.registroSanitario ||
         !this.infoControl.expedienteRSA ||
-        !this.solicitud.tramite.urgente ||
         !this.solicitud.tramite.numeroRSA ||
         !this.solicitud.tramite.fechaVencimientoRSA ||
-        !this.infoControl.planta ||
-        !this.infoControl.observaciones
+        !this.infoControl.planta
       ) {
-        alert('Por favor, complete todos los campos antes de continuar.');
+        alert('Por favor, complete todos los campos obligatorios antes de continuar.');
         return;
       }
       const infoApertura = new InfoAperturaTramite(
