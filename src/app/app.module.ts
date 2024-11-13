@@ -63,14 +63,13 @@ import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguim
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 
 // Agregar TramiteA8Component
-import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.component';
 import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-rechazo/revisar-rechazo.component';
 
 import { AprobacionInvimaComponent } from './pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { FormularioGeneralComponent } from './pages/shared/formulario-general/formulario-general.component';
 @NgModule({
   declarations: [
-    
+
     AppComponent,
     ArrastrarComponent,
     AuditoriaComponent,
@@ -116,7 +115,6 @@ import { FormularioGeneralComponent } from './pages/shared/formulario-general/fo
     EstadisticasAdminComponent,
     EstadisticasArComponent,
     NotificacionesAdminComponent,
-    TramiteA8Component,
     AprobacionInvimaComponent,
     FormularioGeneralComponent,
   ],

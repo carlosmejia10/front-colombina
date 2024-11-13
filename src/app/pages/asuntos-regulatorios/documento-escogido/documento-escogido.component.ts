@@ -20,6 +20,7 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
   fileUrl!: SafeUrl;
   infoDoc: any;
   fileBlob!: Blob; // Archivo en Blob para poder descargarlo
+  comentario: string;
 
   constructor(
     private documentoService: DocumentoService,
@@ -54,6 +55,11 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
     URL.revokeObjectURL(downloadLink.href); // Libera la memoria de la URL creada
   }
 
+  capturarComentario(event: Event) {
+    const divElement = event.target as HTMLDivElement;
+    this.comentario = divElement.innerText; // Obtiene el texto del <div> editable
+  }
+
   aprobarORechazar(aprobado: boolean) {
     const estado = aprobado ? 'aprobado' : 'rechazado';
 
@@ -63,10 +69,10 @@ export class DocumentoEscogidoComponent implements OnInit { // Implementa OnInit
         this.router.navigate(['/documentos', this.tramiteId]);
       });
     } else {
-      this.documentoService.rechazar(this.tramiteId, this.nombreDocumento, this.documentId).subscribe(() => {
+      this.documentoService.rechazar(this.tramiteId, this.nombreDocumento, this.documentId, this.comentario).subscribe(() => {
         alert(`El documento "${this.documentId}" ha sido ${estado}.`);
         this.router.navigate(['/documentos', this.tramiteId]);
-      })  
+      })
     }
   }
 
