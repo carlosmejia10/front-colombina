@@ -39,5 +39,18 @@ export class AprobacionInvimaComponent {
   }
 
   rechazarTramite() {
+    const confirmation = window.confirm(
+      `¿Seguro quiere continuar con el rechazo del trámite: ${this.solicitud.tramite.numeroRadicado}?`
+    );
+    if (confirmation) {
+      this.tramiteService.rechazarTramite(this.solicitud.tramite.id).subscribe(() => {
+        alert(`El trámite ${this.solicitud.tramite.numeroRadicado} ha sido rechazado.`);
+        this.router.navigate(['/solicitudes']);
+      }, () => {
+        alert('Error al rechazar el trámite.');
+      });
+    } else {
+      alert('Rechazo del trámite cancelado.');
+    }
   }
 }

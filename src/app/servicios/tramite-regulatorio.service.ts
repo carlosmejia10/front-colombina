@@ -89,4 +89,12 @@ export class TramiteService {
       { headers: this.getHeaders() }
     );
   }
+
+  rechazarTramite(idTramite: number): Observable<any> {
+    return this.http.post(
+      `${BASE_URL}/tramites/${idTramite}/rechazar`,
+      {},
+      { headers: this.getHeaders() }
+    );
+  }
 }

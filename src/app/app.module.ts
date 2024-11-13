@@ -67,6 +67,7 @@ import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-re
 
 import { AprobacionInvimaComponent } from './pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { FormularioGeneralComponent } from './pages/shared/formulario-general/formulario-general.component';
+import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.component';
 @NgModule({
   declarations: [
 
@@ -117,6 +118,7 @@ import { FormularioGeneralComponent } from './pages/shared/formulario-general/fo
     NotificacionesAdminComponent,
     AprobacionInvimaComponent,
     FormularioGeneralComponent,
+    TramiteA8Component,
   ],
   imports: [
     RouterModule,
