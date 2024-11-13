@@ -83,6 +83,7 @@ export class FormularioGeneralComponent implements OnInit {
     this.tramiteId = parseInt(this.route.snapshot.paramMap.get('idTramite'));
     this.tramiteService.findById(this.tramiteId).subscribe((data: SolicitudDTO) => {
       this.solicitud = data;
+      this.solicitud.tramite.fechaVencimientoRSA = this.solicitud.tramite.fechaVencimientoRSA.toString().split('T')[0] as any;
     });
     this.etapa = this.route.snapshot.paramMap.get('etapa')!;
 
@@ -161,11 +162,11 @@ export class FormularioGeneralComponent implements OnInit {
         !this.solicitud.tramite.numProyectoSap ||
         !this.solicitud.tramite.proyecto ||
         !this.solicitud.tramite.tipoModificacion ||
-        !this.infoControl.registroSanitario ||
-        !this.infoControl.expedienteRSA ||
+        !this.solicitud.tramite.registroSanitario ||
+        !this.solicitud.tramite.expedienteRSA ||
         !this.solicitud.tramite.numeroRSA ||
         !this.solicitud.tramite.fechaVencimientoRSA ||
-        !this.infoControl.planta
+        !this.solicitud.tramite.planta
       ) {
         alert('Por favor, complete todos los campos obligatorios antes de continuar.');
         return;
@@ -176,13 +177,13 @@ export class FormularioGeneralComponent implements OnInit {
         this.solicitud.tramite.numProyectoSap,
         this.solicitud.tramite.proyecto,
         this.solicitud.tramite.tipoModificacion,
-        this.infoControl.registroSanitario,
-        this.infoControl.expedienteRSA,
+        this.solicitud.tramite.registroSanitario,
+        this.solicitud.tramite.expedienteRSA,
         this.solicitud.tramite.urgente,
         this.solicitud.tramite.numeroRSA,
         this.solicitud.tramite.fechaVencimientoRSA,
-        this.infoControl.planta,
-        this.infoControl.observaciones
+        this.solicitud.tramite.planta,
+        this.solicitud.tramite.observaciones
       );
       this.tramiteService.addInfoAperturaTramite(this.tramiteId, infoApertura).subscribe(() => {
         alert('Información de apertura guardada correctamente.');
@@ -192,6 +193,7 @@ export class FormularioGeneralComponent implements OnInit {
         alert('Error al guardar la información de apertura. Por favor, inténtalo de nuevo.');
       });
     } else if (['A5', 'B5'].includes(this.etapa)) {
+
       this.router.navigate([`/seguimiento-tramite/${this.tramiteId}`]);
     } else if (['A6', 'B6'].includes(this.etapa)) {
       this.router.navigate([`/aprovacion-invima/${this.tramiteId}`]);

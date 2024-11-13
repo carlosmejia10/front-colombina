@@ -10,7 +10,7 @@
         <p class="label">Número Radicado (#AR)</p>
         <input
           type="text"
-          class="input-text"
+          class="input-text disabled-field"
           [(ngModel)]="solicitud.tramite.numeroRadicado"
           name="numeroRadicado"
           disabled
@@ -20,7 +20,7 @@
         <p class="label">Nombre Producto</p>
         <input
           type="text"
-          class="input-text"
+          class="input-text disabled-field"
           [(ngModel)]="solicitud.tramite.nombreProducto"
           name="nombreProducto"
           disabled
@@ -90,7 +90,7 @@
         <p class="label">Tipo de Trámite</p>
         <input
           type="text"
-          class="input-text"
+          class="input-text disabled-field"
           [(ngModel)]="solicitud.tramite.tipoProducto"
           name="tipoProducto"
           disabled
@@ -116,7 +116,7 @@
         <p class="label">Descripción del Trámite</p>
         <input
           type="text"
-          class="input-text"
+          class="input-text disabled-field"
           [(ngModel)]="solicitud.tramite.descripcionProducto"
           name="descripcionProducto"
           disabled
@@ -166,7 +166,7 @@
         <input
           type="date"
           class="input-text disabled-field"
-          [(ngModel)]="infoControl.fechaNotificacion"
+          [(ngModel)]="solicitud.tramite.fechaNotificacion"
           name="fechaNotificacion"
           disabled
         />
@@ -180,7 +180,7 @@
         <p class="label">País</p>
         <input
           type="text"
-          class="input-text"
+          class="input-text disabled-field"
           [(ngModel)]="solicitud.tramite.entidadSanitaria.pais"
           name="pais"
           disabled
@@ -192,7 +192,7 @@
           type="text"
           class="input-text"
           [ngClass]="{'disabled-field': !esCampoHabilitado('registroSanitario')}"
-          [(ngModel)]="infoControl.registroSanitario"
+          [(ngModel)]="solicitud.tramite.registroSanitario"
           name="registroSanitario"
           [disabled]="!esCampoHabilitado('registroSanitario')"
         />
@@ -204,7 +204,7 @@
           type="text"
           class="input-text"
           [ngClass]="{'disabled-field': !esCampoHabilitado('expedienteRSA')}"
-          [(ngModel)]="infoControl.expedienteRSA"
+          [(ngModel)]="solicitud.tramite.expedienteRSA"
           name="expedienteRSA"
           [disabled]="!esCampoHabilitado('expedienteRSA')"
         />
@@ -304,7 +304,7 @@
         <p class="label">Estado trámite</p>
         <input
           type="text"
-          class="input-text"
+          class="input-text disabled-field"
           [(ngModel)]="solicitud.tramite.estado"
           name="estado"
           disabled
@@ -336,7 +336,7 @@
         <p class="label">Solicitado por</p>
         <input
           type="text"
-          class="input-text"
+          class="input-text disabled-field"
           [(ngModel)]="solicitud.solicitante.nombre"
           name="solicitante"
           disabled
@@ -348,7 +348,7 @@
           type="text"
           class="input-text"
           [ngClass]="{'disabled-field': !esCampoHabilitado('planta')}"
-          [(ngModel)]="infoControl.planta"
+          [(ngModel)]="solicitud.tramite.planta"
           name="planta"
           [disabled]="!esCampoHabilitado('planta')"
         />
@@ -360,7 +360,7 @@
           class="input-text"
           rows="4"
           [ngClass]="{'disabled-field': !esCampoHabilitado('observaciones')}"
-          [(ngModel)]="infoControl.observaciones"
+          [(ngModel)]="solicitud.tramite.observaciones"
           name="observaciones"
           [disabled]="!esCampoHabilitado('observaciones')"
         ></textarea>

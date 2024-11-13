@@ -5,6 +5,7 @@ import { DocumentoService } from '@/app/servicios/documento.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, throwError, Observable } from 'rxjs';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
+import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 
 @Component({
   selector: 'app-revision-documentacion',
@@ -14,6 +15,7 @@ import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
   styleUrls: ['./revision-documentacion.component.css'],
 })
 export class RevisionDocumentacionComponent implements OnInit {
+  solicitud: SolicitudDTO;
   documentos: DocumentoDTO[] = [];
   estadosDocumentos: { [id: number]: 'aprobado' | 'noAprobado' | 'noRevisado' } = {};
   idTramite: number = 0;
@@ -30,6 +32,9 @@ export class RevisionDocumentacionComponent implements OnInit {
     this.idTramite = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.idTramite) {
+      this.tramiteService.findById(this.idTramite).subscribe((data: SolicitudDTO) => {
+        this.solicitud = data;
+      });
       this.getDocumentos(this.idTramite).subscribe(
         (data) => {
           this.documentos = data;
@@ -82,7 +87,7 @@ export class RevisionDocumentacionComponent implements OnInit {
   continuar() {
     if (this.documentosAprobados) {
       this.tramiteService.setDocumentacionRevisada(this.idTramite).subscribe(() => {
-        this.router.navigate([`/info-control/${this.idTramite}`]);
+        this.router.navigate([`/formulario-general/${this.idTramite}/${this.solicitud.tramite.etapa}`]);
       });
     } else {
       alert('Debes aprobar todos los documentos para continuar.');
