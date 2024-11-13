@@ -17,6 +17,10 @@ export class InfoSolicitudComponent {
   solicitante!: UsuarioDTO;
   documentos!: DocumentoDTO[];
 
+  cambiarEtapa(etapa: string): string {
+    return nombreCortoFlujo(etapa);
+  }
+
   constructor(
     private route: ActivatedRoute,
     private tramiteService: TramiteService,
@@ -28,10 +32,6 @@ export class InfoSolicitudComponent {
     if (tramiteId) {
       this.getTramiteDetails(+tramiteId);
     }
-  }
-
-  cambiarEtapa(etapa: string): string {
-    return nombreCortoFlujo(etapa);
   }
 
   // Obtiene los detalles del trámite y luego carga la entidad sanitaria
@@ -61,35 +61,32 @@ export class InfoSolicitudComponent {
   }
 
   continuar() {
-    const idTramite = this.solicitud.tramite.id;
-    const etapa = this.solicitud.tramite.etapa;
-
-    // Lógica para considerar "Apertura" en caso de las etapas 'A2', 'B2', 'A3' o 'B3'
-    if (['A2', 'B2', 'A3', 'B3'].includes(etapa)) {
-      this.router.navigate(['/formulario-general', idTramite, etapa]);
-    } else {
-      // Lógica existente para otras etapas
-      switch (etapa) {
-        case 'A4':
-        case 'B4':
-          this.router.navigate(['/documentos', idTramite]);
-          break;
-        case 'A5':
-        case 'B5':
-          this.router.navigate(['/formulario-general', idTramite, etapa]);
-          break;
-        case 'A6':
-        case 'B6':
-          this.router.navigate(['/seguimiento-tramite', idTramite]);
-          break;
-        case 'A7':
-        case 'B7':
-          this.router.navigate(['/aprobacion-entidad-sanitaria', idTramite]);
-          break;
-        case 'A9':
-          this.router.navigate(['/concepto-satisfactorio', idTramite]);
-          break;
-      }
+    switch (this.solicitud.tramite.etapa) {
+      case 'A2':
+      case 'B2':
+      case 'A3':
+      case 'B3':
+        this.router.navigate(['/apertura-tramite', this.solicitud.tramite.id]);
+        break;
+      case 'A4':
+      case 'B4':
+        this.router.navigate(['/documentos', this.solicitud.tramite.id]);
+        break;
+      case 'A5':
+      case 'B5':
+        this.router.navigate(['/info-control', this.solicitud.tramite.id]);
+        break;
+      case 'A6':
+      case 'B6':
+        this.router.navigate(['/seguimiento-tramite', this.solicitud.tramite.id]);
+        break;
+      case 'A7':
+      case 'B7':
+        this.router.navigate(['/finalizacion', this.solicitud.tramite.id]);
+        break;
+      case 'A9':
+        this.router.navigate(['/concepto-satisfactorio', this.solicitud.tramite.id]);
+        break;
     }
   }
 }

@@ -114,11 +114,4 @@ export class DocumentoService {
       responseType: 'blob' as 'json',
     });
   }
-
-  getDocumentosCorregir(idTramite: number): Observable<DocumentoDTO[]> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken()}`,
-    });
-    return this.http.get<any>(`${BASE_URL}/files/documentos-a-corregir/${idTramite}`, {headers})
-  }
 }

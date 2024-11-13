@@ -1,3 +1,4 @@
+
 .fondo {
   margin: 0;
   padding: 0;
@@ -55,7 +56,7 @@ input[type="password"] {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid rgba(175, 56, 56, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.5);
   font-size: 16px;
@@ -104,19 +105,13 @@ button:hover {
   font-size: 15px;
 }
 
-
+/*************************/
 .activar{
   width: 50px;
 }
 .switch{
   display: flex;
 }
-
-.fa-eye, .fa-eye-slash {
-  font-size: 18px;
-  color: #777;
-}
-
 input[type=radio]{
 height: 0;
 width: 0;
@@ -169,66 +164,66 @@ input:checked+label:after {
 
   }
   30%,50%    /* 50% 80% */
-{
-  left:2px;
-  width:46px;
+  {
+      left:2px;
+      width:46px;
 
-}
+  }
 
-60%
-{
-  left:34px;
-  width:14px;
-}
-80%
-{
-  left:24px;
-  width:24px;
-}
-90%
-{
-  left:29px;
-  width:19px;
-}
-100%
-{
-  left:27px;
-  width:21px;
-}
+  60%
+  {
+      left:34px;
+      width:14px;
+  }
+  80%
+  {
+      left:24px;
+      width:24px;
+  }
+  90%
+  {
+      left:29px;
+      width:19px;
+  }
+  100%
+  {
+      left:27px;
+      width:21px;
+  }
 }
 
 @keyframes expand-right
 {
   0%
   {
-    left:2px;
+      left:2px;
   }
   30%,50%    /* 50% 80% */
   {
-    left:2px;
-    width:46px;
+      left:2px;
+      width:46px;
 
   }
 
   60%
   {
-    left:34px;
-    width:14px;
+      left:34px;
+      width:14px;
   }
   80%
   {
-    left:24px;
-    width:24px;
+      left:24px;
+      width:24px;
   }
   90%
   {
-    left:29px;
-    width:19px;
+      left:29px;
+      width:19px;
   }
   100%
   {
-    left:27px;
-    width:21px;
+      left:27px;
+      width:21px;
   }
 }
 
@@ -236,32 +231,32 @@ input:checked+label:after {
 {
   0%
   {
-    left:27px;
+      left:27px;
   }
   30%,50%
   {
-    left:2px;
-    width:46px;
+      left:2px;
+      width:46px;
   }
   60%
   {
-    right:34px;
-    width:14px;
+      right:34px;
+      width:14px;
   }
   80%
   {
-    right:24px;
-    width:24px;
+      right:24px;
+      width:24px;
   }
   90%
   {
-    right:29px;
-    width:19px;
+      right:29px;
+      width:19px;
   }
   100%
   {
-    left:2px;
-    width:21px;
+      left:2px;
+      width:21px;
   }
 }
 
@@ -269,31 +264,34 @@ input:checked+label:after {
 {
   0%
   {
-    left:27px;
+      left:27px;
   }
   30%,50%
   {
-    left:2px;
-    width:46px;
+      left:2px;
+      width:46px;
   }
   60%
   {
-    right:34px;
-    width:14px;
+      right:34px;
+      width:14px;
   }
   80%
   {
-    right:24px;
-    width:24px;
+      right:24px;
+      width:24px;
   }
   90%
   {
-    right:29px;
-    width:19px;
+      right:29px;
+      width:19px;
   }
   100%
   {
-    left:2px;
-    width:21px;
+      left:2px;
+      width:21px;
   }
 }
+
+
+

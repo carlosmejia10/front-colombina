@@ -12,7 +12,6 @@ export class LoginComponent {
   password: string = '';
 
   loading = false;
-  showPassword: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -36,9 +35,5 @@ export class LoginComponent {
         alert('Usuario o contraseña incorrectos');
       }
     );
-  }
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
   }
 }

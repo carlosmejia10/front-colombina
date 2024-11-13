@@ -1,12 +1,11 @@
 #page {
-  padding-left: 10rem;
-  padding-right: 10rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding: 2rem 10rem;
 }
+
 .container {
   display: flex;
 }
+
 .contenedor {
   width: 100%;
 }
@@ -15,146 +14,6 @@
   display: flex;
 }
 
-.ContenedorPendientes {
-  width: 1000px;
-  background-color: #e7ebf5;
-  margin: 20px;
-  border-radius: 10px;
-}
-.TituloTabla {
-  position: relative;
-  background-color: #a3b6e6;
-  border-radius: 10px 10px 0 0;
-  height: 40px;
-  display: flex;
-  padding: 10px;
-}
-.tablas {
-  display: flex;
-  width: 1200px;
-  height: 100vh;
-  flex-direction: column;
-  background-color: #d4dde7;
-}
-.TituloTabla h2 {
-  color: white;
-}
-.ContenedorPendientes h2 {
-  margin: 0 0 15px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #ffffff;
-}
-
-table td {
-  border-bottom: 1px solid #000000;
-}
-
-.pendientes {
-  font-size: 14px;
-}
-
-.estatus {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.pendiente {
-  background-color: red;
-  margin-left: 6px;
-}
-
-.hecho {
-  background-color: green;
-  margin-left: 6px;
-}
-
-.fecha {
-  color: #4e5a7d;
-  font-weight: bold;
-  font-size: 12px;
-}
-
-.estatusTexto {
-  color: red;
-  font-weight: bold;
-  font-size: 12px;
-}
-.Desplegar {
-  position: absolute;
-  right: 8px;
-}
-.Desplegable {
-  width: 25px;
-}
-.registro {
-  display: flex;
-  height: 30px;
-}
-td p {
-  color: #d0cfce;
-  margin-left: 10px;
-  margin-bottom: 5px;
-}
-
-/*****/
-
-/*ESTADO DEL REGISTRO*/
-.InfoContenedor {
-  right: 0;
-  height: 100hv;
-  width: 25%;
-  background-color: #bcc9e5;
-  padding: 20px;
-}
-
-.registro-info h2 {
-  font-size: 17px;
-  color: #000000;
-}
-.InfoContenedor p {
-  font-size: 14px;
-  color: #857c7c;
-}
-.InfoContenedor a {
-  font-size: 16px;
-}
-.progress-bar {
-  width: 100%;
-  background-color: #e7ebf5;
-  height: 15px;
-  border-radius: 10px;
-  margin: 10px 0;
-}
-
-.progress {
-  height: 100%;
-  background-color: red;
-  border-radius: 10px;
-}
-
-.progress-percent {
-  text-align: right;
-  font-size: 14px;
-  font-weight: bold;
-  color: red;
-}
-
-.nav-item p {
-  font-size: 13px;
-  text-align: center;
-}
-button {
-  background-color: transparent;
-  border: none;
-}
-
-/*****************************/
 .containerint {
   background-color: #fff;
   padding: 20px;
@@ -223,8 +82,65 @@ table tr:nth-child(even) {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .btn-primary:hover {
   background-color: #004d40;
+}
+
+/* Elementos de estado */
+
+.pendientes {
+  font-size: 14px;
+}
+
+.estatus {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pendiente {
+  background-color: red;
+  margin-left: 6px;
+}
+
+.hecho {
+  background-color: green;
+  margin-left: 6px;
+}
+
+.fecha,
+.estatusTexto {
+  color: #4e5a7d;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e7ebf5;
+  height: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.progress {
+  height: 100%;
+  background-color: red;
+  border-radius: 10px;
+}
+
+.progress-percent {
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  color: red;
+}
+
+button {
+  background-color: transparent;
+  border: none;
 }
