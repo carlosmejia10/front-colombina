@@ -2,8 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
 
+=======
+import { HttpClientModule } from '@angular/common/http'; // Asegúrate de importar HttpClientModule
+import { ReactiveFormsModule } from '@angular/forms';
+>>>>>>> ac4065ae49cc365373d49af823fd5f0bc413faea
 import { AppRoutingModule } from './app-routing-module';
 import { CommonModule } from '@angular/common';
 
@@ -50,7 +55,12 @@ import { NotificationsComponent } from './pages/shared/notifications/notificatio
 import { NotificacionesArComponent } from './pages/asuntos-regulatorios/notificaciones-ar/notificaciones-ar.component';
 import { PerfilComponent } from './pages/shared/perfil/perfil.component';
 import { FileSizeComponent } from './pages/solicitante/file-size/file-size.component';
+<<<<<<< HEAD
 
+=======
+import { TramiteFinalizadoComponent } from './pages/asuntos-regulatorios/tramite-finalizado/tramite-finalizado.component';
+//PARA PRUEBAS DE ESTADISTICA
+>>>>>>> ac4065ae49cc365373d49af823fd5f0bc413faea
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
 import { InfoControlComponent } from './pages/asuntos-regulatorios/info-control/info-control.component';
@@ -61,11 +71,16 @@ import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/est
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
+<<<<<<< HEAD
 
 // Agregar TramiteA8Component
 import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.component';
 import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-rechazo/revisar-rechazo.component';
 
+=======
+import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/formulario-general.component";
+import { ConceptoSatisfactorioComponent } from './pages/asuntos-regulatorios/concepto-satisfactorio/concepto-satisfactorio.component';
+>>>>>>> ac4065ae49cc365373d49af823fd5f0bc413faea
 @NgModule({
   declarations: [
     
@@ -114,7 +129,13 @@ import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-re
     EstadisticasAdminComponent,
     EstadisticasArComponent,
     NotificacionesAdminComponent,
+<<<<<<< HEAD
     TramiteA8Component // Agregado aquí
+=======
+    FormularioGeneralComponent,
+    ConceptoSatisfactorioComponent,
+    TramiteFinalizadoComponent
+>>>>>>> ac4065ae49cc365373d49af823fd5f0bc413faea
   ],
   imports: [
     RouterModule,
@@ -127,6 +148,7 @@ import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-re
     CommonModule,
     ChartModule,
     PdfViewerModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration(),

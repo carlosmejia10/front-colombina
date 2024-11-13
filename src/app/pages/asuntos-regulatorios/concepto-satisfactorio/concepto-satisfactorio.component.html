@@ -1,27 +1,26 @@
-<div class="container">
-  <div class="tramite-info">
-    <h3>Información del Trámite</h3>
-    <p><strong>ID:</strong> {{ tramite.id }}</p>
-    <p><strong>Número Radicado:</strong> {{ tramite.numeroRadicado }}</p>
-    <p><strong>Nombre del Producto:</strong> {{ tramite.nombreProducto }}</p>
-    <p><strong>Descripción del Producto:</strong> {{ tramite.descripcionProducto }}</p>
-    <p><strong>Tipo de Producto:</strong> {{ tramite.tipoProducto }}</p>
-    <p><strong>Tipo de Trámite:</strong> {{ tramite.tipoTramite }}</p>
-    <p><strong>Solicitante ID:</strong> {{ tramite.solicitanteId }}</p>
-
-
-    <p>Seleccione una opción acorde a la respuesta del Invima</p>
-
-    <div class="action-buttons">
-      <button (click)="conceptoSatisfactorio()">Aceptado</button>
-      <button (click)="autoRequerimiento()">Autorequerimiento</button>
-    </div>
-
-    <div>
-      <button (click)="volver()">Anterior</button>
+<app-ar-layout>
+  <div class="container">
+    <div class="tramite-info">
+      <h3>Información del Trámite</h3>
+      <p><strong>ID:</strong> {{ solicitud.tramite.id }}</p>
+      <p><strong>Número Radicado:</strong> {{ solicitud.tramite.numeroRadicado }}</p>
+      <p><strong>Nombre del Producto:</strong> {{ solicitud.tramite.nombreProducto }}</p>
+      <p><strong>Descripción del Producto:</strong> {{ solicitud.tramite.descripcionProducto }}</p>
+      <p><strong>Tipo de Producto:</strong> {{ solicitud.tramite.tipoProducto }}</p>
+      <p><strong>Tipo de Trámite:</strong> {{ solicitud.tramite.tipoTramite }}</p>
+      <p><strong>Solicitante ID:</strong> {{ solicitud.tramite.solicitanteId }}</p>
+  
+  
+      <p>Seleccione una opción acorde a la respuesta del Invima</p>
+  
+      <div class="button-group">
+        <button (click)="conceptoSatisfactorio()">Aceptado</button>
+        <button (click)="autoRequerimiento()">Autorequerimiento</button>
+      </div>
+  
+      <div>
+        <button (click)="volver()">Anterior</button>
+      </div>
     </div>
   </div>
-
-
-
-</div>
+  </app-ar-layout>

@@ -8,7 +8,6 @@
     align-items: center;
     background-color: #f3f6fb; /* Fondo suave para todo el contenedor */
     padding: 20px;
-
 }
 
 /* Título principal */
@@ -70,7 +69,7 @@ h2 {
     width: auto; /* Ancho automático */
     margin: 0; /* Sin márgenes */
 }
-  
+
   .btn-regresar {
     position: absolute;
     bottom: 70px; /* Posiciona a 20px de la parte inferior del contenedor */
@@ -88,7 +87,7 @@ h2 {
   .btn-regresar:hover {
     background-color: #8fa7e3;
   }
-  
+
   /* Cuadro de comentarios */
 .comentarios {
     width: 100%;

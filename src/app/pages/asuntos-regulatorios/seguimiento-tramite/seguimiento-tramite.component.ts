@@ -91,7 +91,7 @@ export class SeguimientoTramiteComponent {
         alert('Error al actualizar el trámite. Por favor, inténtalo de nuevo.');
       }
     );
-    this.router.navigate(['/aprobacion-tramite',this.solicitud.tramite.id]);
+    this.router.navigate(['/aprobacion-entidad-sanitaria',this.solicitud.tramite.id]);
   }
 
   navigatePedirNuevoDocumento() {
