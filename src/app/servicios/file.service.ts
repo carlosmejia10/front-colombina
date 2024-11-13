@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import {DocumentoDTO} from "@/app/modelos/DocumentoDTO";  // Servicio para obtener el token
+import { BASE_URL } from '../config/environment/urls';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-  private apiUrl = 'http://localhost:8080/files';  // Cambia por tu URL de backend
+  private apiUrl = `${BASE_URL}/files`;  // Cambia por tu URL de backend
 
   constructor(private http: HttpClient, private authService: AuthService) {}  // Inyectar AuthService
 
