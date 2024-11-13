@@ -43,6 +43,7 @@ export class TramiteDTO {
   fechaLlegadaResol?: Date; // Nuevo campo
   okSatisfactorioInvima?: boolean; // Nuevo campo
   fechaEnvioDocumentos?: Date; // Nuevo campo
+  idSeguimiento?: string; // Nuevo campo
 
   constructor(
     nombreProducto: string,

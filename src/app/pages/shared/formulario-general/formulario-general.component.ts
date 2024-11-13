@@ -1,4 +1,5 @@
 import { InfoAperturaTramite } from '@/app/modelos/info-apertura-tramite.dto';
+import { InfoControlDTO } from '@/app/modelos/info-control.dto';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
 import { TramiteService } from '@/app/servicios/tramite-regulatorio.service';
 import { Component, OnInit } from '@angular/core';
@@ -59,17 +60,6 @@ export class FormularioGeneralComponent implements OnInit {
     id: 0
   };
 
-  infoControl = {
-    fechaNotificacion: new Date(),
-    idSeguimiento: '',
-    registroSanitario: '',
-    expedienteRSA: '',
-    numeroRSA: '',
-    planta: '',
-    numeroFactura: '',
-    observaciones: '',
-  };
-
   fechaTerminacion: Date = new Date();
 
   constructor(
@@ -119,6 +109,7 @@ export class FormularioGeneralComponent implements OnInit {
         'observaciones',
         'estado',
       ];
+      this.solicitud.tramite.fechaEnvioDocumentos = new Date();
     } else if (['A6', 'B6'].includes(this.etapa)) {
       this.camposHabilitados = [
         'expNum',
@@ -193,8 +184,25 @@ export class FormularioGeneralComponent implements OnInit {
         alert('Error al guardar la información de apertura. Por favor, inténtalo de nuevo.');
       });
     } else if (['A5', 'B5'].includes(this.etapa)) {
-
-      this.router.navigate([`/seguimiento-tramite/${this.tramiteId}`]);
+      if (
+        !this.solicitud.tramite.fechaEnvioDocumentos ||
+        !this.solicitud.tramite.idSeguimiento
+      ) {
+        alert('Por favor, complete todos los campos obligatorios antes de continuar.');
+        return;
+      }
+      const infoControl = new InfoControlDTO(
+        this.solicitud.tramite.fechaEnvioDocumentos,
+        this.solicitud.tramite.idSeguimiento,
+        this.solicitud.tramite.observaciones
+      );
+      this.tramiteService.addInfoControlTramite(this.tramiteId, infoControl).subscribe(() => {
+        alert('Información de control guardada correctamente.');
+        this.router.navigate([`/seguimiento-tramite/${this.tramiteId}`]);
+      }, (error) => {
+        console.error('Error al guardar la información de control', error);
+        alert('Error al guardar la información de control. Por favor, inténtalo de nuevo.');
+      });
     } else if (['A6', 'B6'].includes(this.etapa)) {
       this.router.navigate([`/aprovacion-invima/${this.tramiteId}`]);
     } else if (['A7', 'B7', 'A9', 'B9'].includes(this.etapa)) {
