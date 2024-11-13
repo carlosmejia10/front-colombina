@@ -137,4 +137,11 @@ export class DocumentoService {
       responseType: 'blob' as 'json',
     });
   }
+
+  eliminarDocumento(idTramite: number, fileName: String, idDocumento: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authService.getToken()}`,
+    });
+    return this.http.delete<any>(`${BASE_URL}/files/eliminar-archivo/${idTramite}/${fileName}/${idDocumento}`, { headers});
+  }
 }
