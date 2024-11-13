@@ -67,7 +67,8 @@ import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-re
 
 import { AprobacionInvimaComponent } from './pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { FormularioGeneralComponent } from './pages/shared/formulario-general/formulario-general.component';
-import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.component';
+import { AsignacionRadicadoLlaveComponent } from './pages/asuntos-regulatorios/asignacion-radicado-llave/asignacion-radicado-llave.component';
+
 @NgModule({
   declarations: [
 
@@ -118,7 +119,7 @@ import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.com
     NotificacionesAdminComponent,
     AprobacionInvimaComponent,
     FormularioGeneralComponent,
-    TramiteA8Component,
+    AsignacionRadicadoLlaveComponent,
   ],
   imports: [
     RouterModule,
