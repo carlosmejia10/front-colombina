@@ -64,6 +64,7 @@ import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguim
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 import {FormularioGeneralComponent} from "@/app/pages/shared/formulario-general/formulario-general.component";
 import { ConceptoSatisfactorioComponent } from './pages/asuntos-regulatorios/concepto-satisfactorio/concepto-satisfactorio.component';
+import { AprobacionInvimaComponent } from './pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,7 +112,8 @@ import { ConceptoSatisfactorioComponent } from './pages/asuntos-regulatorios/con
     NotificacionesAdminComponent,
     FormularioGeneralComponent,
     ConceptoSatisfactorioComponent,
-    TramiteFinalizadoComponent
+    TramiteFinalizadoComponent,
+    AprobacionInvimaComponent,
   ],
   imports: [
     RouterModule,

@@ -10,24 +10,20 @@
       <input
         type="text"
         class="input-text"
-        [ngClass]="{'disabled-field': !esCampoHabilitado('numeroRadicado')}"
         [(ngModel)]="solicitud.tramite.numeroRadicado"
         name="numeroRadicado"
-        [disabled]="!esCampoHabilitado('numeroRadicado')"
+        disabled
       />
-      <p *ngIf="!esCampoHabilitado('numeroRadicado')" class="note">No se requiere en esta etapa</p>
     </div>
     <div class="form-group">
       <p class="label">Nombre Producto</p>
       <input
         type="text"
         class="input-text"
-        [ngClass]="{'disabled-field': !esCampoHabilitado('nombreProducto')}"
         [(ngModel)]="solicitud.tramite.nombreProducto"
         name="nombreProducto"
-        [disabled]="!esCampoHabilitado('nombreProducto')"
+        disabled
       />
-      <p *ngIf="!esCampoHabilitado('nombreProducto')" class="note">No se requiere en esta etapa</p>
     </div>
   </div>
 
@@ -94,12 +90,10 @@
       <input
         type="text"
         class="input-text"
-        [ngClass]="{'disabled-field': !esCampoHabilitado('tipoProducto')}"
         [(ngModel)]="solicitud.tramite.tipoProducto"
         name="tipoProducto"
-        [disabled]="!esCampoHabilitado('tipoProducto')"
+        disabled
       />
-      <p *ngIf="!esCampoHabilitado('tipoProducto')" class="note">No se requiere en esta etapa</p>
     </div>
     <div class="form-group">
       <p class="label">Tipo de Modificación</p>
@@ -122,12 +116,10 @@
       <input
         type="text"
         class="input-text"
-        [ngClass]="{'disabled-field': !esCampoHabilitado('descripcionProducto')}"
         [(ngModel)]="solicitud.tramite.descripcionProducto"
         name="descripcionProducto"
-        [disabled]="!esCampoHabilitado('descripcionProducto')"
+        disabled
       />
-      <p *ngIf="!esCampoHabilitado('descripcionProducto')" class="note">No se requiere en esta etapa</p>
     </div>
   </div>
 
@@ -150,7 +142,7 @@
       <input
         type="date"
         class="input-text"
-        [(ngModel)]="solicitud.fechaEnvioDocumentos"
+        [(ngModel)]="solicitud.tramite.fechaEnvioDocumentos"
         name="fechaEnvioDocumentos"
         [ngClass]="{'disabled-field': !esCampoHabilitado('fechaEnvioDocumentos')}"
         [disabled]="!esCampoHabilitado('fechaEnvioDocumentos')"
@@ -188,12 +180,10 @@
       <input
         type="text"
         class="input-text"
-        [ngClass]="{'disabled-field': !esCampoHabilitado('pais')}"
         [(ngModel)]="solicitud.tramite.entidadSanitaria.pais"
         name="pais"
-        [disabled]="!esCampoHabilitado('pais')"
+        disabled
       />
-      <p *ngIf="!esCampoHabilitado('pais')" class="note">No se requiere en esta etapa</p>
     </div>
     <div class="form-group">
       <p class="label">Registro Sanitario (RSA)</p>
@@ -239,7 +229,7 @@
         type="text"
         class="input-text"
         [ngClass]="{'disabled-field': !esCampoHabilitado('rsaNsaPais')}"
-        [(ngModel)]="solicitud.tramite.rsaNsaPais"
+        [(ngModel)]="solicitud.tramite.numeroRSA"
         name="rsaNsaPais"
         [disabled]="!esCampoHabilitado('rsaNsaPais')"
       />
@@ -251,7 +241,7 @@
         type="date"
         class="input-text"
         [ngClass]="{'disabled-field': !esCampoHabilitado('vencimientoRSA')}"
-        [(ngModel)]="solicitud.tramite.vencimientoRSA"
+        [(ngModel)]="solicitud.tramite.fechaVencimientoRSA"
         name="vencimientoRSA"
         [disabled]="!esCampoHabilitado('vencimientoRSA')"
       />
@@ -302,7 +292,7 @@
       <input
         type="date"
         class="input-text"
-        [(ngModel)]="solicitud.tramite.fechaRadicadoInvima"
+        [(ngModel)]="solicitud.tramite.fechaRadicacion"
         name="fechaRadicadoInvima"
         [ngClass]="{'disabled-field': !esCampoHabilitado('fechaRadicadoInvima')}"
         [disabled]="!esCampoHabilitado('fechaRadicadoInvima')"
@@ -316,10 +306,8 @@
         class="input-text"
         [(ngModel)]="solicitud.tramite.estado"
         name="estado"
-        [ngClass]="{'disabled-field': !esCampoHabilitado('estado')}"
-        [disabled]="!esCampoHabilitado('estado')"
+        disabled
       />
-      <p *ngIf="!esCampoHabilitado('estado')" class="note">No se requiere en esta etapa</p>
     </div>
     <div class="form-group">
       <p class="label">Fecha de llegada Resolución</p>
@@ -348,12 +336,10 @@
       <input
         type="text"
         class="input-text"
-        [ngClass]="{'disabled-field': !esCampoHabilitado('solicitante')}"
         [(ngModel)]="solicitud.solicitante.nombre"
         name="solicitante"
-        [disabled]="!esCampoHabilitado('solicitante')"
+        disabled
       />
-      <p *ngIf="!esCampoHabilitado('solicitante')" class="note">No se requiere en esta etapa</p>
     </div>
     <div class="form-group">
       <p class="label">Planta</p>

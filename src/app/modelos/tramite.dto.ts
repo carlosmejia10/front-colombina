@@ -32,10 +32,16 @@ export class TramiteDTO {
   registroSanitario?: string; // Nuevo campo
   expedienteRSA?: string; // Nuevo campo
   numeroRSA?: number; // Nuevo campo
+  expNum?: number; // Nuevo campo
   fechaVencimientoRSA?: Date; // Nuevo campo
   planta?: string; // Nuevo campo
   numeroFactura?: string; // Nuevo campo
   observaciones?: string; // Nuevo campo
+  llaveRSAColombia?: string; // Nuevo campo
+  urgente?: boolean; // Nuevo campo
+  fechaLlegadaResol?: Date; // Nuevo campo
+  okSatisfactorioInvima?: boolean; // Nuevo campo
+  fechaEnvioDocumentos?: Date; // Nuevo campo
 
   constructor(
     nombreProducto: string,

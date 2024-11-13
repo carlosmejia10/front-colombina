@@ -206,7 +206,7 @@ const routes: Routes = [
   },
 
   {
-    path: `aprobacion-entidad-sanitaria/:numeroRadicado`,
+    path: `aprobacion-entidad-sanitaria/:id`,
     component: AprobacionInvimaComponent,
   },
 

@@ -41,18 +41,5 @@ export class AperturaTramiteComponent {
       alert('Todos los campos son obligatorios');
       return;
     }
-
-    this.tramiteService
-      .addInfoAperturaTramite(
-        parseInt(this.numeroRadicado),
-        new InfoAperturaTramite(
-          this.solicitud.tramite.pt,
-          this.solicitud.tramite.unidadNegocio,
-          this.solicitud.tramite.numProyectoSap,
-          this.solicitud.tramite.proyecto
-        )
-      ).subscribe(() => {
-        this.router.navigate(['/documentos', this.numeroRadicado]);
-      })
   }
 }

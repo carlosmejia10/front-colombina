@@ -5,9 +5,9 @@
     <p><strong>Número Radicado:</strong> {{ solicitud.tramite.numeroRadicado }}</p>
     <p><strong>Nombre del Producto:</strong> {{ solicitud.tramite.nombreProducto }}</p>
     <p><strong>Descripción del Producto:</strong> {{ solicitud.tramite.descripcionProducto }}</p>
-    <p><strong>Tipo de Producto:</strong> {{ solicitud.tramite.tipoProducto }}</p>
-    <p><strong>Tipo de Trámite:</strong> {{ solicitud.tramite.tipoTramite }}</p>
-    <p><strong>Solicitante:</strong>{{ solicitud.solicitante.nombre }}</p>
+    <p><strong>Tipo de Trámite:</strong> {{ solicitud.tramite.tipoProducto }}</p>
+    <p><strong>Nacionalidad:</strong> {{ solicitud.tramite.tipoTramite }}</p>
+    <p><strong>Solicitante:</strong> {{ solicitud.solicitante.nombre }}</p>
 
 
     <p *ngIf="solicitud.tramite.tipoTramite === 'NACIONAL'">Seleccione una opción acorde a la respuesta del Invima</p>
