@@ -47,6 +47,8 @@ export class FormularioGeneralComponent implements OnInit {
       etapa: '',
       historialCambioDTOList: [],
       fechaEnvioDocumentos: new Date(),
+      solicitanteId: null,
+      entidadSanitariaId: null,
     },
     solicitante: {
       nombre: '',

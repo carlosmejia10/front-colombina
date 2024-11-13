@@ -67,6 +67,7 @@ import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.com
 import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-rechazo/revisar-rechazo.component';
 
 import { AprobacionInvimaComponent } from './pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
+import { FormularioGeneralComponent } from './pages/shared/formulario-general/formulario-general.component';
 @NgModule({
   declarations: [
     
@@ -115,8 +116,9 @@ import { AprobacionInvimaComponent } from './pages/asuntos-regulatorios/aprobaci
     EstadisticasAdminComponent,
     EstadisticasArComponent,
     NotificacionesAdminComponent,
-    TramiteA8Component, // Agregado aquí,
+    TramiteA8Component,
     AprobacionInvimaComponent,
+    FormularioGeneralComponent,
   ],
   imports: [
     RouterModule,
