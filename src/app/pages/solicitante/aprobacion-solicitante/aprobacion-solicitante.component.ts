@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { TramiteDTO } from "@/app/modelos/tramite.dto";
-import { NotificacionDto } from "@/app/modelos/notificacion-dto";
-import { Router } from "@angular/router";
+import {Component, Input} from '@angular/core';
+import {TramiteDTO} from "@/app/modelos/tramite.dto";
+import {NotificacionDto} from "@/app/modelos/notificacion-dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-aprobacion-solicitante',
   standalone: true,
   imports: [],
   templateUrl: './aprobacion-solicitante.component.html',
-  styleUrls: ['./aprobacion-solicitante.component.css']  // Cambiado a styleUrls
+  styleUrl: './aprobacion-solicitante.component.css'
 })
 export class AprobacionSolicitanteComponent {
   @Input() tramite!: TramiteDTO;
@@ -22,6 +22,7 @@ export class AprobacionSolicitanteComponent {
     this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
   }
 
+
   rechazarTramite() {
     this.tramite.estado = "RECHAZADO";
     this.notificacion.mensaje = `Rechazado por el INVIMA el trámite número: ${this.tramite.numeroRadicado}`;
@@ -29,10 +30,12 @@ export class AprobacionSolicitanteComponent {
     alert(this.notificacion.mensaje);
     console.log(this.notificacion.mensaje);
     this.router.navigate(['/concepto-satisfactorio', this.tramite.numeroRadicado]);
+
   }
 
   volver() {
-    // Navegar a la página anterior
-    window.history.back();
+
+
   }
+
 }

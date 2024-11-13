@@ -26,7 +26,6 @@ import { ConceptoSatisfactorioComponent } from '@/app/pages/asuntos-regulatorios
 import { NotificationsComponent } from '@/app/pages/shared/notifications/notifications.component';
 import { AprobacionInvimaComponent } from '@/app/pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { AperturaTramiteComponent } from './pages/asuntos-regulatorios/apertura-tramite/apertura-tramite.component';
-import { TramiteA8Component } from './pages/solicitante/TramiteA8/tramite-a8.component';
 
 
 import { InfoSolicitudComponent } from './pages/asuntos-regulatorios/info-solicitud/info-solicitud.component';
@@ -57,6 +56,10 @@ import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadistic
 import { NotificacionesAdminComponent } from './pages/admin/notificaciones-admin/notificaciones-admin.component';
 import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-rechazo/revisar-rechazo.component';
 import { FormularioGeneralComponent } from './pages/shared/formulario-general/formulario-general.component';
+import {CorregirDocumentoComponent} from "@/app/pages/solicitante/corregir-documento/corregir-documento.component";
+import {
+  DocumentosDevueltosComponent
+} from "@/app/pages/solicitante/documentos-devueltos/documentos-devueltos.component";
 
 
 const routes: Routes = [
@@ -177,8 +180,16 @@ const routes: Routes = [
     component: RevisionDocumentacionComponent,
   },
   {
+    path: 'corregir-documentos/:id',
+    component: DocumentosDevueltosComponent,
+  },
+  {
     path: `revision/:numeroRadicado/:id/:idDocumento`,
     component: DocumentoEscogidoComponent,
+  },
+  {
+    path: `devolver/:numeroRadicado/:id/:idDocumento`,
+    component: CorregirDocumentoComponent,
   },
   {
     path:`perfil`,
@@ -210,8 +221,6 @@ const routes: Routes = [
     path:`aprobacion-resolucion-solicitante`,
     component: AprobacionResolucionSolicitanteComponent,
   },
-  { path: 'tramite-a8/:id', 
-    component: TramiteA8Component },
 
   {
     path: `autorequerimiento`,
@@ -223,7 +232,7 @@ const routes: Routes = [
     component: ConceptoSatisfactorioComponent,
   },
 
-  { path: 'aprobacion-solicitante/:id', 
+  { path: 'aprobacion-solicitante/:id',
     component: AprobacionSolicitanteComponent },
 
   {
@@ -252,14 +261,14 @@ const routes: Routes = [
     path: `revision-preliminar`,
     component: RevisionPreliminarComponent,
   },
-  { path: 'revisar-rechazo/:id', 
+  { path: 'revisar-rechazo/:id',
     component: RevisarRechazoComponent },
 
-  { path: 'tabla-tramite', 
+  { path: 'tabla-tramite',
     component: TablaTramiteComponent },
 
   {
-    path: `notificaciones-admin`,	
+    path: `notificaciones-admin`,
     component: NotificacionesAdminComponent,
   },
 

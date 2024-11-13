@@ -78,6 +78,16 @@ export class DocumentoService {
     return this.http.get<any>(`${BASE_URL}/files/${id}/${nombre}`, { headers });
   }
 
+  traerComentarioDocumento(idDocumento: number): Observable<string> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authService.getToken()}`,
+    });
+
+    // Cambia el responseType a 'text' para manejar la respuesta como texto
+    return this.http.get(`${BASE_URL}/files/comentario-documento/${idDocumento}`, { headers, responseType: 'text' });
+  }
+
+
   aprobar(idTramite: number, nombre: string, idDocumento: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
@@ -88,15 +98,28 @@ export class DocumentoService {
       );
   }
 
-  rechazar(idTramite: number, nombre: string, idDocumento: number): Observable<any> {
+  getDocumentosCorregir(id: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
-    return this.http.post<any>(`${BASE_URL}/files/negar-documento/${idTramite}/${nombre}`, {}, { headers })
+    return this.http.get<any>(`${BASE_URL}/files/documentos-a-corregir/${id}`, { headers });
+  }
+
+  rechazar(idTramite: number, nombre: string, idDocumento: number, comentario: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authService.getToken()}`,
+      'Content-Type': 'application/json' // Asegura que el contenido sea JSON
+    });
+
+    // Incluye el comentario en el cuerpo de la solicitud
+    const body = { comentario };
+
+    return this.http.post<any>(`${BASE_URL}/files/negar-documento/${idTramite}/${nombre}`, body, { headers })
       .pipe(
         tap(() => this.actualizarEstadoRevision(idDocumento, 'noAprobado'))
       );
   }
+
 
   aprobados(id: number): Observable<any> {
     const headers = new HttpHeaders({
