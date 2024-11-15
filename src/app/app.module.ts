@@ -61,6 +61,9 @@ import { EstadisticaComponent } from './pages/shared/estadisticas/estadisticas.c
 import { EstadisticasAdminComponent } from './pages/admin/estadisticas-admin/estadisticas-admin.component';
 import { EstadisticasArComponent } from './pages/asuntos-regulatorios/estadisticas-ar/estadisticas-ar.component';
 import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguimiento-tramite/seguimiento-tramite.component';
+import {
+  TramiteFinalizadoComponent
+} from "@/app/pages/asuntos-regulatorios/tramite-finalizado/tramite-finalizado.component";
 
 @NgModule({
   declarations: [
@@ -106,6 +109,7 @@ import { SeguimientoTramiteComponent } from './pages/asuntos-regulatorios/seguim
     SeguimientoTramiteComponent,
     EstadisticasAdminComponent,
     EstadisticasArComponent,
+    TramiteFinalizadoComponent,
   ],
   imports: [
     RouterModule,
