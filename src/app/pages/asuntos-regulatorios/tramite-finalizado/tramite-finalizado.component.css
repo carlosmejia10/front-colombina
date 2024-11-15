@@ -1,0 +1,63 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f3f6fb;
+  padding: 20px;
+}
+
+.tramite-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ffffff; /*Fondo blanco para el cuadro /*/
+  width: 100%; /*Ancho completo */
+  max-width: 75vw; /*Ancho máximo del cuadro */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center; /*Centrar botones */
+    gap: 10px; /* Espacio entre botones */
+    margin-top: 20px; /* Margen superior de los botones */
+}
+
+.btn-corregir-documento,
+.btn-corregir-formulario {
+    padding: 10px 15px; /*Espaciado interno */
+    background-color: #007bff; /*Color de fondo */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em; /*Tamaño de texto*/
+    transition: background-color 0.3s; /*Transición suave para el hover*/
+}
+
+.btn-corregir-documento:hover,
+.btn-corregir-formulario:hover {
+    background-color: #0056b3; /*Color al pasar el mouse*/
+}
+
+/*Ajuste del contenedor de botones para que no ocupen todo el ancho*/
+.btn-corregir-documento,
+.btn-corregir-formulario {
+    flex: none; /*No permitir que crezcan */
+    width: auto; /*Ancho automático*/
+    margin: 0; /*Sin márgenes*/
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em; /*Tamaño del texto */
+    font-weight: bold; /* Estilo de negrita */
+    color: #333; /* Color del texto */
+    margin: 20px 0; /* Espaciado superior e inferior */
+}
