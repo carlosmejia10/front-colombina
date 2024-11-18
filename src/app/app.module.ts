@@ -68,6 +68,9 @@ import { RevisarRechazoComponent } from './pages/asuntos-regulatorios/revisar-re
 import { AprobacionInvimaComponent } from './pages/asuntos-regulatorios/aprobacion-invima/aprobacion-invima.component';
 import { FormularioGeneralComponent } from './pages/shared/formulario-general/formulario-general.component';
 import { AsignacionRadicadoLlaveComponent } from './pages/asuntos-regulatorios/asignacion-radicado-llave/asignacion-radicado-llave.component';
+import {
+  CuadroControlAsuntosComponent
+} from "@/app/pages/asuntos-regulatorios/cuadro-control-asuntos/cuadro-control-asuntos.component";
 
 @NgModule({
   declarations: [
@@ -120,6 +123,7 @@ import { AsignacionRadicadoLlaveComponent } from './pages/asuntos-regulatorios/a
     AprobacionInvimaComponent,
     FormularioGeneralComponent,
     AsignacionRadicadoLlaveComponent,
+    CuadroControlAsuntosComponent,
   ],
   imports: [
     RouterModule,

@@ -60,6 +60,7 @@ import {CorregirDocumentoComponent} from "@/app/pages/solicitante/corregir-docum
 import {
   DocumentosDevueltosComponent
 } from "@/app/pages/solicitante/documentos-devueltos/documentos-devueltos.component";
+import {CuadroControlAsuntosComponent} from "@/app/pages/asuntos-regulatorios/cuadro-control-asuntos/cuadro-control-asuntos.component";
 
 
 const routes: Routes = [
@@ -282,6 +283,11 @@ const routes: Routes = [
     path: `notificaciones-solicitante`,
     component: NotificacionesSolicitanteComponent,
   },
+
+  {
+    path: 'cuadro-control-asuntos',
+    component: CuadroControlAsuntosComponent,
+  }
 
 ];
 
