@@ -1,31 +1,61 @@
-
-  <div class="notification-center-container">
-    <!-- Gráfico de notificaciones -->
-    <div class="chart-container">
-      <canvas id="notificationChart"></canvas>
-    </div>
-
-    <!-- Título de Centro de Notificaciones -->
-    <header>
-      <h1>Centro de Notificaciones</h1>
-    </header>
-
-    <!-- Barra de progreso -->
-    <div class="progress-bar">
-      <div class="progress" [style.width.%]="calcularProgreso()"></div>
-    </div>
-
-    <!-- Panel de notificaciones -->
-    <div class="main-container">
-      <section class="notification-panel">
-        <div *ngFor="let notificacion of notificaciones" class="notification-card">
-          <h2>{{ notificacion.asunto }}</h2>
-          <p class="date">{{ notificacion.fecha | date: 'yyyy-MM-dd' }}</p>
-
-          <button [id]="'btn-detalles-'+notificacion.id" class="details-button" (click)="mostrarDetalles(notificacion)">Ver Detalles</button>
-          <!-- <button *ngIf="!notificacion.leida" class="send-button" (click)="marcarComoLeida(notificacion.id)">Marcar como Leída</button> -->
-        </div>
-      </section>
-    </div>
+<div class="notification-center-container">
+  <!-- Gráfico de notificaciones -->
+  <div class="chart-container">
+    <canvas id="notificationChart"></canvas>
   </div>
 
+  <!-- Título de Centro de Notificaciones -->
+  <header>
+    <h1>Centro de Notificaciones</h1>
+  </header>
+
+  <!-- Panel de notificaciones -->
+  <div class="main-container">
+    <section class="notification-panel">
+      <div
+        *ngFor="let notificacion of notificaciones"
+        class="notification-card"
+        (mouseenter)="marcarComoLeida(notificacion.id)"
+      >
+        <!-- Círculo de estado -->
+        <div
+          class="status-circle"
+          [ngClass]="{ 'unread': !notificacion.leida, 'read': notificacion.leida }"
+        ></div>
+
+        <!-- Asunto de la notificación -->
+        <h2 class="notification-title">{{ notificacion.asunto }}</h2>
+
+        <!-- Mensaje de la notificación -->
+        <p class="notification-message">{{ notificacion.mensaje }}</p>
+
+        <!-- Fecha de la notificación -->
+        <div class="notification-details">
+          <p><strong>Fecha:</strong> {{ notificacion.fecha | date: 'short' }}</p>
+          <p><strong>Leída:</strong> {{ notificacion.leida ? 'Sí' : 'No' }}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Controles de Paginación -->
+  <footer>
+    <div class="pagination">
+      <button class="page-button" (click)="previousPage()" [disabled]="page === 0"><</button>
+      <span class="page-info">Página {{ page + 1 }} de {{ totalPages }}</span>
+      <button class="page-button" (click)="nextPage()" [disabled]="page >= totalPages - 1">></button>
+    </div>
+    <div class="info-page">
+      <div>
+        Mostrando
+        <select id="limit" (change)="limitChange($event)">
+          <option [value]="5">5</option>
+          <option [value]="10" selected>10</option>
+          <option [value]="15">15</option>
+          <option [value]="20">20</option>
+        </select>
+        resultados por página.
+      </div>
+    </div>
+  </footer>
+</div>

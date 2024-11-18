@@ -1,5 +1,5 @@
 import { Notificacion } from '@/app/modelos/notificacion';
-import { NotificacionService } from '@/app/servicios/notificacion.service';
+import { NotificacionService, Page } from '@/app/servicios/notificacion.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,9 @@ import { Router } from '@angular/router';
 })
 export class NotificationsComponent implements OnInit, AfterViewInit {
   notificaciones: Notificacion[] = [];
-  usuarioId = 1; // ID de usuario para pruebas; ajusta según la lógica de tu aplicación
+  page: number = 0; // Página actual
+  size: number = 10; // Tamaño de la página
+  totalPages: number = 0; // Total de páginas
 
   constructor(
     private notificacionService: NotificacionService,
@@ -21,7 +23,7 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerNotificaciones();
+    this.obtenerNotificacionesPaginadas();
   }
 
   ngAfterViewInit(): void {
@@ -30,7 +32,6 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
 
   verDetalles(notificacionId: number): void {
     console.log(`Detalles de la notificación con ID: ${notificacionId}`);
-    // Aquí puedes añadir la lógica para mostrar un modal o redirigir a otra vista
   }
 
   calcularProgreso(): number {
@@ -40,7 +41,7 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
   }
 
   obtenerNotificaciones(): void {
-    this.notificacionService.obtenerNotificacionesPorUsuario(this.usuarioId).subscribe({
+    this.notificacionService.obtenerNotificacionesPorUsuario().subscribe({
       next: (data) => {
         this.notificaciones = data.map(notif => ({
           ...notif,
@@ -52,14 +53,35 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  marcarComoLeida(notificacionId: number): void {
-    this.notificacionService.marcarNotificacionComoLeida(notificacionId).subscribe({
-      next: () => {
-        console.log('Notificación marcada como leída');
-        this.obtenerNotificaciones(); // Refresca las notificaciones
+  obtenerNotificacionesPaginadas(): void {
+    this.notificacionService.obtenerNotificacionesPorUsuarioConPaginacion(this.page, this.size).subscribe({
+      next: (data: Page<Notificacion>) => {
+        this.notificaciones = data.content.map(notif => ({
+          ...notif,
+          fecha: new Date(notif.fecha) // Convertir string a Date
+        }));
+        this.totalPages = data.totalPages;
+        console.log('Notificaciones:', this.notificaciones);
       },
-      error: (error) => console.error('Error al marcar como leída:', error)
+      error: (error) => console.error('Error al obtener notificaciones:', error)
     });
+  }
+
+  marcarComoLeida(notificacionId: number): void {
+    const notificacion = this.notificaciones.find(notif => notif.id === notificacionId);
+  
+    if (notificacion && !notificacion.leida) {
+      this.notificacionService.marcarNotificacionComoLeida(notificacionId).subscribe({
+        next: (response) => {
+          console.log('Respuesta del servidor:', response.mensaje);
+          notificacion.leida = true; // Actualiza el estado localmente
+        },
+        error: (error) => {
+          console.error('Error al marcar como leída:', error);
+          alert('No se pudo actualizar la notificación. Intenta nuevamente.');
+        }
+      });
+    }
   }
 
   filtrarNotificaciones(estado: string): void {
@@ -95,5 +117,25 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
 
   mostrarDetalles(notificacion: Notificacion) {
     this.router.navigate(['/notificacion/detail', notificacion.id]);
+  }
+
+  previousPage(): void {
+    if (this.page > 0) {
+      this.page--;
+      this.obtenerNotificacionesPaginadas();
+    }
+  }
+
+  nextPage(): void {
+    if (this.page < this.totalPages - 1) {
+      this.page++;
+      this.obtenerNotificacionesPaginadas();
+    }
+  }
+
+  limitChange(event: Event): void {
+    this.size = +(event.target as HTMLSelectElement).value;
+    this.page = 0; // Reinicia a la primera página
+    this.obtenerNotificacionesPaginadas();
   }
 }
