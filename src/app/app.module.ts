@@ -71,6 +71,10 @@ import { AsignacionRadicadoLlaveComponent } from './pages/asuntos-regulatorios/a
 import {
   CuadroControlAsuntosComponent
 } from "@/app/pages/asuntos-regulatorios/cuadro-control-asuntos/cuadro-control-asuntos.component";
+import {TramiteA8Component} from "@/app/pages/solicitante/TramiteA8/tramite-a8.component";
+import {
+  TramiteFinalizadoComponent
+} from "@/app/pages/asuntos-regulatorios/tramite-finalizado/tramite-finalizado.component";
 
 @NgModule({
   declarations: [
@@ -124,6 +128,8 @@ import {
     FormularioGeneralComponent,
     AsignacionRadicadoLlaveComponent,
     CuadroControlAsuntosComponent,
+    TramiteA8Component,
+    TramiteFinalizadoComponent
   ],
   imports: [
     RouterModule,
