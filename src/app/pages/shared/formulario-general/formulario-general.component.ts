@@ -37,7 +37,7 @@ export class FormularioGeneralComponent implements OnInit {
     muestrasProducto: null,
     archivosAdicionales: [],
   };
-  
+
   // Lista de campos habilitados para la etapa
   camposHabilitados: string[] = [];
 
@@ -170,7 +170,7 @@ export class FormularioGeneralComponent implements OnInit {
 
   // Navegar al siguiente componente según la etapa actual
   siguiente(): void {
-    if (['A2', 'B2', 'A3', 'B3'].includes(this.etapa)) {
+    if (['A4', 'B4'].includes(this.etapa)) {
       // Navegar a RevisionDocumentacionComponent con el ID del trámite
       if (
         !this.solicitud.tramite.pt ||
@@ -203,7 +203,7 @@ export class FormularioGeneralComponent implements OnInit {
       );
       this.tramiteService.addInfoAperturaTramite(this.tramiteId, infoApertura).subscribe(() => {
         alert('Información de apertura guardada correctamente.');
-        this.router.navigate([`/documentos/${this.tramiteId}`]);
+        this.router.navigate([`/formulario-general/:${this.tramiteId}/A2`]);
       }, (error) => {
         console.error('Error al guardar la información de apertura', error);
         alert('Error al guardar la información de apertura. Por favor, inténtalo de nuevo.');
@@ -275,7 +275,7 @@ export class FormularioGeneralComponent implements OnInit {
 
       this.selectedFiles[tipoArchivo] = file;
       this.fileNames[tipoArchivo] = file.name;
-      
+
     }
   }
 
