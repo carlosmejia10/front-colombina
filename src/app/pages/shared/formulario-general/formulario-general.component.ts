@@ -107,7 +107,7 @@ export class FormularioGeneralComponent implements OnInit {
     this.aprobado = this.route.snapshot.queryParams['aprobado'] === 'true';
 
     // Definir los campos habilitados según la etapa
-    if (['A2', 'B2', 'A3', 'B3'].includes(this.etapa)) {
+    if (['A4', 'B4'].includes(this.etapa)) {
       this.camposHabilitados = [
         'numeroRadicado',
         'nombreProducto',
@@ -207,7 +207,9 @@ export class FormularioGeneralComponent implements OnInit {
       );
       this.tramiteService.addInfoAperturaTramite(this.tramiteId, infoApertura).subscribe(() => {
         alert('Información de apertura guardada correctamente.');
-        this.router.navigate([`/formulario-general/:${this.tramiteId}/A2`]);
+        this.router.navigate([`/formulario-general/${this.tramiteId}/A5`], { replaceUrl: true }).then(() => {
+          window.location.reload();
+        });
       }, (error) => {
         console.error('Error al guardar la información de apertura', error);
         alert('Error al guardar la información de apertura. Por favor, inténtalo de nuevo.');
