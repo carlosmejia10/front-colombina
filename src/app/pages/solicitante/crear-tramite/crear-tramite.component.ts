@@ -252,19 +252,19 @@ export class CrearTramiteComponent implements OnInit {
     this.crearSolicitudYTramite().subscribe((solicitud) => {
       console.log('Solicitud creada:', solicitud);
       this.idTramite = solicitud.tramite.id;
-      this.enviarArchivos().subscribe(
-        (response) => {
-          console.log('Archivos subidos:', response);
-          alert('Trámite creado correctamente');
-          this.loading = false;
-          this.router.navigate(['/tabla-tramite']);
-        },
-        (error) => {
-          console.error('Error al subir archivos:', error);
-          alert('Error al subir archivos');
-        }
-      )
-    });
+        this.enviarArchivos().subscribe(
+          (response) => {
+            console.log('Archivos subidos:', response);
+            alert('Trámite creado correctamente');
+            this.loading = false;
+            this.router.navigate(['/tabla-tramite']);
+          },
+          (error) => {
+            console.error('Error al subir archivos:', error);
+            alert('Error al subir archivos');
+          }
+        )
+      });
   }
 
   enviarArchivos(): Observable<any> {
