@@ -1,3 +1,4 @@
+import { InfoAceptacionEntidadSanitariaDTO } from '@/app/modelos/info-aceptacion-entidad-sanitaria.dto';
 import { InfoAperturaTramite } from '@/app/modelos/info-apertura-tramite.dto';
 import { InfoControlDTO } from '@/app/modelos/info-control.dto';
 import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
@@ -13,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FormularioGeneralComponent implements OnInit {
   tramiteId: number;
   etapa: string;
+  aprobado: boolean = false;
 
   // Lista de campos habilitados para la etapa
   camposHabilitados: string[] = [];
@@ -76,6 +78,8 @@ export class FormularioGeneralComponent implements OnInit {
       this.solicitud.tramite.fechaVencimientoRSA = this.solicitud.tramite.fechaVencimientoRSA.toString().split('T')[0] as any;
     });
     this.etapa = this.route.snapshot.paramMap.get('etapa')!;
+
+    this.aprobado = this.route.snapshot.queryParams['aprobado'] === 'true';
 
     // Definir los campos habilitados según la etapa
     if (['A2', 'B2', 'A3', 'B3'].includes(this.etapa)) {
@@ -206,6 +210,18 @@ export class FormularioGeneralComponent implements OnInit {
     } else if (['A6', 'B6'].includes(this.etapa)) {
       this.router.navigate([`/aprovacion-invima/${this.tramiteId}`]);
     } else if (['A7', 'B7', 'A9', 'B9'].includes(this.etapa)) {
+      const info = new InfoAceptacionEntidadSanitariaDTO(this.solicitud.tramite.expNum, this.solicitud.tramite.llave, this.solicitud.tramite.fechaRadicacion);
+      if (this.aprobado) {
+        this.tramiteService.aceptarTramiteEntidadSanitaria(this.tramiteId, info).subscribe(() => {
+          alert('Trámite aprobado correctamente.');
+          this.router.navigate([`/solicitudes`]);
+        });
+      } else {
+        this.tramiteService.rechazarTramiteEntidadSanitaria(this.tramiteId, info).subscribe(() => {
+          alert('Trámite rechazado correctamente.');
+          this.router.navigate([`/solicitudes`]);
+        })
+      }
       this.router.navigate([`/solicitudes`]);
     } else if (['consulta'].includes(this.etapa)) {
       this.router.navigate([`/tabla-tramites`]);

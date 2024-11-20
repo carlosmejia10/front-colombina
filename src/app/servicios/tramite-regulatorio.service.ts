@@ -7,6 +7,7 @@ import { BASE_URL } from '../config/environment/urls';
 import { InfoAperturaTramite } from '../modelos/info-apertura-tramite.dto';
 import { SolicitudDTO } from '../modelos/solicitud.dto';
 import { InfoControlDTO } from '../modelos/info-control.dto';
+import { InfoAceptacionEntidadSanitariaDTO } from '../modelos/info-aceptacion-entidad-sanitaria.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -90,6 +91,22 @@ export class TramiteService {
     );
   }
 
+  aceptarTramiteEntidadSanitaria(idTramite: number, info: InfoAceptacionEntidadSanitariaDTO): Observable<any> {
+    return this.http.post(
+      `${BASE_URL}/tramites/${idTramite}/aprobar-entidad-sanitaria`,
+      info,
+      { headers: this.getHeaders() }
+    );
+  }
+
+  rechazarTramiteEntidadSanitaria(idTramite: number, info: InfoAceptacionEntidadSanitariaDTO): Observable<any> {
+    return this.http.post(
+      `${BASE_URL}/tramites/${idTramite}/rechazar-entidad-sanitaria`,
+      info,
+      { headers: this.getHeaders() }
+    );
+  }
+
   rechazarTramite(idTramite: number): Observable<any> {
     return this.http.post(
       `${BASE_URL}/tramites/${idTramite}/rechazar`,
@@ -99,7 +116,7 @@ export class TramiteService {
   }
 
   cambiarEtapaTramite(idTramite: number, etapa: number): Observable<any> {
-    return this.http.post(
+    return this.http.put(
       `${BASE_URL}/tramites/${idTramite}/cambiar-etapa/${etapa}`,
       {},
       { headers: this.getHeaders() }

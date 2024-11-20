@@ -17,7 +17,7 @@ export class AprobacionInvimaComponent {
     private route: ActivatedRoute,
     private router: Router,
     private tramiteService: TramiteService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const tramiteId = this.route.snapshot.paramMap.get('id');
@@ -33,25 +33,44 @@ export class AprobacionInvimaComponent {
   }
 
   aprobarTramite() {
-    this.router.navigate(['/formulario-general', this.solicitud.tramite.id, this.solicitud.tramite.etapa]);
+    this.router.navigate(['/formulario-general', this.solicitud.tramite.id, this.solicitud.tramite.etapa], {
+      relativeTo: this.route,
+      queryParams: { aprobado: true },
+      queryParamsHandling: 'merge',
+    });
   }
-
+  
   autoRequerimiento() {
-  }
-
-  rechazarTramite() {
     const confirmation = window.confirm(
-      `¿Seguro quiere continuar con el rechazo del trámite: ${this.solicitud.tramite.numeroRadicado}?`
+      `¿Está seguro de que desea continuar con el requerimiento automático del trámite: ${this.solicitud.tramite.numeroRadicado}?`
     );
     if (confirmation) {
-      this.tramiteService.rechazarTramite(this.solicitud.tramite.id).subscribe(() => {
-        alert(`El trámite ${this.solicitud.tramite.numeroRadicado} ha sido rechazado.`);
-        this.router.navigate(['/solicitudes']);
-      }, () => {
-        alert('Error al rechazar el trámite.');
+      this.tramiteService.cambiarEtapaTramite(this.solicitud.tramite.id, 4).subscribe(() => {
+        this.router.navigate([`/documentos/${this.solicitud.tramite.id}`]);
       });
     } else {
-      alert('Rechazo del trámite cancelado.');
+      alert('Auto requerimiento cancelado.');
     }
+  }
+  
+  rechazarTramite() {
+    this.router.navigate(['/formulario-general', this.solicitud.tramite.id, this.solicitud.tramite.etapa], {
+      relativeTo: this.route,
+      queryParams: { aprobado: false },
+      queryParamsHandling: 'merge',
+    });
+    // const confirmation = window.confirm(
+    //   `¿Seguro quiere continuar con el rechazo del trámite: ${this.solicitud.tramite.numeroRadicado}?`
+    // );
+    // if (confirmation) {
+    //   this.tramiteService.rechazarTramite(this.solicitud.tramite.id).subscribe(() => {
+    //     alert(`El trámite ${this.solicitud.tramite.numeroRadicado} ha sido rechazado.`);
+    //     this.router.navigate(['/solicitudes']);
+    //   }, () => {
+    //     alert('Error al rechazar el trámite.');
+    //   });
+    // } else {
+    //   alert('Rechazo del trámite cancelado.');
+    // }
   }
 }
