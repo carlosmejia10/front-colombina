@@ -367,7 +367,47 @@
         <p *ngIf="!esCampoHabilitado('observaciones')" class="note">No se requiere en esta etapa</p>
       </div>
     </div>
-  
+    <div
+                class="cuadro upload-area"
+                id="upload-area-archivosAdicionales"
+                (dragover)="onDragOver($event)"
+                (drop)="onDropMultiple($event)"
+                (dragleave)="onDragLeave($event)"
+              >
+                <button type="button" class="fl">
+                  <input
+                    type="file"
+                    id="file-input-archivosAdicionales"
+                    (change)="onFilesSelected($event)"
+                    multiple
+                    hidden
+                  />
+                  <label for="file-input-archivosAdicionales" class="file-label"
+                    >Seleccionar archivos</label
+                  >
+                </button>
+                <div *ngIf="fileNames.archivosAdicionales.length === 0">
+                  Ningún archivo seleccionado
+                </div>
+                <ul
+                  *ngIf="fileNames.archivosAdicionales.length > 0"
+                  class="file-list"
+                >
+                  <li
+                    *ngFor="
+                      let fileName of fileNames.archivosAdicionales;
+                      let i = index
+                    "
+                    class="file-entry"
+                  >
+                    <span>{{ fileName }}</span>
+                    <span class="remove-icon" (click)="removeAdditionalFile(i)"
+                      >❌</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              
     <button style="width: 25%; margin: auto" (click)="siguiente()">Siguiente</button>
   </div>
 </app-ar-layout>

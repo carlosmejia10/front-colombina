@@ -1,45 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { SolicitudDTO } from '@/app/modelos/solicitud.dto';
-import { SolicitudDEIService } from '@/app/servicios/solicitud-dei.service';
-import { Router } from '@angular/router';
-import * as XLSX from 'xlsx';
+import { Component } from '@angular/core';
+import {NgForOf, NgIf} from "@angular/common";
+import {ReactiveFormsModule} from "@angular/forms";
+import {AppModule} from "@/app/app.module";
+import {SolicitudDTO} from "@/app/modelos/solicitud.dto";
+import {SolicitudDEIService} from "@/app/servicios/solicitud-dei.service";
+import {Router} from "@angular/router";
+import * as XLSX from "xlsx";
 import { saveAs } from 'file-saver';
 
+
 @Component({
-  selector: 'app-tabla-tramite',
-  templateUrl: './tabla-tramite.component.html',
-  styleUrls: ['./tabla-tramite.component.css'],
+  selector: 'app-cuadro-control-asuntos',
+  templateUrl: './cuadro-control-asuntos.component.html',
+  styleUrl: './cuadro-control-asuntos.component.css'
 })
-export class TablaTramiteComponent implements OnInit {
+export class CuadroControlAsuntosComponent {
   solicitudes: SolicitudDTO[] = [];
-  filteredSolicitudes: SolicitudDTO[] = [];
-  nombreSolicitante!: string;
-  searchTerm: string = ''; // Término de búsqueda
-  loading: boolean = true;
   page: number = 1;
-  limit: number = 5;
+  limit: number = 20;
+  loading: boolean = true;
+  searchTerm: string = '';
   fileName: string = 'Tramites-Solicitudes';
-
-  // Opciones y valores seleccionados para los filtros
-  tipoProductoOptions: string[] = [
-    'NUEVO REGISTRO',
-    'MODIFICACION',
-    'RENOVACION',
-  ];
-  tipoTramiteOptions: string[] = [
-    'NACIONAL',
-    'INTERNACIONAL',
-  ];
-  estadoTramiteOptions: string[] = ['EN_REVISION', 'APROBADO', 'RECHAZADO', 'PENDIENTE'];
-  selectedTipoProducto: string = '';
-  selectedTipoTramite: string = '';
-  selectedEstadoTramite: string = '';
-
-  mostrarTabla1: boolean = true;
-
-  // Filtros de fechas
-  selectedFechaInicio: string | null = null; // Almacena la fecha seleccionada como string (YYYY-MM-DD)
-  selectedFechaFin: string | null = null;
 
   constructor(
     private solicitudService: SolicitudDEIService,
@@ -47,95 +28,67 @@ export class TablaTramiteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getNombreSolicitante();
-    this.getTramites();
+    this.cargarSolicitudes();
   }
 
-  // Navegar a la página de detalles del trámite
-  goToTramiteInfo(tramiteId: number): void {
-    this.router.navigate(['/info-tramite', tramiteId]);
+  cargarSolicitudes(): void {
+    this.solicitudService
+      .findAllByFilters({ filtro: this.searchTerm }, this.page, this.limit)
+      .subscribe(
+        (data: SolicitudDTO[]) => {
+          this.solicitudes = data;
+          this.loading = false;
+        },
+        (error) => {
+          console.error('Error al cargar las solicitudes:', error);
+        }
+      );
   }
 
-  // Obtener la lista de trámites
-  getTramites(): void {
-    const filters = {
-      filtro: this.searchTerm,
-      tipo: this.selectedTipoProducto,
-      nacionalidad: this.selectedTipoTramite,
-      estado: this.selectedEstadoTramite,
-      fechaInicio: this.selectedFechaInicio,
-      fechaFin: this.selectedFechaFin,
-    }
-
-    if (!this.searchTerm) delete filters.filtro;
-    if (!this.selectedTipoProducto) delete filters.tipo;
-    if (!this.selectedTipoTramite) delete filters.nacionalidad;
-    if (!this.selectedEstadoTramite) delete filters.estado;
-    if (!this.selectedFechaInicio) delete filters.fechaInicio;
-    if (!this.selectedFechaFin) delete filters.fechaFin;
-
-    this.solicitudService.findBySolicitanteAndFilters(filters, this.page, this.limit).subscribe(
-      (data: SolicitudDTO[]) => {
-        this.solicitudes = data;
-        this.filteredSolicitudes = data;
-        this.loading = false;
-      },
-      (error) => {
-        console.error('Error al obtener los trámites:', error);
-      }
-    );
+  navigateToInfoControl(id: number): void {
+    this.router.navigate(['/info-control', id]);
   }
 
-  // Filtrar la lista de trámites según filtros y término de búsqueda
   filterTramites(): void {
     this.page = 1;
     this.solicitudes = [];
-    this.filteredSolicitudes = [];
     this.loading = true;
-    this.getTramites();
+    this.cargarSolicitudes();
   }
 
-  // Obtener el nombre del solicitante
-  getNombreSolicitante(): void {
-    this.nombreSolicitante = 'Nombre del solicitante quemado';
+  previousPage(): void {
+    if (this.page <= 1) return;
+    this.page--;
+    this.solicitudes = [];
+    this.loading = true;
+    this.cargarSolicitudes();
   }
 
-  toggleTabla(): void {
-    this.mostrarTabla1 = !this.mostrarTabla1;
+  nextPage(): void {
+    this.page++;
+    this.solicitudes = [];
+    this.loading = true;
+    this.cargarSolicitudes();
   }
 
-  // Calcula el porcentaje de progreso entero
-  getProgresoEntero(progreso: number): number {
-    return Math.round(progreso * 100);
+  limitChange(event: Event): void {
+    this.limit = event.target ? +(event.target as HTMLSelectElement).value : 20;
+    this.page = 1;
+    this.solicitudes = [];
+    this.loading = true;
+    this.cargarSolicitudes();
   }
 
-  // Asigna una clase al progreso según el porcentaje
-  getProgressClass(progreso: number): string {
-    if (progreso >= 75) return 'progress-success';
-    else if (progreso >= 50) return 'progress-warning';
-    else return 'progress-danger';
-  }
-
-  // Calcula la fecha aproximada de fin
   getFechaAproxFin(fechaInicio: Date): Date {
     const fecha = new Date(fechaInicio);
     fecha.setMonth(fecha.getMonth() + 1);
     return fecha;
   }
 
-  // Verifica si solo el estado está activo
-  isOnlyEstadoActive(): boolean {
-    return (
-      this.selectedEstadoTramite &&
-      !this.selectedTipoProducto &&
-      !this.selectedTipoTramite
-    );
-  }
 
-  // Exporta los trámites filtrados a un archivo Excel
   exportarAExcel(): void {
 
-    const data = this.filteredSolicitudes.map(s => ({
+    const data = this.solicitudes.map(s => ({
       'Nombre del producto': s.tramite.nombreProducto,
       'PT': s.tramite.pt,
       'Negocio': null,
@@ -248,29 +201,4 @@ export class TablaTramiteComponent implements OnInit {
     saveAs(data, `${fileName}.xlsx`);
   }
 
-  previousPage(): void {
-    if (this.page <= 1) return;
-    this.page--;
-    this.solicitudes = [];
-    this.filteredSolicitudes = [];
-    this.loading = true;
-    this.getTramites();
-  }
-
-  nextPage(): void {
-    this.page++;
-    this.solicitudes = [];
-    this.filteredSolicitudes = [];
-    this.loading = true;
-    this.getTramites();
-  }
-
-  limitChange(event: Event): void {
-    this.limit = event.target ? +(event.target as HTMLSelectElement).value : 5;
-    this.page = 1;
-    this.solicitudes = [];
-    this.filteredSolicitudes = [];
-    this.loading = true;
-    this.getTramites();
-  }
 }

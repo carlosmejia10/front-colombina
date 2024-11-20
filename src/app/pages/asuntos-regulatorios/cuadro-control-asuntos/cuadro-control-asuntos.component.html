@@ -1,0 +1,102 @@
+<app-ar-layout style="overflow: scroll">
+  <div class="ContenedorTablaExcel">
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-bar"
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="filterTramites()"
+        placeholder="Buscar trámites"
+      />
+      <button class="search-icon" (click)="filterTramites()">🔍</button>
+    </div>
+    <div class="TituloTablaExcel">
+      <h2>Información De Control</h2>
+      <button class="exportar" (click)="exportarAExcel()">
+        Exportar a Excel
+      </button>
+    </div>
+    <table class="ExcelTable">
+      <thead>
+      <tr>
+        <th>AR</th>
+        <th>Nombre producto</th>
+        <th>PT</th>
+        <th>Planta</th>
+        <th>Nombre Proyecto</th>
+        <th>Tipo trámite</th>
+        <th>Descripción trámite</th>
+        <th>Fecha Solicitud</th>
+        <th>Fecha Envío Dctos</th>
+        <th>Fecha Terminación Trámite</th>
+        <th>Fecha de notificación</th>
+        <th>País</th>
+        <th>Registro Sanitario (RSA) de Colombia</th>
+        <th>Expediente RSA</th>
+        <th>#Intención (ID Seguimiento)</th>
+        <th>Radicado o Expediente</th>
+        <th>Llave RSA Colombia</th>
+        <th>Fecha de Radicado Invima</th>
+        <th>Estado del Trámite</th>
+        <th>Fecha de Llegada Resolución</th>
+        <th>Ok Satisfactorio Invima</th>
+        <th>#RSA/NSA País</th>
+        <th>Vencimiento RSA</th>
+        <th>Solicitante</th>
+        <th>Observaciones</th>
+        <th>Pagado/Factura No.</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let solicitud of solicitudes">
+        <td>{{ solicitud.tramite.numeroRadicado }}</td>
+        <td>{{ solicitud.tramite.nombreProducto }}</td>
+        <td>{{ solicitud.tramite.pt }}</td>
+        <td>{{ null }}</td><!-- solicitud.tramite.planta -->
+        <td>{{ solicitud.tramite.proyecto }}</td>
+        <td>{{ solicitud.tramite.tipoProducto }}</td>
+        <td>{{ solicitud.tramite.descripcionProducto }}</td>
+        <td>{{ solicitud.tramite.fechaSolicitud }}</td>
+        <td>{{ null }}</td><!-- solicitud.tramite.fechaEnvioDctos -->
+        <td>{{ null }}</td><!-- solicitud.tramite.fechaTerminacionTramite -->
+        <td>{{ null }}</td><!-- solicitud.tramite.fechaNotificacion -->
+        <td>{{ solicitud.tramite.entidadSanitaria.pais }}</td>
+        <td>{{ null }}</td><!-- solicitud.tramite.registroSanitarioColombia -->
+        <td>{{ null }}</td><!-- solicitud.tramite.expedienteRSA -->
+        <td>{{ null }}</td><!-- solicitud.tramite.idSeguimiento -->
+        <td>{{ null }}</td>
+        <td>{{ solicitud.tramite.llave }}</td>
+        <td>{{ solicitud.tramite.fechaRadicacion }}</td>
+        <td>{{ solicitud.tramite.estado }}</td>
+        <td>{{ null }}</td><!-- solicitud.tramite.fechaResolucion -->
+        <td>{{ null }}</td><!-- solicitud.tramite.okSatisfactorioInvima -->
+        <td>{{ null }}</td><!-- solicitud.tramite.rsaNsaPais -->
+        <td>{{ null }}</td><!-- solicitud.tramite.vencimientoRSA -->
+        <td>{{ solicitud.solicitante.nombre }}</td>
+        <td>{{ null }}</td><!-- solicitud.tramite.observaciones -->
+        <td>{{ null }}</td><!-- solicitud.tramite.pagadoFactura -->
+      </tr>
+      </tbody>
+    </table>
+    <h2 *ngIf="!loading && solicitudes.length === 0" style="padding: 1rem;">No hay más resultados con los filtros establecidos</h2>
+    <app-loader *ngIf="loading" [height]="60" [width]="60"></app-loader>
+    <footer>
+      <div class="info-page">
+        <div>
+          Mostrando
+          <select id="limit" (change)="limitChange($event)">
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          resultados
+        </div>
+      </div>
+      <div class="pagination">
+        <button class="page-button" (click)="previousPage()"><</button>
+        <p class="page-button">{{ page }}</p>
+        <button class="page-button" (click)="nextPage()">></button>
+      </div>
+    </footer>
+  </div>
+</app-ar-layout>

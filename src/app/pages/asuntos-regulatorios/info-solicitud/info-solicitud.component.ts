@@ -66,13 +66,13 @@ export class InfoSolicitudComponent {
 
     // Lógica para considerar "Apertura" en caso de las etapas 'A2', 'B2', 'A3' o 'B3'
     if (['A2', 'B2', 'A3', 'B3'].includes(etapa)) {
-      this.router.navigate(['/formulario-general', idTramite, etapa]);
+      this.router.navigate(['/documentos', idTramite]);
     } else {
       // Lógica existente para otras etapas
       switch (etapa) {
         case 'A4':
         case 'B4':
-          this.router.navigate(['/documentos', idTramite]);
+          this.router.navigate(['/formulario-general', idTramite, etapa]);
           break;
         case 'A5':
         case 'B5':
